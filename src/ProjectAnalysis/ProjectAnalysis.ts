@@ -1,0 +1,74 @@
+﻿/*
+ * ---------------------------------------------------------
+ * Copyright(C) Microsoft Corporation. All rights reserved.
+ * ---------------------------------------------------------
+ */
+
+export const enum AggregationType {
+    Hourly = 0,
+    Daily = 1
+}
+
+export interface AnalyzerDescriptor {
+    description: string;
+    id: string;
+    majorVersion: number;
+    minorVersion: number;
+    name: string;
+    patchVersion: number;
+}
+
+export interface CodeChangeTrendItem {
+    time: Date;
+    value: number;
+}
+
+export interface LanguageMetricsSecuredObject {
+    namespaceId: string;
+    projectId: string;
+    requiredPermissions: number;
+}
+
+export interface LanguageStatistics extends LanguageMetricsSecuredObject {
+    bytes: number;
+    files: number;
+    filesPercentage: number;
+    languagePercentage: number;
+    name: string;
+}
+
+export interface ProjectActivityMetrics {
+    authorsCount: number;
+    codeChangesCount: number;
+    codeChangesTrend: CodeChangeTrendItem[];
+    projectId: string;
+    pullRequestsCompletedCount: number;
+    pullRequestsCreatedCount: number;
+}
+
+export interface ProjectLanguageAnalytics extends LanguageMetricsSecuredObject {
+    id: string;
+    languageBreakdown: LanguageStatistics[];
+    repositoryLanguageAnalytics: RepositoryLanguageAnalytics[];
+    resultPhase: ResultPhase;
+    url: string;
+}
+
+export interface RepositoryActivityMetrics {
+    codeChangesCount: number;
+    codeChangesTrend: CodeChangeTrendItem[];
+    repositoryId: string;
+}
+
+export interface RepositoryLanguageAnalytics extends LanguageMetricsSecuredObject {
+    id: string;
+    languageBreakdown: LanguageStatistics[];
+    name: string;
+    resultPhase: ResultPhase;
+    updatedTime: Date;
+}
+
+export const enum ResultPhase {
+    Preliminary = 0,
+    Full = 1
+}

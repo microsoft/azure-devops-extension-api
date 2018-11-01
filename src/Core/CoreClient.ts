@@ -1,0 +1,646 @@
+﻿/*
+ * ---------------------------------------------------------
+ * Copyright(C) Microsoft Corporation. All rights reserved.
+ * ---------------------------------------------------------
+ */
+
+import { IVssRestClientOptions } from "../Common/Context";
+import { RestClientBase } from "../Common/RestClientBase";
+
+import Core = require("../Core/Core");
+import Operations = require("../Operations/Operations");
+import WebApi = require("../WebApi/WebApi");
+
+export class CoreRestClient extends RestClientBase {
+    constructor(options: IVssRestClientOptions) {
+        super(options);
+    }
+
+    public static readonly RESOURCE_AREA_ID = "79134c72-4a58-4b42-976c-04e7115f32bf";
+
+    /**
+     * @param connectedServiceCreationData - 
+     * @param projectId - 
+     */
+    public async createConnectedService(
+        connectedServiceCreationData: Core.WebApiConnectedServiceDetails,
+        projectId: string
+        ): Promise<Core.WebApiConnectedService> {
+
+        return this.beginRequest<Core.WebApiConnectedService>({
+            apiVersion: "5.0-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
+            routeValues: {
+                projectId: projectId
+            },
+            body: connectedServiceCreationData
+        });
+    }
+
+    /**
+     * @param projectId - 
+     * @param name - 
+     */
+    public async getConnectedServiceDetails(
+        projectId: string,
+        name: string
+        ): Promise<Core.WebApiConnectedServiceDetails> {
+
+        return this.beginRequest<Core.WebApiConnectedServiceDetails>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
+            routeValues: {
+                projectId: projectId,
+                name: name
+            }
+        });
+    }
+
+    /**
+     * @param projectId - 
+     * @param kind - 
+     */
+    public async getConnectedServices(
+        projectId: string,
+        kind?: Core.ConnectedServiceKind
+        ): Promise<Core.WebApiConnectedService[]> {
+
+        const queryValues: any = {
+            kind: kind
+        };
+
+        return this.beginRequest<Core.WebApiConnectedService[]>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param mruData - 
+     * @param mruName - 
+     */
+    public async createIdentityMru(
+        mruData: Core.IdentityData,
+        mruName: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/core/identityMru/{mruName}",
+            routeValues: {
+                mruName: mruName
+            },
+            body: mruData
+        });
+    }
+
+    /**
+     * @param mruData - 
+     * @param mruName - 
+     */
+    public async deleteIdentityMru(
+        mruData: Core.IdentityData,
+        mruName: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/core/identityMru/{mruName}",
+            routeValues: {
+                mruName: mruName
+            }
+        });
+    }
+
+    /**
+     * @param mruName - 
+     */
+    public async getIdentityMru(
+        mruName: string
+        ): Promise<WebApi.IdentityRef[]> {
+
+        return this.beginRequest<WebApi.IdentityRef[]>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/core/identityMru/{mruName}",
+            routeValues: {
+                mruName: mruName
+            }
+        });
+    }
+
+    /**
+     * @param mruData - 
+     * @param mruName - 
+     */
+    public async updateIdentityMru(
+        mruData: Core.IdentityData,
+        mruName: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "PATCH",
+            routeTemplate: "_apis/core/identityMru/{mruName}",
+            routeValues: {
+                mruName: mruName
+            },
+            body: mruData
+        });
+    }
+
+    /**
+     * Get a list of members for a specific team.
+     * 
+     * @param projectId - The name or ID (GUID) of the team project the team belongs to.
+     * @param teamId - The name or ID (GUID) of the team .
+     * @param top - 
+     * @param skip - 
+     */
+    public async getTeamMembersWithExtendedProperties(
+        projectId: string,
+        teamId: string,
+        top?: number,
+        skip?: number
+        ): Promise<WebApi.TeamMember[]> {
+
+        const queryValues: any = {
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<WebApi.TeamMember[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projects/{projectId}/teams/{teamId}/members",
+            routeValues: {
+                projectId: projectId,
+                teamId: teamId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get a process by ID.
+     * 
+     * @param processId - ID for a process.
+     */
+    public async getProcessById(
+        processId: string
+        ): Promise<Core.Process> {
+
+        return this.beginRequest<Core.Process>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/process/processes/{*processId}",
+            routeValues: {
+                processId: processId
+            }
+        });
+    }
+
+    /**
+     * Get a list of processes.
+     * 
+     */
+    public async getProcesses(
+        ): Promise<Core.Process[]> {
+
+        return this.beginRequest<Core.Process[]>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/process/processes/{*processId}"
+        });
+    }
+
+    /**
+     * Get project collection with the specified id or name.
+     * 
+     * @param collectionId - 
+     */
+    public async getProjectCollection(
+        collectionId: string
+        ): Promise<Core.TeamProjectCollection> {
+
+        return this.beginRequest<Core.TeamProjectCollection>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projectCollections/{collectionId}",
+            routeValues: {
+                collectionId: collectionId
+            }
+        });
+    }
+
+    /**
+     * Get project collection references for this application.
+     * 
+     * @param top - 
+     * @param skip - 
+     */
+    public async getProjectCollections(
+        top?: number,
+        skip?: number
+        ): Promise<Core.TeamProjectCollectionReference[]> {
+
+        const queryValues: any = {
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<Core.TeamProjectCollectionReference[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projectCollections/{collectionId}",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param minRevision - 
+     */
+    public async getProjectHistoryEntries(
+        minRevision?: number
+        ): Promise<Core.ProjectInfo[]> {
+
+        const queryValues: any = {
+            minRevision: minRevision
+        };
+
+        return this.beginRequest<Core.ProjectInfo[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projectHistory",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get project with the specified id or name, optionally including capabilities.
+     * 
+     * @param projectId - 
+     * @param includeCapabilities - Include capabilities (such as source control) in the team project result (default: false).
+     * @param includeHistory - Search within renamed projects (that had such name in the past).
+     */
+    public async getProject(
+        projectId: string,
+        includeCapabilities?: boolean,
+        includeHistory?: boolean
+        ): Promise<Core.TeamProject> {
+
+        const queryValues: any = {
+            includeCapabilities: includeCapabilities,
+            includeHistory: includeHistory
+        };
+
+        return this.beginRequest<Core.TeamProject>({
+            apiVersion: "5.0-preview.3",
+            routeTemplate: "_apis/projects/{*projectId}",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get all projects in the organization that the authenticated user has access to.
+     * 
+     * @param stateFilter - Filter on team projects in a specific team project state (default: WellFormed).
+     * @param top - 
+     * @param skip - 
+     * @param continuationToken - 
+     */
+    public async getProjects(
+        stateFilter?: any,
+        top?: number,
+        skip?: number,
+        continuationToken?: string
+        ): Promise<Core.TeamProjectReference[]> {
+
+        const queryValues: any = {
+            stateFilter: stateFilter,
+            '$top': top,
+            '$skip': skip,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Core.TeamProjectReference[]>({
+            apiVersion: "5.0-preview.3",
+            routeTemplate: "_apis/projects/{*projectId}",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Queues a project to be created. Use the [GetOperation](../../operations/operations/get) to periodically check for create project status.
+     * 
+     * @param projectToCreate - The project to create.
+     */
+    public async queueCreateProject(
+        projectToCreate: Core.TeamProject
+        ): Promise<Operations.OperationReference> {
+
+        return this.beginRequest<Operations.OperationReference>({
+            apiVersion: "5.0-preview.3",
+            method: "POST",
+            routeTemplate: "_apis/projects/{*projectId}",
+            body: projectToCreate
+        });
+    }
+
+    /**
+     * Queues a project to be deleted. Use the [GetOperation](../../operations/operations/get) to periodically check for delete project status.
+     * 
+     * @param projectId - The project id of the project to delete.
+     */
+    public async queueDeleteProject(
+        projectId: string
+        ): Promise<Operations.OperationReference> {
+
+        return this.beginRequest<Operations.OperationReference>({
+            apiVersion: "5.0-preview.3",
+            method: "DELETE",
+            routeTemplate: "_apis/projects/{*projectId}",
+            routeValues: {
+                projectId: projectId
+            }
+        });
+    }
+
+    /**
+     * Update an existing project's name, abbreviation, or description.
+     * 
+     * @param projectUpdate - The updates for the project.
+     * @param projectId - The project id of the project to update.
+     */
+    public async updateProject(
+        projectUpdate: Core.TeamProject,
+        projectId: string
+        ): Promise<Operations.OperationReference> {
+
+        return this.beginRequest<Operations.OperationReference>({
+            apiVersion: "5.0-preview.3",
+            method: "PATCH",
+            routeTemplate: "_apis/projects/{*projectId}",
+            routeValues: {
+                projectId: projectId
+            },
+            body: projectUpdate
+        });
+    }
+
+    /**
+     * Get a collection of team project properties.
+     * 
+     * @param projectId - The team project ID.
+     * @param keys - A comma-delimited string of team project property names. Wildcard characters ("?" and "*") are supported. If no key is specified, all properties will be returned.
+     */
+    public async getProjectProperties(
+        projectId: string,
+        keys?: string[]
+        ): Promise<Core.ProjectProperty[]> {
+
+        const queryValues: any = {
+            keys: keys && keys.join(",")
+        };
+
+        return this.beginRequest<Core.ProjectProperty[]>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "_apis/projects/{projectId}/properties",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Create, update, and delete team project properties.
+     * 
+     * @param projectId - The team project ID.
+     * @param patchDocument - A JSON Patch document that represents an array of property operations. See RFC 6902 for more details on JSON Patch. The accepted operation verbs are Add and Remove, where Add is used for both creating and updating properties. The path consists of a forward slash and a property name.
+     */
+    public async setProjectProperties(
+        projectId: string,
+        patchDocument: WebApi.JsonPatchDocument
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "PATCH",
+            routeTemplate: "_apis/projects/{projectId}/properties",
+            routeValues: {
+                projectId: projectId
+            },
+            customHeaders: {
+                "Content-Type": "application/json-patch+json",
+            },
+            body: patchDocument
+        });
+    }
+
+    /**
+     * @param proxy - 
+     */
+    public async createOrUpdateProxy(
+        proxy: Core.Proxy
+        ): Promise<Core.Proxy> {
+
+        return this.beginRequest<Core.Proxy>({
+            apiVersion: "5.0-preview.2",
+            method: "PUT",
+            routeTemplate: "_apis/proxies",
+            body: proxy
+        });
+    }
+
+    /**
+     * @param proxyUrl - 
+     * @param site - 
+     */
+    public async deleteProxy(
+        proxyUrl: string,
+        site?: string
+        ): Promise<void> {
+
+        const queryValues: any = {
+            proxyUrl: proxyUrl,
+            site: site
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.2",
+            method: "DELETE",
+            routeTemplate: "_apis/proxies",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param proxyUrl - 
+     */
+    public async getProxies(
+        proxyUrl?: string
+        ): Promise<Core.Proxy[]> {
+
+        const queryValues: any = {
+            proxyUrl: proxyUrl
+        };
+
+        return this.beginRequest<Core.Proxy[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/proxies",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get a list of all teams.
+     * 
+     * @param mine - If true return all the teams requesting user is member, otherwise return all the teams user has read access
+     * @param top - Maximum number of teams to return.
+     * @param skip - Number of teams to skip.
+     */
+    public async getAllTeams(
+        mine?: boolean,
+        top?: number,
+        skip?: number
+        ): Promise<Core.WebApiTeam[]> {
+
+        const queryValues: any = {
+            '$mine': mine,
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<Core.WebApiTeam[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/teams",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Create a team in a team project.
+     * 
+     * @param team - The team data used to create the team.
+     * @param projectId - The name or ID (GUID) of the team project in which to create the team.
+     */
+    public async createTeam(
+        team: Core.WebApiTeam,
+        projectId: string
+        ): Promise<Core.WebApiTeam> {
+
+        return this.beginRequest<Core.WebApiTeam>({
+            apiVersion: "5.0-preview.2",
+            method: "POST",
+            routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
+            routeValues: {
+                projectId: projectId
+            },
+            body: team
+        });
+    }
+
+    /**
+     * Delete a team.
+     * 
+     * @param projectId - The name or ID (GUID) of the team project containing the team to delete.
+     * @param teamId - The name of ID of the team to delete.
+     */
+    public async deleteTeam(
+        projectId: string,
+        teamId: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.2",
+            method: "DELETE",
+            routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
+            routeValues: {
+                projectId: projectId,
+                teamId: teamId
+            }
+        });
+    }
+
+    /**
+     * Get a specific team.
+     * 
+     * @param projectId - The name or ID (GUID) of the team project containing the team.
+     * @param teamId - The name or ID (GUID) of the team.
+     */
+    public async getTeam(
+        projectId: string,
+        teamId: string
+        ): Promise<Core.WebApiTeam> {
+
+        return this.beginRequest<Core.WebApiTeam>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
+            routeValues: {
+                projectId: projectId,
+                teamId: teamId
+            }
+        });
+    }
+
+    /**
+     * Get a list of teams.
+     * 
+     * @param projectId - 
+     * @param mine - If true return all the teams requesting user is member, otherwise return all the teams user has read access
+     * @param top - Maximum number of teams to return.
+     * @param skip - Number of teams to skip.
+     */
+    public async getTeams(
+        projectId: string,
+        mine?: boolean,
+        top?: number,
+        skip?: number
+        ): Promise<Core.WebApiTeam[]> {
+
+        const queryValues: any = {
+            '$mine': mine,
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<Core.WebApiTeam[]>({
+            apiVersion: "5.0-preview.2",
+            routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Update a team's name and/or description.
+     * 
+     * @param teamData - 
+     * @param projectId - The name or ID (GUID) of the team project containing the team to update.
+     * @param teamId - The name of ID of the team to update.
+     */
+    public async updateTeam(
+        teamData: Core.WebApiTeam,
+        projectId: string,
+        teamId: string
+        ): Promise<Core.WebApiTeam> {
+
+        return this.beginRequest<Core.WebApiTeam>({
+            apiVersion: "5.0-preview.2",
+            method: "PATCH",
+            routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
+            routeValues: {
+                projectId: projectId,
+                teamId: teamId
+            },
+            body: teamData
+        });
+    }
+
+}

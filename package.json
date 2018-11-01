@@ -1,0 +1,33 @@
+{
+  "name": "azure-devops-extension-api",
+  "version": "0.142.4",
+  "description": "REST client libraries and contracts for Azure DevOps web extension developers.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/azure-devops-extension-api.git"
+  },
+  "scripts": {
+    "build": "node buildpackage.js"
+  },
+  "keywords": [
+    "extensions",
+    "Azure DevOps",
+    "Visual Studio Team Services"
+  ],
+  "author": "Microsoft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Microsoft/azure-devops-extension-api/issues"
+  },
+  "homepage": "https://docs.microsoft.com/en-us/azure/devops/integrate",
+  "dependencies": {
+    "azure-devops-extension-sdk": "~2.0.2"
+  },
+  "devDependencies": {
+    "glob": "~7.1.2",
+    "recursive-copy": "~2.0.7",
+    "shelljs": "~0.7.8",
+    "typescript": "^2.9.2",
+    "uglify-es": "~3.1.3"
+  }
+}
