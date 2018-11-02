@@ -1,5 +1,5 @@
 /**
- * This is solely a build script, intended to prep the vss-ui npm package for publishing.
+ * This is solely a build script, intended to prep the azure-devops-extension-api npm package for publishing.
  */
 
 const { execSync } = require("child_process");
