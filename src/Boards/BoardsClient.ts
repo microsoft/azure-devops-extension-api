@@ -170,17 +170,17 @@ export class BoardsRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param board - Board identifier.
      * @param id - Column identifier.
-     * @param forceDeleteItems - Boolean indicating if items are to be force deleted during the column delete.
+     * @param forceRemoveItems - Boolean indicating if items are to be force removed during the column delete.
      */
     public async deleteBoardColumn(
         project: string,
         board: number,
         id: string,
-        forceDeleteItems: boolean
+        forceRemoveItems: boolean
         ): Promise<void> {
 
         const queryValues: any = {
-            forceDeleteItems: forceDeleteItems
+            forceRemoveItems: forceRemoveItems
         };
 
         return this.beginRequest<void>({
@@ -300,31 +300,6 @@ export class BoardsRestClient extends RestClientBase {
     }
 
     /**
-     * Deletes an item in a board.
-     * 
-     * @param project - Project ID or project name
-     * @param board - Board identifier.
-     * @param id - Item unique identifier to delete.
-     */
-    public async deleteBoardItem(
-        project: string,
-        board: number,
-        id: string
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
-            routeValues: {
-                project: project,
-                board: board,
-                id: id
-            }
-        });
-    }
-
-    /**
      * Gets data for a single board's item.
      * 
      * @param project - Project ID or project name
@@ -365,6 +340,31 @@ export class BoardsRestClient extends RestClientBase {
             routeValues: {
                 project: project,
                 board: board
+            }
+        });
+    }
+
+    /**
+     * Removes an item from a board.
+     * 
+     * @param project - Project ID or project name
+     * @param board - Board identifier.
+     * @param id - Item unique identifier to remove.
+     */
+    public async removeBoardItem(
+        project: string,
+        board: number,
+        id: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
+            routeValues: {
+                project: project,
+                board: board,
+                id: id
             }
         });
     }
@@ -433,17 +433,17 @@ export class BoardsRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param board - Board identifier.
      * @param id - Row identifier.
-     * @param forceDeleteItems - Boolean indicating if items are to be force deleted during the row delete.
+     * @param forceRemoveItems - Boolean indicating if items are to be force removed during the row delete.
      */
     public async deleteBoardRow(
         project: string,
         board: number,
         id: string,
-        forceDeleteItems: boolean
+        forceRemoveItems: boolean
         ): Promise<void> {
 
         const queryValues: any = {
-            forceDeleteItems: forceDeleteItems
+            forceRemoveItems: forceRemoveItems
         };
 
         return this.beginRequest<void>({

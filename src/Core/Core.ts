@@ -244,6 +244,10 @@ export interface TeamProjectReference {
      */
     abbreviation: string;
     /**
+     * Url to default team identity image.
+     */
+    defaultTeamImageUrl: string;
+    /**
      * The project's description (if any).
      */
     description: string;

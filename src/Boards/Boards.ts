@@ -311,7 +311,7 @@ export interface BoardItemReference extends BoardItemIdAndType {
  */
 export interface BoardItemRemovedRealtimeEvent extends RealtimeBoardEvent {
     /**
-     * The unique id of the moved item.
+     * The unique id of the removed item.
      */
     itemUniqueId: string;
 }

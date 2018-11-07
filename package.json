@@ -1,6 +1,6 @@
 {
   "name": "azure-devops-extension-api",
-  "version": "1.142.1",
+  "version": "1.143.0",
   "description": "REST client libraries and contracts for Azure DevOps web extension developers.",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "glob": "~7.1.2",
+    "node": "^11.0.0",
     "recursive-copy": "~2.0.7",
     "shelljs": "~0.7.8",
     "typescript": "^2.9.2",

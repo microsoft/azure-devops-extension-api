@@ -1120,6 +1120,97 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * @param createParameters - 
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     */
+    public async addServiceGroup(
+        createParameters: TaskAgent.KubernetesServiceGroupCreateParameters,
+        project: string,
+        environmentId: number
+        ): Promise<TaskAgent.KubernetesServiceGroup> {
+
+        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+            apiVersion: "5.0-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId
+            },
+            body: createParameters
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param serviceGroupId - 
+     */
+    public async deleteServiceGroup(
+        project: string,
+        environmentId: number,
+        serviceGroupId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.0-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                serviceGroupId: serviceGroupId
+            }
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param serviceGroupId - 
+     */
+    public async getServiceGroup(
+        project: string,
+        environmentId: number,
+        serviceGroupId: number
+        ): Promise<TaskAgent.KubernetesServiceGroup> {
+
+        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+            apiVersion: "5.0-preview.1",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                serviceGroupId: serviceGroupId
+            }
+        });
+    }
+
+    /**
+     * @param serviceGroup - 
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     */
+    public async updateServiceGroup(
+        serviceGroup: TaskAgent.KubernetesServiceGroup,
+        project: string,
+        environmentId: number
+        ): Promise<TaskAgent.KubernetesServiceGroup> {
+
+        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+            apiVersion: "5.0-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId
+            },
+            body: serviceGroup
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param machineGroupId - 
      */
@@ -2757,91 +2848,6 @@ export class TaskAgentRestClient extends RestClientBase {
             apiVersion: "5.0-preview.1",
             routeTemplate: "_apis/distributedtask/serviceendpointtypes",
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param createParameters - 
-     * @param project - Project ID or project name
-     */
-    public async addServiceGroup(
-        createParameters: TaskAgent.KubernetesServiceGroupCreateParameters,
-        project: string
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
-
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/servicegroups/kubernetes/{serviceGroupId}",
-            routeValues: {
-                project: project
-            },
-            body: createParameters
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param environmentId - 
-     * @param serviceGroupId - 
-     */
-    public async deleteServiceGroup(
-        project: string,
-        environmentId: number,
-        serviceGroupId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/servicegroups/kubernetes/{serviceGroupId}",
-            routeValues: {
-                project: project,
-                environmentId: environmentId,
-                serviceGroupId: serviceGroupId
-            }
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param environmentId - 
-     * @param serviceGroupId - 
-     */
-    public async getServiceGroup(
-        project: string,
-        environmentId: number,
-        serviceGroupId: number
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
-
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/servicegroups/kubernetes/{serviceGroupId}",
-            routeValues: {
-                project: project,
-                environmentId: environmentId,
-                serviceGroupId: serviceGroupId
-            }
-        });
-    }
-
-    /**
-     * @param serviceGroup - 
-     * @param project - Project ID or project name
-     */
-    public async updateServiceGroup(
-        serviceGroup: TaskAgent.KubernetesServiceGroup,
-        project: string
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
-
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/servicegroups/kubernetes/{serviceGroupId}",
-            routeValues: {
-                project: project
-            },
-            body: serviceGroup
         });
     }
 

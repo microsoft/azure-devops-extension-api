@@ -757,7 +757,6 @@ export interface KubernetesServiceGroup extends ServiceGroup {
 }
 
 export interface KubernetesServiceGroupCreateParameters {
-    environmentId: number;
     name: string;
     namespace: string;
     serviceEndpointId: string;

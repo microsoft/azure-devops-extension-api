@@ -311,19 +311,22 @@ export class CoreRestClient extends RestClientBase {
      * @param top - 
      * @param skip - 
      * @param continuationToken - 
+     * @param getDefaultTeamImageUrl - 
      */
     public async getProjects(
         stateFilter?: any,
         top?: number,
         skip?: number,
-        continuationToken?: string
+        continuationToken?: string,
+        getDefaultTeamImageUrl?: boolean
         ): Promise<Core.TeamProjectReference[]> {
 
         const queryValues: any = {
             stateFilter: stateFilter,
             '$top': top,
             '$skip': skip,
-            continuationToken: continuationToken
+            continuationToken: continuationToken,
+            getDefaultTeamImageUrl: getDefaultTeamImageUrl
         };
 
         return this.beginRequest<Core.TeamProjectReference[]>({
