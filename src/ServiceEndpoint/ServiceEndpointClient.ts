@@ -24,7 +24,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.AzureManagementGroupQueryResult> {
 
         return this.beginRequest<ServiceEndpoint.AzureManagementGroupQueryResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/endpointproxy/azurermmanagementgroups"
         });
     }
@@ -37,7 +37,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.AzureSubscriptionQueryResult> {
 
         return this.beginRequest<ServiceEndpoint.AzureSubscriptionQueryResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/endpointproxy/azurermsubscriptions"
         });
     }
@@ -60,7 +60,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointRequestResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpointproxy",
             routeValues: {
@@ -83,7 +83,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpointproxy",
             routeValues: {
@@ -105,7 +105,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
@@ -133,7 +133,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
@@ -156,7 +156,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project,
@@ -172,6 +172,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param type - Type of the service endpoints.
      * @param authSchemes - Authorization schemes used for service endpoints.
      * @param endpointIds - Ids of the service endpoints.
+     * @param owner - Owner for service endpoints.
      * @param includeFailed - Failed flag for service endpoints.
      * @param includeDetails - Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests
      */
@@ -180,6 +181,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         type?: string,
         authSchemes?: string[],
         endpointIds?: string[],
+        owner?: string,
         includeFailed?: boolean,
         includeDetails?: boolean
         ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
@@ -188,12 +190,13 @@ export class ServiceEndpointRestClient extends RestClientBase {
             type: type,
             authSchemes: authSchemes && authSchemes.join(","),
             endpointIds: endpointIds && endpointIds.join(","),
+            owner: owner,
             includeFailed: includeFailed,
             includeDetails: includeDetails
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -209,6 +212,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param endpointNames - Names of the service endpoints.
      * @param type - Type of the service endpoints.
      * @param authSchemes - Authorization schemes used for service endpoints.
+     * @param owner - Owner for service endpoints.
      * @param includeFailed - Failed flag for service endpoints.
      * @param includeDetails - Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests
      */
@@ -217,6 +221,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         endpointNames: string[],
         type?: string,
         authSchemes?: string[],
+        owner?: string,
         includeFailed?: boolean,
         includeDetails?: boolean
         ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
@@ -225,12 +230,13 @@ export class ServiceEndpointRestClient extends RestClientBase {
             endpointNames: endpointNames && endpointNames.join(","),
             type: type,
             authSchemes: authSchemes && authSchemes.join(","),
+            owner: owner,
             includeFailed: includeFailed,
             includeDetails: includeDetails
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -259,7 +265,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
@@ -283,7 +289,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
@@ -311,7 +317,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/serviceendpoint/{endpointId}/executionhistory",
             routeValues: {
                 project: project,
@@ -333,7 +339,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.ServiceEndpointExecutionRecord[]> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/executionhistory",
             routeValues: {
@@ -351,7 +357,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             body: configurationParams
@@ -366,7 +372,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
@@ -383,7 +389,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
                 configurationId: configurationId
@@ -406,7 +412,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             queryParams: queryValues
         });
@@ -422,7 +428,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
@@ -446,7 +452,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ProjectReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/share/{endpointId}",
             routeValues: {
                 endpointId: endpointId
@@ -472,7 +478,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/serviceendpoint/share/{endpointId}",
             routeValues: {
@@ -499,9 +505,66 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointType[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/types",
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param authenticationRequest - 
+     */
+    public async acquireAccessToken(
+        authenticationRequest: ServiceEndpoint.AadOauthTokenRequest
+        ): Promise<ServiceEndpoint.AadOauthTokenResult> {
+
+        return this.beginRequest<ServiceEndpoint.AadOauthTokenResult>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth",
+            body: authenticationRequest
+        });
+    }
+
+    /**
+     * @param tenantId - 
+     * @param redirectUri - 
+     * @param promptOption - 
+     * @param completeCallbackPayload - 
+     * @param completeCallbackByAuthCode - 
+     */
+    public async createAadOAuthRequest(
+        tenantId: string,
+        redirectUri: string,
+        promptOption?: ServiceEndpoint.AadLoginPromptOption,
+        completeCallbackPayload?: string,
+        completeCallbackByAuthCode?: boolean
+        ): Promise<string> {
+
+        const queryValues: any = {
+            tenantId: tenantId,
+            redirectUri: redirectUri,
+            promptOption: promptOption,
+            completeCallbackPayload: completeCallbackPayload,
+            completeCallbackByAuthCode: completeCallbackByAuthCode
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     */
+    public async getVstsAadTenantId(
+        ): Promise<string> {
+
+        return this.beginRequest<string>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth"
         });
     }
 

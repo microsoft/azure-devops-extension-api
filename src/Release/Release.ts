@@ -289,6 +289,7 @@ export interface BuildVersion {
     definitionId: string;
     definitionName: string;
     id: string;
+    isMultiDefinitionType: boolean;
     name: string;
     sourceBranch: string;
     sourcePullRequestVersion: SourcePullRequestVersion;

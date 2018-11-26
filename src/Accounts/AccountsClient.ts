@@ -30,7 +30,7 @@ export class AccountsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Accounts.Account>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/Accounts/{accountId}",
             queryParams: queryValues,
@@ -46,7 +46,7 @@ export class AccountsRestClient extends RestClientBase {
         ): Promise<Accounts.Account> {
 
         return this.beginRequest<Accounts.Account>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/Accounts/{accountId}",
             routeValues: {
                 accountId: accountId
@@ -74,7 +74,7 @@ export class AccountsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Accounts.Account[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/Accounts/{accountId}",
             queryParams: queryValues
         });

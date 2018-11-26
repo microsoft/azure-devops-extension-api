@@ -28,7 +28,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardResponse> {
 
         return this.beginRequest<Boards.BoardResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/boards/boards/{id}",
             routeValues: {
@@ -50,7 +50,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/boards/boards/{id}",
             routeValues: {
@@ -72,7 +72,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardResponse> {
 
         return this.beginRequest<Boards.BoardResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{id}",
             routeValues: {
                 project: project,
@@ -100,7 +100,7 @@ export class BoardsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Boards.BoardReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{id}",
             routeValues: {
                 project: project
@@ -125,8 +125,8 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardResponse> {
 
         return this.beginRequest<Boards.BoardResponse>({
-            apiVersion: "5.0-preview.1",
-            method: "PUT",
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
             routeTemplate: "{project}/_apis/boards/boards/{id}",
             routeValues: {
                 project: project,
@@ -153,7 +153,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardColumnResponse> {
 
         return this.beginRequest<Boards.BoardColumnResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{id}",
             routeValues: {
@@ -184,7 +184,7 @@ export class BoardsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{id}",
             routeValues: {
@@ -210,7 +210,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardColumnResponse> {
 
         return this.beginRequest<Boards.BoardColumnResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{id}",
             routeValues: {
                 project: project,
@@ -232,7 +232,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardColumnCollectionResponse> {
 
         return this.beginRequest<Boards.BoardColumnCollectionResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{id}",
             routeValues: {
                 project: project,
@@ -259,7 +259,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardColumnResponse> {
 
         return this.beginRequest<Boards.BoardColumnResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{id}",
             routeValues: {
@@ -288,7 +288,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardItemResponse> {
 
         return this.beginRequest<Boards.BoardItemResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
             routeValues: {
@@ -313,7 +313,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardItemResponse> {
 
         return this.beginRequest<Boards.BoardItemResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
             routeValues: {
                 project: project,
@@ -335,7 +335,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardItemCollectionResponse> {
 
         return this.beginRequest<Boards.BoardItemCollectionResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
             routeValues: {
                 project: project,
@@ -349,7 +349,7 @@ export class BoardsRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param board - Board identifier.
-     * @param id - Item unique identifier to remove.
+     * @param id - Board Item identifier to remove.
      */
     public async removeBoardItem(
         project: string,
@@ -358,7 +358,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
             routeValues: {
@@ -372,10 +372,10 @@ export class BoardsRestClient extends RestClientBase {
     /**
      * Updates a single item in a board.
      * 
-     * @param updateItemDef - 
+     * @param updateItemDef - Updated item data.
      * @param project - Project ID or project name
      * @param board - Board identifier.
-     * @param id - 
+     * @param id - Update item id.
      * @param eTag - Item Latest Changed Date
      */
     public async updateBoardItem(
@@ -387,7 +387,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardItemResponse> {
 
         return this.beginRequest<Boards.BoardItemResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/boards/boards/{board}/items/{*id}",
             routeValues: {
@@ -399,6 +399,31 @@ export class BoardsRestClient extends RestClientBase {
                 "ETag": eTag,
             },
             body: updateItemDef
+        });
+    }
+
+    /**
+     * Do an operation on a batch of items.
+     * 
+     * @param batchRequest - Data defining the batch operation.
+     * @param project - Project ID or project name
+     * @param board - The id of the board containing the items.
+     */
+    public async updateBoardItems(
+        batchRequest: Boards.BoardItemBatchOperation,
+        project: string,
+        board: number
+        ): Promise<Boards.BoardItemCollectionResponse> {
+
+        return this.beginRequest<Boards.BoardItemCollectionResponse>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/boards/boards/{board}/itemsbatch",
+            routeValues: {
+                project: project,
+                board: board
+            },
+            body: batchRequest
         });
     }
 
@@ -416,7 +441,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardRowResponse> {
 
         return this.beginRequest<Boards.BoardRowResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/boards/boards/{board}/rows/{id}",
             routeValues: {
@@ -447,7 +472,7 @@ export class BoardsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/boards/boards/{board}/rows/{id}",
             routeValues: {
@@ -473,7 +498,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardRowResponse> {
 
         return this.beginRequest<Boards.BoardRowResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/rows/{id}",
             routeValues: {
                 project: project,
@@ -495,7 +520,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardRowCollectionResponse> {
 
         return this.beginRequest<Boards.BoardRowCollectionResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/boards/boards/{board}/rows/{id}",
             routeValues: {
                 project: project,
@@ -522,7 +547,7 @@ export class BoardsRestClient extends RestClientBase {
         ): Promise<Boards.BoardRowResponse> {
 
         return this.beginRequest<Boards.BoardRowResponse>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/boards/boards/{board}/rows/{id}",
             routeValues: {
@@ -534,6 +559,34 @@ export class BoardsRestClient extends RestClientBase {
                 "ETag": eTag,
             },
             body: boardRow
+        });
+    }
+
+    /**
+     * Creates a new sync for a column on a board.
+     * 
+     * @param boardSync - 
+     * @param project - Project ID or project name
+     * @param board - 
+     * @param column - 
+     */
+    public async createBoardSyncAction(
+        boardSync: Boards.BoardItemStateSyncCreate,
+        project: string,
+        board: number,
+        column: string
+        ): Promise<Boards.BoardItemStateSync> {
+
+        return this.beginRequest<Boards.BoardItemStateSync>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/boards/boards/{board}/columns/{column}/syncActions/{id}",
+            routeValues: {
+                project: project,
+                board: board,
+                column: column
+            },
+            body: boardSync
         });
     }
 

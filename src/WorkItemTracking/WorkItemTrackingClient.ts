@@ -31,7 +31,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.AccountMyWorkResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/work/accountMyWork",
             queryParams: queryValues
         });
@@ -45,7 +45,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.AccountRecentActivityWorkItemModel[]> {
 
         return this.beginRequest<WorkItemTracking.AccountRecentActivityWorkItemModel[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/work/accountMyWorkRecentActivity"
         });
     }
@@ -58,7 +58,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.AccountRecentMentionWorkItemModel[]> {
 
         return this.beginRequest<WorkItemTracking.AccountRecentMentionWorkItemModel[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/work/accountRecentMentions"
         });
     }
@@ -71,7 +71,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkArtifactLink[]> {
 
         return this.beginRequest<WorkItemTracking.WorkArtifactLink[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/wit/artifactLinkTypes"
         });
     }
@@ -88,7 +88,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.ArtifactUriQueryResult> {
 
         return this.beginRequest<WorkItemTracking.ArtifactUriQueryResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/artifactUriQuery",
             routeValues: {
@@ -122,7 +122,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.AttachmentReference>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/attachments/{id}",
             routeValues: {
@@ -158,7 +158,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/wit/attachments/{id}",
             routeValues: {
@@ -190,7 +190,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/wit/attachments/{id}",
             routeValues: {
@@ -223,7 +223,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/classificationNodes",
             routeValues: {
                 project: project
@@ -248,7 +248,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/classificationNodes",
             routeValues: {
                 project: project
@@ -273,7 +273,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemClassificationNode> {
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/classificationNodes/{structureGroup}/{*path}",
             routeValues: {
@@ -305,7 +305,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wit/classificationNodes/{structureGroup}/{*path}",
             routeValues: {
@@ -337,7 +337,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/classificationNodes/{structureGroup}/{*path}",
             routeValues: {
                 project: project,
@@ -364,7 +364,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemClassificationNode> {
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/wit/classificationNodes/{structureGroup}/{*path}",
             routeValues: {
@@ -390,7 +390,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemComment> {
 
         return this.beginRequest<WorkItemTracking.WorkItemComment>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/comments/{revision}",
             routeValues: {
                 project: project,
@@ -424,7 +424,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemComments>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/comments/{revision}",
             routeValues: {
                 project: project,
@@ -446,7 +446,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemField> {
 
         return this.beginRequest<WorkItemTracking.WorkItemField>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/fields/{fieldNameOrRefName}",
             routeValues: {
@@ -468,7 +468,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wit/fields/{fieldNameOrRefName}",
             routeValues: {
@@ -490,7 +490,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemField> {
 
         return this.beginRequest<WorkItemTracking.WorkItemField>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/fields/{fieldNameOrRefName}",
             routeValues: {
                 project: project,
@@ -515,7 +515,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemField[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/fields/{fieldNameOrRefName}",
             routeValues: {
                 project: project
@@ -538,7 +538,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.QueryHierarchyItem> {
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
@@ -561,7 +561,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
@@ -593,7 +593,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
                 project: project
@@ -626,7 +626,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
                 project: project,
@@ -661,7 +661,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItemsResult>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
                 project: project
@@ -690,7 +690,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/wit/queries/{*query}",
             routeValues: {
@@ -714,7 +714,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.QueryHierarchyItem[]> {
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/queriesBatch",
             routeValues: {
@@ -736,7 +736,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wit/recyclebin/{id}",
             routeValues: {
@@ -758,7 +758,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemDelete> {
 
         return this.beginRequest<WorkItemTracking.WorkItemDelete>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/recyclebin/{id}",
             routeValues: {
                 project: project,
@@ -783,7 +783,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemDeleteReference[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/recyclebin/{id}",
             routeValues: {
                 project: project
@@ -802,7 +802,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemDeleteShallowReference[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemDeleteShallowReference[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/recyclebin/{id}",
             routeValues: {
                 project: project
@@ -824,7 +824,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemDelete> {
 
         return this.beginRequest<WorkItemTracking.WorkItemDelete>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/wit/recyclebin/{id}",
             routeValues: {
@@ -855,7 +855,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/revisions/{revisionNumber}",
             routeValues: {
                 project: project,
@@ -890,7 +890,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/revisions/{revisionNumber}",
             routeValues: {
                 project: project,
@@ -910,7 +910,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "_apis/wit/$ruleEngine",
             body: ruleEngineInput
@@ -931,7 +931,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemTemplate> {
 
         return this.beginRequest<WorkItemTracking.WorkItemTemplate>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/wit/templates",
             routeValues: {
@@ -960,7 +960,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemTemplateReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/{team}/_apis/wit/templates",
             routeValues: {
                 project: project,
@@ -984,7 +984,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/{team}/_apis/wit/templates/{templateId}",
             routeValues: {
@@ -1009,7 +1009,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemTemplate> {
 
         return this.beginRequest<WorkItemTracking.WorkItemTemplate>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/{team}/_apis/wit/templates/{templateId}",
             routeValues: {
                 project: project,
@@ -1035,7 +1035,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemTemplate> {
 
         return this.beginRequest<WorkItemTracking.WorkItemTemplate>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/wit/templates/{templateId}",
             routeValues: {
@@ -1061,7 +1061,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemUpdate> {
 
         return this.beginRequest<WorkItemTracking.WorkItemUpdate>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/updates/{updateNumber}",
             routeValues: {
                 project: project,
@@ -1092,7 +1092,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemUpdate[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}/updates/{updateNumber}",
             routeValues: {
                 project: project,
@@ -1125,7 +1125,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemQueryResult>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/wit/wiql",
             routeValues: {
@@ -1160,7 +1160,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<number>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "HEAD",
             routeTemplate: "{project}/{team}/_apis/wit/wiql/{id}",
             routeValues: {
@@ -1195,7 +1195,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemQueryResult>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/wit/wiql/{id}",
             routeValues: {
                 project: project,
@@ -1225,7 +1225,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemIcon>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/wit/workItemIcons/{icon}",
             routeValues: {
                 icon: icon
@@ -1242,7 +1242,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemIcon[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemIcon[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/wit/workItemIcons/{icon}"
         });
     }
@@ -1266,7 +1266,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "image/svg+xml",
             routeTemplate: "_apis/wit/workItemIcons/{icon}",
             routeValues: {
@@ -1295,7 +1295,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "image/xaml+xml",
             routeTemplate: "_apis/wit/workItemIcons/{icon}",
             routeValues: {
@@ -1330,7 +1330,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.ReportingWorkItemLinksBatch>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/reporting/workItemLinks",
             routeValues: {
                 project: project
@@ -1349,7 +1349,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemRelationType> {
 
         return this.beginRequest<WorkItemTracking.WorkItemRelationType>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "_apis/wit/workItemRelationTypes/{relation}",
             routeValues: {
                 relation: relation
@@ -1365,7 +1365,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemRelationType[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemRelationType[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "_apis/wit/workItemRelationTypes/{relation}"
         });
     }
@@ -1416,7 +1416,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.ReportingWorkItemRevisionsBatch>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/reporting/workItemRevisions",
             routeValues: {
                 project: project
@@ -1449,7 +1449,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.ReportingWorkItemRevisionsBatch>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/reporting/workItemRevisions",
             routeValues: {
@@ -1486,7 +1486,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/workItems/${type}",
             routeValues: {
@@ -1525,7 +1525,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/${type}",
             routeValues: {
                 project: project,
@@ -1553,7 +1553,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemDelete>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wit/workItems/{id}",
             routeValues: {
@@ -1588,7 +1588,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}",
             routeValues: {
                 project: project,
@@ -1626,7 +1626,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workItems/{id}",
             routeValues: {
                 project: project
@@ -1661,7 +1661,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItem>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "PATCH",
             routeTemplate: "{project}/_apis/wit/workItems/{id}",
             routeValues: {
@@ -1688,7 +1688,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItem[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItem[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/workItemsBatch",
             routeValues: {
@@ -1708,7 +1708,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.ProjectWorkItemStateColors[]> {
 
         return this.beginRequest<WorkItemTracking.ProjectWorkItemStateColors[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/workitemStateColor",
             body: projectNames
@@ -1732,7 +1732,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemNextStateOnTransition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/wit/workItemTransitions",
             queryParams: queryValues
         });
@@ -1748,7 +1748,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemTypeCategory[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemTypeCategory[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItemTypeCategories/{category}",
             routeValues: {
                 project: project
@@ -1768,7 +1768,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemTypeCategory> {
 
         return this.beginRequest<WorkItemTracking.WorkItemTypeCategory>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItemTypeCategories/{category}",
             routeValues: {
                 project: project,
@@ -1787,7 +1787,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<{ key: string; value: WorkItemTracking.WorkItemTypeColor[] }[]> {
 
         return this.beginRequest<{ key: string; value: WorkItemTracking.WorkItemTypeColor[] }[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/workitemTypeColor",
             body: projectNames
@@ -1804,7 +1804,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<{ key: string; value: WorkItemTracking.WorkItemTypeColorAndIcon[] }[]> {
 
         return this.beginRequest<{ key: string; value: WorkItemTracking.WorkItemTypeColorAndIcon[] }[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/wit/workItemTypeColorAndIcon",
             body: projectNames
@@ -1823,7 +1823,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemType> {
 
         return this.beginRequest<WorkItemTracking.WorkItemType>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItemTypes/{type}",
             routeValues: {
                 project: project,
@@ -1842,7 +1842,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemType[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemType[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wit/workItemTypes/{type}",
             routeValues: {
                 project: project
@@ -1868,7 +1868,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemTypeFieldWithReferences[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workitemtypes/{type}/fields/{field}",
             routeValues: {
                 project: project,
@@ -1898,7 +1898,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemTypeFieldWithReferences>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/wit/workitemtypes/{type}/fields/{field}",
             routeValues: {
                 project: project,
@@ -1921,7 +1921,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.WorkItemStateColor[]> {
 
         return this.beginRequest<WorkItemTracking.WorkItemStateColor[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/wit/workitemtypes/{type}/states",
             routeValues: {
                 project: project,
@@ -1948,7 +1948,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTracking.WorkItemTypeTemplate>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/wit/workItemTypeTemplate/{type}",
             routeValues: {
                 project: project,
@@ -1970,7 +1970,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
         ): Promise<WorkItemTracking.ProvisioningResult> {
 
         return this.beginRequest<WorkItemTracking.ProvisioningResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/wit/workItemTypeTemplate/{type}",
             routeValues: {

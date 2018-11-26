@@ -13,6 +13,9 @@ export interface GraphCachePolicies {
     cacheSize: number;
 }
 
+/**
+ * Subject descriptor of a Graph entity
+ */
 export interface GraphDescriptorResult {
     /**
      * This field contains zero or more interesting links about the graph descriptor. These links may be invoked to obtain additional relationships or more detailed information about this graph descriptor.
@@ -52,6 +55,9 @@ export interface GraphGlobalExtendedPropertyBatch {
     subjectDescriptors: string[];
 }
 
+/**
+ * Graph group entity
+ */
 export interface GraphGroup extends GraphMember {
     /**
      * A short phrase to help human readers disambiguate groups with similar names
@@ -176,6 +182,9 @@ export const enum GraphMemberSearchFactor {
     DirectoryAlias = 8
 }
 
+/**
+ * Relationship between a container and a member
+ */
 export interface GraphMembership {
     /**
      * This field contains zero or more interesting links about the graph membership. These links may be invoked to obtain additional relationships or more detailed information about this graph membership.
@@ -185,11 +194,17 @@ export interface GraphMembership {
     memberDescriptor: string;
 }
 
+/**
+ * Status of a Graph membership (active/inactive)
+ */
 export interface GraphMembershipState {
     /**
      * This field contains zero or more interesting links about the graph membership state. These links may be invoked to obtain additional relationships or more detailed information about this graph membership state.
      */
     _links: any;
+    /**
+     * When true, the membership is active
+     */
     active: boolean;
 }
 
@@ -238,6 +253,9 @@ export interface GraphProviderInfo {
     originId: string;
 }
 
+/**
+ * Container where a graph entity is defined (organization, project, team)
+ */
 export interface GraphScope extends GraphSubject {
     /**
      * The subject descriptor that references the administrators group for this scope. Only members of this group can change the contents of this scope or assign other users permissions to access this scope.
@@ -291,6 +309,9 @@ export interface GraphScopeCreationContext {
     storageKey: string;
 }
 
+/**
+ * Storage key of a Graph entity
+ */
 export interface GraphStorageKeyResult {
     /**
      * This field contains zero or more interesting links about the graph storage key. These links may be invoked to obtain additional relationships or more detailed information about this graph storage key.
@@ -299,6 +320,9 @@ export interface GraphStorageKeyResult {
     value: string;
 }
 
+/**
+ * Top-level graph entity
+ */
 export interface GraphSubject extends GraphSubjectBase {
     /**
      * [Internal Use Only] The legacy descriptor is here in case you need to access old version IMS using identity descriptor.
@@ -337,6 +361,9 @@ export interface GraphSubjectBase {
     url: string;
 }
 
+/**
+ * Batching of subjects to lookup using the Graph API
+ */
 export interface GraphSubjectLookup {
     lookupKeys: GraphSubjectLookupKey[];
 }
@@ -354,7 +381,13 @@ export const enum GraphTraversalDirection {
     Up = 2
 }
 
+/**
+ * Graph user entity
+ */
 export interface GraphUser extends GraphMember {
+    /**
+     * When true, the group has been deleted in the identity provider
+     */
     isDeletedInOrigin: boolean;
     metadataUpdateDate: Date;
     /**

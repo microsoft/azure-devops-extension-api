@@ -8,6 +8,41 @@ import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTask
 import FormInput = require("../FormInput/FormInput");
 import WebApi = require("../WebApi/WebApi");
 
+export const enum AadLoginPromptOption {
+    /**
+     * Do not provide a prompt option
+     */
+    NoOption = 0,
+    /**
+     * Force the user to login again.
+     */
+    Login = 1,
+    /**
+     * Force the user to select which account they are logging in with instead of automatically picking the user up from the session state. NOTE: This does not work for switching bewtween the variants of a dual-homed user.
+     */
+    SelectAccount = 2,
+    /**
+     * Force the user to login again. \<remarks\> Ignore current authentication state and force the user to authenticate again. This option should be used instead of Login. \</remarks\>
+     */
+    FreshLogin = 3,
+    /**
+     * Force the user to login again with mfa. \<remarks\> Ignore current authentication state and force the user to authenticate again. This option should be used instead of Login, if MFA is required. \</remarks\>
+     */
+    FreshLoginWithMfa = 4
+}
+
+export interface AadOauthTokenRequest {
+    refresh: boolean;
+    resource: string;
+    tenantId: string;
+    token: string;
+}
+
+export interface AadOauthTokenResult {
+    accessToken: string;
+    refreshTokenCache: string;
+}
+
 export const enum AccessTokenRequestType {
     None = 0,
     Oauth = 1,

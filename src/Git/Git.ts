@@ -4,6 +4,7 @@
  * ---------------------------------------------------------
  */
 
+import Policy = require("../Policy/Policy");
 import TfsCore = require("../Core/Core");
 import WebApi = require("../WebApi/WebApi");
 
@@ -1528,6 +1529,14 @@ export const enum GitPathActions {
 
 export interface GitPathToItemsCollection {
     items: { [key: string] : GitItem[]; };
+}
+
+export interface GitPolicyConfigurationResponse {
+    /**
+     * The HTTP client methods find the continuation token header in the response and populate this field.
+     */
+    continuationToken: string | null;
+    policyConfigurations: Policy.PolicyConfiguration[];
 }
 
 /**

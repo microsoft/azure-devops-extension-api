@@ -8,6 +8,7 @@ import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
 import Git = require("../Git/Git");
+import Policy = require("../Policy/Policy");
 import TfsCore = require("../Core/Core");
 import WebApi = require("../WebApi/WebApi");
 
@@ -32,7 +33,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitAnnotatedTag> {
 
         return this.beginRequest<Git.GitAnnotatedTag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/annotatedTags/{objectId}",
             routeValues: {
@@ -57,7 +58,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitAnnotatedTag> {
 
         return this.beginRequest<Git.GitAnnotatedTag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/annotatedTags/{objectId}",
             routeValues: {
                 project: project,
@@ -93,7 +94,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitBlobRef>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Blobs/{sha1}",
             routeValues: {
                 project: project,
@@ -130,7 +131,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Blobs/{sha1}",
             routeValues: {
@@ -162,7 +163,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Blobs/{sha1}",
@@ -201,7 +202,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Blobs/{sha1}",
             routeValues: {
@@ -234,7 +235,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitBranchStats>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/stats/branches",
             routeValues: {
                 project: project,
@@ -262,7 +263,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitBranchStats[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/stats/branches",
             routeValues: {
                 project: project,
@@ -284,7 +285,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitBranchStats[]> {
 
         return this.beginRequest<Git.GitBranchStats[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/stats/branches",
             routeValues: {
@@ -318,7 +319,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitChanges>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/commits/{commitId}/Changes",
             routeValues: {
                 project: project,
@@ -349,7 +350,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/cherryPickRelationships/{commitId}",
             routeValues: {
                 project: project,
@@ -374,7 +375,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitCherryPick> {
 
         return this.beginRequest<Git.GitCherryPick>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/cherryPicks/{cherryPickId}",
             routeValues: {
@@ -399,7 +400,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitCherryPick> {
 
         return this.beginRequest<Git.GitCherryPick>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/cherryPicks/{cherryPickId}",
             routeValues: {
                 project: project,
@@ -427,7 +428,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCherryPick>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/cherryPicks/{cherryPickId}",
             routeValues: {
                 project: project,
@@ -467,7 +468,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitDiffs>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/diffs/commits",
             routeValues: {
                 project: project,
@@ -497,7 +498,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommit>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Commits/{commitId}",
             routeValues: {
                 project: project,
@@ -526,7 +527,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Commits/{commitId}",
             routeValues: {
                 project: project,
@@ -563,7 +564,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Commits/{commitId}",
             routeValues: {
                 project: project,
@@ -599,7 +600,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/CommitsBatch",
             routeValues: {
@@ -621,7 +622,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitDeletedRepository[]> {
 
         return this.beginRequest<Git.GitDeletedRepository[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/DeletedRepositories",
             routeValues: {
                 project: project
@@ -643,7 +644,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.FileDiff[]> {
 
         return this.beginRequest<Git.FileDiff[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/FileDiffs",
             routeValues: {
@@ -674,7 +675,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepositoryRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/forks/{collectionId}",
             routeValues: {
                 project: project,
@@ -705,7 +706,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitForkSyncRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/forkSyncRequests/{forkSyncOperationId}",
             routeValues: {
@@ -737,7 +738,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitForkSyncRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/forkSyncRequests/{forkSyncOperationId}",
             routeValues: {
                 project: project,
@@ -769,7 +770,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitForkSyncRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/forkSyncRequests/{forkSyncOperationId}",
             routeValues: {
                 project: project,
@@ -793,7 +794,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitImportRequest> {
 
         return this.beginRequest<Git.GitImportRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/importRequests/{importRequestId}",
             routeValues: {
@@ -818,7 +819,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitImportRequest> {
 
         return this.beginRequest<Git.GitImportRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/importRequests/{importRequestId}",
             routeValues: {
                 project: project,
@@ -846,7 +847,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitImportRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/importRequests/{importRequestId}",
             routeValues: {
                 project: project,
@@ -872,7 +873,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitImportRequest> {
 
         return this.beginRequest<Git.GitImportRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/importRequests/{importRequestId}",
             routeValues: {
@@ -926,7 +927,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitItem>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Items/{*path}",
             routeValues: {
                 project: project,
@@ -978,7 +979,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Items/{*path}",
             routeValues: {
@@ -1025,7 +1026,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitItem[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Items/{*path}",
             routeValues: {
                 project: project,
@@ -1077,7 +1078,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Items/{*path}",
             routeValues: {
@@ -1130,7 +1131,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Items/{*path}",
             routeValues: {
@@ -1155,7 +1156,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitItem[][]> {
 
         return this.beginRequest<Git.GitItem[][]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/ItemsBatch",
             routeValues: {
@@ -1192,7 +1193,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/commits/{commitId}/mergeBases",
             routeValues: {
                 project: project,
@@ -1223,7 +1224,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitMerge>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/merges/{mergeOperationId}",
             routeValues: {
@@ -1255,7 +1256,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitMerge>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryNameOrId}/merges/{mergeOperationId}",
             routeValues: {
                 project: project,
@@ -1284,7 +1285,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Attachment> {
 
         return this.beginRequest<Git.Attachment>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/attachments/{fileName}",
             routeValues: {
@@ -1317,7 +1318,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/attachments/{fileName}",
             routeValues: {
@@ -1345,7 +1346,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/attachments/{fileName}",
             routeValues: {
@@ -1371,7 +1372,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Attachment[]> {
 
         return this.beginRequest<Git.Attachment[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/attachments/{fileName}",
             routeValues: {
                 project: project,
@@ -1397,7 +1398,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/attachments/{fileName}",
             routeValues: {
@@ -1427,7 +1428,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}/likes",
             routeValues: {
@@ -1458,7 +1459,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}/likes",
             routeValues: {
@@ -1489,7 +1490,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<WebApi.IdentityRef[]> {
 
         return this.beginRequest<WebApi.IdentityRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}/likes",
             routeValues: {
                 project: project,
@@ -1517,7 +1518,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitCommitRef[]> {
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/commits",
             routeValues: {
                 project: project,
@@ -1542,7 +1543,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitCommitRef[]> {
 
         return this.beginRequest<Git.GitCommitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/commits",
             routeValues: {
                 project: project,
@@ -1568,7 +1569,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitConflict> {
 
         return this.beginRequest<Git.GitConflict>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/conflicts/{conflictId}",
             routeValues: {
                 project: project,
@@ -1611,7 +1612,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitConflict[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/conflicts/{conflictId}",
             routeValues: {
                 project: project,
@@ -1640,7 +1641,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitConflict> {
 
         return this.beginRequest<Git.GitConflict>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/conflicts/{conflictId}",
             routeValues: {
@@ -1669,7 +1670,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitConflictUpdateResult[]> {
 
         return this.beginRequest<Git.GitConflictUpdateResult[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/conflicts/{conflictId}",
             routeValues: {
@@ -1709,7 +1710,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequestIterationChanges>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/changes",
             routeValues: {
                 project: project,
@@ -1737,7 +1738,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestIteration> {
 
         return this.beginRequest<Git.GitPullRequestIteration>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}",
             routeValues: {
                 project: project,
@@ -1768,7 +1769,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequestIteration[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}",
             routeValues: {
                 project: project,
@@ -1797,7 +1798,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus> {
 
         return this.beginRequest<Git.GitPullRequestStatus>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/statuses/{statusId}",
             routeValues: {
@@ -1828,7 +1829,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/statuses/{statusId}",
             routeValues: {
@@ -1859,7 +1860,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus> {
 
         return this.beginRequest<Git.GitPullRequestStatus>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/statuses/{statusId}",
             routeValues: {
                 project: project,
@@ -1887,7 +1888,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus[]> {
 
         return this.beginRequest<Git.GitPullRequestStatus[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/statuses/{statusId}",
             routeValues: {
                 project: project,
@@ -1916,7 +1917,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/iterations/{iterationId}/statuses/{statusId}",
             routeValues: {
@@ -1954,7 +1955,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TfsCore.WebApiTagDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/labels/{labelIdOrName}",
             routeValues: {
@@ -1989,7 +1990,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/labels/{labelIdOrName}",
             routeValues: {
@@ -2024,7 +2025,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TfsCore.WebApiTagDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/labels/{labelIdOrName}",
             routeValues: {
                 project: project,
@@ -2056,7 +2057,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TfsCore.WebApiTagDefinition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/labels/{labelIdOrName}",
             routeValues: {
                 project: project,
@@ -2081,7 +2082,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/properties",
             routeValues: {
                 project: project,
@@ -2107,7 +2108,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/properties",
             routeValues: {
@@ -2136,7 +2137,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestQuery> {
 
         return this.beginRequest<Git.GitPullRequestQuery>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/PullRequestQuery",
             routeValues: {
@@ -2165,7 +2166,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.IdentityRefWithVote> {
 
         return this.beginRequest<Git.IdentityRefWithVote>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
@@ -2194,7 +2195,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.IdentityRefWithVote[]> {
 
         return this.beginRequest<Git.IdentityRefWithVote[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
@@ -2222,7 +2223,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
@@ -2250,7 +2251,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.IdentityRefWithVote> {
 
         return this.beginRequest<Git.IdentityRefWithVote>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
                 project: project,
@@ -2275,7 +2276,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.IdentityRefWithVote[]> {
 
         return this.beginRequest<Git.IdentityRefWithVote[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
                 project: project,
@@ -2301,7 +2302,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
             routeValues: {
@@ -2325,8 +2326,8 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequest> {
 
         return this.beginRequest<Git.GitPullRequest>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/git/PullRequests/{pullRequestId}",
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/git/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
                 pullRequestId: pullRequestId
@@ -2359,8 +2360,8 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequest[]>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/git/PullRequests",
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/git/pullRequests",
             routeValues: {
                 project: project
             },
@@ -2388,9 +2389,9 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
-            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/PullRequests/{pullRequestId}",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
                 repositoryId: repositoryId
@@ -2432,8 +2433,8 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequest>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/PullRequests/{pullRequestId}",
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
                 repositoryId: repositoryId,
@@ -2470,8 +2471,8 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequest[]>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/PullRequests/{pullRequestId}",
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
                 repositoryId: repositoryId
@@ -2481,11 +2482,11 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Update a pull request.
+     * Update a pull request
      * 
-     * @param gitPullRequestToUpdate - The pull request content to update.
+     * @param gitPullRequestToUpdate - The pull request content that should be updated.
      * @param repositoryId - The repository ID of the pull request's target branch.
-     * @param pullRequestId - The ID of the pull request to retrieve.
+     * @param pullRequestId - ID of the pull request to update.
      * @param project - Project ID or project name
      */
     public async updatePullRequest(
@@ -2496,9 +2497,9 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequest> {
 
         return this.beginRequest<Git.GitPullRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
-            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/PullRequests/{pullRequestId}",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
                 repositoryId: repositoryId,
@@ -2524,7 +2525,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/share",
             routeValues: {
@@ -2552,7 +2553,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus> {
 
         return this.beginRequest<Git.GitPullRequestStatus>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/statuses/{statusId}",
             routeValues: {
@@ -2580,7 +2581,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/statuses/{statusId}",
             routeValues: {
@@ -2608,7 +2609,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus> {
 
         return this.beginRequest<Git.GitPullRequestStatus>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/statuses/{statusId}",
             routeValues: {
                 project: project,
@@ -2633,7 +2634,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestStatus[]> {
 
         return this.beginRequest<Git.GitPullRequestStatus[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/statuses/{statusId}",
             routeValues: {
                 project: project,
@@ -2659,7 +2660,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/statuses/{statusId}",
             routeValues: {
@@ -2692,7 +2693,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Comment> {
 
         return this.beginRequest<Git.Comment>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}",
             routeValues: {
@@ -2723,7 +2724,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}",
             routeValues: {
@@ -2754,7 +2755,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Comment> {
 
         return this.beginRequest<Git.Comment>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}",
             routeValues: {
                 project: project,
@@ -2782,7 +2783,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Comment[]> {
 
         return this.beginRequest<Git.Comment[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}",
             routeValues: {
                 project: project,
@@ -2813,7 +2814,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.Comment> {
 
         return this.beginRequest<Git.Comment>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}/comments/{commentId}",
             routeValues: {
@@ -2843,7 +2844,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestCommentThread> {
 
         return this.beginRequest<Git.GitPullRequestCommentThread>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}",
             routeValues: {
@@ -2880,7 +2881,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequestCommentThread>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}",
             routeValues: {
                 project: project,
@@ -2915,7 +2916,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPullRequestCommentThread[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}",
             routeValues: {
                 project: project,
@@ -2944,7 +2945,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPullRequestCommentThread> {
 
         return this.beginRequest<Git.GitPullRequestCommentThread>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/threads/{threadId}",
             routeValues: {
@@ -2971,7 +2972,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<WebApi.ResourceRef[]> {
 
         return this.beginRequest<WebApi.ResourceRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/workitems",
             routeValues: {
                 project: project,
@@ -2995,7 +2996,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitPush> {
 
         return this.beginRequest<Git.GitPush>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pushes/{pushId}",
             routeValues: {
@@ -3029,7 +3030,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPush>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pushes/{pushId}",
             routeValues: {
                 project: project,
@@ -3064,7 +3065,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitPush[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pushes/{pushId}",
             routeValues: {
                 project: project,
@@ -3086,7 +3087,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/recycleBin/repositories/{repositoryId}",
             routeValues: {
@@ -3106,7 +3107,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitDeletedRepository[]> {
 
         return this.beginRequest<Git.GitDeletedRepository[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/recycleBin/repositories/{repositoryId}",
             routeValues: {
                 project: project
@@ -3128,7 +3129,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRepository> {
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/recycleBin/repositories/{repositoryId}",
             routeValues: {
@@ -3175,7 +3176,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRef[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/refs/{*filter}",
             routeValues: {
                 project: project,
@@ -3208,7 +3209,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRef>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/refs/{*filter}",
             routeValues: {
@@ -3240,7 +3241,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRefUpdateResult[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/refs/{*filter}",
             routeValues: {
@@ -3264,7 +3265,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRefFavorite> {
 
         return this.beginRequest<Git.GitRefFavorite>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/favorites/refs/{favoriteId}",
             routeValues: {
@@ -3286,7 +3287,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/favorites/refs/{favoriteId}",
             routeValues: {
@@ -3308,7 +3309,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRefFavorite> {
 
         return this.beginRequest<Git.GitRefFavorite>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/favorites/refs/{favoriteId}",
             routeValues: {
                 project: project,
@@ -3336,7 +3337,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRefFavorite[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/favorites/refs/{favoriteId}",
             routeValues: {
                 project: project
@@ -3363,7 +3364,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
@@ -3386,7 +3387,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
@@ -3418,7 +3419,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project
@@ -3439,7 +3440,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRepository> {
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project,
@@ -3466,7 +3467,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project,
@@ -3490,7 +3491,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRepository> {
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
@@ -3515,7 +3516,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRevert> {
 
         return this.beginRequest<Git.GitRevert>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/reverts/{revertId}",
             routeValues: {
@@ -3540,7 +3541,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRevert> {
 
         return this.beginRequest<Git.GitRevert>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/reverts/{revertId}",
             routeValues: {
                 project: project,
@@ -3568,7 +3569,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRevert>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/reverts/{revertId}",
             routeValues: {
                 project: project,
@@ -3594,7 +3595,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitStatus> {
 
         return this.beginRequest<Git.GitStatus>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/commits/{commitId}/Statuses",
             routeValues: {
@@ -3632,7 +3633,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitStatus[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/commits/{commitId}/Statuses",
             routeValues: {
                 project: project,
@@ -3655,7 +3656,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitSuggestion[]> {
 
         return this.beginRequest<Git.GitSuggestion[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/suggestions",
             routeValues: {
                 project: project,
@@ -3690,7 +3691,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitTreeRef>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Trees/{sha1}",
             routeValues: {
                 project: project,
@@ -3727,7 +3728,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/Trees/{sha1}",
             routeValues: {

@@ -33,7 +33,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FileContainer.FileContainerItem[]>({
-            apiVersion: "5.0-preview.4",
+            apiVersion: "5.1-preview.4",
             method: "POST",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
@@ -63,7 +63,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.4",
+            apiVersion: "5.1-preview.4",
             method: "DELETE",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
@@ -90,7 +90,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FileContainer.FileContainer[]>({
-            apiVersion: "5.0-preview.4",
+            apiVersion: "5.1-preview.4",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             queryParams: queryValues
         });
@@ -128,7 +128,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FileContainer.FileContainerItem[]>({
-            apiVersion: "5.0-preview.4",
+            apiVersion: "5.1-preview.4",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
                 containerId: containerId

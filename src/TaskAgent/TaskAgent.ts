@@ -523,6 +523,41 @@ export interface DiagnosticLogMetadata {
     poolId: number;
 }
 
+/**
+ * Environment.
+ */
+export interface DistributedTaskEnvironment {
+    /**
+     * Identity reference of the user who created the Environment.
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * Creation time of the Environment
+     */
+    createdOn: Date;
+    /**
+     * Description of the Environment.
+     */
+    description: string;
+    /**
+     * Id of the Environment
+     */
+    id: number;
+    /**
+     * Identity reference of the user who last modified the Environment.
+     */
+    lastModifiedBy: WebApi.IdentityRef;
+    /**
+     * Last modified time of the Environment
+     */
+    lastModifiedOn: Date;
+    /**
+     * Name of the Environment.
+     */
+    name: string;
+    serviceGroups: ServiceGroupReference[];
+}
+
 export interface EndpointAuthorization {
     /**
      * Gets or sets the parameters for the selected authorization scheme.
@@ -561,41 +596,6 @@ export interface EndpointUrl {
 }
 
 /**
- * Environment.
- */
-export interface Environment {
-    /**
-     * Identity reference of the user who created the Environment.
-     */
-    createdBy: WebApi.IdentityRef;
-    /**
-     * Creation time of the Environment
-     */
-    createdOn: Date;
-    /**
-     * Description of the Environment.
-     */
-    description: string;
-    /**
-     * Id of the Environment
-     */
-    id: number;
-    /**
-     * Identity reference of the user who last modified the Environment.
-     */
-    lastModifiedBy: WebApi.IdentityRef;
-    /**
-     * Last modified time of the Environment
-     */
-    lastModifiedOn: Date;
-    /**
-     * Name of the Environment.
-     */
-    name: string;
-    serviceGroups: ServiceGroupReference[];
-}
-
-/**
  * Properties to create Environment.
  */
 export interface EnvironmentCreateParameter {
@@ -607,6 +607,52 @@ export interface EnvironmentCreateParameter {
      * Name of the environment.
      */
     name: string;
+}
+
+/**
+ * EnvironmentDeploymentExecutionRecord.
+ */
+export interface EnvironmentDeploymentExecutionRecord {
+    /**
+     * Definition of the environment deployment execution owner
+     */
+    definition: TaskOrchestrationOwner;
+    /**
+     * Id of the Environment
+     */
+    environmentId: number;
+    /**
+     * Finish time of the environment deployment execution
+     */
+    finishTime: Date;
+    /**
+     * Id of the Environment deployment execution history record
+     */
+    id: number;
+    /**
+     * Owner of the environment deployment execution record
+     */
+    owner: TaskOrchestrationOwner;
+    /**
+     * Plan type of the environment deployment execution record
+     */
+    planType: string;
+    /**
+     * Result of the environment deployment execution
+     */
+    result: TaskResult;
+    /**
+     * Project Id
+     */
+    scopeId: string;
+    /**
+     * Service group Id
+     */
+    serviceGroupId: number;
+    /**
+     * Start time of the environment deployment execution
+     */
+    startTime: Date;
 }
 
 /**
@@ -1342,6 +1388,7 @@ export interface TaskAgentJobRequest {
     jobName: string;
     lockedUntil: Date;
     matchedAgents: TaskAgentReference[];
+    matchesAllAgentsInPool: boolean;
     orchestrationId: string;
     owner: TaskOrchestrationOwner;
     planGroup: string;
@@ -1437,6 +1484,10 @@ export interface TaskAgentPool extends TaskAgentPoolReference {
      */
     owner: WebApi.IdentityRef;
     properties: any;
+    /**
+     * Gets or sets a value indicating target parallelism
+     */
+    targetSize: number;
 }
 
 export const enum TaskAgentPoolActionFilter {

@@ -28,7 +28,7 @@ export class FeatureAvailabilityRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureAvailability.FeatureFlag[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/FeatureFlags/{name}",
             queryParams: queryValues
         });
@@ -50,7 +50,7 @@ export class FeatureAvailabilityRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureAvailability.FeatureFlag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/FeatureFlags/{name}",
             routeValues: {
                 name: name
@@ -78,7 +78,7 @@ export class FeatureAvailabilityRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureAvailability.FeatureFlag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/FeatureFlags/{name}",
             routeValues: {
                 name: name
@@ -106,7 +106,7 @@ export class FeatureAvailabilityRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureAvailability.FeatureFlag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/FeatureFlags/{name}",
             routeValues: {
                 name: name
@@ -139,7 +139,7 @@ export class FeatureAvailabilityRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureAvailability.FeatureFlag>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/FeatureFlags/{name}",
             routeValues: {

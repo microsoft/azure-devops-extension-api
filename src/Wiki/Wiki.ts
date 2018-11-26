@@ -228,7 +228,13 @@ export interface WikiPageViewStats {
  * Wiki types.
  */
 export const enum WikiType {
+    /**
+     * Indicates that the wiki is provisioned for the team project
+     */
     ProjectWiki = 0,
+    /**
+     * Indicates that the wiki is published from a git repository
+     */
     CodeWiki = 1
 }
 

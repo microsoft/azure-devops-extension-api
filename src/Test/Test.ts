@@ -485,6 +485,12 @@ export interface CoverageStatistics {
     linesPartiallyCovered: number;
 }
 
+export const enum CoverageStatus {
+    Covered = 0,
+    NotCovered = 1,
+    PartiallyCovered = 2
+}
+
 export interface CreateTestMessageLogEntryRequest {
     projectName: string;
     testMessageLogEntry: TestMessageLogEntry[];
@@ -557,6 +563,11 @@ export interface DeleteTestRunRequest {
     testRunIds: number[];
 }
 
+export interface DownloadAttachmentsRequest {
+    ids: number[];
+    lengths: number[];
+}
+
 /**
  * This is a temporary class to provide the details for the test run environment.
  */
@@ -607,6 +618,25 @@ export interface FieldDetailsForTestResults {
      * Group by field values
      */
     groupsForField: any[];
+}
+
+export interface FileCoverageReport {
+    /**
+     * LineBlockCollection: Contains list of line blocks, each block specifiying it's coverage status
+     */
+    lineBlockCollection: LineBlockCollection;
+    /**
+     * Path: filePath for which coverage status is returned
+     */
+    path: string;
+}
+
+export interface FileCoverageRequest {
+    filePath: string;
+    pullRequestBaseIterationId: number;
+    pullRequestId: number;
+    pullRequestIterationId: number;
+    repoId: string;
 }
 
 export interface FunctionCoverage {
@@ -843,6 +873,32 @@ export interface LegacyTestSettings {
     teamProjectUri: string;
 }
 
+export interface LineBlock {
+    /**
+     * End : End of line block
+     */
+    end: number;
+    /**
+     * HelpText
+     */
+    helpText: string;
+    /**
+     * Start : Start of line block
+     */
+    start: number;
+    /**
+     * Status : represents status of line block
+     */
+    status: CoverageStatus;
+}
+
+export interface LineBlockCollection {
+    /**
+     * LineBlocksStatus: Collection of coverage status of blocks of line
+     */
+    lineBlocksStatus: LineBlock[];
+}
+
 export interface LinkedWorkItemsQuery {
     automatedTestNames: string[];
     planId: number;
@@ -892,8 +948,17 @@ export interface ModuleCoverage2 {
     signatureAge: number;
 }
 
+/**
+ * Name value pair
+ */
 export interface NameValuePair {
+    /**
+     * Name
+     */
     name: string;
+    /**
+     * Value
+     */
     value: string;
 }
 
@@ -990,6 +1055,19 @@ export interface PointsFilter {
      * List of tester for filtering.
      */
     testers: WebApi.IdentityRef[];
+}
+
+export interface PointsResults2 {
+    changeNumber: number;
+    lastFailureType: number;
+    lastResolutionStateId: number;
+    lastResultOutcome: number;
+    lastResultState: number;
+    lastTestResultId: number;
+    lastTestRunId: number;
+    lastUpdated: Date;
+    planId: number;
+    pointId: number;
 }
 
 /**
@@ -1874,7 +1952,12 @@ export interface TestAttachmentRequestModel {
 
 export interface TestAuthoringDetails {
     configurationId: number;
+    isAutomated: boolean;
+    lastUpdated: Date;
     pointId: number;
+    priority: number;
+    runBy: string;
+    state: TestPointState;
     suiteId: number;
     testerId: string;
 }
@@ -2657,6 +2740,9 @@ export const enum TestOutcome {
     MaxValue = 14
 }
 
+/**
+ * Test outcome settings
+ */
 export interface TestOutcomeSettings {
     /**
      * Value to configure how test outcomes for the same tests across suites are shown

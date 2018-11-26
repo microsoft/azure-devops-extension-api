@@ -2613,11 +2613,27 @@ export interface Timeline extends TimelineReference {
     records: TimelineRecord[];
 }
 
+export interface TimelineAttempt {
+    /**
+     * Gets or sets the attempt of the record.
+     */
+    attempt: number;
+    /**
+     * Gets or sets the record identifier located within the specified timeline.
+     */
+    recordId: string;
+    /**
+     * Gets or sets the timeline identifier which owns the record representing this attempt.
+     */
+    timelineId: string;
+}
+
 /**
  * Represents an entry in a build's timeline.
  */
 export interface TimelineRecord {
     _links: any;
+    attempt: number;
     /**
      * The change ID.
      */
@@ -2667,6 +2683,7 @@ export interface TimelineRecord {
      * The current completion percentage.
      */
     percentComplete: number;
+    previousAttempts: TimelineAttempt[];
     /**
      * The result.
      */

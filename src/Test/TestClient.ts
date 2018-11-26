@@ -35,7 +35,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestActionResultModel[]> {
 
         return this.beginRequest<Test.TestActionResultModel[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Iterations/{iterationId}/ActionResults/{actionPath}",
             routeValues: {
                 project: project,
@@ -72,7 +72,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -101,7 +101,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestAttachmentReference> {
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -135,7 +135,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -164,7 +164,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -190,7 +190,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestAttachment[]> {
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -216,7 +216,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -250,7 +250,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -283,7 +283,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -316,7 +316,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Attachments/{attachmentId}",
             routeValues: {
@@ -343,7 +343,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestAttachmentReference> {
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Attachments/{attachmentId}",
             routeValues: {
@@ -368,7 +368,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Attachments/{attachmentId}",
             routeValues: {
@@ -391,7 +391,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestAttachment[]> {
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -414,7 +414,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Attachments/{attachmentId}",
             routeValues: {
@@ -437,7 +437,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.WorkItemReference[]> {
 
         return this.beginRequest<Test.WorkItemReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Bugs",
             routeValues: {
                 project: project,
@@ -465,7 +465,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.CloneOperationInformation>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/CloneOperation/{cloneOperationId}",
             routeValues: {
                 project: project,
@@ -489,7 +489,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.CloneOperationInformation> {
 
         return this.beginRequest<Test.CloneOperationInformation>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/CloneOperation",
             routeValues: {
@@ -516,7 +516,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.CloneOperationInformation> {
 
         return this.beginRequest<Test.CloneOperationInformation>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{sourceSuiteId}/CloneOperation",
             routeValues: {
@@ -547,7 +547,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.BuildCoverage[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/CodeCoverage",
             routeValues: {
                 project: project
@@ -575,7 +575,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.CodeCoverageSummary>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/CodeCoverage",
             routeValues: {
                 project: project
@@ -602,7 +602,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/CodeCoverage",
             routeValues: {
@@ -631,137 +631,13 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRunCoverage[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/CodeCoverage",
             routeValues: {
                 project: project,
                 runId: runId
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Create a test configuration
-     * 
-     * @param testConfiguration - Test configuration
-     * @param project - Project ID or project name
-     */
-    public async createTestConfiguration(
-        testConfiguration: Test.TestConfiguration,
-        project: string
-        ): Promise<Test.TestConfiguration> {
-
-        return this.beginRequest<Test.TestConfiguration>({
-            apiVersion: "5.0-preview.2",
-            method: "POST",
-            routeTemplate: "{project}/_apis/test/Configurations/{testConfigurationId}",
-            routeValues: {
-                project: project
-            },
-            body: testConfiguration
-        });
-    }
-
-    /**
-     * Delete a test configuration
-     * 
-     * @param project - Project ID or project name
-     * @param testConfigurationId - ID of the test configuration to get.
-     */
-    public async deleteTestConfiguration(
-        project: string,
-        testConfigurationId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/test/Configurations/{testConfigurationId}",
-            routeValues: {
-                project: project,
-                testConfigurationId: testConfigurationId
-            }
-        });
-    }
-
-    /**
-     * Get a test configuration
-     * 
-     * @param project - Project ID or project name
-     * @param testConfigurationId - ID of the test configuration to get.
-     */
-    public async getTestConfigurationById(
-        project: string,
-        testConfigurationId: number
-        ): Promise<Test.TestConfiguration> {
-
-        return this.beginRequest<Test.TestConfiguration>({
-            apiVersion: "5.0-preview.2",
-            routeTemplate: "{project}/_apis/test/Configurations/{testConfigurationId}",
-            routeValues: {
-                project: project,
-                testConfigurationId: testConfigurationId
-            }
-        });
-    }
-
-    /**
-     * Get a list of test configurations
-     * 
-     * @param project - Project ID or project name
-     * @param skip - Number of test configurations to skip.
-     * @param top - Number of test configurations to return.
-     * @param continuationToken - If the list of configurations returned is not complete, a continuation token to query next batch of configurations is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test configurations.
-     * @param includeAllProperties - If true, it returns all properties of the test configurations. Otherwise, it returns the skinny version.
-     */
-    public async getTestConfigurations(
-        project: string,
-        skip?: number,
-        top?: number,
-        continuationToken?: string,
-        includeAllProperties?: boolean
-        ): Promise<Test.TestConfiguration[]> {
-
-        const queryValues: any = {
-            '$skip': skip,
-            '$top': top,
-            continuationToken: continuationToken,
-            includeAllProperties: includeAllProperties
-        };
-
-        return this.beginRequest<Test.TestConfiguration[]>({
-            apiVersion: "5.0-preview.2",
-            routeTemplate: "{project}/_apis/test/Configurations/{testConfigurationId}",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update a test configuration
-     * 
-     * @param testConfiguration - Test configuration
-     * @param project - Project ID or project name
-     * @param testConfigurationId - ID of the test configuration to update.
-     */
-    public async updateTestConfiguration(
-        testConfiguration: Test.TestConfiguration,
-        project: string,
-        testConfigurationId: number
-        ): Promise<Test.TestConfiguration> {
-
-        return this.beginRequest<Test.TestConfiguration>({
-            apiVersion: "5.0-preview.2",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/test/Configurations/{testConfigurationId}",
-            routeValues: {
-                project: project,
-                testConfigurationId: testConfigurationId
-            },
-            body: testConfiguration
         });
     }
 
@@ -775,7 +651,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.CustomTestFieldDefinition[]> {
 
         return this.beginRequest<Test.CustomTestFieldDefinition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/ExtensionFields",
             routeValues: {
@@ -799,7 +675,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.CustomTestFieldDefinition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ExtensionFields",
             routeValues: {
                 project: project
@@ -818,7 +694,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestResultHistory> {
 
         return this.beginRequest<Test.TestResultHistory>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Results/History",
             routeValues: {
@@ -850,7 +726,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestIterationDetailsModel>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Iterations/{iterationId}",
             routeValues: {
                 project: project,
@@ -882,7 +758,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestIterationDetailsModel[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Iterations/{iterationId}",
             routeValues: {
                 project: project,
@@ -903,7 +779,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.LinkedWorkItemsQueryResult[]> {
 
         return this.beginRequest<Test.LinkedWorkItemsQueryResult[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/LinkedWorkItemsQuery",
             routeValues: {
@@ -925,7 +801,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestMessageLogDetails[]> {
 
         return this.beginRequest<Test.TestMessageLogDetails[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/MessageLogs",
             routeValues: {
                 project: project,
@@ -956,7 +832,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultParameterModel[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}/Iterations/{iterationId}/ParameterResults",
             routeValues: {
                 project: project,
@@ -965,133 +841,6 @@ export class TestRestClient extends RestClientBase {
                 iterationId: iterationId
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Create a test plan.
-     * 
-     * @param testPlan - A test plan object.
-     * @param project - Project ID or project name
-     */
-    public async createTestPlan(
-        testPlan: Test.PlanUpdateModel,
-        project: string
-        ): Promise<Test.TestPlan> {
-
-        return this.beginRequest<Test.TestPlan>({
-            apiVersion: "5.0-preview.2",
-            method: "POST",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}",
-            routeValues: {
-                project: project
-            },
-            body: testPlan
-        });
-    }
-
-    /**
-     * Delete a test plan.
-     * 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan to be deleted.
-     */
-    public async deleteTestPlan(
-        project: string,
-        planId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}",
-            routeValues: {
-                project: project,
-                planId: planId
-            }
-        });
-    }
-
-    /**
-     * Get test plan by ID.
-     * 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan to return.
-     */
-    public async getPlanById(
-        project: string,
-        planId: number
-        ): Promise<Test.TestPlan> {
-
-        return this.beginRequest<Test.TestPlan>({
-            apiVersion: "5.0-preview.2",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}",
-            routeValues: {
-                project: project,
-                planId: planId
-            }
-        });
-    }
-
-    /**
-     * Get a list of test plans.
-     * 
-     * @param project - Project ID or project name
-     * @param owner - Filter for test plan by owner ID or name.
-     * @param skip - Number of test plans to skip.
-     * @param top - Number of test plans to return.
-     * @param includePlanDetails - Get all properties of the test plan.
-     * @param filterActivePlans - Get just the active plans.
-     */
-    public async getPlans(
-        project: string,
-        owner?: string,
-        skip?: number,
-        top?: number,
-        includePlanDetails?: boolean,
-        filterActivePlans?: boolean
-        ): Promise<Test.TestPlan[]> {
-
-        const queryValues: any = {
-            owner: owner,
-            '$skip': skip,
-            '$top': top,
-            includePlanDetails: includePlanDetails,
-            filterActivePlans: filterActivePlans
-        };
-
-        return this.beginRequest<Test.TestPlan[]>({
-            apiVersion: "5.0-preview.2",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update a test plan.
-     * 
-     * @param planUpdateModel - 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan to be updated.
-     */
-    public async updateTestPlan(
-        planUpdateModel: Test.PlanUpdateModel,
-        project: string,
-        planId: number
-        ): Promise<Test.TestPlan> {
-
-        return this.beginRequest<Test.TestPlan>({
-            apiVersion: "5.0-preview.2",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}",
-            routeValues: {
-                project: project,
-                planId: planId
-            },
-            body: planUpdateModel
         });
     }
 
@@ -1117,7 +866,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestPoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/Points/{pointIds}",
             routeValues: {
                 project: project,
@@ -1167,7 +916,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestPoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/Points/{pointIds}",
             routeValues: {
                 project: project,
@@ -1196,7 +945,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestPoint[]> {
 
         return this.beginRequest<Test.TestPoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/Points/{pointIds}",
             routeValues: {
@@ -1230,7 +979,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestPointsQuery>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Points",
             routeValues: {
@@ -1273,7 +1022,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsDetails>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ResultDetailsByBuild",
             routeValues: {
                 project: project
@@ -1317,7 +1066,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsDetails>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ResultDetailsByRelease",
             routeValues: {
                 project: project
@@ -1338,7 +1087,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestResultDocument> {
 
         return this.beginRequest<Test.TestResultDocument>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/ResultDocument",
             routeValues: {
@@ -1372,7 +1121,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.FieldDetailsForTestResults[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/ResultGroupsByBuild",
             routeValues: {
                 project: project
@@ -1407,7 +1156,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.FieldDetailsForTestResults[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/ResultGroupsByRelease",
             routeValues: {
                 project: project
@@ -1432,7 +1181,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultMetaData[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Results/ResultMetaData",
             routeValues: {
                 project: project
@@ -1451,7 +1200,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.ResultRetentionSettings> {
 
         return this.beginRequest<Test.ResultRetentionSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ResultRetentionSettings",
             routeValues: {
                 project: project
@@ -1471,7 +1220,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.ResultRetentionSettings> {
 
         return this.beginRequest<Test.ResultRetentionSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/ResultRetentionSettings",
             routeValues: {
@@ -1495,7 +1244,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestCaseResult[]> {
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.0-preview.5",
+            apiVersion: "5.1-preview.5",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}",
             routeValues: {
@@ -1526,7 +1275,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult>({
-            apiVersion: "5.0-preview.5",
+            apiVersion: "5.1-preview.5",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}",
             routeValues: {
                 project: project,
@@ -1564,7 +1313,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.0-preview.5",
+            apiVersion: "5.1-preview.5",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}",
             routeValues: {
                 project: project,
@@ -1588,7 +1337,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestCaseResult[]> {
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.0-preview.5",
+            apiVersion: "5.1-preview.5",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Results/{testCaseResultId}",
             routeValues: {
@@ -1609,7 +1358,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestResultsQuery> {
 
         return this.beginRequest<Test.TestResultsQuery>({
-            apiVersion: "5.0-preview.5",
+            apiVersion: "5.1-preview.5",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Results",
             routeValues: {
@@ -1645,7 +1394,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.ShallowTestCaseResult[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ResultsByBuild",
             routeValues: {
                 project: project
@@ -1683,7 +1432,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.ShallowTestCaseResult[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/ResultsByRelease",
             routeValues: {
                 project: project
@@ -1715,7 +1464,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultSummary>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/ResultSummaryByBuild",
             routeValues: {
                 project: project
@@ -1750,7 +1499,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultSummary>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/ResultSummaryByRelease",
             routeValues: {
                 project: project
@@ -1769,7 +1518,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestResultSummary[]> {
 
         return this.beginRequest<Test.TestResultSummary[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/test/ResultSummaryByRelease",
             routeValues: {
@@ -1795,7 +1544,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestSummaryForWorkItem[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/ResultSummaryByRequirement",
             routeValues: {
@@ -1816,7 +1565,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.AggregatedDataForResultTrend[]> {
 
         return this.beginRequest<Test.AggregatedDataForResultTrend[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/ResultTrendByBuild",
             routeValues: {
@@ -1836,7 +1585,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.AggregatedDataForResultTrend[]> {
 
         return this.beginRequest<Test.AggregatedDataForResultTrend[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/ResultTrendByRelease",
             routeValues: {
@@ -1858,7 +1607,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestRunStatistic> {
 
         return this.beginRequest<Test.TestRunStatistic>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Runs/{runId}/Statistics",
             routeValues: {
                 project: project,
@@ -1879,7 +1628,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestRun> {
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
@@ -1901,7 +1650,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
@@ -1929,7 +1678,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
                 project: project,
@@ -1976,7 +1725,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRun[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
                 project: project
@@ -2046,7 +1795,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRun[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
                 project: project
@@ -2069,7 +1818,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestRun> {
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/Runs/{runId}",
             routeValues: {
@@ -2095,7 +1844,7 @@ export class TestRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Test.TestSession>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/test/Session/{testSessionId}",
             routeValues: {
@@ -2137,7 +1886,7 @@ export class TestRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Test.TestSession[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/{team}/_apis/test/Session/{testSessionId}",
             routeValues: {
                 project: project,
@@ -2162,7 +1911,7 @@ export class TestRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Test.TestSession>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/test/Session/{testSessionId}",
             routeValues: {
@@ -2183,7 +1932,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/SharedParameter/{sharedParameterId}",
             routeValues: {
@@ -2203,7 +1952,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/SharedStep/{sharedStepId}",
             routeValues: {
@@ -2225,7 +1974,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteEntry[]> {
 
         return this.beginRequest<Test.SuiteEntry[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/SuiteEntry/{suiteId}",
             routeValues: {
                 project: project,
@@ -2248,7 +1997,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteEntry[]> {
 
         return this.beginRequest<Test.SuiteEntry[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/SuiteEntry/{suiteId}",
             routeValues: {
@@ -2275,7 +2024,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteTestCase[]> {
 
         return this.beginRequest<Test.SuiteTestCase[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/{action}/{testCaseIds}",
             routeValues: {
@@ -2304,7 +2053,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteTestCase> {
 
         return this.beginRequest<Test.SuiteTestCase>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/{action}/{testCaseIds}",
             routeValues: {
                 project: project,
@@ -2330,7 +2079,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteTestCase[]> {
 
         return this.beginRequest<Test.SuiteTestCase[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/{action}/{testCaseIds}",
             routeValues: {
                 project: project,
@@ -2357,7 +2106,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/{action}/{testCaseIds}",
             routeValues: {
@@ -2388,7 +2137,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.SuiteTestCase[]> {
 
         return this.beginRequest<Test.SuiteTestCase[]>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "PATCH",
             routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}/{action}/{testCaseIds}",
             routeValues: {
@@ -2399,175 +2148,6 @@ export class TestRestClient extends RestClientBase {
                 action: "TestCases"
             },
             body: suiteTestCaseUpdateModel
-        });
-    }
-
-    /**
-     * Create a test suite.
-     * 
-     * @param testSuite - Test suite data.
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan that contains the suite.
-     * @param suiteId - ID of the parent suite.
-     */
-    public async createTestSuite(
-        testSuite: Test.SuiteCreateModel,
-        project: string,
-        planId: number,
-        suiteId: number
-        ): Promise<Test.TestSuite[]> {
-
-        return this.beginRequest<Test.TestSuite[]>({
-            apiVersion: "5.0-preview.3",
-            method: "POST",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}",
-            routeValues: {
-                project: project,
-                planId: planId,
-                suiteId: suiteId
-            },
-            body: testSuite
-        });
-    }
-
-    /**
-     * Delete test suite.
-     * 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan that contains the suite.
-     * @param suiteId - ID of the test suite to delete.
-     */
-    public async deleteTestSuite(
-        project: string,
-        planId: number,
-        suiteId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.3",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}",
-            routeValues: {
-                project: project,
-                planId: planId,
-                suiteId: suiteId
-            }
-        });
-    }
-
-    /**
-     * Get test suite by suite id.
-     * 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan that contains the suites.
-     * @param suiteId - ID of the suite to get.
-     * @param expand - Include the children suites and testers details
-     */
-    public async getTestSuiteById(
-        project: string,
-        planId: number,
-        suiteId: number,
-        expand?: number
-        ): Promise<Test.TestSuite> {
-
-        const queryValues: any = {
-            '$expand': expand
-        };
-
-        return this.beginRequest<Test.TestSuite>({
-            apiVersion: "5.0-preview.3",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}",
-            routeValues: {
-                project: project,
-                planId: planId,
-                suiteId: suiteId
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Get test suites for plan.
-     * 
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan for which suites are requested.
-     * @param expand - Include the children suites and testers details.
-     * @param skip - Number of suites to skip from the result.
-     * @param top - Number of Suites to be return after skipping the suites from the result.
-     * @param asTreeView - If the suites returned should be in a tree structure.
-     */
-    public async getTestSuitesForPlan(
-        project: string,
-        planId: number,
-        expand?: number,
-        skip?: number,
-        top?: number,
-        asTreeView?: boolean
-        ): Promise<Test.TestSuite[]> {
-
-        const queryValues: any = {
-            '$expand': expand,
-            '$skip': skip,
-            '$top': top,
-            '$asTreeView': asTreeView
-        };
-
-        return this.beginRequest<Test.TestSuite[]>({
-            apiVersion: "5.0-preview.3",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}",
-            routeValues: {
-                project: project,
-                planId: planId
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update a test suite.
-     * 
-     * @param suiteUpdateModel - Suite Model to update
-     * @param project - Project ID or project name
-     * @param planId - ID of the test plan that contains the suites.
-     * @param suiteId - ID of the suite to update.
-     */
-    public async updateTestSuite(
-        suiteUpdateModel: Test.SuiteUpdateModel,
-        project: string,
-        planId: number,
-        suiteId: number
-        ): Promise<Test.TestSuite> {
-
-        return this.beginRequest<Test.TestSuite>({
-            apiVersion: "5.0-preview.3",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/test/Plans/{planId}/Suites/{suiteId}",
-            routeValues: {
-                project: project,
-                planId: planId,
-                suiteId: suiteId
-            },
-            body: suiteUpdateModel
-        });
-    }
-
-    /**
-     * Find the list of all test suites in which a given test case is present. This is helpful if you need to find out which test suites are using a test case, when you need to make changes to a test case.
-     * 
-     * @param testCaseId - ID of the test case for which suites need to be fetched.
-     */
-    public async getSuitesByTestCaseId(
-        testCaseId: number
-        ): Promise<Test.TestSuite[]> {
-
-        const queryValues: any = {
-            testCaseId: testCaseId
-        };
-
-        return this.beginRequest<Test.TestSuite[]>({
-            apiVersion: "5.0-preview.3",
-            routeTemplate: "_apis/test/Suites",
-            queryParams: queryValues
         });
     }
 
@@ -2583,7 +2163,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/TestCases/{testCaseId}",
             routeValues: {
@@ -2605,7 +2185,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestHistoryQuery> {
 
         return this.beginRequest<Test.TestHistoryQuery>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/Results/TestHistory",
             routeValues: {
@@ -2625,7 +2205,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<number> {
 
         return this.beginRequest<number>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/TestSettings/{testSettingsId}",
             routeValues: {
@@ -2645,7 +2225,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/TestSettings/{testSettingsId}",
             routeValues: {
@@ -2665,130 +2245,12 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.TestSettings> {
 
         return this.beginRequest<Test.TestSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/TestSettings/{testSettingsId}",
             routeValues: {
                 project: project,
                 testSettingsId: testSettingsId
             }
-        });
-    }
-
-    /**
-     * Create a test variable.
-     * 
-     * @param testVariable - TestVariable
-     * @param project - Project ID or project name
-     */
-    public async createTestVariable(
-        testVariable: Test.TestVariable,
-        project: string
-        ): Promise<Test.TestVariable> {
-
-        return this.beginRequest<Test.TestVariable>({
-            apiVersion: "5.0-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/test/Variables/{testVariableId}",
-            routeValues: {
-                project: project
-            },
-            body: testVariable
-        });
-    }
-
-    /**
-     * Delete a test variable by its ID.
-     * 
-     * @param project - Project ID or project name
-     * @param testVariableId - ID of the test variable to delete.
-     */
-    public async deleteTestVariable(
-        project: string,
-        testVariableId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/test/Variables/{testVariableId}",
-            routeValues: {
-                project: project,
-                testVariableId: testVariableId
-            }
-        });
-    }
-
-    /**
-     * Get a test variable by its ID.
-     * 
-     * @param project - Project ID or project name
-     * @param testVariableId - ID of the test variable to get.
-     */
-    public async getTestVariableById(
-        project: string,
-        testVariableId: number
-        ): Promise<Test.TestVariable> {
-
-        return this.beginRequest<Test.TestVariable>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/test/Variables/{testVariableId}",
-            routeValues: {
-                project: project,
-                testVariableId: testVariableId
-            }
-        });
-    }
-
-    /**
-     * Get a list of test variables.
-     * 
-     * @param project - Project ID or project name
-     * @param skip - Number of test variables to skip.
-     * @param top - Number of test variables to return.
-     */
-    public async getTestVariables(
-        project: string,
-        skip?: number,
-        top?: number
-        ): Promise<Test.TestVariable[]> {
-
-        const queryValues: any = {
-            '$skip': skip,
-            '$top': top
-        };
-
-        return this.beginRequest<Test.TestVariable[]>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/test/Variables/{testVariableId}",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update a test variable by its ID.
-     * 
-     * @param testVariable - TestVariable
-     * @param project - Project ID or project name
-     * @param testVariableId - ID of the test variable to update.
-     */
-    public async updateTestVariable(
-        testVariable: Test.TestVariable,
-        project: string,
-        testVariableId: number
-        ): Promise<Test.TestVariable> {
-
-        return this.beginRequest<Test.TestVariable>({
-            apiVersion: "5.0-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/test/Variables/{testVariableId}",
-            routeValues: {
-                project: project,
-                testVariableId: testVariableId
-            },
-            body: testVariable
         });
     }
 
@@ -2802,7 +2264,7 @@ export class TestRestClient extends RestClientBase {
         ): Promise<Test.WorkItemToTestLinks> {
 
         return this.beginRequest<Test.WorkItemToTestLinks>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/TestMethods/WorkItems",
             routeValues: {
@@ -2829,7 +2291,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<boolean>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/test/TestMethods/{testName}/WorkItems/{workItemId}",
             routeValues: {
@@ -2853,7 +2315,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestToWorkItemLinks>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/test/TestMethods/{testName}/WorkItems/{workItemId}",
             routeValues: {
@@ -2892,7 +2354,7 @@ export class TestRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.WorkItemReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/test/Results/WorkItems",
             routeValues: {
                 project: project

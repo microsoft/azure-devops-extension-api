@@ -103,8 +103,10 @@ export interface ProjectProperty {
 export const enum ProjectVisibility {
     Unchanged = -1,
     Private = 0,
+    /**
+     * Enterprise level project visibility
+     */
     Organization = 1,
-    Enterprise = 1,
     Public = 2,
     SystemPrivate = 3
 }

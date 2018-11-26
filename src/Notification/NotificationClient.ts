@@ -23,7 +23,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/BatchNotificationOperations",
             body: operation
@@ -51,7 +51,7 @@ export class NotificationRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Notification.INotificationDiagnosticLog[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/DiagnosticLogs/{source}/entries/{entryId}",
             routeValues: {
                 source: source,
@@ -69,7 +69,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.SubscriptionDiagnostics> {
 
         return this.beginRequest<Notification.SubscriptionDiagnostics>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/subscriptions/{subscriptionId}/diagnostics",
             routeValues: {
                 subscriptionId: subscriptionId
@@ -87,7 +87,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.SubscriptionDiagnostics> {
 
         return this.beginRequest<Notification.SubscriptionDiagnostics>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/notification/subscriptions/{subscriptionId}/diagnostics",
             routeValues: {
@@ -107,7 +107,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<WebApi.VssNotificationEvent> {
 
         return this.beginRequest<WebApi.VssNotificationEvent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/Events",
             body: notificationEvent
@@ -124,7 +124,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.EventTransformResult> {
 
         return this.beginRequest<Notification.EventTransformResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/EventTransforms",
             body: transformRequest
@@ -141,7 +141,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationEventField[]> {
 
         return this.beginRequest<Notification.NotificationEventField[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/eventTypes/{eventType}/fieldValuesQuery",
             routeValues: {
@@ -161,7 +161,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationEventType> {
 
         return this.beginRequest<Notification.NotificationEventType>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/EventTypes/{eventType}",
             routeValues: {
                 eventType: eventType
@@ -183,7 +183,7 @@ export class NotificationRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Notification.NotificationEventType[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/EventTypes/{eventType}",
             queryParams: queryValues
         });
@@ -197,7 +197,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationReason> {
 
         return this.beginRequest<Notification.NotificationReason>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/NotificationReasons/{notificationId}",
             routeValues: {
                 notificationId: notificationId
@@ -217,7 +217,7 @@ export class NotificationRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Notification.NotificationReason[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/NotificationReasons/{notificationId}",
             queryParams: queryValues
         });
@@ -229,7 +229,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationAdminSettings> {
 
         return this.beginRequest<Notification.NotificationAdminSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/Settings"
         });
     }
@@ -242,7 +242,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationAdminSettings> {
 
         return this.beginRequest<Notification.NotificationAdminSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/notification/Settings",
             body: updateParameters
@@ -257,7 +257,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscriber> {
 
         return this.beginRequest<Notification.NotificationSubscriber>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/Subscribers/{subscriberId}",
             routeValues: {
                 subscriberId: subscriberId
@@ -275,7 +275,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscriber> {
 
         return this.beginRequest<Notification.NotificationSubscriber>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/notification/Subscribers/{subscriberId}",
             routeValues: {
@@ -295,7 +295,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscription[]> {
 
         return this.beginRequest<Notification.NotificationSubscription[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/SubscriptionQuery",
             body: subscriptionQuery
@@ -312,7 +312,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscription> {
 
         return this.beginRequest<Notification.NotificationSubscription>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}",
             body: createParameters
@@ -329,7 +329,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}",
             routeValues: {
@@ -354,7 +354,7 @@ export class NotificationRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Notification.NotificationSubscription>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}",
             routeValues: {
                 subscriptionId: subscriptionId
@@ -381,7 +381,7 @@ export class NotificationRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Notification.NotificationSubscription[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}",
             queryParams: queryValues
         });
@@ -399,7 +399,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscription> {
 
         return this.beginRequest<Notification.NotificationSubscription>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}",
             routeValues: {
@@ -417,7 +417,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.NotificationSubscriptionTemplate[]> {
 
         return this.beginRequest<Notification.NotificationSubscriptionTemplate[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/notification/SubscriptionTemplates"
         });
     }
@@ -436,7 +436,7 @@ export class NotificationRestClient extends RestClientBase {
         ): Promise<Notification.SubscriptionUserSettings> {
 
         return this.beginRequest<Notification.SubscriptionUserSettings>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/notification/Subscriptions/{subscriptionId}/UserSettings/{userId}",
             routeValues: {

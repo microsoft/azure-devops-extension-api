@@ -24,7 +24,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloud> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloud>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}",
             body: agentCloud
@@ -39,7 +39,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloud> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloud>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}",
             routeValues: {
@@ -56,7 +56,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloud> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloud>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}",
             routeValues: {
                 agentCloudId: agentCloudId
@@ -70,7 +70,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloud[]> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloud[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}"
         });
     }
@@ -83,7 +83,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloudType[]> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloudType[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/agentcloudtypes"
         });
     }
@@ -98,7 +98,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentJobRequest> {
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/queues/{queueId}/agentrequests/{requestId}",
             routeValues: {
@@ -118,7 +118,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgent> {
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
@@ -138,7 +138,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
@@ -170,7 +170,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
                 poolId: poolId,
@@ -206,7 +206,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgent[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
                 poolId: poolId
@@ -227,7 +227,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgent> {
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
@@ -250,7 +250,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgent> {
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
             routeValues: {
@@ -269,7 +269,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.AzureManagementGroupQueryResult> {
 
         return this.beginRequest<TaskAgent.AzureManagementGroupQueryResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/azurermmanagementgroups"
         });
     }
@@ -282,7 +282,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.AzureSubscriptionQueryResult> {
 
         return this.beginRequest<TaskAgent.AzureSubscriptionQueryResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/azurermsubscriptions"
         });
     }
@@ -299,7 +299,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroupaccesstoken/{deploymentGroupId}",
             routeValues: {
@@ -321,7 +321,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentGroup> {
 
         return this.beginRequest<TaskAgent.DeploymentGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}",
             routeValues: {
@@ -343,7 +343,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}",
             routeValues: {
@@ -374,7 +374,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}",
             routeValues: {
                 project: project,
@@ -415,7 +415,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}",
             routeValues: {
                 project: project
@@ -438,7 +438,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentGroup> {
 
         return this.beginRequest<TaskAgent.DeploymentGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}",
             routeValues: {
@@ -471,7 +471,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentGroupMetrics[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/deploymentgroupsmetrics",
             routeValues: {
                 project: project
@@ -499,7 +499,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentmachinejobrequests/{requestId}",
             routeValues: {
                 project: project,
@@ -528,7 +528,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentmachinejobrequests/{requestId}",
             routeValues: {
                 project: project,
@@ -548,7 +548,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentmachinemessages",
             routeValues: {
@@ -568,7 +568,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/deploymentpoolaccesstoken/{poolId}",
             routeValues: {
@@ -594,7 +594,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentPoolSummary[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/deploymentPools/deploymentPoolsSummary",
             queryParams: queryValues
         });
@@ -621,7 +621,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentTargetJobRequests",
             routeValues: {
                 project: project,
@@ -658,7 +658,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentTargetJobRequests",
             routeValues: {
                 project: project,
@@ -680,7 +680,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/deploymentTargetMessages",
             routeValues: {
@@ -700,7 +700,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/endpoint",
             body: endpoint
@@ -716,10 +716,10 @@ export class TaskAgentRestClient extends RestClientBase {
     public async addEnvironment(
         environmentCreateParameter: TaskAgent.EnvironmentCreateParameter,
         project: string
-        ): Promise<TaskAgent.Environment> {
+        ): Promise<TaskAgent.DistributedTaskEnvironment> {
 
-        return this.beginRequest<TaskAgent.Environment>({
-            apiVersion: "5.0-preview.1",
+        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
@@ -741,7 +741,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
@@ -762,14 +762,14 @@ export class TaskAgentRestClient extends RestClientBase {
         project: string,
         environmentId: number,
         expands?: TaskAgent.EnvironmentExpands
-        ): Promise<TaskAgent.Environment> {
+        ): Promise<TaskAgent.DistributedTaskEnvironment> {
 
         const queryValues: any = {
             expands: expands
         };
 
-        return this.beginRequest<TaskAgent.Environment>({
-            apiVersion: "5.0-preview.1",
+        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
                 project: project,
@@ -792,7 +792,7 @@ export class TaskAgentRestClient extends RestClientBase {
         name?: string,
         continuationToken?: string,
         top?: number
-        ): Promise<TaskAgent.Environment[]> {
+        ): Promise<TaskAgent.DistributedTaskEnvironment[]> {
 
         const queryValues: any = {
             name: name,
@@ -800,8 +800,8 @@ export class TaskAgentRestClient extends RestClientBase {
             '$top': top
         };
 
-        return this.beginRequest<TaskAgent.Environment[]>({
-            apiVersion: "5.0-preview.1",
+        return this.beginRequest<TaskAgent.DistributedTaskEnvironment[]>({
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
                 project: project
@@ -821,10 +821,10 @@ export class TaskAgentRestClient extends RestClientBase {
         environmentUpdateParameter: TaskAgent.EnvironmentUpdateParameter,
         project: string,
         environmentId: number
-        ): Promise<TaskAgent.Environment> {
+        ): Promise<TaskAgent.DistributedTaskEnvironment> {
 
-        return this.beginRequest<TaskAgent.Environment>({
-            apiVersion: "5.0-preview.1",
+        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
@@ -832,52 +832,6 @@ export class TaskAgentRestClient extends RestClientBase {
                 environmentId: environmentId
             },
             body: environmentUpdateParameter
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param endpointId - 
-     * @param top - 
-     */
-    public async getServiceEndpointExecutionRecords(
-        project: string,
-        endpointId: string,
-        top?: number
-        ): Promise<TaskAgent.ServiceEndpointExecutionRecord[]> {
-
-        const queryValues: any = {
-            top: top
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}/executionhistory",
-            routeValues: {
-                project: project,
-                endpointId: endpointId
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param input - 
-     * @param project - Project ID or project name
-     */
-    public async addServiceEndpointExecutionRecords(
-        input: TaskAgent.ServiceEndpointExecutionRecordsInput,
-        project: string
-        ): Promise<TaskAgent.ServiceEndpointExecutionRecord[]> {
-
-        return this.beginRequest<TaskAgent.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.0-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/executionhistory",
-            routeValues: {
-                project: project
-            },
-            body: input
         });
     }
 
@@ -898,7 +852,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskHubLicenseDetails>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "_apis/distributedtask/hublicense/{hubName}",
             routeValues: {
                 hubName: hubName
@@ -917,7 +871,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskHubLicenseDetails> {
 
         return this.beginRequest<TaskAgent.TaskHubLicenseDetails>({
-            apiVersion: "5.0-preview.3",
+            apiVersion: "5.1-preview.3",
             method: "PUT",
             routeTemplate: "_apis/distributedtask/hublicense/{hubName}",
             routeValues: {
@@ -935,7 +889,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.InputValidationRequest> {
 
         return this.beginRequest<TaskAgent.InputValidationRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/inputvalidation",
             body: inputValidationRequest
@@ -961,7 +915,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
@@ -982,7 +936,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentJobRequest> {
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
                 poolId: poolId,
@@ -1008,7 +962,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
                 poolId: poolId
@@ -1034,7 +988,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
                 poolId: poolId
@@ -1060,7 +1014,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
                 poolId: poolId
@@ -1079,7 +1033,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentJobRequest> {
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
@@ -1107,7 +1061,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
             routeValues: {
@@ -1131,7 +1085,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.KubernetesServiceGroup> {
 
         return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
             routeValues: {
@@ -1154,7 +1108,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
             routeValues: {
@@ -1177,7 +1131,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.KubernetesServiceGroup> {
 
         return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
             routeValues: {
                 project: project,
@@ -1199,7 +1153,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.KubernetesServiceGroup> {
 
         return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
             routeValues: {
@@ -1220,7 +1174,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/machinegroupaccesstoken/{machineGroupId}",
             routeValues: {
@@ -1240,7 +1194,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachineGroup> {
 
         return this.beginRequest<TaskAgent.DeploymentMachineGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}",
             routeValues: {
@@ -1260,7 +1214,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}",
             routeValues: {
@@ -1286,7 +1240,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachineGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}",
             routeValues: {
                 project: project,
@@ -1313,7 +1267,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachineGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}",
             routeValues: {
                 project: project
@@ -1334,7 +1288,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachineGroup> {
 
         return this.beginRequest<TaskAgent.DeploymentMachineGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}",
             routeValues: {
@@ -1361,7 +1315,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}/machines",
             routeValues: {
                 project: project,
@@ -1383,7 +1337,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine[]> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/machinegroups/{machineGroupId}/machines",
             routeValues: {
@@ -1406,7 +1360,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
@@ -1429,7 +1383,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
@@ -1458,7 +1412,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
                 project: project,
@@ -1491,7 +1445,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
                 project: project,
@@ -1515,7 +1469,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
@@ -1541,7 +1495,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
@@ -1565,7 +1519,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine[]> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/machines/{machineId}",
             routeValues: {
@@ -1586,7 +1540,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceDefinition> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancedefinitions/{definitionId}",
             routeValues: {
@@ -1606,7 +1560,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancedefinitions/{definitionId}",
             routeValues: {
@@ -1626,7 +1580,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceDefinition> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancedefinitions/{definitionId}",
             routeValues: {
                 poolId: poolId,
@@ -1643,7 +1597,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceDefinition[]> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceDefinition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancedefinitions/{definitionId}",
             routeValues: {
                 poolId: poolId
@@ -1663,7 +1617,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceDefinition> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancedefinitions/{definitionId}",
             routeValues: {
@@ -1684,7 +1638,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
@@ -1704,7 +1658,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceJob> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceJob>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
                 poolId: poolId,
@@ -1723,7 +1677,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
@@ -1747,7 +1701,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceJob[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
                 poolId: poolId
@@ -1766,7 +1720,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceJob> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceJob>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
@@ -1788,7 +1742,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPoolMaintenanceJob> {
 
         return this.beginRequest<TaskAgent.TaskAgentPoolMaintenanceJob>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/maintenancejobs/{jobId}",
             routeValues: {
@@ -1815,7 +1769,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/messages/{messageId}",
             routeValues: {
@@ -1843,7 +1797,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentMessage>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/messages/{messageId}",
             routeValues: {
                 poolId: poolId
@@ -1866,7 +1820,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/messages/{messageId}",
             routeValues: {
@@ -1884,7 +1838,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/messages/{messageId}",
             routeValues: {
@@ -1909,7 +1863,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/messages/{messageId}",
             routeValues: {
@@ -1932,7 +1886,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.PackageMetadata> {
 
         return this.beginRequest<TaskAgent.PackageMetadata>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "_apis/distributedtask/packages/{packageType}/{platform}/{version}",
             routeValues: {
                 packageType: packageType,
@@ -1958,7 +1912,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.PackageMetadata[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "_apis/distributedtask/packages/{packageType}/{platform}/{version}",
             routeValues: {
                 packageType: packageType,
@@ -1976,7 +1930,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/poolmetadata",
             routeValues: {
@@ -1993,7 +1947,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPool> {
 
         return this.beginRequest<TaskAgent.TaskAgentPool>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}",
             body: pool
@@ -2008,7 +1962,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}",
             routeValues: {
@@ -2034,7 +1988,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentPool>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}",
             routeValues: {
                 poolId: poolId
@@ -2064,7 +2018,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentPool[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/pools/{poolId}",
             queryParams: queryValues
         });
@@ -2080,7 +2034,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentPool> {
 
         return this.beginRequest<TaskAgent.TaskAgentPool>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/distributedtask/pools/{poolId}",
             routeValues: {
@@ -2100,7 +2054,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentQueue> {
 
         return this.beginRequest<TaskAgent.TaskAgentQueue>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
@@ -2118,7 +2072,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
@@ -2137,7 +2091,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
@@ -2163,7 +2117,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentQueue>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
                 project: project,
@@ -2190,7 +2144,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentQueue[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
                 project: project
@@ -2216,7 +2170,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentQueue[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
                 project: project
@@ -2242,7 +2196,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgentQueue[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
             routeValues: {
                 project: project
@@ -2259,7 +2213,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentCloudRequest[]> {
 
         return this.beginRequest<TaskAgent.TaskAgentCloudRequest[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}/requests",
             routeValues: {
                 agentCloudId: agentCloudId
@@ -2273,7 +2227,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.ResourceLimit[]> {
 
         return this.beginRequest<TaskAgent.ResourceLimit[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/resourcelimits"
         });
     }
@@ -2296,7 +2250,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.ResourceUsage>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "_apis/distributedtask/resourceusage",
             queryParams: queryValues
         });
@@ -2312,7 +2266,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskGroupRevision[]> {
 
         return this.beginRequest<TaskAgent.TaskGroupRevision[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}/revisions",
             routeValues: {
                 project: project,
@@ -2333,7 +2287,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2364,7 +2318,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2396,7 +2350,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
                 project: project,
@@ -2428,7 +2382,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
                 project: project
@@ -2459,7 +2413,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
                 project: project
@@ -2490,7 +2444,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
                 project: project
@@ -2517,7 +2471,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2542,7 +2496,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.SecureFile> {
 
         return this.beginRequest<TaskAgent.SecureFile>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2565,7 +2519,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.SecureFile[]> {
 
         return this.beginRequest<TaskAgent.SecureFile[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2593,7 +2547,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.SecureFile>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/securefiles/{secureFileId}",
             routeValues: {
@@ -2609,55 +2563,6 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param serviceEndpointRequest - 
-     * @param project - Project ID or project name
-     * @param endpointId - 
-     */
-    public async executeServiceEndpointRequest(
-        serviceEndpointRequest: TaskAgent.ServiceEndpointRequest,
-        project: string,
-        endpointId: string
-        ): Promise<TaskAgent.ServiceEndpointRequestResult> {
-
-        const queryValues: any = {
-            endpointId: endpointId
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpointRequestResult>({
-            apiVersion: "5.0-preview.2",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpointproxy",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues,
-            body: serviceEndpointRequest
-        });
-    }
-
-    /**
-     * Proxy for a GET request defined by an service endpoint. The request is authorized using a data source in service endpoint. The response is filtered using an XPath/Json based selector.
-     * 
-     * @param binding - Describes the data source to fetch.
-     * @param project - Project ID or project name
-     */
-    public async queryServiceEndpoint(
-        binding: TaskAgent.DataSourceBinding,
-        project: string
-        ): Promise<string[]> {
-
-        return this.beginRequest<string[]>({
-            apiVersion: "5.0-preview.2",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpointproxy",
-            routeValues: {
-                project: project
-            },
-            body: binding
-        });
-    }
-
-    /**
      * @param endpoint - 
      * @param project - Project ID or project name
      */
@@ -2667,7 +2572,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.ServiceEndpoint> {
 
         return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
@@ -2687,7 +2592,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
@@ -2707,7 +2612,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.ServiceEndpoint> {
 
         return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
                 project: project,
@@ -2739,7 +2644,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -2771,7 +2676,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -2798,7 +2703,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
@@ -2820,34 +2725,13 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.ServiceEndpoint[]> {
 
         return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
             routeValues: {
                 project: project
             },
             body: endpoints
-        });
-    }
-
-    /**
-     * @param type - 
-     * @param scheme - 
-     */
-    public async getServiceEndpointTypes(
-        type?: string,
-        scheme?: string
-        ): Promise<TaskAgent.ServiceEndpointType[]> {
-
-        const queryValues: any = {
-            type: type,
-            scheme: scheme
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpointType[]>({
-            apiVersion: "5.0-preview.1",
-            routeTemplate: "_apis/distributedtask/serviceendpointtypes",
-            queryParams: queryValues
         });
     }
 
@@ -2861,7 +2745,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgentSession> {
 
         return this.beginRequest<TaskAgent.TaskAgentSession>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/sessions/{sessionId}",
             routeValues: {
@@ -2881,7 +2765,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/sessions/{sessionId}",
             routeValues: {
@@ -2905,7 +2789,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
@@ -2930,7 +2814,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
@@ -2961,7 +2845,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
                 project: project,
@@ -3014,7 +2898,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
                 project: project,
@@ -3040,7 +2924,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
@@ -3068,7 +2952,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
@@ -3094,7 +2978,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.DeploymentMachine[]> {
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/deploymentgroups/{deploymentGroupId}/targets/{targetId}",
             routeValues: {
@@ -3117,7 +3001,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskGroup> {
 
         return this.beginRequest<TaskAgent.TaskGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3145,7 +3029,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3177,7 +3061,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
                 project: project,
@@ -3203,7 +3087,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3247,7 +3131,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
                 project: project,
@@ -3275,7 +3159,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3303,7 +3187,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3324,7 +3208,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskGroup[]> {
 
         return this.beginRequest<TaskAgent.TaskGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3348,7 +3232,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskGroup> {
 
         return this.beginRequest<TaskAgent.TaskGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
             routeValues: {
@@ -3367,7 +3251,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
@@ -3395,7 +3279,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
@@ -3425,7 +3309,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskDefinition>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
                 taskId: taskId,
@@ -3452,7 +3336,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskDefinition[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
                 taskId: taskId
@@ -3477,7 +3361,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}/updates",
             routeValues: {
@@ -3500,7 +3384,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskAgent> {
 
         return this.beginRequest<TaskAgent.TaskAgent>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}/usercapabilities",
             routeValues: {
@@ -3523,7 +3407,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.VariableGroup> {
 
         return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
@@ -3545,7 +3429,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
@@ -3567,7 +3451,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.VariableGroup> {
 
         return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project,
@@ -3604,7 +3488,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.VariableGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project
@@ -3629,7 +3513,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.VariableGroup[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project
@@ -3652,7 +3536,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.VariableGroup> {
 
         return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
@@ -3677,7 +3561,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.ProjectReference[]>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/variablegroupshare/{groupId}",
             routeValues: {
                 groupId: groupId
@@ -3703,7 +3587,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/variablegroupshare/{groupId}",
             routeValues: {
@@ -3721,7 +3605,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.AadOauthTokenResult> {
 
         return this.beginRequest<TaskAgent.AadOauthTokenResult>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/vstsaadoauth",
             body: authenticationRequest
@@ -3752,7 +3636,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/vstsaadoauth",
             queryParams: queryValues
@@ -3765,7 +3649,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/vstsaadoauth"
         });
     }

@@ -44,7 +44,7 @@ export class WikiRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{*path}",
             routeValues: {
@@ -82,7 +82,7 @@ export class WikiRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{*path}",
             routeValues: {
@@ -117,7 +117,7 @@ export class WikiRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Wiki.WikiPageViewStats>({
-            apiVersion: "5.0-preview.1",
+            apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pageViewStats/{*path}",
             routeValues: {
@@ -140,7 +140,7 @@ export class WikiRestClient extends RestClientBase {
         ): Promise<Wiki.WikiV2> {
 
         return this.beginRequest<Wiki.WikiV2>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}",
             routeValues: {
@@ -162,7 +162,7 @@ export class WikiRestClient extends RestClientBase {
         ): Promise<Wiki.WikiV2> {
 
         return this.beginRequest<Wiki.WikiV2>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}",
             routeValues: {
@@ -182,7 +182,7 @@ export class WikiRestClient extends RestClientBase {
         ): Promise<Wiki.WikiV2[]> {
 
         return this.beginRequest<Wiki.WikiV2[]>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}",
             routeValues: {
                 project: project
@@ -202,7 +202,7 @@ export class WikiRestClient extends RestClientBase {
         ): Promise<Wiki.WikiV2> {
 
         return this.beginRequest<Wiki.WikiV2>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}",
             routeValues: {
                 project: project,
@@ -225,7 +225,7 @@ export class WikiRestClient extends RestClientBase {
         ): Promise<Wiki.WikiV2> {
 
         return this.beginRequest<Wiki.WikiV2>({
-            apiVersion: "5.0-preview.2",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}",
             routeValues: {

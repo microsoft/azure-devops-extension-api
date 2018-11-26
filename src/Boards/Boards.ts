@@ -62,11 +62,7 @@ export interface BoardColumnCollectionResponse {
     /**
      * The resulting collection of BoardColumn.
      */
-    boardColumns: BoardColumn[];
-    /**
-     * The last change date and time for all the columns in the collection.
-     */
-    eTag: string[];
+    columns: BoardColumn[];
 }
 
 /**
@@ -84,9 +80,9 @@ export interface BoardColumnCreate extends BoardColumnBase {
  */
 export interface BoardColumnCreatedRealtimeEvent extends RealtimeBoardEvent {
     /**
-     * Gets the column identifier.
+     * Ids of columns created.
      */
-    columnId: string;
+    columnIds: string[];
     /**
      * The latest ETag for the column.
      */
@@ -128,7 +124,7 @@ export interface BoardColumnResponse {
     /**
      * The resulting BoardColumn.
      */
-    boardColumn: BoardColumn;
+    column: BoardColumn;
     /**
      * The last change date and time for all the columns in the collection.
      */
@@ -178,15 +174,61 @@ export interface BoardItem extends BoardItemReference {
     /**
      * Board column id for this item.
      */
-    column: string;
+    columnId: string;
     /**
-     * Next item unique identifier.
+     * Next board item id.
      */
-    nextItemUniqueId: string;
+    nextId: string;
     /**
      * Board row id for this item.
      */
-    row: string;
+    rowId: string;
+    /**
+     * Error that occurred related to the source data for this item.
+     */
+    sourceErrorMessages: string[];
+    /**
+     * Indicates whether a change has occurred requiring a refresh of the source data for this item.
+     */
+    sourceRefreshRequired: boolean;
+}
+
+/**
+ * Describe the action to apply when an item is moved to a column and the specified condition is met.
+ */
+export interface BoardItemAction extends PredicateAndAction {
+    /**
+     * Action Id.
+     */
+    id: string;
+    /**
+     * Item type.
+     */
+    itemType: string;
+}
+
+/**
+ * Describes a board item action to create on a board.
+ */
+export interface BoardItemActionCreate extends PredicateAndAction {
+    /**
+     * Item Type.
+     */
+    itemType: string;
+}
+
+/**
+ * Describes a board item action to update on a board.
+ */
+export interface BoardItemActionUpdate {
+    /**
+     * Action to execute. e.g. Change state
+     */
+    action: string;
+    /**
+     * Condition to meet before applying action.
+     */
+    predicate: string;
 }
 
 /**
@@ -198,29 +240,57 @@ export interface BoardItemAddedRealtimeEvent extends RealtimeBoardEvent {
      */
     columnId: string;
     /**
-     * The latest ETag for the item.
+     * The latest eTag for the item.
      */
-    itemETag: string;
+    eTag: string;
+    /**
+     * The id of the added item.
+     */
+    id: string;
     /**
      * The id of the added item
      */
-    itemId: string;
+    itemSourceId: string;
     /**
      * The type of the added item
      */
     itemType: string;
     /**
-     * The unique id of the added item.
+     * The id of the next item in the list.
      */
-    itemUniqueId: string;
-    /**
-     * The unique id of the next item in the list.
-     */
-    nextItemUniqueId: string;
+    nextId: string;
     /**
      * The row id where the item was added.
      */
     rowId: string;
+}
+
+/**
+ * Data to perform an operation on a batch of board items.
+ */
+export interface BoardItemBatchOperation {
+    /**
+     * The data needed to perform the operation. This is optional based on the type of the operation.
+     */
+    data: UpdateBoardItem;
+    /**
+     * The list of items with etags to perform the operation on.
+     */
+    items: BoardItemIdAndEtag[];
+    /**
+     * Operation to perform.
+     */
+    operation: BoardItemBatchOperationTypeEnum;
+}
+
+/**
+ * Describes board item batch operation types.
+ */
+export const enum BoardItemBatchOperationTypeEnum {
+    /**
+     * Move a batch of items to a different location. The order of the items is implicit in the list of items and a single location is specified.
+     */
+    Reorder = 1
 }
 
 /**
@@ -234,39 +304,21 @@ export interface BoardItemCollectionResponse {
     /**
      * The resulting collection of BoardItem.
      */
-    boardItems: BoardItem[];
-    /**
-     * The last change date and time for all items in the collection.
-     */
-    eTag: string[];
+    items: BoardItem[];
 }
 
 /**
- * Item id and etag pair.
+ * Board Item id and etag pair.
  */
 export interface BoardItemIdAndEtag {
     /**
-     * Item's etag.
+     * Board Item's etag.
      */
-    etag: string;
+    eTag: string;
     /**
-     * Item's id.
+     * Board Item's id.
      */
-    itemId: string;
-}
-
-/**
- * Provides properties that describe an item's identifier and type in a board.
- */
-export interface BoardItemIdAndType {
-    /**
-     * Item id.
-     */
-    itemId: string;
-    /**
-     * Item type.
-     */
-    itemType: string;
+    id: string;
 }
 
 /**
@@ -278,28 +330,28 @@ export interface BoardItemMovedRealtimeEvent extends RealtimeBoardEvent {
      */
     columnId: string;
     /**
-     * The latest ETag for the item.
+     * The latest eTag for the items.
      */
-    itemETag: string;
+    eTag: string;
     /**
-     * The unique id of the moved item.
+     * The ids of the moved item.
      */
-    itemUniqueId: string;
+    ids: string[];
     /**
-     * The unique id of the next item in the list.
+     * The id of the next item in the list.
      */
-    nextItemUniqueId: string;
+    nextId: string;
     /**
      * The row id where the item was moved.
      */
     rowId: string;
 }
 
-export interface BoardItemReference extends BoardItemIdAndType {
+export interface BoardItemReference extends BoardItemSourceIdAndType {
     /**
-     * Board's unique identifier. Compound identifier generated using the item identifier and item type.
+     * Board item identifier. Unique for each item in the board.
      */
-    uniqueId: string;
+    id: string;
     /**
      * Full http link to the resource.
      */
@@ -311,9 +363,9 @@ export interface BoardItemReference extends BoardItemIdAndType {
  */
 export interface BoardItemRemovedRealtimeEvent extends RealtimeBoardEvent {
     /**
-     * The unique id of the removed item.
+     * The id of the removed item.
      */
-    itemUniqueId: string;
+    id: string;
 }
 
 /**
@@ -328,6 +380,58 @@ export interface BoardItemResponse {
      * The resulting BoardItem.
      */
     item: BoardItem;
+}
+
+/**
+ * Provides properties that describe an item's source identifier and type in a board.
+ */
+export interface BoardItemSourceIdAndType {
+    /**
+     * Item id.
+     */
+    itemSourceId: string;
+    /**
+     * Item type.
+     */
+    itemType: string;
+}
+
+/**
+ * Describe a two way sync from moving item on board OR from changing state of item outside of the board.
+ */
+export interface BoardItemStateSync extends SubTypeAndStateValue {
+    /**
+     * Sync Id.
+     */
+    id: string;
+    /**
+     * Item type.
+     */
+    itemType: string;
+}
+
+/**
+ * Describes a board item state sync to create on a board.
+ */
+export interface BoardItemStateSyncCreate extends SubTypeAndStateValue {
+    /**
+     * The Item type.
+     */
+    itemType: string;
+}
+
+/**
+ * Describes a board item state sync to update on a board.
+ */
+export interface BoardItemStateSyncUpdate {
+    /**
+     * The state value that will be synced to.
+     */
+    stateValue: string;
+    /**
+     * The sub-type that will be set for sync, for example, 'User Story' for work item.
+     */
+    subType: string;
 }
 
 export interface BoardReference extends EntityReference {
@@ -394,11 +498,7 @@ export interface BoardRowCollectionResponse {
     /**
      * The resulting collection of BoardRow.
      */
-    boardRows: BoardRow[];
-    /**
-     * The last change date and time for all the rows in the collection.
-     */
-    eTag: string[];
+    rows: BoardRow[];
 }
 
 /**
@@ -430,13 +530,13 @@ export interface BoardRowCreateList {
  */
 export interface BoardRowResponse {
     /**
-     * The resulting collection of BoardRow.
-     */
-    boardRow: BoardRow;
-    /**
      * The last change date and time for all the rows in the collection.
      */
     eTag: string[];
+    /**
+     * The resulting collection of BoardRow.
+     */
+    row: BoardRow;
 }
 
 /**
@@ -474,15 +574,15 @@ export interface EntityReference {
     url: string;
 }
 
-export interface NewBoardItem extends BoardItemIdAndType {
+export interface NewBoardItem extends BoardItemSourceIdAndType {
     /**
      * Board column identifier.
      */
     columnId: string;
     /**
-     * Next item unique identifier or supported directive: $first or $last.
+     * Next board item id or supported directive: $first or $last.
      */
-    nextItemUniqueId: string;
+    nextId: string;
     /**
      * Board row identifier.
      */
@@ -501,6 +601,17 @@ export interface NoContentResponse {
      * The last change date and time for all the rows/columns in the collection.
      */
     eTag: string[];
+}
+
+export interface PredicateAndAction {
+    /**
+     * Action to execute. e.g. Change state
+     */
+    action: string;
+    /**
+     * Condition to meet before applying action.
+     */
+    predicate: string;
 }
 
 /**
@@ -525,6 +636,17 @@ export interface RealtimeBoardEvent {
     type: string;
 }
 
+export interface SubTypeAndStateValue {
+    /**
+     * The state value that will be synced to.
+     */
+    stateValue: string;
+    /**
+     * The sub-type that will be set for sync, for example, 'User Story' for work item.
+     */
+    subType: string;
+}
+
 export interface UpdateBoard {
     /**
      * New description of the board.
@@ -542,9 +664,9 @@ export interface UpdateBoardItem {
      */
     columnId: string;
     /**
-     * Next unique item identifier or supported directive: $first or $last.
+     * Next board item id or supported directive: $first or $last.
      */
-    nextItemUniqueId: string;
+    nextId: string;
     /**
      * Board row identifier.
      */
