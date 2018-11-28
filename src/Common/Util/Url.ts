@@ -711,7 +711,7 @@ export function replaceParsedRouteValues(parsedRoute: IParsedRoute, routeValues:
         }
         else {
             const value = routeValues[segment.paramName!];
-            if (!value) {
+            if (!value && value !== 0) {
                 // The route value was not supplied
                 if (!continueOnUnmatchedSegements) {
                     if (segment.isRequiredParam) {
