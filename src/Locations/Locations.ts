@@ -59,7 +59,7 @@ export interface ConnectionData {
     webApplicationRelativeDirectory: string;
 }
 
-export const enum InheritLevel {
+export enum InheritLevel {
     None = 0,
     Deployment = 1,
     Account = 2,
@@ -110,7 +110,7 @@ export interface LocationServiceData {
     serviceOwner: string;
 }
 
-export const enum RelativeToSetting {
+export enum RelativeToSetting {
     Context = 0,
     WebApplication = 2,
     FullyQualified = 3
@@ -158,7 +158,7 @@ export interface ServiceDefinition {
     toolId: string;
 }
 
-export const enum ServiceStatus {
+export enum ServiceStatus {
     Assigned = 0,
     Active = 1,
     Moving = 2

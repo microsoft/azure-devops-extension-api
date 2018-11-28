@@ -7,7 +7,7 @@
 /**
  * Enumerates data types that are supported as subscription input values.
  */
-export const enum InputDataType {
+export enum InputDataType {
     /**
      * No data type is specified.
      */
@@ -128,7 +128,7 @@ export interface InputFilterCondition {
     operator: InputFilterOperator;
 }
 
-export const enum InputFilterOperator {
+export enum InputFilterOperator {
     Equals = 0,
     NotEquals = 1
 }
@@ -136,7 +136,7 @@ export const enum InputFilterOperator {
 /**
  * Mode in which a subscription input should be entered (in a UI)
  */
-export const enum InputMode {
+export enum InputMode {
     /**
      * This input should not be shown in the UI
      */

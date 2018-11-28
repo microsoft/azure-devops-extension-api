@@ -147,7 +147,7 @@ export interface GraphMember extends GraphSubject {
     principalName: string;
 }
 
-export const enum GraphMemberSearchFactor {
+export enum GraphMemberSearchFactor {
     /**
      * Domain qualified account name (domain\\alias)
      */
@@ -375,7 +375,7 @@ export interface GraphSubjectLookupKey {
 export interface GraphSystemSubject extends GraphSubject {
 }
 
-export const enum GraphTraversalDirection {
+export enum GraphTraversalDirection {
     Unknown = 0,
     Down = 1,
     Up = 2
@@ -433,7 +433,7 @@ export interface GraphUserPrincipalNameCreationContext extends GraphUserCreation
     principalName: string;
 }
 
-export const enum IdentityShardingState {
+export enum IdentityShardingState {
     Undefined = 0,
     Enabled = 1,
     Disabled = 2

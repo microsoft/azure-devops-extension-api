@@ -104,7 +104,7 @@ export interface ItemContent {
     contentType: ItemContentType;
 }
 
-export const enum ItemContentType {
+export enum ItemContentType {
     RawText = 0,
     Base64Encoded = 1
 }
@@ -498,13 +498,13 @@ export interface TfvcVersionDescriptor {
     versionType: TfvcVersionType;
 }
 
-export const enum TfvcVersionOption {
+export enum TfvcVersionOption {
     None = 0,
     Previous = 1,
     UseRename = 2
 }
 
-export const enum TfvcVersionType {
+export enum TfvcVersionType {
     None = 0,
     Changeset = 1,
     Shelveset = 2,
@@ -515,7 +515,7 @@ export const enum TfvcVersionType {
     MergeSource = 7
 }
 
-export const enum VersionControlChangeType {
+export enum VersionControlChangeType {
     None = 0,
     Add = 1,
     Edit = 2,
@@ -540,7 +540,7 @@ export interface VersionControlProjectInfo {
     supportsTFVC: boolean;
 }
 
-export const enum VersionControlRecursionType {
+export enum VersionControlRecursionType {
     /**
      * Only return the specified item.
      */

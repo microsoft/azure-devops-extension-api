@@ -8,7 +8,7 @@ import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTask
 import FormInput = require("../FormInput/FormInput");
 import WebApi = require("../WebApi/WebApi");
 
-export const enum AadLoginPromptOption {
+export enum AadLoginPromptOption {
     /**
      * Do not provide a prompt option
      */
@@ -43,7 +43,7 @@ export interface AadOauthTokenResult {
     refreshTokenCache: string;
 }
 
-export const enum AccessTokenRequestType {
+export enum AccessTokenRequestType {
     None = 0,
     Oauth = 1,
     Direct = 2
@@ -307,7 +307,7 @@ export interface OAuthConfiguration {
     url: string;
 }
 
-export const enum OAuthConfigurationActionFilter {
+export enum OAuthConfigurationActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -539,7 +539,7 @@ export interface ServiceEndpointExecutionRecordsInput {
     endpointIds: string[];
 }
 
-export const enum ServiceEndpointExecutionResult {
+export enum ServiceEndpointExecutionResult {
     Succeeded = 0,
     SucceededWithIssues = 1,
     Failed = 2,

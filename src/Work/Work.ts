@@ -142,7 +142,7 @@ export interface BacklogLevelWorkItems {
 /**
  * Definition of the type of backlog level
  */
-export const enum BacklogType {
+export enum BacklogType {
     /**
      * Portfolio backlog level
      */
@@ -210,7 +210,7 @@ export interface BoardColumn {
     stateMappings: { [key: string] : string; };
 }
 
-export const enum BoardColumnType {
+export enum BoardColumnType {
     Incoming = 0,
     InProgress = 1,
     Outgoing = 2
@@ -253,7 +253,7 @@ export interface BoardUserSettings {
 /**
  * The behavior of the work item types that are in the work item category specified in the BugWorkItems section in the Process Configuration
  */
-export const enum BugsBehavior {
+export enum BugsBehavior {
     Off = 0,
     AsRequirements = 1,
     AsTasks = 2
@@ -450,7 +450,7 @@ export interface FieldReference {
 export interface FieldSetting {
 }
 
-export const enum FieldType {
+export enum FieldType {
     String = 0,
     PlainText = 1,
     Integer = 2,
@@ -477,7 +477,7 @@ export interface FilterGroup {
 /**
  * Enum for the various modes of identity picker
  */
-export const enum IdentityDisplayFormat {
+export enum IdentityDisplayFormat {
     /**
      * Display avatar only
      */
@@ -613,14 +613,14 @@ export interface PlanMetadata {
 /**
  * Enum for the various types of plans
  */
-export const enum PlanType {
+export enum PlanType {
     DeliveryTimelineView = 0
 }
 
 /**
  * Flag for permissions a user can have for this plan.
  */
-export const enum PlanUserPermissions {
+export enum PlanUserPermissions {
     /**
      * None
      */
@@ -872,7 +872,7 @@ export interface TeamSettingsPatch {
     workingDays: System.DayOfWeek[];
 }
 
-export const enum TimeFrame {
+export enum TimeFrame {
     Past = 0,
     Current = 1,
     Future = 2
@@ -883,7 +883,7 @@ export interface TimelineCriteriaStatus {
     type: TimelineCriteriaStatusCode;
 }
 
-export const enum TimelineCriteriaStatusCode {
+export enum TimelineCriteriaStatusCode {
     /**
      * No error - filter is good.
      */
@@ -903,7 +903,7 @@ export interface TimelineIterationStatus {
     type: TimelineIterationStatusCode;
 }
 
-export const enum TimelineIterationStatusCode {
+export enum TimelineIterationStatusCode {
     /**
      * No error - iteration data is good.
      */
@@ -1009,7 +1009,7 @@ export interface TimelineTeamStatus {
     type: TimelineTeamStatusCode;
 }
 
-export const enum TimelineTeamStatusCode {
+export enum TimelineTeamStatusCode {
     /**
      * No error - all data for team is good.
      */

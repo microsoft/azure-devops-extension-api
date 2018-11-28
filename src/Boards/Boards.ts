@@ -286,7 +286,7 @@ export interface BoardItemBatchOperation {
 /**
  * Describes board item batch operation types.
  */
-export const enum BoardItemBatchOperationTypeEnum {
+export enum BoardItemBatchOperationTypeEnum {
     /**
      * Move a batch of items to a different location. The order of the items is implicit in the list of items and a single location is specified.
      */
@@ -545,7 +545,7 @@ export interface BoardRowResponse {
 export interface BoardRowUpdate extends BoardRowCreate {
 }
 
-export const enum BoardTypeEnum {
+export enum BoardTypeEnum {
     IdBoundBoard = 1,
     QueryBoundBoard = 2,
     KanbanBoard = 3,

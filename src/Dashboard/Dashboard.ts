@@ -82,12 +82,12 @@ export interface DashboardResponse extends DashboardGroupEntry {
 /**
  * identifies the scope of dashboard storage and permissions.
  */
-export const enum DashboardScope {
+export enum DashboardScope {
     Collection_User = 0,
     Project_Team = 1
 }
 
-export const enum GroupMemberPermission {
+export enum GroupMemberPermission {
     None = 0,
     Edit = 1,
     Manage = 2,
@@ -130,7 +130,7 @@ export interface SemanticVersion {
     patch: number;
 }
 
-export const enum TeamDashboardPermission {
+export enum TeamDashboardPermission {
     None = 0,
     Read = 1,
     Create = 2,
@@ -291,7 +291,7 @@ export interface WidgetResponse extends Widget {
 /**
  * data contract required for the widget to function in a webaccess area or page.
  */
-export const enum WidgetScope {
+export enum WidgetScope {
     Collection_User = 0,
     Project_Team = 1
 }

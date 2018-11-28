@@ -58,7 +58,7 @@ export interface OperationResultReference {
 /**
  * The status of an operation.
  */
-export const enum OperationStatus {
+export enum OperationStatus {
     /**
      * The operation does not have a status set.
      */

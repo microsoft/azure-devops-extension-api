@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-export const enum AggregationType {
+export enum AggregationType {
     Hourly = 0,
     Daily = 1
 }
@@ -68,7 +68,7 @@ export interface RepositoryLanguageAnalytics extends LanguageMetricsSecuredObjec
     updatedTime: Date;
 }
 
-export const enum ResultPhase {
+export enum ResultPhase {
     Preliminary = 0,
     Full = 1
 }

@@ -69,7 +69,7 @@ export interface ContributedFeature {
 /**
  * The current state of a feature within a given scope
  */
-export const enum ContributedFeatureEnabledValue {
+export enum ContributedFeatureEnabledValue {
     /**
      * The state of the feature is not set for the specified scope
      */

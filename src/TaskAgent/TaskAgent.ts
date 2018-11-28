@@ -8,7 +8,7 @@ import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTask
 import FormInput = require("../FormInput/FormInput");
 import WebApi = require("../WebApi/WebApi");
 
-export const enum AadLoginPromptOption {
+export enum AadLoginPromptOption {
     /**
      * Do not provide a prompt option
      */
@@ -83,7 +83,7 @@ export interface AgentRefreshMessage {
     timeout: any;
 }
 
-export const enum AuditAction {
+export enum AuditAction {
     Add = 1,
     Update = 2,
     Delete = 3,
@@ -280,7 +280,7 @@ export interface DeploymentGroup extends DeploymentGroupReference {
 /**
  * This is useful in getting a list of deployment groups, filtered for which caller has permissions to take a particular action.
  */
-export const enum DeploymentGroupActionFilter {
+export enum DeploymentGroupActionFilter {
     /**
      * All deployment groups.
      */
@@ -330,7 +330,7 @@ export interface DeploymentGroupCreateParameterPoolProperty {
 /**
  * Properties to be included or expanded in deployment group objects. This is useful when getting a single or list of deployment grouops.
  */
-export const enum DeploymentGroupExpands {
+export enum DeploymentGroupExpands {
     /**
      * No additional properties.
      */
@@ -422,7 +422,7 @@ export interface DeploymentMachineChangedData extends DeploymentMachine {
     deletedTags: string[];
 }
 
-export const enum DeploymentMachineExpands {
+export enum DeploymentMachineExpands {
     None = 0,
     Capabilities = 2,
     AssignedRequest = 4
@@ -470,7 +470,7 @@ export interface DeploymentPoolSummary {
 /**
  * Properties to be included or expanded in deployment pool summary objects. This is useful when getting a single or list of deployment pool summaries.
  */
-export const enum DeploymentPoolSummaryExpands {
+export enum DeploymentPoolSummaryExpands {
     /**
      * No additional properties
      */
@@ -484,7 +484,7 @@ export const enum DeploymentPoolSummaryExpands {
 /**
  * Properties to be included or expanded in deployment target objects. This is useful when getting a single or list of deployment targets.
  */
-export const enum DeploymentTargetExpands {
+export enum DeploymentTargetExpands {
     /**
      * No additional properties.
      */
@@ -658,7 +658,7 @@ export interface EnvironmentDeploymentExecutionRecord {
 /**
  * Properties to be included or expanded in environment objects. This is useful when getting a single environment.
  */
-export const enum EnvironmentExpands {
+export enum EnvironmentExpands {
     /**
      * No additional properties
      */
@@ -724,7 +724,7 @@ export interface Issue {
     type: IssueType;
 }
 
-export const enum IssueType {
+export enum IssueType {
     Error = 1,
     Warning = 2
 }
@@ -808,7 +808,7 @@ export interface KubernetesServiceGroupCreateParameters {
     serviceEndpointId: string;
 }
 
-export const enum MachineGroupActionFilter {
+export enum MachineGroupActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -837,7 +837,7 @@ export interface MaskHint {
     value: string;
 }
 
-export const enum MaskType {
+export enum MaskType {
     Variable = 1,
     Regex = 2
 }
@@ -934,13 +934,13 @@ export interface PlanEnvironment {
     variables: { [key: string] : string; };
 }
 
-export const enum PlanGroupStatus {
+export enum PlanGroupStatus {
     Running = 1,
     Queued = 2,
     All = 3
 }
 
-export const enum PlanGroupStatusFilter {
+export enum PlanGroupStatusFilter {
     Running = 1,
     Queued = 2,
     All = 3
@@ -992,7 +992,7 @@ export interface SecureFile {
     ticket: string;
 }
 
-export const enum SecureFileActionFilter {
+export enum SecureFileActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -1248,7 +1248,7 @@ export interface ServiceGroupReference {
 /**
  * EnvironmentServiceGroupType.
  */
-export const enum ServiceGroupType {
+export enum ServiceGroupType {
     Undefined = 0,
     /**
      * Unknown service group type
@@ -1408,7 +1408,7 @@ export interface TaskAgentJobRequest {
 /**
  * This is useful in getting a list of deployment targets, filtered by the result of their last job.
  */
-export const enum TaskAgentJobResultFilter {
+export enum TaskAgentJobResultFilter {
     /**
      * Only those deployment targets on which last job failed (**Abandoned**, **Canceled**, **Failed**, **Skipped**).
      */
@@ -1441,7 +1441,7 @@ export interface TaskAgentMessage {
     /**
      * Gets or sets the intialization vector used to encrypt this message.
      */
-    iV: number[];
+    iv: number[];
     /**
      * Gets or sets the message identifier.
      */
@@ -1490,7 +1490,7 @@ export interface TaskAgentPool extends TaskAgentPoolReference {
     targetSize: number;
 }
 
-export const enum TaskAgentPoolActionFilter {
+export enum TaskAgentPoolActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -1578,13 +1578,13 @@ export interface TaskAgentPoolMaintenanceJob {
     warningCount: number;
 }
 
-export const enum TaskAgentPoolMaintenanceJobResult {
+export enum TaskAgentPoolMaintenanceJobResult {
     Succeeded = 1,
     Failed = 2,
     Canceled = 4
 }
 
-export const enum TaskAgentPoolMaintenanceJobStatus {
+export enum TaskAgentPoolMaintenanceJobStatus {
     InProgress = 1,
     Completed = 2,
     Cancelling = 4,
@@ -1635,7 +1635,7 @@ export interface TaskAgentPoolMaintenanceSchedule {
     timeZoneId: string;
 }
 
-export const enum TaskAgentPoolMaintenanceScheduleDays {
+export enum TaskAgentPoolMaintenanceScheduleDays {
     /**
      * Do not run.
      */
@@ -1700,7 +1700,7 @@ export interface TaskAgentPoolSummary {
     rows: MetricsRow[];
 }
 
-export const enum TaskAgentPoolType {
+export enum TaskAgentPoolType {
     Automation = 1,
     Deployment = 2
 }
@@ -1738,7 +1738,7 @@ export interface TaskAgentQueue {
     projectId: string;
 }
 
-export const enum TaskAgentQueueActionFilter {
+export enum TaskAgentQueueActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -1765,7 +1765,7 @@ export interface TaskAgentReference {
     /**
      * Gets the OS of the agent.
      */
-    oSDescription: string;
+    osDescription: string;
     /**
      * Gets or sets the current provisioning state of this agent
      */
@@ -1817,7 +1817,7 @@ export interface TaskAgentSessionKey {
     value: number[];
 }
 
-export const enum TaskAgentStatus {
+export enum TaskAgentStatus {
     Offline = 1,
     Online = 2
 }
@@ -1825,7 +1825,7 @@ export const enum TaskAgentStatus {
 /**
  * This is useful in getting a list of deployment targets, filtered by the deployment agent status.
  */
-export const enum TaskAgentStatusFilter {
+export enum TaskAgentStatusFilter {
     /**
      * Only deployment targets that are offline.
      */
@@ -1871,7 +1871,7 @@ export interface TaskAgentUpdateReason {
     code: TaskAgentUpdateReasonType;
 }
 
-export const enum TaskAgentUpdateReasonType {
+export enum TaskAgentUpdateReasonType {
     Manual = 1,
     MinAgentVersionRequired = 2
 }
@@ -1977,7 +1977,7 @@ export interface TaskDefinitionReference {
     versionSpec: string;
 }
 
-export const enum TaskDefinitionStatus {
+export enum TaskDefinitionStatus {
     Preinstalled = 1,
     ReceivedInstallOrUpdate = 2,
     Installed = 3,
@@ -2106,7 +2106,7 @@ export interface TaskGroupDefinition {
     visibleRule: string;
 }
 
-export const enum TaskGroupExpands {
+export enum TaskGroupExpands {
     None = 0,
     Tasks = 2
 }
@@ -2114,7 +2114,7 @@ export const enum TaskGroupExpands {
 /**
  * Specifies the desired ordering of taskGroups.
  */
-export const enum TaskGroupQueryOrder {
+export enum TaskGroupQueryOrder {
     /**
      * Order by createdon ascending.
      */
@@ -2305,7 +2305,7 @@ export interface TaskOrchestrationItem {
     itemType: TaskOrchestrationItemType;
 }
 
-export const enum TaskOrchestrationItemType {
+export enum TaskOrchestrationItemType {
     Container = 0,
     Job = 1
 }
@@ -2365,7 +2365,7 @@ export interface TaskOrchestrationPlanReference {
     version: number;
 }
 
-export const enum TaskOrchestrationPlanState {
+export enum TaskOrchestrationPlanState {
     InProgress = 1,
     Queued = 2,
     Completed = 4
@@ -2419,7 +2419,7 @@ export interface TaskReference {
     version: string;
 }
 
-export const enum TaskResult {
+export enum TaskResult {
     Succeeded = 0,
     SucceededWithIssues = 1,
     Failed = 2,
@@ -2502,7 +2502,7 @@ export interface TimelineRecordFeedLinesWrapper {
     value: string[];
 }
 
-export const enum TimelineRecordState {
+export enum TimelineRecordState {
     Pending = 0,
     InProgress = 1,
     Completed = 2
@@ -2583,7 +2583,7 @@ export interface VariableGroup {
     variables: { [key: string] : VariableValue; };
 }
 
-export const enum VariableGroupActionFilter {
+export enum VariableGroupActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -2621,7 +2621,7 @@ export interface VariableGroupProviderData {
 /**
  * Specifies the desired ordering of variableGroups.
  */
-export const enum VariableGroupQueryOrder {
+export enum VariableGroupQueryOrder {
     /**
      * Order by id ascending.
      */

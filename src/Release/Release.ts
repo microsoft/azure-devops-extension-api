@@ -16,7 +16,7 @@ export interface AgentArtifactDefinition {
     version: string;
 }
 
-export const enum AgentArtifactType {
+export enum AgentArtifactType {
     XamlBuild = 0,
     Build = 1,
     Jenkins = 2,
@@ -49,13 +49,13 @@ export interface AgentPoolQueueReference extends ResourceReference {
     id: number;
 }
 
-export const enum ApprovalExecutionOrder {
+export enum ApprovalExecutionOrder {
     BeforeGates = 1,
     AfterSuccessfulGates = 2,
     AfterGatesAlways = 4
 }
 
-export const enum ApprovalFilters {
+export enum ApprovalFilters {
     /**
      * No approvals or approval snapshots
      */
@@ -87,7 +87,7 @@ export interface ApprovalOptions {
     timeoutInMinutes: number;
 }
 
-export const enum ApprovalStatus {
+export enum ApprovalStatus {
     Undefined = 0,
     Pending = 1,
     Approved = 2,
@@ -97,7 +97,7 @@ export const enum ApprovalStatus {
     Skipped = 8
 }
 
-export const enum ApprovalType {
+export enum ApprovalType {
     Undefined = 0,
     PreDeploy = 1,
     PostDeploy = 2,
@@ -235,14 +235,14 @@ export interface ArtifactVersionQueryResult {
     artifactVersions: ArtifactVersion[];
 }
 
-export const enum AuditAction {
+export enum AuditAction {
     Add = 1,
     Update = 2,
     Delete = 3,
     Undelete = 4
 }
 
-export const enum AuthorizationHeaderFor {
+export enum AuthorizationHeaderFor {
     RevalidateApproverIdentity = 0,
     OnBehalfOf = 1
 }
@@ -363,7 +363,7 @@ export interface Condition {
     value: string;
 }
 
-export const enum ConditionType {
+export enum ConditionType {
     /**
      * The condition type is undefined.
      */
@@ -597,7 +597,7 @@ export interface DeploymentAuthorizationInfo {
     vstsAccessTokenKey: string;
 }
 
-export const enum DeploymentAuthorizationOwner {
+export enum DeploymentAuthorizationOwner {
     Automatic = 0,
     DeploymentSubmitter = 1,
     FirstPreDeploymentApprover = 2
@@ -611,7 +611,7 @@ export interface DeploymentCompletedEvent {
     project: ProjectReference;
 }
 
-export const enum DeploymentExpands {
+export enum DeploymentExpands {
     All = 0,
     DeploymentOnly = 1,
     Approvals = 2,
@@ -640,7 +640,7 @@ export interface DeploymentManualInterventionPendingEvent {
     release: Release;
 }
 
-export const enum DeploymentOperationStatus {
+export enum DeploymentOperationStatus {
     /**
      * The deployment operation status is undefined.
      */
@@ -742,7 +742,7 @@ export interface DeploymentQueryParameters {
     sourceBranch: string;
 }
 
-export const enum DeploymentReason {
+export enum DeploymentReason {
     /**
      * The deployment reason is none.
      */
@@ -765,7 +765,7 @@ export const enum DeploymentReason {
     RedeployTrigger = 8
 }
 
-export const enum DeploymentsQueryType {
+export enum DeploymentsQueryType {
     Regular = 1,
     FailingSince = 2
 }
@@ -776,7 +776,7 @@ export interface DeploymentStartedEvent {
     release: Release;
 }
 
-export const enum DeploymentStatus {
+export enum DeploymentStatus {
     /**
      * The deployment status is undefined.
      */
@@ -815,7 +815,7 @@ export interface DeployPhase {
     workflowTasks: WorkflowTask[];
 }
 
-export const enum DeployPhaseStatus {
+export enum DeployPhaseStatus {
     Undefined = 0,
     NotStarted = 1,
     InProgress = 2,
@@ -827,7 +827,7 @@ export const enum DeployPhaseStatus {
     Cancelling = 128
 }
 
-export const enum DeployPhaseTypes {
+export enum DeployPhaseTypes {
     Undefined = 0,
     AgentBasedDeployment = 1,
     RunOnServer = 2,
@@ -875,7 +875,7 @@ export interface EnvironmentRetentionPolicy {
     retainBuild: boolean;
 }
 
-export const enum EnvironmentStatus {
+export enum EnvironmentStatus {
     Undefined = 0,
     NotStarted = 1,
     InProgress = 2,
@@ -899,7 +899,7 @@ export interface EnvironmentTriggerContent {
     eventTypes: string[];
 }
 
-export const enum EnvironmentTriggerType {
+export enum EnvironmentTriggerType {
     Undefined = 0,
     DeploymentGroupRedeploy = 1,
     RollbackRedeploy = 2
@@ -940,7 +940,7 @@ export interface Folder {
     path: string;
 }
 
-export const enum FolderPathQueryOrder {
+export enum FolderPathQueryOrder {
     /**
      * No order
      */
@@ -965,7 +965,7 @@ export interface GatesDeployPhase extends DeployPhase {
     deploymentInput: GatesDeploymentInput;
 }
 
-export const enum GateStatus {
+export enum GateStatus {
     None = 0,
     Pending = 1,
     InProgress = 2,
@@ -1008,7 +1008,7 @@ export interface Issue {
     message: string;
 }
 
-export const enum IssueSource {
+export enum IssueSource {
     None = 0,
     User = 1,
     System = 2
@@ -1030,7 +1030,7 @@ export interface MachineGroupDeploymentInput extends DeploymentInput {
 
 export interface MailMessage {
     body: string;
-    cC: EmailRecipients;
+    cc: EmailRecipients;
     inReplyTo: string;
     messageId: string;
     replyBy: Date;
@@ -1041,7 +1041,7 @@ export interface MailMessage {
     to: EmailRecipients;
 }
 
-export const enum MailSectionType {
+export enum MailSectionType {
     Details = 0,
     Environments = 1,
     Issues = 2,
@@ -1108,7 +1108,7 @@ export interface ManualIntervention {
 /**
  * Describes manual intervention status
  */
-export const enum ManualInterventionStatus {
+export enum ManualInterventionStatus {
     /**
      * The manual intervention does not have the status set.
      */
@@ -1167,7 +1167,7 @@ export interface ParallelExecutionInputBase extends ExecutionInput {
     maxNumberOfAgents: number;
 }
 
-export const enum ParallelExecutionTypes {
+export enum ParallelExecutionTypes {
     None = 0,
     MultiConfiguration = 1,
     MultiMachine = 2
@@ -1177,7 +1177,7 @@ export interface PipelineProcess {
     type: PipelineProcessTypes;
 }
 
-export const enum PipelineProcessTypes {
+export enum PipelineProcessTypes {
     Designer = 1,
     Yaml = 2
 }
@@ -1198,7 +1198,7 @@ export interface PropertySelector {
     selectorType: PropertySelectorType;
 }
 
-export const enum PropertySelectorType {
+export enum PropertySelectorType {
     Inclusion = 0,
     Exclusion = 1
 }
@@ -1216,7 +1216,7 @@ export interface PullRequestFilter {
     targetBranch: string;
 }
 
-export const enum PullRequestSystemType {
+export enum PullRequestSystemType {
     None = 0,
     TfsGit = 1,
     GitHub = 2
@@ -1617,7 +1617,7 @@ export interface ReleaseDefinitionEnvironmentTemplate {
     name: string;
 }
 
-export const enum ReleaseDefinitionExpands {
+export enum ReleaseDefinitionExpands {
     None = 0,
     Environments = 2,
     Artifacts = 4,
@@ -1645,7 +1645,7 @@ export interface ReleaseDefinitionGatesStep {
     id: number;
 }
 
-export const enum ReleaseDefinitionQueryOrder {
+export enum ReleaseDefinitionQueryOrder {
     IdAscending = 0,
     IdDescending = 1,
     NameAscending = 2,
@@ -1714,7 +1714,7 @@ export interface ReleaseDefinitionShallowReference {
     url: string;
 }
 
-export const enum ReleaseDefinitionSource {
+export enum ReleaseDefinitionSource {
     Undefined = 0,
     RestApi = 1,
     UserInterface = 2,
@@ -1947,7 +1947,7 @@ export interface ReleaseEnvironmentUpdateMetadata {
     variables: { [key: string] : ConfigurationVariableValue; };
 }
 
-export const enum ReleaseExpands {
+export enum ReleaseExpands {
     None = 0,
     Environments = 2,
     Artifacts = 4,
@@ -1986,12 +1986,12 @@ export interface ReleaseManagementInputValue {
     value: string;
 }
 
-export const enum ReleaseQueryOrder {
+export enum ReleaseQueryOrder {
     Descending = 0,
     Ascending = 1
 }
 
-export const enum ReleaseReason {
+export enum ReleaseReason {
     None = 0,
     Manual = 1,
     ContinuousIntegration = 2,
@@ -2147,7 +2147,7 @@ export interface ReleaseStartMetadata {
     variables: { [key: string] : ConfigurationVariableValue; };
 }
 
-export const enum ReleaseStatus {
+export enum ReleaseStatus {
     Undefined = 0,
     Draft = 1,
     Active = 2,
@@ -2202,7 +2202,7 @@ export interface ReleaseTriggerBase {
     triggerType: ReleaseTriggerType;
 }
 
-export const enum ReleaseTriggerType {
+export enum ReleaseTriggerType {
     Undefined = 0,
     ArtifactSource = 1,
     Schedule = 2,
@@ -2268,7 +2268,7 @@ export interface RunOnServerDeployPhase extends DeployPhase {
     deploymentInput: ServerDeploymentInput;
 }
 
-export const enum ScheduleDays {
+export enum ScheduleDays {
     None = 0,
     Monday = 1,
     Tuesday = 2,
@@ -2287,7 +2287,7 @@ export interface ScheduledReleaseTrigger extends ReleaseTriggerBase {
     schedule: ReleaseSchedule;
 }
 
-export const enum SenderType {
+export enum SenderType {
     ServiceAccount = 1,
     RequestingUser = 2
 }
@@ -2306,7 +2306,7 @@ export interface ServiceEndpointReference extends ResourceReference {
     id: string;
 }
 
-export const enum SingleReleaseExpands {
+export enum SingleReleaseExpands {
     None = 0,
     Tasks = 1
 }
@@ -2353,7 +2353,7 @@ export interface TaskOrchestrationPlanGroupsStartedEvent {
     planGroups: TaskOrchestrationPlanGroupReference[];
 }
 
-export const enum TaskStatus {
+export enum TaskStatus {
     Unknown = 0,
     Pending = 1,
     InProgress = 2,
@@ -2423,7 +2423,7 @@ export interface VariableGroup {
     variables: { [key: string] : VariableValue; };
 }
 
-export const enum VariableGroupActionFilter {
+export enum VariableGroupActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
@@ -2467,7 +2467,7 @@ export interface YamlFileSource {
     type: YamlFileSourceTypes;
 }
 
-export const enum YamlFileSourceTypes {
+export enum YamlFileSourceTypes {
     None = 0,
     TFSGit = 1
 }

@@ -44,7 +44,7 @@ export interface BlockSubscriptionChannel {
 /**
  * Default delivery preference for group subscribers. Indicates how the subscriber should be notified.
  */
-export const enum DefaultGroupDeliveryPreference {
+export enum DefaultGroupDeliveryPreference {
     NoDelivery = -1,
     EachMember = 2
 }
@@ -82,7 +82,7 @@ export interface EmailPlaintextSubscriptionChannel extends SubscriptionChannelWi
 /**
  * Describes the subscription evaluation operation status.
  */
-export const enum EvaluationOperationStatus {
+export enum EvaluationOperationStatus {
     /**
      * The operation object does not have the status set.
      */
@@ -150,7 +150,7 @@ export interface EventProcessingLog extends NotificationJobDiagnosticLog {
 /**
  * Set of flags used to determine which set of information is retrieved when querying for event publishers
  */
-export const enum EventPublisherQueryFlags {
+export enum EventPublisherQueryFlags {
     None = 0,
     /**
      * Include event types from the remote services too
@@ -211,7 +211,7 @@ export interface EventTransformResult {
 /**
  * Set of flags used to determine which set of information is retrieved when querying for eventtypes
  */
-export const enum EventTypeQueryFlags {
+export enum EventTypeQueryFlags {
     None = 0,
     /**
      * IncludeFields will include all fields and their types
@@ -546,7 +546,7 @@ export interface NotificationJobDiagnosticLog extends NotificationDiagnosticLog 
     stats: { [key: string] : { [key: string] : number; }; };
 }
 
-export const enum NotificationOperation {
+export enum NotificationOperation {
     None = 0,
     SuspendUnprocessed = 1
 }
@@ -563,7 +563,7 @@ export interface NotificationReason {
     targetIdentities: WebApi.IdentityRef[];
 }
 
-export const enum NotificationReasonType {
+export enum NotificationReasonType {
     Unknown = 0,
     Follows = 1,
     Personal = 2,
@@ -609,7 +609,7 @@ export interface NotificationStatisticsQueryConditions {
     user: WebApi.IdentityRef;
 }
 
-export const enum NotificationStatisticType {
+export enum NotificationStatisticType {
     NotificationBySubscription = 0,
     EventsByEventType = 1,
     NotificationByEventType = 2,
@@ -663,7 +663,7 @@ export interface NotificationSubscriber {
 /**
  * Delivery preference for a subscriber. Indicates how the subscriber should be notified.
  */
-export const enum NotificationSubscriberDeliveryPreference {
+export enum NotificationSubscriberDeliveryPreference {
     NoDelivery = -1,
     /**
      * Deliver notifications to the subscriber's preferred email address.
@@ -904,7 +904,7 @@ export interface SoapSubscriptionChannel extends SubscriptionChannelWithAddress 
     type: string;
 }
 
-export const enum SubscriberFlags {
+export enum SubscriberFlags {
     None = 0,
     /**
      * Subscriber's delivery preferences could be updated
@@ -1027,7 +1027,7 @@ export interface SubscriptionEvaluationSettings {
     timeOut: number;
 }
 
-export const enum SubscriptionFieldType {
+export enum SubscriptionFieldType {
     String = 1,
     Integer = 2,
     DateTime = 3,
@@ -1048,7 +1048,7 @@ export const enum SubscriptionFieldType {
 /**
  * Read-only indicators that further describe the subscription.
  */
-export const enum SubscriptionFlags {
+export enum SubscriptionFlags {
     /**
      * None
      */
@@ -1082,7 +1082,7 @@ export interface SubscriptionManagement {
 /**
  * The permissions that a user has to a certain subscription
  */
-export const enum SubscriptionPermissions {
+export enum SubscriptionPermissions {
     /**
      * None
      */
@@ -1144,7 +1144,7 @@ export interface SubscriptionQueryCondition {
 /**
  * Flags that influence the result set of a subscription query.
  */
-export const enum SubscriptionQueryFlags {
+export enum SubscriptionQueryFlags {
     None = 0,
     /**
      * Include subscriptions with invalid subscribers.
@@ -1177,7 +1177,7 @@ export interface SubscriptionScope extends WebApi.EventScope {
 /**
  * Subscription status values. A value greater than or equal to zero indicates the subscription is enabled. A negative value indicates the subscription is disabled.
  */
-export const enum SubscriptionStatus {
+export enum SubscriptionStatus {
     /**
      * Subscription is disabled because it generated a high volume of notifications.
      */
@@ -1247,7 +1247,7 @@ export const enum SubscriptionStatus {
 /**
  * Set of flags used to determine which set of templates is retrieved when querying for subscription templates
  */
-export const enum SubscriptionTemplateQueryFlags {
+export enum SubscriptionTemplateQueryFlags {
     None = 0,
     /**
      * Include user templates
@@ -1267,7 +1267,7 @@ export const enum SubscriptionTemplateQueryFlags {
     IncludeEventTypeInformation = 22
 }
 
-export const enum SubscriptionTemplateType {
+export enum SubscriptionTemplateType {
     User = 0,
     Team = 1,
     Both = 2,

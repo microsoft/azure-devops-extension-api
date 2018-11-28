@@ -7,7 +7,7 @@
 /**
  * Status of a container item.
  */
-export const enum ContainerItemStatus {
+export enum ContainerItemStatus {
     /**
      * Item is created.
      */
@@ -21,7 +21,7 @@ export const enum ContainerItemStatus {
 /**
  * Type of a container item.
  */
-export const enum ContainerItemType {
+export enum ContainerItemType {
     /**
      * Any item type.
      */
@@ -39,7 +39,7 @@ export const enum ContainerItemType {
 /**
  * Options a container can have.
  */
-export const enum ContainerOptions {
+export enum ContainerOptions {
     /**
      * No option.
      */

@@ -120,7 +120,7 @@ export interface AggregatedRunsByState {
 /**
  * The types of test attachments.
  */
-export const enum AttachmentType {
+export enum AttachmentType {
     GeneralAttachment = 0,
     AfnStrip = 1,
     BugFilingData = 2,
@@ -307,7 +307,7 @@ export interface CloneOperationInformation {
 /**
  * Enum of type Clone Operation Type.
  */
-export const enum CloneOperationState {
+export enum CloneOperationState {
     /**
      * value for Failed State
      */
@@ -462,7 +462,7 @@ export interface Coverage2 {
 /**
  * Used to choose which coverage data is returned by a QueryXXXCoverage() call.
  */
-export const enum CoverageQueryFlags {
+export enum CoverageQueryFlags {
     /**
      * If set, the Coverage.Modules property will be populated.
      */
@@ -485,7 +485,7 @@ export interface CoverageStatistics {
     linesPartiallyCovered: number;
 }
 
-export const enum CoverageStatus {
+export enum CoverageStatus {
     Covered = 0,
     NotCovered = 1,
     PartiallyCovered = 2
@@ -530,7 +530,7 @@ export interface CustomTestFieldDefinition {
     scope: CustomTestFieldScope;
 }
 
-export const enum CustomTestFieldScope {
+export enum CustomTestFieldScope {
     None = 0,
     TestRun = 1,
     TestResult = 2,
@@ -538,7 +538,7 @@ export const enum CustomTestFieldScope {
     All = 7
 }
 
-export const enum CustomTestFieldType {
+export enum CustomTestFieldType {
     Bit = 2,
     DateTime = 4,
     Int = 8,
@@ -1255,7 +1255,7 @@ export interface Response {
 /**
  * Additional details with test result
  */
-export const enum ResultDetails {
+export enum ResultDetails {
     /**
      * Core fields of test result. Core fields includes State, Outcome, Priority, AutomatedTestName, AutomatedTestStorage, Comments, ErrorMessage etc.
      */
@@ -1281,7 +1281,7 @@ export const enum ResultDetails {
 /**
  * Hierarchy type of the result/subresults.
  */
-export const enum ResultGroupType {
+export enum ResultGroupType {
     /**
      * Leaf node of test result.
      */
@@ -1307,7 +1307,7 @@ export const enum ResultGroupType {
 /**
  * The top level entity that is being cloned as part of a Clone operation
  */
-export const enum ResultObjectType {
+export enum ResultObjectType {
     /**
      * Suite Clone
      */
@@ -1616,7 +1616,7 @@ export interface RunUpdateModel {
     testSettings: ShallowReference;
 }
 
-export const enum Service {
+export enum Service {
     Any = 0,
     Tcm = 1,
     Tfs = 2
@@ -1732,7 +1732,7 @@ export interface SuiteEntryUpdateModel {
 /**
  * Option to get details in response
  */
-export const enum SuiteExpand {
+export enum SuiteExpand {
     /**
      * Include children in response.
      */
@@ -1804,7 +1804,7 @@ export interface TCMPropertyBag2 {
     value: string;
 }
 
-export const enum TCMServiceDataMigrationStatus {
+export enum TCMServiceDataMigrationStatus {
     /**
      * Migration Not Started
      */
@@ -2314,7 +2314,7 @@ export interface TestConfiguration {
 /**
  * Represents the state of an ITestConfiguration object.
  */
-export const enum TestConfigurationState {
+export enum TestConfigurationState {
     /**
      * The configuration can be used for new test runs.
      */
@@ -2526,7 +2526,7 @@ export interface TestLogReference {
 /**
  * Test Log Context
  */
-export const enum TestLogScope {
+export enum TestLogScope {
     /**
      * Log file is associated with Run, result, subresult
      */
@@ -2558,7 +2558,7 @@ export interface TestLogStatus {
 /**
  * Test Log Status codes.
  */
-export const enum TestLogStatusCode {
+export enum TestLogStatusCode {
     Success = 0,
     Failed = 1,
     FileAlreadyExists = 2,
@@ -2588,12 +2588,12 @@ export interface TestLogStoreEndpointDetails {
     endpointType: TestLogStoreEndpointType;
 }
 
-export const enum TestLogStoreEndpointType {
+export enum TestLogStoreEndpointType {
     Root = 1,
     File = 2
 }
 
-export const enum TestLogStoreOperationType {
+export enum TestLogStoreOperationType {
     Read = 1,
     Create = 2,
     ReadAndCreate = 3
@@ -2602,7 +2602,7 @@ export const enum TestLogStoreOperationType {
 /**
  * Test Log Types
  */
-export const enum TestLogType {
+export enum TestLogType {
     /**
      * Any gereric attachment.
      */
@@ -2676,7 +2676,7 @@ export interface TestOperationReference {
     url: string;
 }
 
-export const enum TestOutcome {
+export enum TestOutcome {
     /**
      * Only used during an update to preserve the existing value.
      */
@@ -2991,7 +2991,7 @@ export interface TestPointsQuery {
     witFields: string[];
 }
 
-export const enum TestPointState {
+export enum TestPointState {
     /**
      * Default
      */
@@ -3113,7 +3113,7 @@ export interface TestResultDocument {
 /**
  * Group by for results
  */
-export const enum TestResultGroupBy {
+export enum TestResultGroupBy {
     /**
      * Group the results by branches
      */
@@ -3271,7 +3271,7 @@ export interface TestResultsContext {
     release: ReleaseReference;
 }
 
-export const enum TestResultsContextType {
+export enum TestResultsContextType {
     Build = 1,
     Release = 2
 }
@@ -3579,7 +3579,7 @@ export interface TestRunExtended2 {
 /**
  * The types of outcomes for test run.
  */
-export const enum TestRunOutcome {
+export enum TestRunOutcome {
     /**
      * Run with zero failed tests and has atleast one impacted test
      */
@@ -3601,7 +3601,7 @@ export const enum TestRunOutcome {
 /**
  * The types of publish context for run.
  */
-export const enum TestRunPublishContext {
+export enum TestRunPublishContext {
     /**
      * Run is published for Build Context.
      */
@@ -3622,7 +3622,7 @@ export interface TestRunStartedEvent extends TestRunEvent {
 /**
  * The types of states for test run.
  */
-export const enum TestRunState {
+export enum TestRunState {
     /**
      * Only used during an update to preserve the existing value.
      */
@@ -3664,7 +3664,7 @@ export interface TestRunStatistic {
 /**
  * The types of sub states for test run. It gives the user more info about the test run beyond the high level test run state
  */
-export const enum TestRunSubstate {
+export enum TestRunSubstate {
     None = 0,
     CreatingEnvironment = 1,
     RunningTests = 2,
@@ -3773,7 +3773,7 @@ export interface TestSessionExploredWorkItemReference extends TestSessionWorkIte
 /**
  * Represents the source from which the test session was created
  */
-export const enum TestSessionSource {
+export enum TestSessionSource {
     /**
      * Source of test session uncertain as it is stale
      */
@@ -3807,7 +3807,7 @@ export const enum TestSessionSource {
 /**
  * Represents the state of the test session.
  */
-export const enum TestSessionState {
+export enum TestSessionState {
     /**
      * Only used during an update to preserve the existing value.
      */

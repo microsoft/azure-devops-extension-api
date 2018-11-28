@@ -80,7 +80,7 @@ export interface AccountPreferencesInternal {
     timeZone: any;
 }
 
-export const enum AccountStatus {
+export enum AccountStatus {
     None = 0,
     /**
      * This hosting account is active and assigned to a customer.
@@ -100,12 +100,12 @@ export const enum AccountStatus {
     Moved = 4
 }
 
-export const enum AccountType {
+export enum AccountType {
     Personal = 0,
     Organization = 1
 }
 
-export const enum AccountUserStatus {
+export enum AccountUserStatus {
     None = 0,
     /**
      * User has signed in at least once to the VSTS account

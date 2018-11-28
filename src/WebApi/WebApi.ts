@@ -65,7 +65,7 @@ export interface ApiResourceVersion {
 /**
  * Enumeration of the options that can be passed in on Connect.
  */
-export const enum ConnectOptions {
+export enum ConnectOptions {
     /**
      * Retrieve no optional data.
      */
@@ -88,7 +88,7 @@ export const enum ConnectOptions {
     IncludeNonInheritedDefinitionsOnly = 8
 }
 
-export const enum DeploymentFlags {
+export enum DeploymentFlags {
     None = 0,
     Hosted = 1,
     OnPremises = 2
@@ -173,13 +173,13 @@ export interface JsonPatchOperation {
 export interface JsonWebToken {
 }
 
-export const enum JWTAlgorithm {
+export enum JWTAlgorithm {
     None = 0,
     HS256 = 1,
     RS256 = 2
 }
 
-export const enum Operation {
+export enum Operation {
     Add = 0,
     Remove = 1,
     Replace = 2,

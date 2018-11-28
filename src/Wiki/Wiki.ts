@@ -227,7 +227,7 @@ export interface WikiPageViewStats {
 /**
  * Wiki types.
  */
-export const enum WikiType {
+export enum WikiType {
     /**
      * Indicates that the wiki is provisioned for the team project
      */

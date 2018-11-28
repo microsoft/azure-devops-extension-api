@@ -162,7 +162,7 @@ export interface CreateProcessWorkItemTypeRequest {
 /**
  * Indicates the customization-type. Customization-type is System if is system generated or by default. Customization-type is Inherited if the existing workitemtype of inherited process is customized. Customization-type is Custom if the newly created workitemtype is customized.
  */
-export const enum CustomizationType {
+export enum CustomizationType {
     /**
      * Customization-type is System if is system generated workitemtype.
      */
@@ -208,7 +208,7 @@ export interface FieldRuleModel {
 /**
  * Enum for the type of a field.
  */
-export const enum FieldType {
+export enum FieldType {
     String = 1,
     Integer = 2,
     DateTime = 3,
@@ -246,7 +246,7 @@ export interface FormLayout {
 /**
  * Expand options to fetch fields for behaviors API.
  */
-export const enum GetBehaviorsExpand {
+export enum GetBehaviorsExpand {
     /**
      * Default none option.
      */
@@ -261,7 +261,7 @@ export const enum GetBehaviorsExpand {
     CombinedFields = 2
 }
 
-export const enum GetProcessExpandLevel {
+export enum GetProcessExpandLevel {
     None = 0,
     Projects = 1
 }
@@ -269,7 +269,7 @@ export const enum GetProcessExpandLevel {
 /**
  * Flag to define what properties to return in get work item type response.
  */
-export const enum GetWorkItemTypeExpand {
+export enum GetWorkItemTypeExpand {
     None = 0,
     States = 1,
     Behaviors = 2,
@@ -379,7 +379,7 @@ export interface Page {
 /**
  * Enum for the types of pages in the work item form layout
  */
-export const enum PageType {
+export enum PageType {
     Custom = 1,
     History = 2,
     Links = 3,
@@ -532,7 +532,7 @@ export interface ProcessBehaviorUpdateRequest {
     name: string;
 }
 
-export const enum ProcessClass {
+export enum ProcessClass {
     System = 0,
     Derived = 1,
     Custom = 2
@@ -782,7 +782,7 @@ export interface RuleActionModel {
 /**
  * Type of action to take when the rule is triggered.
  */
-export const enum RuleActionType {
+export enum RuleActionType {
     /**
      * Make the target field required. Example : \{"actionType":"$makeRequired","targetField":"Microsoft.VSTS.Common.Activity","value":""\}
      */
@@ -864,7 +864,7 @@ export interface RuleConditionModel {
 /**
  * Type of rule condition.
  */
-export const enum RuleConditionType {
+export enum RuleConditionType {
     /**
      * $When. This condition limits the execution of its children to cases when another field has a particular value, i.e. when the Is value of the referenced field is equal to the given literal value.
      */
@@ -1077,7 +1077,7 @@ export interface WorkItemTypeBehavior {
     url: string;
 }
 
-export const enum WorkItemTypeClass {
+export enum WorkItemTypeClass {
     System = 0,
     Derived = 1,
     Custom = 2

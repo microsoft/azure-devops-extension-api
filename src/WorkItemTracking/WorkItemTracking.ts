@@ -135,12 +135,12 @@ export interface AttachmentReference {
 /**
  * Flag to control error policy in a batch classification nodes get request.
  */
-export const enum ClassificationNodesErrorPolicy {
+export enum ClassificationNodesErrorPolicy {
     Fail = 1,
     Omit = 2
 }
 
-export const enum CommentSortOrder {
+export enum CommentSortOrder {
     Asc = 1,
     Desc = 2
 }
@@ -180,7 +180,7 @@ export interface FieldsToEvaluate {
 /**
  * Enum for field types.
  */
-export const enum FieldType {
+export enum FieldType {
     /**
      * String field type.
      */
@@ -242,7 +242,7 @@ export const enum FieldType {
 /**
  * Enum for field usages.
  */
-export const enum FieldUsage {
+export enum FieldUsage {
     /**
      * Empty usage.
      */
@@ -268,7 +268,7 @@ export const enum FieldUsage {
 /**
  * Flag to expand types of fields.
  */
-export const enum GetFieldsExpand {
+export enum GetFieldsExpand {
     /**
      * Default behavior.
      */
@@ -311,7 +311,7 @@ export interface Link {
 /**
  * The link query mode which determines the behavior of the query.
  */
-export const enum LinkQueryMode {
+export enum LinkQueryMode {
     WorkItems = 0,
     /**
      * Returns work items where the source, target, and link criteria are all satisfied.
@@ -333,7 +333,7 @@ export const enum LinkQueryMode {
     LinksRecursiveDoesNotContain = 6
 }
 
-export const enum LogicalOperation {
+export enum LogicalOperation {
     NONE = 0,
     AND = 1,
     OR = 2
@@ -356,7 +356,7 @@ export interface ProjectWorkItemStateColors {
 /**
  * Enumerates the possible provisioning actions that can be triggered on process template update.
  */
-export const enum ProvisioningActionType {
+export enum ProvisioningActionType {
     Import = 0,
     Validate = 1
 }
@@ -392,7 +392,7 @@ export interface QueryBatchGetRequest {
 /**
  * Enum to control error policy in a query batch request.
  */
-export const enum QueryErrorPolicy {
+export enum QueryErrorPolicy {
     Fail = 1,
     Omit = 2
 }
@@ -400,7 +400,7 @@ export const enum QueryErrorPolicy {
 /**
  * Determines which set of additional query properties to display
  */
-export const enum QueryExpand {
+export enum QueryExpand {
     /**
      * Expands Columns, Links and ChangeInfo
      */
@@ -544,7 +544,7 @@ export interface QueryHierarchyItemsResult {
     value: QueryHierarchyItem[];
 }
 
-export const enum QueryOption {
+export enum QueryOption {
     Doing = 1,
     Done = 2,
     Followed = 3
@@ -553,7 +553,7 @@ export const enum QueryOption {
 /**
  * Determines whether a tree query matches parents or children first.
  */
-export const enum QueryRecursionOption {
+export enum QueryRecursionOption {
     /**
      * Returns work items that satisfy the source, even if no linked work item satisfies the target and link criteria.
      */
@@ -567,7 +567,7 @@ export const enum QueryRecursionOption {
 /**
  * The query result type
  */
-export const enum QueryResultType {
+export enum QueryResultType {
     /**
      * A list of work items (for flat queries).
      */
@@ -581,7 +581,7 @@ export const enum QueryResultType {
 /**
  * The type of query.
  */
-export const enum QueryType {
+export enum QueryType {
     /**
      * Gets a flat list of work items.
      */
@@ -596,7 +596,7 @@ export const enum QueryType {
     OneHop = 3
 }
 
-export const enum ReportingRevisionsExpand {
+export enum ReportingRevisionsExpand {
     None = 0,
     Fields = 1
 }
@@ -644,7 +644,7 @@ export interface StreamedBatch<T> {
 /**
  * Enumerates types of supported xml templates used for customization.
  */
-export const enum TemplateType {
+export enum TemplateType {
     WorkItemType = 0,
     GlobalWorkflow = 1
 }
@@ -652,7 +652,7 @@ export const enum TemplateType {
 /**
  * Types of tree node structures.
  */
-export const enum TreeNodeStructureType {
+export enum TreeNodeStructureType {
     /**
      * Area type.
      */
@@ -666,7 +666,7 @@ export const enum TreeNodeStructureType {
 /**
  * Types of tree structures groups.
  */
-export const enum TreeStructureGroup {
+export enum TreeStructureGroup {
     Areas = 0,
     Iterations = 1
 }
@@ -904,7 +904,7 @@ export interface WorkItemDeleteUpdate {
 /**
  * Enum to control error policy in a bulk get work items request.
  */
-export const enum WorkItemErrorPolicy {
+export enum WorkItemErrorPolicy {
     Fail = 1,
     Omit = 2
 }
@@ -912,7 +912,7 @@ export const enum WorkItemErrorPolicy {
 /**
  * Flag to control payload properties from get work item command.
  */
-export const enum WorkItemExpand {
+export enum WorkItemExpand {
     None = 0,
     Relations = 1,
     Fields = 2,
@@ -1170,7 +1170,7 @@ export interface WorkItemQuerySortColumn {
 /**
  * Type of the activity
  */
-export const enum WorkItemRecentActivityType {
+export enum WorkItemRecentActivityType {
     Visited = 0,
     Edited = 1,
     Deleted = 2,
@@ -1453,7 +1453,7 @@ export interface WorkItemTypeFieldInstanceBase extends WorkItemFieldReference {
 /**
  * Expand options for the work item field(s) request.
  */
-export const enum WorkItemTypeFieldsExpandLevel {
+export enum WorkItemTypeFieldsExpandLevel {
     /**
      * Includes only basic properties of the field.
      */

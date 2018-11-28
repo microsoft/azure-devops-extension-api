@@ -162,7 +162,7 @@ export interface FieldModel {
     url: string;
 }
 
-export const enum FieldType {
+export enum FieldType {
     String = 1,
     Integer = 2,
     DateTime = 3,
@@ -199,7 +199,7 @@ export interface FormLayout {
     systemControls: Control[];
 }
 
-export const enum GetWorkItemTypeExpand {
+export enum GetWorkItemTypeExpand {
     None = 0,
     States = 1,
     Behaviors = 2,
@@ -306,7 +306,7 @@ export interface Page {
 /**
  * Type of page
  */
-export const enum PageType {
+export enum PageType {
     Custom = 1,
     History = 2,
     Links = 3,
@@ -452,7 +452,7 @@ export interface WorkItemTypeBehavior {
 /**
  * Work item type classes'
  */
-export const enum WorkItemTypeClass {
+export enum WorkItemTypeClass {
     System = 0,
     Derived = 1,
     Custom = 2

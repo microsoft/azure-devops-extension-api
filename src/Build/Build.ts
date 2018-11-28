@@ -62,7 +62,7 @@ export interface AgentPoolQueueTarget extends PhaseTarget {
     queue: AgentPoolQueue;
 }
 
-export const enum AgentStatus {
+export enum AgentStatus {
     /**
      * Indicates that the build agent cannot be contacted.
      */
@@ -122,7 +122,7 @@ export interface Attachment {
     name: string;
 }
 
-export const enum AuditAction {
+export enum AuditAction {
     Add = 1,
     Update = 2,
     Delete = 3
@@ -348,7 +348,7 @@ export interface BuildArtifact {
 /**
  * Represents the desired scope of authorization for a build.
  */
-export const enum BuildAuthorizationScope {
+export enum BuildAuthorizationScope {
     /**
      * The identity used should have build service account permissions scoped to the project collection. This is useful when resources for a single build are spread across multiple projects.
      */
@@ -958,7 +958,7 @@ export interface BuildOptionInputDefinition {
     visibleRule: string;
 }
 
-export const enum BuildOptionInputType {
+export enum BuildOptionInputType {
     String = 0,
     Boolean = 1,
     StringList = 2,
@@ -968,7 +968,7 @@ export const enum BuildOptionInputType {
     BranchFilter = 6
 }
 
-export const enum BuildPhaseStatus {
+export enum BuildPhaseStatus {
     /**
      * The state is not known.
      */
@@ -1019,7 +1019,7 @@ export interface BuildProcessTemplate {
 /**
  * Specifies the desired ordering of builds.
  */
-export const enum BuildQueryOrder {
+export enum BuildQueryOrder {
     /**
      * Order by finish time ascending.
      */
@@ -1046,7 +1046,7 @@ export const enum BuildQueryOrder {
     StartTimeAscending = 7
 }
 
-export const enum BuildReason {
+export enum BuildReason {
     /**
      * No reason. This value should not be used.
      */
@@ -1236,7 +1236,7 @@ export interface BuildResourceUsage {
 /**
  * This is not a Flags enum because we don't want to set multiple statuses on a build. However, when adding values, please stick to powers of 2 as if it were a Flags enum This will ensure that things that key off multiple result types (like labelling sources) continue to work
  */
-export const enum BuildResult {
+export enum BuildResult {
     /**
      * No result
      */
@@ -1307,7 +1307,7 @@ export interface BuildSettings {
     maximumRetentionPolicy: RetentionPolicy;
 }
 
-export const enum BuildStatus {
+export enum BuildStatus {
     /**
      * No status.
      */
@@ -1468,7 +1468,7 @@ export interface ContinuousIntegrationTrigger extends BuildTrigger {
     settingsSourceType: number;
 }
 
-export const enum ControllerStatus {
+export enum ControllerStatus {
     /**
      * Indicates that the build controller cannot be contacted.
      */
@@ -1483,7 +1483,7 @@ export const enum ControllerStatus {
     Offline = 2
 }
 
-export const enum DefinitionQuality {
+export enum DefinitionQuality {
     Definition = 1,
     Draft = 2
 }
@@ -1491,7 +1491,7 @@ export const enum DefinitionQuality {
 /**
  * Specifies the desired ordering of definitions.
  */
-export const enum DefinitionQueryOrder {
+export enum DefinitionQueryOrder {
     /**
      * No order
      */
@@ -1514,7 +1514,7 @@ export const enum DefinitionQueryOrder {
     DefinitionNameDescending = 4
 }
 
-export const enum DefinitionQueueStatus {
+export enum DefinitionQueueStatus {
     /**
      * When enabled the definition queue allows builds to be queued by users, the system will queue scheduled, gated and continuous integration builds, and the queued builds will be started by the system.
      */
@@ -1594,7 +1594,7 @@ export interface DefinitionResourceReference {
     type: string;
 }
 
-export const enum DefinitionTriggerType {
+export enum DefinitionTriggerType {
     /**
      * Manual builds only.
      */
@@ -1633,12 +1633,12 @@ export const enum DefinitionTriggerType {
     All = 255
 }
 
-export const enum DefinitionType {
+export enum DefinitionType {
     Xaml = 1,
     Build = 2
 }
 
-export const enum DeleteOptions {
+export enum DeleteOptions {
     /**
      * No data should be deleted. This value should not be used.
      */
@@ -1772,7 +1772,7 @@ export interface Folder {
 /**
  * Specifies the desired ordering of folders.
  */
-export const enum FolderQueryOrder {
+export enum FolderQueryOrder {
     /**
      * No order
      */
@@ -1816,7 +1816,7 @@ export interface GatedCheckInTrigger extends BuildTrigger {
     useWorkspaceMappings: boolean;
 }
 
-export const enum GetOption {
+export enum GetOption {
     /**
      * Use the latest changeset at the time the build is queued.
      */
@@ -1880,7 +1880,7 @@ export interface Issue {
     type: IssueType;
 }
 
-export const enum IssueType {
+export enum IssueType {
     Error = 1,
     Warning = 2
 }
@@ -1964,7 +1964,7 @@ export interface PhaseTarget {
     type: number;
 }
 
-export const enum ProcessTemplateType {
+export enum ProcessTemplateType {
     /**
      * Indicates a custom template.
      */
@@ -2044,7 +2044,7 @@ export interface PullRequestTrigger extends BuildTrigger {
     settingsSourceType: number;
 }
 
-export const enum QueryDeletedOption {
+export enum QueryDeletedOption {
     /**
      * Include only non-deleted builds.
      */
@@ -2059,7 +2059,7 @@ export const enum QueryDeletedOption {
     OnlyDeleted = 2
 }
 
-export const enum QueueOptions {
+export enum QueueOptions {
     /**
      * No queue options
      */
@@ -2070,7 +2070,7 @@ export const enum QueueOptions {
     DoNotRun = 1
 }
 
-export const enum QueuePriority {
+export enum QueuePriority {
     /**
      * Low priority.
      */
@@ -2097,7 +2097,7 @@ export interface RealtimeBuildEvent {
     buildId: number;
 }
 
-export const enum RepositoryCleanOptions {
+export enum RepositoryCleanOptions {
     Source = 0,
     SourceAndOutputDir = 1,
     /**
@@ -2135,7 +2135,7 @@ export interface ResourceReference {
     alias: string;
 }
 
-export const enum ResultSet {
+export enum ResultSet {
     /**
      * Include all repositories
      */
@@ -2199,7 +2199,7 @@ export interface Schedule {
     timeZoneId: string;
 }
 
-export const enum ScheduleDays {
+export enum ScheduleDays {
     /**
      * Do not run.
      */
@@ -2285,7 +2285,7 @@ export interface ServiceEndpointReference extends ResourceReference {
     id: string;
 }
 
-export const enum ServiceHostStatus {
+export enum ServiceHostStatus {
     /**
      * The service host is currently connected and accepting commands.
      */
@@ -2311,7 +2311,7 @@ export interface SourceProviderAttributes {
     supportedTriggers: SupportedTrigger[];
 }
 
-export const enum SourceProviderAvailability {
+export enum SourceProviderAvailability {
     /**
      * The source provider is available in the hosted environment.
      */
@@ -2455,7 +2455,7 @@ export interface SupportedTrigger {
     type: DefinitionTriggerType;
 }
 
-export const enum SupportLevel {
+export enum SupportLevel {
     /**
      * The functionality is not supported.
      */
@@ -2589,7 +2589,7 @@ export interface TaskReference {
     version: string;
 }
 
-export const enum TaskResult {
+export enum TaskResult {
     Succeeded = 0,
     SucceededWithIssues = 1,
     Failed = 2,
@@ -2633,6 +2633,9 @@ export interface TimelineAttempt {
  */
 export interface TimelineRecord {
     _links: any;
+    /**
+     * Attempt number of record.
+     */
     attempt: number;
     /**
      * The change ID.
@@ -2658,6 +2661,10 @@ export interface TimelineRecord {
      * The ID of the record.
      */
     id: string;
+    /**
+     * String identifier that is consistent across attempts.
+     */
+    identifier: string;
     issues: Issue[];
     /**
      * The time the record was last modified.
@@ -2722,7 +2729,7 @@ export interface TimelineRecord {
     workerName: string;
 }
 
-export const enum TimelineRecordState {
+export enum TimelineRecordState {
     Pending = 0,
     InProgress = 1,
     Completed = 2
@@ -2750,7 +2757,7 @@ export interface TimelineReference {
     url: string;
 }
 
-export const enum ValidationResult {
+export enum ValidationResult {
     OK = 0,
     Warning = 1,
     Error = 2
@@ -2849,7 +2856,7 @@ export interface WorkspaceMapping {
     workspaceId: number;
 }
 
-export const enum WorkspaceMappingType {
+export enum WorkspaceMappingType {
     /**
      * The path is mapped in the workspace.
      */

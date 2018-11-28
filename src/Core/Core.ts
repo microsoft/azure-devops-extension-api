@@ -7,7 +7,7 @@
 import Identities = require("../Identities/Identities");
 import WebApi = require("../WebApi/WebApi");
 
-export const enum ConnectedServiceKind {
+export enum ConnectedServiceKind {
     /**
      * Custom or unknown service
      */
@@ -41,7 +41,7 @@ export interface Process extends ProcessReference {
 /**
  * Type of process customization on a collection.
  */
-export const enum ProcessCustomizationType {
+export enum ProcessCustomizationType {
     /**
      * Customization based on project-scoped xml customization
      */
@@ -57,13 +57,13 @@ export interface ProcessReference {
     url: string;
 }
 
-export const enum ProcessType {
+export enum ProcessType {
     System = 0,
     Custom = 1,
     Inherited = 2
 }
 
-export const enum ProjectChangeType {
+export enum ProjectChangeType {
     Modified = 0,
     Deleted = 1,
     Added = 2
@@ -100,7 +100,7 @@ export interface ProjectProperty {
     value: any;
 }
 
-export const enum ProjectVisibility {
+export enum ProjectVisibility {
     Unchanged = -1,
     Private = 0,
     /**
@@ -152,7 +152,7 @@ export interface ProxyAuthorization {
     publicKey: WebApi.PublicKey;
 }
 
-export const enum SourceControlTypes {
+export enum SourceControlTypes {
     Tfvc = 1,
     Git = 2
 }

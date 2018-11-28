@@ -99,7 +99,7 @@ export interface PolicyEvaluationRecord {
 /**
  * Status of a policy which is running against a specific pull request.
  */
-export const enum PolicyEvaluationStatus {
+export enum PolicyEvaluationStatus {
     /**
      * The policy is either queued to run, or is waiting for some event before progressing.
      */

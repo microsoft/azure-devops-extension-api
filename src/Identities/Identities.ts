@@ -60,7 +60,7 @@ export interface FrameworkIdentityInfo {
     role: string;
 }
 
-export const enum FrameworkIdentityType {
+export enum FrameworkIdentityType {
     None = 0,
     ServiceIdentity = 1,
     AggregateIdentity = 2,
@@ -74,7 +74,7 @@ export interface GroupMembership {
     queriedId: string;
 }
 
-export const enum GroupScopeType {
+export enum GroupScopeType {
     Generic = 0,
     ServiceHost = 1,
     TeamProject = 2
@@ -194,7 +194,7 @@ export interface IdentityUpdateData {
     updated: boolean;
 }
 
-export const enum QueryMembership {
+export enum QueryMembership {
     /**
      * Query will not return any membership data
      */
@@ -217,7 +217,7 @@ export const enum QueryMembership {
     ExpandedDown = 4
 }
 
-export const enum ReadIdentitiesOptions {
+export enum ReadIdentitiesOptions {
     None = 0,
     FilterIllegalMemberships = 1
 }

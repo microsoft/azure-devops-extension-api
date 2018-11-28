@@ -10,7 +10,7 @@ import WebApi = require("../WebApi/WebApi");
 /**
  * Enumerates consumer authentication types.
  */
-export const enum AuthenticationType {
+export enum AuthenticationType {
     /**
      * No authentication is required.
      */
@@ -356,7 +356,7 @@ export interface NotificationDetails {
 /**
  * Enumerates possible result types of a notification.
  */
-export const enum NotificationResult {
+export enum NotificationResult {
     /**
      * The notification has not yet completed
      */
@@ -446,7 +446,7 @@ export interface NotificationsQuery {
 /**
  * Enumerates possible status' of a notification.
  */
-export const enum NotificationStatus {
+export enum NotificationStatus {
     /**
      * The notification has been queued
      */
@@ -684,7 +684,7 @@ export interface SubscriptionsQuery {
 /**
  * Enumerates possible states of a subscription.
  */
-export const enum SubscriptionStatus {
+export enum SubscriptionStatus {
     /**
      * The subscription is enabled.
      */

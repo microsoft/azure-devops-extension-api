@@ -7,7 +7,7 @@
 /**
  * How the acquisition is assigned
  */
-export const enum AcquisitionAssignmentType {
+export enum AcquisitionAssignmentType {
     None = 0,
     /**
      * Just assign for me
@@ -34,7 +34,7 @@ export interface AcquisitionOperation {
     reason: string;
 }
 
-export const enum AcquisitionOperationState {
+export enum AcquisitionOperationState {
     /**
      * Not allowed to use this AcquisitionOperation
      */
@@ -52,7 +52,7 @@ export const enum AcquisitionOperationState {
 /**
  * Set of different types of operations that can be requested.
  */
-export const enum AcquisitionOperationType {
+export enum AcquisitionOperationType {
     /**
      * Not yet used
      */
@@ -109,11 +109,11 @@ export interface Answers {
     /**
      * Gets or sets the vs marketplace extension name
      */
-    vSMarketplaceExtensionName: string;
+    vsMarketplaceExtensionName: string;
     /**
      * Gets or sets the vs marketplace publsiher name
      */
-    vSMarketplacePublisherName: string;
+    vsMarketplacePublisherName: string;
 }
 
 export interface AssetDetails {
@@ -213,7 +213,7 @@ export interface Concern extends QnAItem {
     category: ConcernCategory;
 }
 
-export const enum ConcernCategory {
+export enum ConcernCategory {
     General = 1,
     Abusive = 2,
     Spam = 4
@@ -233,12 +233,12 @@ export interface CustomerLastContact {
     lastContactDate: Date;
 }
 
-export const enum DraftPatchOperation {
+export enum DraftPatchOperation {
     Publish = 1,
     Cancel = 2
 }
 
-export const enum DraftStateType {
+export enum DraftStateType {
     Unpublished = 1,
     Published = 2,
     Cancelled = 3,
@@ -390,7 +390,7 @@ export interface ExtensionDailyStats {
     statCount: number;
 }
 
-export const enum ExtensionDeploymentTechnology {
+export enum ExtensionDeploymentTechnology {
     Exe = 1,
     Msi = 2,
     Vsix = 3,
@@ -515,7 +515,7 @@ export interface ExtensionIdentifier {
 /**
  * Type of event
  */
-export const enum ExtensionLifecycleEventType {
+export enum ExtensionLifecycleEventType {
     Uninstall = 1,
     Install = 2,
     Review = 3,
@@ -563,7 +563,7 @@ export interface ExtensionPolicy {
 /**
  * Set of flags that can be associated with a given permission over an extension
  */
-export const enum ExtensionPolicyFlags {
+export enum ExtensionPolicyFlags {
     /**
      * No permission
      */
@@ -615,7 +615,7 @@ export interface ExtensionQuery {
 /**
  * Type of extension filters that are supported in the queries.
  */
-export const enum ExtensionQueryFilterType {
+export enum ExtensionQueryFilterType {
     /**
      * The values are used as tags. All tags are treated as "OR" conditions with each other. There may be some value put on the number of matched tags from the query.
      */
@@ -705,7 +705,7 @@ export const enum ExtensionQueryFilterType {
 /**
  * Set of flags used to determine which set of information is retrieved when reading published extensions
  */
-export const enum ExtensionQueryFlags {
+export enum ExtensionQueryFlags {
     /**
      * None is used to retrieve only the basic extension details.
      */
@@ -798,7 +798,7 @@ export interface ExtensionStatistic {
     value: number;
 }
 
-export const enum ExtensionStatisticOperation {
+export enum ExtensionStatisticOperation {
     None = 0,
     Set = 1,
     Increment = 2,
@@ -816,7 +816,7 @@ export interface ExtensionStatisticUpdate {
 /**
  * Stats aggregation type
  */
-export const enum ExtensionStatsAggregateType {
+export enum ExtensionStatsAggregateType {
     Daily = 1
 }
 
@@ -836,7 +836,7 @@ export interface ExtensionVersion {
 /**
  * Set of flags that can be associated with a given extension version. These flags apply to a specific version of the extension.
  */
-export const enum ExtensionVersionFlags {
+export enum ExtensionVersionFlags {
     /**
      * No flags exist for this version.
      */
@@ -898,7 +898,7 @@ export interface NotificationsData {
 /**
  * Type of event
  */
-export const enum NotificationTemplateType {
+export enum NotificationTemplateType {
     /**
      * Template type for Review Notification.
      */
@@ -920,7 +920,7 @@ export const enum NotificationTemplateType {
 /**
  * PagingDirection is used to define which set direction to move the returned result set based on a previous query.
  */
-export const enum PagingDirection {
+export enum PagingDirection {
     /**
      * Backward will return results from earlier in the resultset.
      */
@@ -986,7 +986,7 @@ export interface PublishedExtension {
 /**
  * Set of flags that can be associated with a given extension. These flags apply to all versions of the extension and not to a specific version.
  */
-export const enum PublishedExtensionFlags {
+export enum PublishedExtensionFlags {
     /**
      * No flags exist for this extension.
      */
@@ -1085,7 +1085,7 @@ export interface PublisherFilterResult {
     publishers: Publisher[];
 }
 
-export const enum PublisherFlags {
+export enum PublisherFlags {
     /**
      * This should never be returned, it is used to represent a publisher who's flags havent changed during update calls.
      */
@@ -1112,7 +1112,7 @@ export const enum PublisherFlags {
     ServiceFlags = 7
 }
 
-export const enum PublisherPermissions {
+export enum PublisherPermissions {
     /**
      * This gives the bearer the rights to read Publishers and Extensions.
      */
@@ -1180,7 +1180,7 @@ export interface PublisherQuery {
 /**
  * Set of flags used to define the attributes requested when a publisher is returned. Some API's allow the caller to specify the level of detail needed.
  */
-export const enum PublisherQueryFlags {
+export enum PublisherQueryFlags {
     /**
      * None is used to retrieve only the basic publisher details.
      */
@@ -1205,7 +1205,7 @@ export interface PublisherQueryResult {
     results: PublisherFilterResult[];
 }
 
-export const enum PublisherState {
+export enum PublisherState {
     /**
      * No state exists for this publisher.
      */
@@ -1261,7 +1261,7 @@ export interface QnAItem {
 /**
  * Denotes the status of the QnA Item
  */
-export const enum QnAItemStatus {
+export enum QnAItemStatus {
     None = 0,
     /**
      * The UserEditable flag indicates whether the item is editable by the logged in user.
@@ -1348,7 +1348,7 @@ export interface Response extends QnAItem {
 /**
  * The status of a REST Api response status.
  */
-export const enum RestApiResponseStatus {
+export enum RestApiResponseStatus {
     /**
      * The operation is completed.
      */
@@ -1444,7 +1444,7 @@ export interface Review {
 /**
  * Type of operation
  */
-export const enum ReviewEventOperation {
+export enum ReviewEventOperation {
     Create = 1,
     Update = 2,
     Delete = 3
@@ -1511,7 +1511,7 @@ export interface ReviewEventProperties {
 /**
  * Options to GetReviews query
  */
-export const enum ReviewFilterOptions {
+export enum ReviewFilterOptions {
     /**
      * No filtering, all reviews are returned (default option)
      */
@@ -1544,7 +1544,7 @@ export interface ReviewPatch {
 /**
  * Denotes the patch operation type
  */
-export const enum ReviewPatchOperation {
+export enum ReviewPatchOperation {
     /**
      * Flag a review
      */
@@ -1609,7 +1609,7 @@ export interface ReviewReply {
 /**
  * Type of event
  */
-export const enum ReviewResourceType {
+export enum ReviewResourceType {
     Review = 1,
     PublisherReply = 2,
     AdminReply = 3
@@ -1648,7 +1648,7 @@ export interface ReviewSummary {
 /**
  * Defines the sort order that can be defined for Extensions query
  */
-export const enum SortByType {
+export enum SortByType {
     /**
      * The results will be sorted by relevance in case search query is given, if no search query resutls will be provided as is
      */
@@ -1706,7 +1706,7 @@ export const enum SortByType {
 /**
  * Defines the sort order that can be defined for Extensions query
  */
-export const enum SortOrderType {
+export enum SortOrderType {
     /**
      * Results will be sorted in the default order as per the sorting type defined. The default varies for each type, e.g. for Relevance, default is Descnding, for Title default is Ascending etc.
      */

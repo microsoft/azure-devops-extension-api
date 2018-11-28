@@ -358,7 +358,7 @@ export interface CommentThreadContext {
 /**
  * The status of a comment thread.
  */
-export const enum CommentThreadStatus {
+export enum CommentThreadStatus {
     /**
      * The thread status is unknown.
      */
@@ -426,7 +426,7 @@ export interface CommentTrackingCriteria {
 /**
  * The type of a comment.
  */
-export const enum CommentType {
+export enum CommentType {
     /**
      * The comment type is not known.
      */
@@ -551,7 +551,7 @@ export interface GitAnnotatedTag {
 /**
  * Current status of the asynchronous operation.
  */
-export const enum GitAsyncOperationStatus {
+export enum GitAsyncOperationStatus {
     /**
      * The operation is waiting in a queue and has not yet started.
      */
@@ -615,7 +615,7 @@ export interface GitAsyncRefOperationDetail {
     timedout: boolean;
 }
 
-export const enum GitAsyncRefOperationFailureStatus {
+export enum GitAsyncRefOperationFailureStatus {
     /**
      * No status
      */
@@ -1014,7 +1014,7 @@ export interface GitConflictRenameRename extends GitConflict {
 /**
  * The type of a merge conflict.
  */
-export const enum GitConflictType {
+export enum GitConflictType {
     /**
      * No conflict
      */
@@ -1099,7 +1099,7 @@ export interface GitConflictUpdateResult {
 /**
  * Represents the possible outcomes from a request to update a pull request conflict
  */
-export const enum GitConflictUpdateStatus {
+export enum GitConflictUpdateStatus {
     /**
      * Indicates that pull request conflict update request was completed successfully
      */
@@ -1209,7 +1209,7 @@ export interface GitForkTeamProjectReference extends TfsCore.TeamProjectReferenc
 /**
  * Accepted types of version
  */
-export const enum GitHistoryMode {
+export enum GitHistoryMode {
     /**
      * The history mode used by \`git log\`. This is the default.
      */
@@ -1500,7 +1500,7 @@ export interface GitObject {
     objectType: GitObjectType;
 }
 
-export const enum GitObjectType {
+export enum GitObjectType {
     Bad = 0,
     Commit = 1,
     Tree = 2,
@@ -1519,7 +1519,7 @@ export interface GitPathAction {
     targetPath: string;
 }
 
-export const enum GitPathActions {
+export enum GitPathActions {
     None = 0,
     Edit = 1,
     Delete = 2,
@@ -1883,7 +1883,7 @@ export interface GitPullRequestQueryInput {
 /**
  * Accepted types of pull request queries.
  */
-export const enum GitPullRequestQueryType {
+export enum GitPullRequestQueryType {
     /**
      * No query type set.
      */
@@ -1907,10 +1907,10 @@ export interface GitPullRequestReviewFileContentInfo {
     /**
      * Content hash of on-disk representation of file content. Its calculated by the client by using SHA1 hash function. Ensure that uploaded file has same encoding as in source control.
      */
-    sHA1Hash: string;
+    shA1Hash: string;
 }
 
-export const enum GitPullRequestReviewFileType {
+export enum GitPullRequestReviewFileType {
     ChangeEntry = 0,
     Attachment = 1
 }
@@ -2129,7 +2129,7 @@ export interface GitRefFavorite {
 /**
  * Search type on ref name
  */
-export const enum GitRefSearchType {
+export enum GitRefSearchType {
     Exact = 0,
     StartsWith = 1,
     Contains = 2
@@ -2146,7 +2146,7 @@ export interface GitRefUpdate {
 /**
  * Enumerates the modes under which ref updates can be written to their repositories.
  */
-export const enum GitRefUpdateMode {
+export enum GitRefUpdateMode {
     /**
      * Indicates the Git protocol model where any refs that can be updated will be updated, but any failures will not prevent other updates from succeeding.
      */
@@ -2199,7 +2199,7 @@ export interface GitRefUpdateResult {
 /**
  * Represents the possible outcomes from a request to update a ref in a repository.
  */
-export const enum GitRefUpdateStatus {
+export enum GitRefUpdateStatus {
     /**
      * Indicates that the ref update request was completed successfully.
      */
@@ -2320,7 +2320,7 @@ export interface GitRepositoryStats {
 /**
  * The type of a merge conflict.
  */
-export const enum GitResolutionError {
+export enum GitResolutionError {
     /**
      * No error
      */
@@ -2357,7 +2357,7 @@ export interface GitResolutionMergeContent {
     userMergedContent: number[];
 }
 
-export const enum GitResolutionMergeType {
+export enum GitResolutionMergeType {
     Undecided = 0,
     TakeSourceContent = 1,
     TakeTargetContent = 2,
@@ -2370,7 +2370,7 @@ export interface GitResolutionPathConflict {
     renamePath: string;
 }
 
-export const enum GitResolutionPathConflictAction {
+export enum GitResolutionPathConflictAction {
     Undecided = 0,
     KeepSourceRenameTarget = 1,
     KeepSourceDeleteTarget = 2,
@@ -2386,7 +2386,7 @@ export interface GitResolutionRename1to2 extends GitResolutionMergeContent {
     action: GitResolutionRename1to2Action;
 }
 
-export const enum GitResolutionRename1to2Action {
+export enum GitResolutionRename1to2Action {
     Undecided = 0,
     KeepSourcePath = 1,
     KeepTargetPath = 2,
@@ -2396,13 +2396,13 @@ export const enum GitResolutionRename1to2Action {
 /**
  * Resolution status of a conflict.
  */
-export const enum GitResolutionStatus {
+export enum GitResolutionStatus {
     Unresolved = 0,
     PartiallyResolved = 1,
     Resolved = 2
 }
 
-export const enum GitResolutionWhichAction {
+export enum GitResolutionWhichAction {
     Undecided = 0,
     PickSourceAction = 1,
     PickTargetAction = 2
@@ -2471,7 +2471,7 @@ export interface GitStatusContext {
 /**
  * State of the status.
  */
-export const enum GitStatusState {
+export enum GitStatusState {
     /**
      * Status state not set. Default state.
      */
@@ -2675,7 +2675,7 @@ export interface GitVersionDescriptor {
 /**
  * Accepted types of version options
  */
-export const enum GitVersionOptions {
+export enum GitVersionOptions {
     /**
      * Not specified
      */
@@ -2693,7 +2693,7 @@ export const enum GitVersionOptions {
 /**
  * Accepted types of version
  */
-export const enum GitVersionType {
+export enum GitVersionType {
     /**
      * Interpret the version as a branch name
      */
@@ -2788,7 +2788,7 @@ export interface ItemContent {
     contentType: ItemContentType;
 }
 
-export const enum ItemContentType {
+export enum ItemContentType {
     RawText = 0,
     Base64Encoded = 1
 }
@@ -2820,7 +2820,7 @@ export interface ItemModel {
 /**
  * The reason for which the pull request iteration was created.
  */
-export const enum IterationReason {
+export enum IterationReason {
     Push = 0,
     ForcePush = 1,
     Create = 2,
@@ -2864,7 +2864,7 @@ export interface LineDiffBlock {
 /**
  * Type of change for a line diff block
  */
-export const enum LineDiffBlockChangeType {
+export enum LineDiffBlockChangeType {
     /**
      * No change - both the blocks are identical
      */
@@ -2898,7 +2898,7 @@ export interface PolicyEvaluationUpdatedEvent extends RealTimePullRequestEvent {
 /**
  * The status of a pull request merge.
  */
-export const enum PullRequestAsyncStatus {
+export enum PullRequestAsyncStatus {
     /**
      * Status is not set. Default state.
      */
@@ -2934,7 +2934,7 @@ export interface PullRequestCreatedEvent extends RealTimePullRequestEvent {
 /**
  * The specific type of a pull request merge failure.
  */
-export const enum PullRequestMergeFailureType {
+export enum PullRequestMergeFailureType {
     /**
      * Type is not set. Default type.
      */
@@ -2956,7 +2956,7 @@ export const enum PullRequestMergeFailureType {
 /**
  * Status of a pull request.
  */
-export const enum PullRequestStatus {
+export enum PullRequestStatus {
     /**
      * Status not set. Default state.
      */
@@ -3001,7 +3001,7 @@ export interface RealTimePullRequestEvent {
     pullRequestId: number;
 }
 
-export const enum RefFavoriteType {
+export enum RefFavoriteType {
     Invalid = 0,
     Folder = 1,
     Ref = 2
@@ -3103,7 +3103,7 @@ export interface SupportedIde {
 /**
  * Enumeration that represents the types of IDEs supported.
  */
-export const enum SupportedIdeType {
+export enum SupportedIdeType {
     Unknown = 0,
     AndroidStudio = 1,
     AppCode = 2,
@@ -3523,13 +3523,13 @@ export interface TfvcVersionDescriptor {
     versionType: TfvcVersionType;
 }
 
-export const enum TfvcVersionOption {
+export enum TfvcVersionOption {
     None = 0,
     Previous = 1,
     UseRename = 2
 }
 
-export const enum TfvcVersionType {
+export enum TfvcVersionType {
     None = 0,
     Changeset = 1,
     Shelveset = 2,
@@ -3551,7 +3551,7 @@ export interface UpdateRefsRequest {
     updateMode: GitRefUpdateMode;
 }
 
-export const enum VersionControlChangeType {
+export enum VersionControlChangeType {
     None = 0,
     Add = 1,
     Edit = 2,
@@ -3576,7 +3576,7 @@ export interface VersionControlProjectInfo {
     supportsTFVC: boolean;
 }
 
-export const enum VersionControlRecursionType {
+export enum VersionControlRecursionType {
     /**
      * Only return the specified item.
      */

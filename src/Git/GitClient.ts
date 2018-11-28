@@ -687,7 +687,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Request that another repository's refs be fetched into this one.
+     * Request that another repository's refs be fetched into this one. It syncs two existing forks. To create a fork, please see the \<a href="https://docs.microsoft.com/en-us/rest/api/vsts/git/repositories/create?view=azure-devops-rest-5.1"\> repositories endpoint\</a\>
      * 
      * @param syncParams - Source repository and ref mapping.
      * @param repositoryNameOrId - The name or ID of the repository.

@@ -10,7 +10,7 @@ import WebApi = require("../WebApi/WebApi");
 /**
  * How the acquisition is assigned
  */
-export const enum AcquisitionAssignmentType {
+export enum AcquisitionAssignmentType {
     None = 0,
     /**
      * Just assign for me
@@ -52,7 +52,7 @@ export interface AcquisitionOperationDisallowReason {
     type: string;
 }
 
-export const enum AcquisitionOperationState {
+export enum AcquisitionOperationState {
     /**
      * Not allowed to use this AcquisitionOperation
      */
@@ -70,7 +70,7 @@ export const enum AcquisitionOperationState {
 /**
  * Set of different types of operations that can be requested.
  */
-export const enum AcquisitionOperationType {
+export enum AcquisitionOperationType {
     /**
      * Not yet used
      */
@@ -285,7 +285,7 @@ export interface ContributionConstraint {
 /**
  * Represents different ways of including contributions based on licensing
  */
-export const enum ContributionLicensingBehaviorType {
+export enum ContributionLicensingBehaviorType {
     /**
      * Default value - only include the contribution if the user is licensed for the extension
      */
@@ -361,7 +361,7 @@ export interface ContributionPropertyDescription {
 /**
  * The type of value used for a property
  */
-export const enum ContributionPropertyType {
+export enum ContributionPropertyType {
     /**
      * Contribution type is unknown (value may be anything)
      */
@@ -430,7 +430,7 @@ export interface ContributionProviderDetails {
 /**
  * Options that control the contributions to include in a query
  */
-export const enum ContributionQueryOptions {
+export enum ContributionQueryOptions {
     None = 0,
     /**
      * Include the direct contributions that have the ids queried.
@@ -739,7 +739,7 @@ export interface ExtensionEventUrls extends ExtensionUrls {
 /**
  * Set of flags applied to extensions that are relevant to contribution consumers
  */
-export const enum ExtensionFlags {
+export enum ExtensionFlags {
     /**
      * A built-in extension is installed for all VSTS accounts by default
      */
@@ -910,7 +910,7 @@ export interface ExtensionRequestsEvent {
 /**
  * Represents the state of an extension request
  */
-export const enum ExtensionRequestState {
+export enum ExtensionRequestState {
     /**
      * The request has been opened, but not yet responded to
      */
@@ -925,7 +925,7 @@ export const enum ExtensionRequestState {
     Rejected = 2
 }
 
-export const enum ExtensionRequestUpdateType {
+export enum ExtensionRequestUpdateType {
     Created = 1,
     Approved = 2,
     Rejected = 3,
@@ -955,7 +955,7 @@ export interface ExtensionState extends InstalledExtensionState {
 /**
  * States of an extension Note:  If you add value to this enum, you need to do 2 other things.  First add the back compat enum in value src\\Vssf\\Sdk\\Server\\Contributions\\InstalledExtensionMessage.cs.  Second, you can not send the new value on the message bus.  You need to remove it from the message bus event prior to being sent.
  */
-export const enum ExtensionStateFlags {
+export enum ExtensionStateFlags {
     /**
      * No flags set
      */
@@ -1002,7 +1002,7 @@ export const enum ExtensionStateFlags {
     Warning = 512
 }
 
-export const enum ExtensionUpdateType {
+export enum ExtensionUpdateType {
     Installed = 1,
     Uninstalled = 2,
     Enabled = 3,
@@ -1113,7 +1113,7 @@ export interface InstalledExtensionStateIssue {
 /**
  * Installation issue type (Warning, Error)
  */
-export const enum InstalledExtensionStateIssueType {
+export enum InstalledExtensionStateIssueType {
     /**
      * Represents an installation warning, for example an implicit demand not supported
      */
