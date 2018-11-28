@@ -3,7 +3,7 @@ import { BuildDefinitionReference, BuildReference } from "./Build";
 /**
  * Contribution ids of Azure Pipelines services which can be obtained from DevOps.getService
  */
-export const enum BuildServiceIds {
+export enum BuildServiceIds {
 
     /**
      * Service for getting contextual information when on a builds page
