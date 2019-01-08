@@ -433,12 +433,6 @@ export interface GraphUserPrincipalNameCreationContext extends GraphUserCreation
     principalName: string;
 }
 
-export enum IdentityShardingState {
-    Undefined = 0,
-    Enabled = 1,
-    Disabled = 2
-}
-
 export interface PagedGraphGroups {
     /**
      * This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request.

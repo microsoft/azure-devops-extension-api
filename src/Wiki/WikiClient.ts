@@ -94,6 +94,76 @@ export class WikiRestClient extends RestClientBase {
     }
 
     /**
+     * Gets metadata or content of the wiki page for the provided page id. Content negotiation is done based on the \`Accept\` header sent in the request.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki Id or name.
+     * @param id - Wiki page id.
+     * @param recursionLevel - Recursion level for subpages retrieval. Defaults to \`None\` (Optional).
+     * @param includeContent - True to include the content of the page in the response for Json content type. Defaults to false (Optional)
+     */
+    public async getPageByIdText(
+        project: string,
+        wikiIdentifier: string,
+        id: number,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContent?: boolean
+        ): Promise<string> {
+
+        const queryValues: any = {
+            recursionLevel: recursionLevel,
+            includeContent: includeContent
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "5.1-preview.1",
+            httpResponseType: "text/plain",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{id}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                id: id
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Gets metadata or content of the wiki page for the provided page id. Content negotiation is done based on the \`Accept\` header sent in the request.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki Id or name.
+     * @param id - Wiki page id.
+     * @param recursionLevel - Recursion level for subpages retrieval. Defaults to \`None\` (Optional).
+     * @param includeContent - True to include the content of the page in the response for Json content type. Defaults to false (Optional)
+     */
+    public async getPageByIdZip(
+        project: string,
+        wikiIdentifier: string,
+        id: number,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContent?: boolean
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            recursionLevel: recursionLevel,
+            includeContent: includeContent
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "5.1-preview.1",
+            httpResponseType: "application/zip",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{id}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                id: id
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Creates a new page view stats resource or updates an existing page view stats resource.
      * 
      * @param project - Project ID or project name

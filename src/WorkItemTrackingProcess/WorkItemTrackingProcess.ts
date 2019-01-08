@@ -102,7 +102,7 @@ export interface CreateProcessModel {
      */
     parentProcessTypeId: string;
     /**
-     * Reference name of the process
+     * Reference name of process being created. If not specified, server will assign a unique reference name
      */
     referenceName: string;
 }

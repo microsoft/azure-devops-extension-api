@@ -620,13 +620,13 @@ export interface FieldDetailsForTestResults {
     groupsForField: any[];
 }
 
-export interface FileCoverageReport {
+export interface FileCoverage {
     /**
-     * LineBlockCollection: Contains list of line blocks, each block specifiying it's coverage status
+     * List of line blocks along with their coverage status
      */
-    lineBlockCollection: LineBlockCollection;
+    lineBlocksCoverage: LineBlockCoverage[];
     /**
-     * Path: filePath for which coverage status is returned
+     * File path for which coverage information is sought for
      */
     path: string;
 }
@@ -637,6 +637,13 @@ export interface FileCoverageRequest {
     pullRequestId: number;
     pullRequestIterationId: number;
     repoId: string;
+}
+
+export interface FilterPointQuery {
+    planId: number;
+    pointIds: number[];
+    pointOutcome: number[];
+    resultState: number[];
 }
 
 export interface FunctionCoverage {
@@ -873,30 +880,19 @@ export interface LegacyTestSettings {
     teamProjectUri: string;
 }
 
-export interface LineBlock {
+export interface LineBlockCoverage {
     /**
-     * End : End of line block
+     * End of line block
      */
     end: number;
     /**
-     * HelpText
-     */
-    helpText: string;
-    /**
-     * Start : Start of line block
+     * Start of line block
      */
     start: number;
     /**
-     * Status : represents status of line block
+     * Coverage status
      */
-    status: CoverageStatus;
-}
-
-export interface LineBlockCollection {
-    /**
-     * LineBlocksStatus: Collection of coverage status of blocks of line
-     */
-    lineBlocksStatus: LineBlock[];
+    status: number;
 }
 
 export interface LinkedWorkItemsQuery {
@@ -1037,6 +1033,11 @@ export interface PointAssignment {
      * Tester that was assigned to the test case
      */
     tester: WebApi.IdentityRef;
+}
+
+export interface PointLastResult {
+    lastUpdatedDate: Date;
+    pointId: number;
 }
 
 /**
@@ -1495,6 +1496,10 @@ export interface RunCreateModel {
      * URI of release associated with the run.
      */
     releaseUri: string;
+    /**
+     * Run summary for run Type = NoConfigRun.
+     */
+    runSummary: RunSummaryModel[];
     runTimeout: any;
     sourceWorkflow: string;
     /**
@@ -1514,6 +1519,9 @@ export interface RunCreateModel {
      * An abstracted reference to the test settings resource.
      */
     testSettings: ShallowReference;
+    /**
+     * Type of the run(RunType)
+     */
     type: string;
 }
 
@@ -1545,6 +1553,55 @@ export interface RunStatistic {
      * State of the test run
      */
     state: string;
+}
+
+/**
+ * Run summary for each output type of test.
+ */
+export interface RunSummaryModel {
+    /**
+     * Total time taken in milliseconds.
+     */
+    duration: number;
+    /**
+     * Number of results for Outcome TestOutcome
+     */
+    resultCount: number;
+    /**
+     * Summary is based on outcome
+     */
+    testOutcome: TestOutcome;
+}
+
+export enum RunType {
+    /**
+     * Only used during an update to preserve the existing value.
+     */
+    Unspecified = 0,
+    /**
+     * Normal test run.
+     */
+    Normal = 1,
+    /**
+     * Test run created for the blocked result when a test point is blocked.
+     */
+    Blocking = 2,
+    /**
+     * Test run created from Web.
+     */
+    Web = 4,
+    /**
+     * Run initiated from web through MTR
+     */
+    MtrRunInitiatedFromWeb = 8,
+    /**
+     * These test run would require DTL environment. These could be either of automated or manual test run.
+     */
+    RunWithDtlEnv = 16,
+    /**
+     * These test run may or may not have published test results but it will have summary like total test, passed test, failed test etc. These are automated tests.
+     */
+    NoConfigRun = 32
 }
 
 export interface RunUpdateModel {
@@ -1599,6 +1656,10 @@ export interface RunUpdateModel {
     name: string;
     releaseEnvironmentUri: string;
     releaseUri: string;
+    /**
+     * Run summary for run Type = NoConfigRun.
+     */
+    runSummary: RunSummaryModel[];
     sourceWorkflow: string;
     /**
      * Start date time of the run.
@@ -2418,6 +2479,10 @@ export interface TestHistoryQuery {
      */
     resultsForGroup: TestResultHistoryForGroup[];
     /**
+     * Get the results history only for this testCaseId. This to get used in query to filter the result along with automatedtestname
+     */
+    testCaseId: number;
+    /**
      * Number of days for which history to collect. Maximum supported value is 7 days. Default is 7 days.
      */
     trendDays: number;
@@ -2571,7 +2636,8 @@ export enum TestLogStatusCode {
     RunNotExist = 9,
     ContainerNotCreated = 10,
     APINotSupported = 11,
-    FileSizeExceed = 12
+    FileSizeExceed = 12,
+    ContainerNotFound = 13
 }
 
 /**
@@ -2586,6 +2652,10 @@ export interface TestLogStoreEndpointDetails {
      * Test log store endpoint type.
      */
     endpointType: TestLogStoreEndpointType;
+    /**
+     * Test log store status code
+     */
+    status: TestLogStatusCode;
 }
 
 export enum TestLogStoreEndpointType {
@@ -2893,6 +2963,10 @@ export interface TestPoint {
      * ID of the test point.
      */
     id: number;
+    /**
+     * Last date when test point was reset to Active.
+     */
+    lastResetToActive: Date;
     /**
      * Last resolution state id of test point.
      */

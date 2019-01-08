@@ -83,6 +83,238 @@ export interface AgentRefreshMessage {
     timeout: any;
 }
 
+export interface Approval {
+    /**
+     * Identity that is denied permission to approve.
+     */
+    blockedApprover: WebApi.IdentityRef;
+    /**
+     * Date on which approval got created.
+     */
+    createdOn: Date;
+    /**
+     * Unique identifier with which the approval is to be registered.
+     */
+    id: string;
+    /**
+     * Instructions for the approvers.
+     */
+    instructions: string;
+    /**
+     * Date on which approval was last modified.
+     */
+    lastModifiedOn: Date;
+    /**
+     * Minimum number of approvers that should approve for the entire approval to be considered approved.
+     */
+    minRequiredApprovers: number;
+    /**
+     * Overall status of the approval.
+     */
+    status: ApprovalStatus;
+    /**
+     * List of steps associated with the approval.
+     */
+    steps: ApprovalStep[];
+    /**
+     * Date on which approval will be considered as rejected due to time out.
+     */
+    timeOutOn: Date;
+}
+
+/**
+ * Config to create a new approval.
+ */
+export interface ApprovalConfig {
+    /**
+     * Ordered list of approvers.
+     */
+    approvers: WebApi.IdentityRef[];
+    /**
+     * Instructions for the approver.
+     */
+    instructions: string;
+    /**
+     * Minimum number of approvers that should approve for the entire approval to be considered approved. Defaults to all.
+     */
+    minRequiredApprovers: number;
+    /**
+     * Order in which approvers will be actionable.
+     */
+    order: ApprovalExecutionOrder;
+    /**
+     * Flag to indicate if the approval requestor should be denied permission to approve.
+     */
+    preventRequestor: boolean;
+    /**
+     * Identity which has asked for approval.
+     */
+    requestor: WebApi.IdentityRef;
+    /**
+     * Time duration for which approval request is available for action post which it will be auto-marked as rejected.
+     */
+    timeoutInMin: number;
+}
+
+export enum ApprovalExecutionOrder {
+    /**
+     * Indicates that the approvers can approve in any order.
+     */
+    AnyOrder = 0,
+    /**
+     * Indicates that the approvers can approve in sequential order.
+     */
+    InSequence = 1
+}
+
+/**
+ * Status of an approval as a whole or of an individual step.
+ */
+export enum ApprovalStatus {
+    Undefined = 0,
+    /**
+     * Indicates the approval is Uninitiated. Used in case of in sequence order of execution where given approver is not yet actionable.
+     */
+    Uninitiated = 1,
+    /**
+     * Indicates the approval is Pending.
+     */
+    Pending = 2,
+    /**
+     * Indicates the approval is Approved.
+     */
+    Approved = 4,
+    /**
+     * Indicates the approval is Rejected.
+     */
+    Rejected = 8,
+    /**
+     * Indicates the approval is Reassigned.
+     */
+    Reassigned = 16,
+    /**
+     * Indicates the approval is Skipped.
+     */
+    Skipped = 32,
+    /**
+     * Indicates the approval is Canceled.
+     */
+    Canceled = 64
+}
+
+/**
+ * Data to update an approval object or its individual step.
+ */
+export interface ApprovalStatusUpdateParameter {
+    /**
+     * Gets or sets the approver to whom this step is reassigned. Should be populated only if status is Reassigned and this is a step level update.
+     */
+    assignedTo: WebApi.IdentityRef;
+    /**
+     * Gets or sets comment.
+     */
+    comment: string;
+    /**
+     * Gets or sets status.
+     */
+    status: ApprovalStatus;
+    /**
+     * ID of the step to be updated. Should be populated only if this is step level update and not a approval level update.
+     */
+    stepId: number;
+}
+
+/**
+ * Data for a single approval step.
+ */
+export interface ApprovalStep {
+    /**
+     * Identity who approved.
+     */
+    actualApprover: WebApi.IdentityRef;
+    /**
+     * Identifier for approval of which this step is a part of.
+     */
+    approvalId: string;
+    /**
+     * Identity who should approve.
+     */
+    assignedApprover: WebApi.IdentityRef;
+    /**
+     * Comment associated with this step.
+     */
+    comment: string;
+    /**
+     * History of reassignments for this step.
+     */
+    history: ApprovalStepHistory[];
+    /**
+     * Timestamp at which this step was initiated.
+     */
+    initiatedOn: Date;
+    /**
+     * Identity by which this step was last modified.
+     */
+    lastModifiedBy: WebApi.IdentityRef;
+    /**
+     * Timestamp at which this step was last modified.
+     */
+    lastModifiedOn: Date;
+    /**
+     * Rank which specifies the order of the approval. e.g. Same rank denotes parallel approval.
+     */
+    rank: number;
+    /**
+     * Current status of this step.
+     */
+    status: ApprovalStatus;
+    /**
+     * Unique identifier for this step.
+     */
+    stepId: number;
+}
+
+/**
+ * Data for approval step history.
+ */
+export interface ApprovalStepHistory {
+    /**
+     * Identity of the newly assigned approver.
+     */
+    assignedTo: WebApi.IdentityRef;
+    /**
+     * Approval reassignment comments.
+     */
+    comment: string;
+    /**
+     * Identity of the object who changed approval.
+     */
+    lastModifiedBy: WebApi.IdentityRef;
+    /**
+     * Time when this reassignment was done.
+     */
+    lastModifiedOn: Date;
+    /**
+     * Identity of the original approver.
+     */
+    originalAssignedTo: WebApi.IdentityRef;
+    /**
+     * Approval history revision.
+     */
+    revision: number;
+}
+
+export interface ApprovalStepQueryParameters {
+    /**
+     * Query approval steps based on list of approval IDs.
+     */
+    approvalIds: string[];
+    /**
+     * Query approval steps based on ID of approver.
+     */
+    approverId: string;
+}
+
 export enum AuditAction {
     Add = 1,
     Update = 2,
@@ -412,6 +644,10 @@ export interface DeploymentMachine {
      */
     id: number;
     /**
+     * Properties of the deployment target.
+     */
+    properties: any;
+    /**
      * Tags of the deployment target.
      */
     tags: string[];
@@ -523,41 +759,6 @@ export interface DiagnosticLogMetadata {
     poolId: number;
 }
 
-/**
- * Environment.
- */
-export interface DistributedTaskEnvironment {
-    /**
-     * Identity reference of the user who created the Environment.
-     */
-    createdBy: WebApi.IdentityRef;
-    /**
-     * Creation time of the Environment
-     */
-    createdOn: Date;
-    /**
-     * Description of the Environment.
-     */
-    description: string;
-    /**
-     * Id of the Environment
-     */
-    id: number;
-    /**
-     * Identity reference of the user who last modified the Environment.
-     */
-    lastModifiedBy: WebApi.IdentityRef;
-    /**
-     * Last modified time of the Environment
-     */
-    lastModifiedOn: Date;
-    /**
-     * Name of the Environment.
-     */
-    name: string;
-    serviceGroups: ServiceGroupReference[];
-}
-
 export interface EndpointAuthorization {
     /**
      * Gets or sets the parameters for the selected authorization scheme.
@@ -667,6 +868,41 @@ export enum EnvironmentExpands {
      * Include service group references referring to the environment.
      */
     ServiceGroupReferences = 1
+}
+
+/**
+ * Environment.
+ */
+export interface EnvironmentInstance {
+    /**
+     * Identity reference of the user who created the Environment.
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * Creation time of the Environment
+     */
+    createdOn: Date;
+    /**
+     * Description of the Environment.
+     */
+    description: string;
+    /**
+     * Id of the Environment
+     */
+    id: number;
+    /**
+     * Identity reference of the user who last modified the Environment.
+     */
+    lastModifiedBy: WebApi.IdentityRef;
+    /**
+     * Last modified time of the Environment
+     */
+    lastModifiedOn: Date;
+    /**
+     * Name of the Environment.
+     */
+    name: string;
+    serviceGroups: ServiceGroupReference[];
 }
 
 export interface EnvironmentReference {
@@ -998,6 +1234,12 @@ export enum SecureFileActionFilter {
     Use = 16
 }
 
+export interface SecureFileEvent {
+    eventType: string;
+    projectId: string;
+    secureFiles: SecureFile[];
+}
+
 export interface SendJobResponse {
     events: JobEventsConfig;
     variables: { [key: string] : string; };
@@ -1325,6 +1567,7 @@ export interface TaskAgentCloud {
      * Gets or sets a AcquireAgentEndpoint using which a request can be made to acquire new agent
      */
     acquireAgentEndpoint: string;
+    acquisitionTimeout: number;
     agentCloudId: number;
     getAgentDefinitionEndpoint: string;
     getAgentRequestStatusEndpoint: string;
@@ -1690,6 +1933,21 @@ export interface TaskAgentPoolReference {
      * Gets the current size of the pool.
      */
     size: number;
+}
+
+export interface TaskAgentPoolStatus extends TaskAgentPoolReference {
+    /**
+     * Number of requests queued and assigned to an agent. Not running yet.
+     */
+    assignedRequestCount: number;
+    /**
+     * Number of queued requests which are not assigned to any agents
+     */
+    queuedRequestCount: number;
+    /**
+     * Number of currently running requests
+     */
+    runningRequestCount: number;
 }
 
 export interface TaskAgentPoolSummary {

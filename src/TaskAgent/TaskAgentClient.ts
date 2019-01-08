@@ -89,6 +89,32 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * @param queueId - 
+     * @param top - 
+     * @param continuationToken - 
+     */
+    public async getAgentRequestsForQueue(
+        queueId: number,
+        top: number,
+        continuationToken?: string
+        ): Promise<TaskAgent.TaskAgentJobRequest[]> {
+
+        const queryValues: any = {
+            '$top': top,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/distributedtask/queues/{queueId}/agentrequests/{requestId}",
+            routeValues: {
+                queueId: queueId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param request - 
      * @param queueId - 
      */
@@ -258,6 +284,133 @@ export class TaskAgentRestClient extends RestClientBase {
                 agentId: agentId
             },
             body: agent
+        });
+    }
+
+    /**
+     * Create an approval.
+     * 
+     * @param config - 
+     * @param project - Project ID or project name
+     * @param approvalId - Id of the approval.
+     */
+    public async createApproval(
+        config: TaskAgent.ApprovalConfig,
+        project: string,
+        approvalId: string
+        ): Promise<TaskAgent.Approval> {
+
+        const queryValues: any = {
+            approvalId: approvalId
+        };
+
+        return this.beginRequest<TaskAgent.Approval>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/distributedtask/approvals",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            body: config
+        });
+    }
+
+    /**
+     * Get an approval.
+     * 
+     * @param project - Project ID or project name
+     * @param approvalId - Id of the approval.
+     */
+    public async getApproval(
+        project: string,
+        approvalId: string
+        ): Promise<TaskAgent.Approval> {
+
+        const queryValues: any = {
+            approvalId: approvalId
+        };
+
+        return this.beginRequest<TaskAgent.Approval>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/distributedtask/approvals",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Query approval steps.
+     * 
+     * @param queryParameters - 
+     * @param project - Project ID or project name
+     */
+    public async querySteps(
+        queryParameters: TaskAgent.ApprovalStepQueryParameters,
+        project: string
+        ): Promise<TaskAgent.ApprovalStep[]> {
+
+        return this.beginRequest<TaskAgent.ApprovalStep[]>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/distributedtask/approvals",
+            routeValues: {
+                project: project
+            },
+            body: queryParameters
+        });
+    }
+
+    /**
+     * Update an approval.
+     * 
+     * @param updateParameter - 
+     * @param project - Project ID or project name
+     * @param approvalId - 
+     */
+    public async updateApproval(
+        updateParameter: TaskAgent.ApprovalStatusUpdateParameter,
+        project: string,
+        approvalId: string
+        ): Promise<TaskAgent.Approval> {
+
+        const queryValues: any = {
+            approvalId: approvalId
+        };
+
+        return this.beginRequest<TaskAgent.Approval>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/approvals",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            body: updateParameter
+        });
+    }
+
+    /**
+     * Update approval steps.
+     * 
+     * @param updateParameters - 
+     * @param project - Project ID or project name
+     */
+    public async updateSteps(
+        updateParameters: TaskAgent.ApprovalStatusUpdateParameter[],
+        project: string
+        ): Promise<TaskAgent.ApprovalStep[]> {
+
+        return this.beginRequest<TaskAgent.ApprovalStep[]>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/approvals",
+            routeValues: {
+                project: project
+            },
+            body: updateParameters
         });
     }
 
@@ -708,6 +861,74 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Add an environment deployment execution history record.
+     * 
+     * @param executionRecord - 
+     */
+    public async addEnvironmentDeploymentExecutionRecord(
+        executionRecord: TaskAgent.EnvironmentDeploymentExecutionRecord
+        ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord> {
+
+        return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
+            body: executionRecord
+        });
+    }
+
+    /**
+     * Get environment deployment execution history
+     * 
+     * @param environmentId - 
+     * @param scopeId - 
+     * @param serviceGroupId - 
+     * @param continuationToken - 
+     * @param top - 
+     */
+    public async getEnvironmentDeploymentExecutionRecords(
+        environmentId: number,
+        scopeId?: string,
+        serviceGroupId?: number,
+        continuationToken?: string,
+        top?: number
+        ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord[]> {
+
+        const queryValues: any = {
+            scopeId: scopeId,
+            serviceGroupId: serviceGroupId,
+            continuationToken: continuationToken,
+            top: top
+        };
+
+        return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
+            routeValues: {
+                environmentId: environmentId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Updates environment deployment execution record
+     * 
+     * @param executionRecord - Environment deployment execution record to update.
+     */
+    public async updateEnvironmentDeploymentExecutionRecord(
+        executionRecord: TaskAgent.EnvironmentDeploymentExecutionRecord
+        ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord> {
+
+        return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
+            body: executionRecord
+        });
+    }
+
+    /**
      * Create an environment.
      * 
      * @param environmentCreateParameter - Environment to create.
@@ -716,9 +937,9 @@ export class TaskAgentRestClient extends RestClientBase {
     public async addEnvironment(
         environmentCreateParameter: TaskAgent.EnvironmentCreateParameter,
         project: string
-        ): Promise<TaskAgent.DistributedTaskEnvironment> {
+        ): Promise<TaskAgent.EnvironmentInstance> {
 
-        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+        return this.beginRequest<TaskAgent.EnvironmentInstance>({
             apiVersion: "5.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
@@ -762,13 +983,13 @@ export class TaskAgentRestClient extends RestClientBase {
         project: string,
         environmentId: number,
         expands?: TaskAgent.EnvironmentExpands
-        ): Promise<TaskAgent.DistributedTaskEnvironment> {
+        ): Promise<TaskAgent.EnvironmentInstance> {
 
         const queryValues: any = {
             expands: expands
         };
 
-        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+        return this.beginRequest<TaskAgent.EnvironmentInstance>({
             apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
@@ -792,7 +1013,7 @@ export class TaskAgentRestClient extends RestClientBase {
         name?: string,
         continuationToken?: string,
         top?: number
-        ): Promise<TaskAgent.DistributedTaskEnvironment[]> {
+        ): Promise<TaskAgent.EnvironmentInstance[]> {
 
         const queryValues: any = {
             name: name,
@@ -800,7 +1021,7 @@ export class TaskAgentRestClient extends RestClientBase {
             '$top': top
         };
 
-        return this.beginRequest<TaskAgent.DistributedTaskEnvironment[]>({
+        return this.beginRequest<TaskAgent.EnvironmentInstance[]>({
             apiVersion: "5.1-preview.1",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
             routeValues: {
@@ -821,9 +1042,9 @@ export class TaskAgentRestClient extends RestClientBase {
         environmentUpdateParameter: TaskAgent.EnvironmentUpdateParameter,
         project: string,
         environmentId: number
-        ): Promise<TaskAgent.DistributedTaskEnvironment> {
+        ): Promise<TaskAgent.EnvironmentInstance> {
 
-        return this.beginRequest<TaskAgent.DistributedTaskEnvironment>({
+        return this.beginRequest<TaskAgent.EnvironmentInstance>({
             apiVersion: "5.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}",
@@ -942,6 +1163,32 @@ export class TaskAgentRestClient extends RestClientBase {
                 poolId: poolId,
                 requestId: requestId
             }
+        });
+    }
+
+    /**
+     * @param poolId - 
+     * @param top - 
+     * @param continuationToken - 
+     */
+    public async getAgentRequests(
+        poolId: number,
+        top: number,
+        continuationToken?: string
+        ): Promise<TaskAgent.TaskAgentJobRequest[]> {
+
+        const queryValues: any = {
+            '$top': top,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<TaskAgent.TaskAgentJobRequest[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/distributedtask/pools/{poolId}/jobrequests/{requestId}",
+            routeValues: {
+                poolId: poolId
+            },
+            queryParams: queryValues
         });
     }
 
@@ -2047,11 +2294,17 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param queue - 
      * @param project - Project ID or project name
+     * @param authorizePipelines - 
      */
     public async addAgentQueue(
         queue: TaskAgent.TaskAgentQueue,
-        project?: string
+        project?: string,
+        authorizePipelines?: boolean
         ): Promise<TaskAgent.TaskAgentQueue> {
+
+        const queryValues: any = {
+            authorizePipelines: authorizePipelines
+        };
 
         return this.beginRequest<TaskAgent.TaskAgentQueue>({
             apiVersion: "5.1-preview.1",
@@ -2060,6 +2313,7 @@ export class TaskAgentRestClient extends RestClientBase {
             routeValues: {
                 project: project
             },
+            queryParams: queryValues,
             body: queue
         });
     }
@@ -2535,15 +2789,18 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param content - Content to upload
      * @param project - Project ID or project name
      * @param name - Name of the file to upload
+     * @param authorizePipelines - If authorizePipelines is true, then the secure file is authorized for use by all pipelines in the project.
      */
     public async uploadSecureFile(
         content: any,
         project: string,
-        name: string
+        name: string,
+        authorizePipelines?: boolean
         ): Promise<TaskAgent.SecureFile> {
 
         const queryValues: any = {
-            name: name
+            name: name,
+            authorizePipelines: authorizePipelines
         };
 
         return this.beginRequest<TaskAgent.SecureFile>({
@@ -2559,179 +2816,6 @@ export class TaskAgentRestClient extends RestClientBase {
             queryParams: queryValues,
             body: content,
             isRawData: true
-        });
-    }
-
-    /**
-     * @param endpoint - 
-     * @param project - Project ID or project name
-     */
-    public async createServiceEndpoint(
-        endpoint: TaskAgent.ServiceEndpoint,
-        project: string
-        ): Promise<TaskAgent.ServiceEndpoint> {
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.1-preview.2",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
-            body: endpoint
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param endpointId - 
-     */
-    public async deleteServiceEndpoint(
-        project: string,
-        endpointId: string
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.1-preview.2",
-            method: "DELETE",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project,
-                endpointId: endpointId
-            }
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param endpointId - 
-     */
-    public async getServiceEndpointDetails(
-        project: string,
-        endpointId: string
-        ): Promise<TaskAgent.ServiceEndpoint> {
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.1-preview.2",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project,
-                endpointId: endpointId
-            }
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param type - 
-     * @param authSchemes - 
-     * @param endpointIds - 
-     * @param includeFailed - 
-     */
-    public async getServiceEndpoints(
-        project: string,
-        type?: string,
-        authSchemes?: string[],
-        endpointIds?: string[],
-        includeFailed?: boolean
-        ): Promise<TaskAgent.ServiceEndpoint[]> {
-
-        const queryValues: any = {
-            type: type,
-            authSchemes: authSchemes && authSchemes.join(","),
-            endpointIds: endpointIds && endpointIds.join(","),
-            includeFailed: includeFailed
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.1-preview.2",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param endpointNames - 
-     * @param type - 
-     * @param authSchemes - 
-     * @param includeFailed - 
-     */
-    public async getServiceEndpointsByNames(
-        project: string,
-        endpointNames: string[],
-        type?: string,
-        authSchemes?: string[],
-        includeFailed?: boolean
-        ): Promise<TaskAgent.ServiceEndpoint[]> {
-
-        const queryValues: any = {
-            endpointNames: endpointNames && endpointNames.join(","),
-            type: type,
-            authSchemes: authSchemes && authSchemes.join(","),
-            includeFailed: includeFailed
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.1-preview.2",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param endpoint - 
-     * @param project - Project ID or project name
-     * @param endpointId - 
-     * @param operation - 
-     */
-    public async updateServiceEndpoint(
-        endpoint: TaskAgent.ServiceEndpoint,
-        project: string,
-        endpointId: string,
-        operation?: string
-        ): Promise<TaskAgent.ServiceEndpoint> {
-
-        const queryValues: any = {
-            operation: operation
-        };
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint>({
-            apiVersion: "5.1-preview.2",
-            method: "PUT",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project,
-                endpointId: endpointId
-            },
-            queryParams: queryValues,
-            body: endpoint
-        });
-    }
-
-    /**
-     * @param endpoints - 
-     * @param project - Project ID or project name
-     */
-    public async updateServiceEndpoints(
-        endpoints: TaskAgent.ServiceEndpoint[],
-        project: string
-        ): Promise<TaskAgent.ServiceEndpoint[]> {
-
-        return this.beginRequest<TaskAgent.ServiceEndpoint[]>({
-            apiVersion: "5.1-preview.2",
-            method: "PUT",
-            routeTemplate: "{project}/_apis/distributedtask/serviceendpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
-            body: endpoints
         });
     }
 
@@ -2870,6 +2954,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param continuationToken - Get deployment targets with names greater than this continuationToken lexicographically.
      * @param top - Maximum number of deployment targets to return. Default is **1000**.
      * @param enabled - Get only deployment targets that are enabled or disabled. Default is 'null' which returns all the targets.
+     * @param propertyFilters - 
      */
     public async getDeploymentTargets(
         project: string,
@@ -2882,7 +2967,8 @@ export class TaskAgentRestClient extends RestClientBase {
         agentJobResult?: TaskAgent.TaskAgentJobResultFilter,
         continuationToken?: string,
         top?: number,
-        enabled?: boolean
+        enabled?: boolean,
+        propertyFilters?: string[]
         ): Promise<TaskAgent.DeploymentMachine[]> {
 
         const queryValues: any = {
@@ -2894,7 +2980,8 @@ export class TaskAgentRestClient extends RestClientBase {
             agentJobResult: agentJobResult,
             continuationToken: continuationToken,
             '$top': top,
-            enabled: enabled
+            enabled: enabled,
+            propertyFilters: propertyFilters && propertyFilters.join(",")
         };
 
         return this.beginRequest<TaskAgent.DeploymentMachine[]>({

@@ -233,6 +233,11 @@ export interface EndpointAuthorization {
     scheme: string;
 }
 
+export interface EndpointOperationStatus {
+    state: string;
+    statusMessage: string;
+}
+
 /**
  * Represents url of the service endpoint.
  */

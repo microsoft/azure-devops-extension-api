@@ -46,6 +46,14 @@ export interface DataSourceBindingBase {
      */
     parameters: { [key: string] : string; };
     /**
+     * Gets or sets http request body
+     */
+    requestContent: string;
+    /**
+     * Gets or sets http request verb
+     */
+    requestVerb: string;
+    /**
      * Gets or sets the result selector.
      */
     resultSelector: string;

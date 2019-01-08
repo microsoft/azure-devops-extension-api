@@ -1534,7 +1534,7 @@ export enum DefinitionQueueStatus {
  */
 export interface DefinitionReference {
     /**
-     * The date the definition was created.
+     * The date this version of the definition was created.
      */
     createdDate: Date;
     /**

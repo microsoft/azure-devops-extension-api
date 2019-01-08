@@ -35,6 +35,10 @@ export interface BacklogConfiguration {
      */
     hiddenBacklogs: string[];
     /**
+     * Is BugsBehavior Configured in the process
+     */
+    isBugsBehaviorConfigured: boolean;
+    /**
      * Portfolio backlog descriptors
      */
     portfolioBacklogs: BacklogLevelConfiguration[];
@@ -379,6 +383,10 @@ export interface DeliveryViewData extends PlanViewData {
      * The end date of the delivery view data
      */
     endDate: Date;
+    /**
+     * Max number of teams can be configured for a delivery plan.
+     */
+    maxExpandedTeams: number;
     /**
      * The start date for the delivery view data
      */

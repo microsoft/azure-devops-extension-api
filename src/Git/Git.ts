@@ -2317,6 +2317,13 @@ export interface GitRepositoryStats {
     repositoryId: string;
 }
 
+export interface GitResolution {
+    /**
+     * User who created the resolution.
+     */
+    author: WebApi.IdentityRef;
+}
+
 /**
  * The type of a merge conflict.
  */
@@ -2351,7 +2358,7 @@ export enum GitResolutionError {
     OtherError = 255
 }
 
-export interface GitResolutionMergeContent {
+export interface GitResolutionMergeContent extends GitResolution {
     mergeType: GitResolutionMergeType;
     userMergedBlob: GitBlobRef;
     userMergedContent: number[];
@@ -2365,7 +2372,7 @@ export enum GitResolutionMergeType {
     UserMerged = 4
 }
 
-export interface GitResolutionPathConflict {
+export interface GitResolutionPathConflict extends GitResolution {
     action: GitResolutionPathConflictAction;
     renamePath: string;
 }
@@ -2378,7 +2385,7 @@ export enum GitResolutionPathConflictAction {
     KeepTargetDeleteSource = 4
 }
 
-export interface GitResolutionPickOneAction {
+export interface GitResolutionPickOneAction extends GitResolution {
     action: GitResolutionWhichAction;
 }
 

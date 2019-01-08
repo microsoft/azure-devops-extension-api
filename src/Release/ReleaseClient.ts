@@ -179,14 +179,16 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get a task attachment.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param environmentId - 
-     * @param attemptId - 
-     * @param timelineId - 
-     * @param recordId - 
-     * @param type - 
-     * @param name - 
+     * @param releaseId - Id of the release.
+     * @param environmentId - Id of the release environment.
+     * @param attemptId - Attempt number of deployment.
+     * @param timelineId - Timeline Id of the task.
+     * @param recordId - Record Id of attachment.
+     * @param type - Type of the attachment.
+     * @param name - Name of the attachment.
      */
     public async getTaskAttachmentContent(
         project: string,
@@ -217,15 +219,17 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get a release task attachment.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param environmentId - 
-     * @param attemptId - 
-     * @param planId - 
-     * @param timelineId - 
-     * @param recordId - 
-     * @param type - 
-     * @param name - 
+     * @param releaseId - Id of the release.
+     * @param environmentId - Id of the release environment.
+     * @param attemptId - Attempt number of deployment.
+     * @param planId - Plan Id of the deploy phase.
+     * @param timelineId - Timeline Id of the task.
+     * @param recordId - Record Id of attachment.
+     * @param type - Type of the attachment.
+     * @param name - Name of the attachment.
      */
     public async getReleaseTaskAttachmentContent(
         project: string,
@@ -258,12 +262,14 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get the task attachments.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param environmentId - 
-     * @param attemptId - 
-     * @param timelineId - 
-     * @param type - 
+     * @param releaseId - Id of the release.
+     * @param environmentId - Id of the release environment.
+     * @param attemptId - Attempt number of deployment.
+     * @param timelineId - Timeline Id of the task.
+     * @param type - Type of the attachment.
      */
     public async getTaskAttachments(
         project: string,
@@ -289,12 +295,14 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get the release task attachments.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param environmentId - 
-     * @param attemptId - 
-     * @param planId - 
-     * @param type - 
+     * @param releaseId - Id of the release.
+     * @param environmentId - Id of the release environment.
+     * @param attemptId - Attempt number of deployment.
+     * @param planId - Plan Id of the deploy phase.
+     * @param type - Type of the attachment.
      */
     public async getReleaseTaskAttachments(
         project: string,
@@ -561,6 +569,7 @@ export class ReleaseRestClient extends RestClientBase {
      * @param propertyFilters - A comma-delimited list of extended properties to be retrieved. If set, the returned Release Definitions will contain values for the specified property Ids (if they exist). If not set, properties will not be included. Note that this will not filter out any Release Definition from results irrespective of whether it has property set or not.
      * @param definitionIdFilter - A comma-delimited list of release definitions to retrieve.
      * @param isDeleted - 'true' to get release definitions that has been deleted. Default is 'false'
+     * @param searchTextContainsFolderName - 'true' to get the release definitions under the folder with name as specified in searchText. Default is 'false'.
      */
     public async getReleaseDefinitions(
         project: string,
@@ -576,7 +585,8 @@ export class ReleaseRestClient extends RestClientBase {
         tagFilter?: string[],
         propertyFilters?: string[],
         definitionIdFilter?: string[],
-        isDeleted?: boolean
+        isDeleted?: boolean,
+        searchTextContainsFolderName?: boolean
         ): Promise<Release.ReleaseDefinition[]> {
 
         const queryValues: any = {
@@ -592,7 +602,8 @@ export class ReleaseRestClient extends RestClientBase {
             tagFilter: tagFilter && tagFilter.join(","),
             propertyFilters: propertyFilters && propertyFilters.join(","),
             definitionIdFilter: definitionIdFilter && definitionIdFilter.join(","),
-            isDeleted: isDeleted
+            isDeleted: isDeleted,
+            searchTextContainsFolderName: searchTextContainsFolderName
         };
 
         return this.beginRequest<Release.ReleaseDefinition[]>({
@@ -1519,6 +1530,7 @@ export class ReleaseRestClient extends RestClientBase {
      * @param tagFilter - A comma-delimited list of tags. Only releases with these tags will be returned.
      * @param propertyFilters - A comma-delimited list of extended properties to be retrieved. If set, the returned Releases will contain values for the specified property Ids (if they exist). If not set, properties will not be included. Note that this will not filter out any Release from results irrespective of whether it has property set or not.
      * @param releaseIdFilter - A comma-delimited list of releases Ids. Only releases with these Ids will be returned.
+     * @param path - Releases under this folder path will be returned
      */
     public async getReleases(
         project?: string,
@@ -1541,7 +1553,8 @@ export class ReleaseRestClient extends RestClientBase {
         isDeleted?: boolean,
         tagFilter?: string[],
         propertyFilters?: string[],
-        releaseIdFilter?: number[]
+        releaseIdFilter?: number[],
+        path?: string
         ): Promise<Release.Release[]> {
 
         const queryValues: any = {
@@ -1564,7 +1577,8 @@ export class ReleaseRestClient extends RestClientBase {
             isDeleted: isDeleted,
             tagFilter: tagFilter && tagFilter.join(","),
             propertyFilters: propertyFilters && propertyFilters.join(","),
-            releaseIdFilter: releaseIdFilter && releaseIdFilter.join(",")
+            releaseIdFilter: releaseIdFilter && releaseIdFilter.join(","),
+            path: path
         };
 
         return this.beginRequest<Release.Release[]>({

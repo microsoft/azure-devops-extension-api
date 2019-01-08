@@ -2676,9 +2676,9 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Create a comment on a specific thread in a pull request.
+     * Create a comment on a specific thread in a pull request (up to 500 comments can be created per thread).
      * 
-     * @param comment - The comment to create.
+     * @param comment - The comment to create. Comments can be up to 150,000 characters.
      * @param repositoryId - The repository ID of the pull request's target branch.
      * @param pullRequestId - ID of the pull request.
      * @param threadId - ID of the thread that the desired comment is in.
@@ -2797,7 +2797,7 @@ export class GitRestClient extends RestClientBase {
     /**
      * Update a comment associated with a specific thread in a pull request.
      * 
-     * @param comment - The comment content that should be updated.
+     * @param comment - The comment content that should be updated. Comments can be up to 150,000 characters.
      * @param repositoryId - The repository ID of the pull request's target branch.
      * @param pullRequestId - ID of the pull request.
      * @param threadId - ID of the thread that the desired comment is in.

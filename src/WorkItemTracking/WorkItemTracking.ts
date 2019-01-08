@@ -776,6 +776,10 @@ export interface WorkItemClassificationNode extends WorkItemTrackingResource {
      */
     name: string;
     /**
+     * Path of the classification node.
+     */
+    path: string;
+    /**
      * Node structure type.
      */
     structureType: TreeNodeStructureType;
@@ -1350,6 +1354,10 @@ export interface WorkItemType extends WorkItemTrackingResource {
      * The reference name of the work item type.
      */
     referenceName: string;
+    /**
+     * Gets state information for the work item type.
+     */
+    states: WorkItemStateColor[];
     /**
      * Gets the various state transition mappings in the work item type.
      */

@@ -259,7 +259,9 @@ export class CoreRestClient extends RestClientBase {
     }
 
     /**
-     * @param minRevision - 
+     * Gets the history of changes to the project.
+     * 
+     * @param minRevision - The minimum revision number to return in the history.
      */
     public async getProjectHistoryEntries(
         minRevision?: number

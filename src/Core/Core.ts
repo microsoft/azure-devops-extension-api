@@ -70,22 +70,52 @@ export enum ProjectChangeType {
 }
 
 /**
- * Contains information of the project
+ * Contains information describing a project.
  */
 export interface ProjectInfo {
+    /**
+     * The abbreviated name of the project.
+     */
     abbreviation: string;
+    /**
+     * The description of the project.
+     */
     description: string;
+    /**
+     * The id of the project.
+     */
     id: string;
+    /**
+     * The time that this project was last updated.
+     */
     lastUpdateTime: Date;
+    /**
+     * The name of the project.
+     */
     name: string;
+    /**
+     * A set of name-value pairs storing additional property data related to the project.
+     */
     properties: ProjectProperty[];
     /**
-     * Current revision of the project
+     * The current revision of the project.
      */
     revision: number;
+    /**
+     * The current state of the project.
+     */
     state: any;
+    /**
+     * A Uri that can be used to refer to this project.
+     */
     uri: string;
+    /**
+     * The version number of the project.
+     */
     version: number;
+    /**
+     * Indicates whom the project is visible to.
+     */
     visibility: ProjectVisibility;
 }
 
@@ -95,18 +125,33 @@ export interface ProjectMessage {
     shouldInvalidateSystemStore: boolean;
 }
 
+/**
+ * A named value associated with a project.
+ */
 export interface ProjectProperty {
+    /**
+     * The name of the property.
+     */
     name: string;
+    /**
+     * The value of the property.
+     */
     value: any;
 }
 
 export enum ProjectVisibility {
     Unchanged = -1,
+    /**
+     * The project is only visible to users with explicit access.
+     */
     Private = 0,
     /**
      * Enterprise level project visibility
      */
     Organization = 1,
+    /**
+     * The project is visible to all.
+     */
     Public = 2,
     SystemPrivate = 3
 }
@@ -257,6 +302,10 @@ export interface TeamProjectReference {
      * Project identifier.
      */
     id: string;
+    /**
+     * Project last update time.
+     */
+    lastUpdateTime: Date;
     /**
      * Project name.
      */

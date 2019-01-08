@@ -111,6 +111,10 @@ export interface WikiPage extends WikiPageCreateOrUpdateParameters {
      */
     gitItemPath: string;
     /**
+     * When present, permanent identifier for the wiki page
+     */
+    id: number;
+    /**
      * True if a page is non-conforming, i.e. 1) if the name doesn't match page naming standards. 2) if the page does not have a valid entry in the appropriate order file.
      */
     isNonConformant: boolean;

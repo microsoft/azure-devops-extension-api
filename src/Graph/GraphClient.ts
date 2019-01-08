@@ -75,36 +75,6 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * @param batch - 
-     */
-    public async getGlobalExtendedProperties(
-        batch: Graph.GraphGlobalExtendedPropertyBatch
-        ): Promise<{ [key: string] : any; }> {
-
-        return this.beginRequest<{ [key: string] : any; }>({
-            apiVersion: "5.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/Graph/GraphGlobalExtendedPropertyBatch",
-            body: batch
-        });
-    }
-
-    /**
-     * @param identityProperties - 
-     */
-    public async writeGlobalExtendedProperties(
-        identityProperties: { [key: string] : any; }
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
-            method: "PUT",
-            routeTemplate: "_apis/Graph/GraphGlobalExtendedPropertyBatch",
-            body: identityProperties
-        });
-    }
-
-    /**
      * Create a new VSTS group or materialize an existing AAD group.
      * 
      * @param creationContext - The subset of the full graph group used to uniquely find the graph subject in an external provider.
@@ -147,32 +117,6 @@ export class GraphRestClient extends RestClientBase {
             routeValues: {
                 groupDescriptor: groupDescriptor
             }
-        });
-    }
-
-    /**
-     * This endpoint returns a result for any group that has ever been valid in the system, even if the group has since been deleted or has had all their memberships deleted. The current validity of the group is indicated through its disabled property, which is omitted when false.
-     * 
-     * @param searchFactor - The search factor for what it is that you are searching for
-     * @param searchValue - The value of the search factor
-     * @param forceDomainQualification - In cases that you are searching for principle name, this parameter will specify that system should force the principle name being domain qualified
-     */
-    public async findGroupsBySearchFactor(
-        searchFactor: Graph.GraphMemberSearchFactor,
-        searchValue?: string,
-        forceDomainQualification?: boolean
-        ): Promise<Graph.GraphGroup[]> {
-
-        const queryValues: any = {
-            searchFactor: searchFactor,
-            searchValue: searchValue,
-            forceDomainQualification: forceDomainQualification
-        };
-
-        return this.beginRequest<Graph.GraphGroup[]>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
-            queryParams: queryValues
         });
     }
 
@@ -237,50 +181,6 @@ export class GraphRestClient extends RestClientBase {
     /**
      * This endpoint returns a result for any member that has ever been valid in the system, even if the member has since been deleted or has had all their memberships deleted. The current validity of the member is indicated through its disabled property, which is omitted when false.
      * 
-     * @param searchFactor - The search factor for what it is that you are searching for
-     * @param searchValue - The value of the search factor
-     * @param forceDomainQualification - In cases that you are searching for principle name, this parameter will specify that system should force the principle name being domain qualified
-     */
-    public async findMembersBySearchFactor(
-        searchFactor: Graph.GraphMemberSearchFactor,
-        searchValue?: string,
-        forceDomainQualification?: boolean
-        ): Promise<Graph.GraphMember[]> {
-
-        const queryValues: any = {
-            searchFactor: searchFactor,
-            searchValue: searchValue,
-            forceDomainQualification: forceDomainQualification
-        };
-
-        return this.beginRequest<Graph.GraphMember[]>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/Members",
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * This endpoint returns a result for any member that has ever been valid in the system, even if the member has since been deleted or has had all their memberships deleted. The current validity of the member is indicated through its disabled property, which is omitted when false.
-     * 
-     * @param memberCuid - The Consistently Unique Identifier of the desired member.
-     */
-    public async getMemberByCuid(
-        memberCuid: string
-        ): Promise<Graph.GraphMember> {
-
-        return this.beginRequest<Graph.GraphMember>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/Members/{memberCuid}",
-            routeValues: {
-                memberCuid: memberCuid
-            }
-        });
-    }
-
-    /**
-     * This endpoint returns a result for any member that has ever been valid in the system, even if the member has since been deleted or has had all their memberships deleted. The current validity of the member is indicated through its disabled property, which is omitted when false.
-     * 
      * @param memberDescriptor - The descriptor of the desired member.
      */
     public async getMemberByDescriptor(
@@ -327,9 +227,9 @@ export class GraphRestClient extends RestClientBase {
     public async checkMembershipExistence(
         subjectDescriptor: string,
         containerDescriptor: string
-        ): Promise<void> {
+        ): Promise<boolean> {
 
-        return this.beginRequest<void>({
+        return this.beginRequest<Response>({
             apiVersion: "5.1-preview.1",
             method: "HEAD",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
@@ -337,6 +237,13 @@ export class GraphRestClient extends RestClientBase {
                 subjectDescriptor: subjectDescriptor,
                 containerDescriptor: containerDescriptor
             }
+        }).then(async response => {
+            return true;
+        }).catch((error) => {
+            if (error.status === 404) {
+                return false;
+            }
+            throw error;
         });
     }
 
@@ -579,17 +486,6 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     */
-    public async getIdentityShardingState(
-        ): Promise<Graph.IdentityShardingState> {
-
-        return this.beginRequest<Graph.IdentityShardingState>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/ShardingState"
-        });
-    }
-
-    /**
      * Resolve a descriptor to a storage key.
      * 
      * @param subjectDescriptor - 
@@ -680,50 +576,6 @@ export class GraphRestClient extends RestClientBase {
             routeValues: {
                 userDescriptor: userDescriptor
             }
-        });
-    }
-
-    /**
-     * This endpoint returns a result for any user that has ever been valid in the system, even if the user has since been deleted or has had all their memberships deleted. The current validity of the user is indicated through its disabled property, which is omitted when false.
-     * 
-     * @param searchFactor - The search factor for what it is that you are searching for
-     * @param searchValue - The value of the search factor
-     * @param forceDomainQualification - In cases that you are searching for principle name, this parameter will specify that system should force the principle name being domain qualified
-     */
-    public async findUsersBySearchFactor(
-        searchFactor: Graph.GraphMemberSearchFactor,
-        searchValue?: string,
-        forceDomainQualification?: boolean
-        ): Promise<Graph.GraphUser[]> {
-
-        const queryValues: any = {
-            searchFactor: searchFactor,
-            searchValue: searchValue,
-            forceDomainQualification: forceDomainQualification
-        };
-
-        return this.beginRequest<Graph.GraphUser[]>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/Users/{userDescriptor}",
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param cuidBasedUserLegacyDescriptor - 
-     */
-    public async getCuidBasedUserByLegacyDescriptor(
-        cuidBasedUserLegacyDescriptor: string
-        ): Promise<Graph.GraphUser> {
-
-        const queryValues: any = {
-            cuidBasedUserLegacyDescriptor: cuidBasedUserLegacyDescriptor
-        };
-
-        return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/Graph/Users/{userDescriptor}",
-            queryParams: queryValues
         });
     }
 
