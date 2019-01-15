@@ -474,6 +474,42 @@ export interface IGlobalMessageBanner {
     messageLinks?: IGlobalMessageLink[];
 }
 
+/**
+ * Toast Props with metadata to specify how it will be rendered by the service
+ */
+export interface IToast {
+    /**
+     * Optional text for the Call to Action
+     */
+    callToAction?: string;
+
+    /**
+     * Optional class name for the root toast element
+     */
+    className?: string;
+
+    /**
+     * Duration in ms the toast will appear for
+     */
+    duration: number;
+
+    /**
+     * If true, we'll immediately take down any existing toast and display this instead
+     * Otherwise, it adds it to an internal queue in the GlobalToast and will display after others in the queue
+     */
+    forceOverrideExisting?: boolean;
+
+    /**
+     * Message to display on the Toast
+     */
+    message: string;
+
+    /**
+     * Optional handler for when the Call to Action is clicked
+     */
+    onCallToActionClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
 export interface IGlobalMessagesService {
 
     /**
@@ -482,4 +518,10 @@ export interface IGlobalMessagesService {
      * @param banner - The message banner to display
      */
     setGlobalMessageBanner(banner: IGlobalMessageBanner): void
+
+    /**
+     * Displays or queues a Toast to display at the bottom of the page
+     * @param toast - The toast to display
+     */
+    addToast(toast: IToast): void;
 }
