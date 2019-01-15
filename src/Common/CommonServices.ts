@@ -507,7 +507,7 @@ export interface IToast {
     /**
      * Optional handler for when the Call to Action is clicked
      */
-    onCallToActionClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+    onCallToActionClick?: () => void;
 }
 
 export interface IGlobalMessagesService {
