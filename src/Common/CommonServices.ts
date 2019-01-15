@@ -14,19 +14,15 @@ export const enum CommonServiceIds {
     GlobalMessagesService = "ms.vss-tfs-web.tfs-global-messages-service",
 
     /**
-     * Service for opening dialogs in the host frame
-     */
-    HostDialogService = "ms.vss-features.host-dialog-service",
-
-    /**
      * Service for interacting with the host window's navigation (URLs, new windows, etc.)
      */
     HostNavigationService = "ms.vss-features.host-navigation-service",
 
     /**
-     * Service for opening panels in the host frame
+     * Service for interacting with the layout of the page: managing full-screen mode,
+     * opening dialogs and panels
      */
-    HostPanelService = "ms.vss-features.host-panel-service",
+    HostPageLayoutService = "ms.vss-features.host-page-layout-service",
 
     /**
      * Service for getting URLs/locations from the host context
@@ -191,28 +187,6 @@ export interface IMessageDialogOptions extends IDialogOptions<boolean> {
 }
 
 /**
- * Service for external content to show dialogs in the host frame
- */
-export interface IHostDialogService {
-
-    /**
-     * Open a dialog in the host frame, showing custom external content
-     * 
-     * @param contentContributionId - Id of the dialog content contribution that specifies the content to display in the dialog.
-     * @param options - Dialog options
-     */
-    openCustomDialog: <TResult>(contentContributionId: string, options?: IDialogOptions<TResult>) => void;
-
-    /**
-     * Open a dialog in the host frame, showing the specified text message, an OK and optional Cancel button
-     * 
-     * @param message - Dialog message text
-     * @param options - Dialog options
-     */
-    openMessageDialog: (message: string, options?: IMessageDialogOptions) => void;
-}
-
-/**
  * Size (width) options for panel
  */
 export const enum PanelSize {
@@ -253,9 +227,31 @@ export interface IPanelOptions<TResult> {
 }
 
 /**
- * Service for external content to show a panel in the host frame
+ * Service for interacting with the layout of the page: managing full-screen mode,
+ * opening dialogs and panels
  */
-export interface IHostPanelService {
+export interface IHostPageLayoutService {
+
+    /**
+     * Gets whether the page is currently in full screen mode
+     */
+    getFullScreenMode(): Promise<boolean>;
+
+    /**
+     * Open a dialog in the host frame, showing custom external content
+     * 
+     * @param contentContributionId - Id of the dialog content contribution that specifies the content to display in the dialog.
+     * @param options - Dialog options
+     */
+    openCustomDialog: <TResult>(contentContributionId: string, options?: IDialogOptions<TResult>) => void;
+
+    /**
+     * Open a dialog in the host frame, showing the specified text message, an OK and optional Cancel button
+     * 
+     * @param message - Dialog message text
+     * @param options - Dialog options
+     */
+    openMessageDialog: (message: string, options?: IMessageDialogOptions) => void;
 
     /**
      * Open a panel in the host frame, showing custom external content
@@ -264,6 +260,13 @@ export interface IHostPanelService {
      * @param options - Panel display options
      */
     openPanel: <TResult>(contentContributionId: string, options: IPanelOptions<TResult>) => void;
+    
+    /**
+     * Enter or exit full screen mode
+     *
+     * @param fullScreenMode True to enter full-screen mode, false to exit.
+     */
+    setFullScreenMode(fullScreenMode: boolean): void;
 }
 
 /**
