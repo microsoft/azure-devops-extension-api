@@ -896,7 +896,7 @@ export class GitRestClient extends RestClientBase {
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
      * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
-     * @param versionDescriptor - Version descriptor.  Default is null.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
      * @param resolveLfs - Set to true to resolve Git LFS pointer files to return actual content from Git LFS.  Default is false.
      */
@@ -948,7 +948,7 @@ export class GitRestClient extends RestClientBase {
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
      * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
-     * @param versionDescriptor - Version descriptor.  Default is null.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
      * @param resolveLfs - Set to true to resolve Git LFS pointer files to return actual content from Git LFS.  Default is false.
      */
@@ -1001,7 +1001,7 @@ export class GitRestClient extends RestClientBase {
      * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param includeLinks - Set to true to include links to items.  Default is false.
-     * @param versionDescriptor - Version descriptor.  Default is null.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      */
     public async getItems(
         repositoryId: string,
@@ -1047,7 +1047,7 @@ export class GitRestClient extends RestClientBase {
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
      * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
-     * @param versionDescriptor - Version descriptor.  Default is null.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
      * @param resolveLfs - Set to true to resolve Git LFS pointer files to return actual content from Git LFS.  Default is false.
      */
@@ -1100,7 +1100,7 @@ export class GitRestClient extends RestClientBase {
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
      * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
-     * @param versionDescriptor - Version descriptor.  Default is null.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
      * @param resolveLfs - Set to true to resolve Git LFS pointer files to return actual content from Git LFS.  Default is false.
      */
@@ -1509,13 +1509,22 @@ export class GitRestClient extends RestClientBase {
      * @param pullRequestId - ID of the pull request.
      * @param iterationId - ID of the iteration from which to get the commits.
      * @param project - Project ID or project name
+     * @param top - Maximum number of commits to return. The maximum number of commits that can be returned per batch is 500.
+     * @param skip - Number of commits to skip.
      */
     public async getPullRequestIterationCommits(
         repositoryId: string,
         pullRequestId: number,
         iterationId: number,
-        project?: string
+        project?: string,
+        top?: number,
+        skip?: number
         ): Promise<Git.GitCommitRef[]> {
+
+        const queryValues: any = {
+            top: top,
+            skip: skip
+        };
 
         return this.beginRequest<Git.GitCommitRef[]>({
             apiVersion: "5.1-preview.1",
@@ -1525,7 +1534,8 @@ export class GitRestClient extends RestClientBase {
                 repositoryId: repositoryId,
                 pullRequestId: pullRequestId,
                 iterationId: iterationId
-            }
+            },
+            queryParams: queryValues
         });
     }
 

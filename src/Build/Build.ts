@@ -48,6 +48,10 @@ export interface AgentPoolQueueReference extends ResourceReference {
  */
 export interface AgentPoolQueueTarget extends PhaseTarget {
     /**
+     * Agent specification of the target.
+     */
+    agentSpecification: AgentSpecification;
+    /**
      * Enables scripts and other processes launched while executing phase to access the OAuth token
      */
     allowScriptsAuthAccessOption: boolean;
@@ -60,6 +64,16 @@ export interface AgentPoolQueueTarget extends PhaseTarget {
      * The queue.
      */
     queue: AgentPoolQueue;
+}
+
+/**
+ * Specification of the agent defined by the pool provider.
+ */
+export interface AgentSpecification {
+    /**
+     * Agent specification unique identifier.
+     */
+    identifier: string;
 }
 
 export enum AgentStatus {
@@ -1730,6 +1744,20 @@ export interface DeploymentTest extends Deployment {
  */
 export interface DesignerProcess extends BuildProcess {
     phases: Phase[];
+    /**
+     * The target for the build process.
+     */
+    target: DesignerProcessTarget;
+}
+
+/**
+ * Represents the target for the build process.
+ */
+export interface DesignerProcessTarget {
+    /**
+     * Agent specification for the build process.
+     */
+    agentSpecification: AgentSpecification;
 }
 
 export interface DockerProcess extends BuildProcess {

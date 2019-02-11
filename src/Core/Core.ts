@@ -63,6 +63,13 @@ export enum ProcessType {
     Inherited = 2
 }
 
+export interface ProjectAvatar {
+    /**
+     * The avatar image represented as a byte array
+     */
+    image: number[];
+}
+
 export enum ProjectChangeType {
     Modified = 0,
     Deleted = 1,

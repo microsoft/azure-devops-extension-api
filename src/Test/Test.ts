@@ -1702,6 +1702,7 @@ export interface ShallowReference {
 }
 
 export interface ShallowTestCaseResult {
+    automatedTestName: string;
     automatedTestStorage: string;
     durationInMs: number;
     id: number;
@@ -1711,6 +1712,7 @@ export interface ShallowTestCaseResult {
     priority: number;
     refId: number;
     runId: number;
+    tags: string[];
     testCaseTitle: string;
 }
 
@@ -2632,11 +2634,11 @@ export enum TestLogStatusCode {
     InvalidContainer = 5,
     TransferFailed = 6,
     FeatureDisabled = 7,
-    BuildNotExist = 8,
-    RunNotExist = 9,
+    BuildDoesNotExist = 8,
+    RunDoesNotExist = 9,
     ContainerNotCreated = 10,
     APINotSupported = 11,
-    FileSizeExceed = 12,
+    FileSizeExceeds = 12,
     ContainerNotFound = 13
 }
 
@@ -3359,6 +3361,7 @@ export interface TestResultsDetailsForGroup {
     groupByValue: any;
     results: TestCaseResult[];
     resultsCountByOutcome: { [key: number] : AggregatedResultsByOutcome; };
+    tags: string[];
 }
 
 export interface TestResultsEx2 {
@@ -3410,9 +3413,11 @@ export interface TestResultsQuery {
 
 export interface TestResultSummary {
     aggregatedResultsAnalysis: AggregatedResultsAnalysis;
+    noConfigRunsCount: number;
     teamProject: TfsCore.TeamProjectReference;
     testFailures: TestFailuresAnalysis;
     testResultsContext: TestResultsContext;
+    totalRunsCount: number;
 }
 
 export interface TestResultTrendFilter {
@@ -3761,6 +3766,13 @@ export interface TestRunSummary2 {
     testRunContextId: number;
     testRunId: number;
     testRunStatsId: number;
+}
+
+export interface TestRunWithDtlEnvEvent extends TestRunEvent {
+    configurationIds: number[];
+    mappedTestRunEventType: string;
+    runTimeout: any;
+    testConfigurationsMapping: string;
 }
 
 /**

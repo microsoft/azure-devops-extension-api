@@ -20,7 +20,27 @@ export interface AccountMyWorkResult {
 /**
  * Represents Work Item Recent Activity
  */
-export interface AccountRecentActivityWorkItemModel {
+export interface AccountRecentActivityWorkItemModel extends AccountRecentActivityWorkItemModelBase {
+    /**
+     * Assigned To
+     */
+    assignedTo: string;
+}
+
+/**
+ * Represents Work Item Recent Activity
+ */
+export interface AccountRecentActivityWorkItemModel2 extends AccountRecentActivityWorkItemModelBase {
+    /**
+     * Assigned To
+     */
+    assignedTo: WebApi.IdentityRef;
+}
+
+/**
+ * Represents Work Item Recent Activity
+ */
+export interface AccountRecentActivityWorkItemModelBase {
     /**
      * Date of the last Activity by the user
      */
@@ -29,10 +49,6 @@ export interface AccountRecentActivityWorkItemModel {
      * Type of the activity
      */
     activityType: WorkItemRecentActivityType;
-    /**
-     * Assigned To
-     */
-    assignedTo: string;
     /**
      * Last changed date of the work item
      */
@@ -312,6 +328,9 @@ export interface Link {
  * The link query mode which determines the behavior of the query.
  */
 export enum LinkQueryMode {
+    /**
+     * Returns flat list of work items.
+     */
     WorkItems = 0,
     /**
      * Returns work items where the source, target, and link criteria are all satisfied.
@@ -704,6 +723,10 @@ export interface WorkArtifactLink {
  */
 export interface WorkItem extends WorkItemTrackingResource {
     /**
+     * Reference to a specific version of the comment added/edited/deleted in this revision.
+     */
+    commentVersionRef: WorkItemCommentVersionRef;
+    /**
      * Map of field and values for the work item.
      */
     fields: { [key: string] : any; };
@@ -808,7 +831,7 @@ export interface WorkItemComment extends WorkItemTrackingResource {
 }
 
 /**
- * Collection of comments
+ * Collection of comments.
  */
 export interface WorkItemComments extends WorkItemTrackingResource {
     /**
@@ -827,6 +850,20 @@ export interface WorkItemComments extends WorkItemTrackingResource {
      * Total count of comments.
      */
     totalCount: number;
+}
+
+/**
+ * Represents the reference to a specific version of a comment on a Work Item.
+ */
+export interface WorkItemCommentVersionRef extends WorkItemTrackingResourceReference {
+    /**
+     * The id assigned to the comment.
+     */
+    commentId: number;
+    /**
+     * The version number.
+     */
+    version: number;
 }
 
 /**
@@ -987,7 +1024,7 @@ export interface WorkItemField extends WorkItemTrackingResource {
  */
 export interface WorkItemFieldOperation {
     /**
-     * Name of the operation.
+     * Friendly name of the operation.
      */
     name: string;
     /**
@@ -1001,7 +1038,7 @@ export interface WorkItemFieldOperation {
  */
 export interface WorkItemFieldReference {
     /**
-     * The name of the field.
+     * The friendly name of the field.
      */
     name: string;
     /**

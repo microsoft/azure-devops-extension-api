@@ -38,14 +38,14 @@ export class WorkItemTrackingRestClient extends RestClientBase {
     }
 
     /**
-     * INTERNAL ONLY: USED BY ACCOUNT MY WORK PAGE. This returns Doing, Done, Follows and activity work items details.
+     * Gets recent work item activities
      * 
      */
     public async getRecentActivityData(
-        ): Promise<WorkItemTracking.AccountRecentActivityWorkItemModel[]> {
+        ): Promise<WorkItemTracking.AccountRecentActivityWorkItemModel2[]> {
 
-        return this.beginRequest<WorkItemTracking.AccountRecentActivityWorkItemModel[]>({
-            apiVersion: "5.0-preview.1",
+        return this.beginRequest<WorkItemTracking.AccountRecentActivityWorkItemModel2[]>({
+            apiVersion: "5.0-preview.2",
             routeTemplate: "_apis/work/accountMyWorkRecentActivity"
         });
     }

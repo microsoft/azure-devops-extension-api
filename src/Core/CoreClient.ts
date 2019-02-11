@@ -19,6 +19,47 @@ export class CoreRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "79134c72-4a58-4b42-976c-04e7115f32bf";
 
     /**
+     * Removes the avatar for the project
+     * 
+     * @param projectId - The id or name of the project
+     */
+    public async removeProjectAvatar(
+        projectId: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/projects/{projectId}/avatar",
+            routeValues: {
+                projectId: projectId
+            }
+        });
+    }
+
+    /**
+     * Upload avatar for the project
+     * 
+     * @param avatarBlob - 
+     * @param projectId - The id or name of the project
+     */
+    public async setProjectAvatar(
+        avatarBlob: Core.ProjectAvatar,
+        projectId: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/projects/{projectId}/avatar",
+            routeValues: {
+                projectId: projectId
+            },
+            body: avatarBlob
+        });
+    }
+
+    /**
      * @param connectedServiceCreationData - 
      * @param projectId - 
      */

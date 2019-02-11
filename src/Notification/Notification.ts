@@ -1068,7 +1068,11 @@ export enum SubscriptionFlags {
     /**
      * If the subscriber is a group, is it a team.
      */
-    TeamSubscription = 8
+    TeamSubscription = 8,
+    /**
+     * For role based subscriptions, there is an expectation that there will always be at least one actor that matches
+     */
+    OneActorMatches = 16
 }
 
 /**

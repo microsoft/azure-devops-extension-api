@@ -3112,6 +3112,13 @@ export interface ReleaseManagementInputValue {
     value: string;
 }
 
+export interface ReleaseNotCreatedEvent {
+    definitionReference: ReleaseDefinitionShallowReference;
+    message: string;
+    releaseReason: ReleaseReason;
+    requestedBy: WebApi.IdentityRef;
+}
+
 export enum ReleaseQueryOrder {
     /**
      * Return results in descending order.
@@ -3231,6 +3238,10 @@ export interface ReleaseSchedule {
      * Team Foundation Job Definition Job Id.
      */
     jobId: string;
+    /**
+     * Flag to determine if this schedule should only release if the associated artifact has been changed or release definition changed.
+     */
+    scheduleOnlyWithChanges: boolean;
     /**
      * Local time zone hour to start.
      */
@@ -3502,6 +3513,10 @@ export interface ReleaseUpdateMetadata {
      * Sets list of manual environments.
      */
     manualEnvironments: string[];
+    /**
+     * Sets name of the release.
+     */
+    name: string;
     /**
      * Sets status of the release.
      */

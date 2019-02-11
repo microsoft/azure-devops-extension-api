@@ -288,133 +288,6 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * Create an approval.
-     * 
-     * @param config - 
-     * @param project - Project ID or project name
-     * @param approvalId - Id of the approval.
-     */
-    public async createApproval(
-        config: TaskAgent.ApprovalConfig,
-        project: string,
-        approvalId: string
-        ): Promise<TaskAgent.Approval> {
-
-        const queryValues: any = {
-            approvalId: approvalId
-        };
-
-        return this.beginRequest<TaskAgent.Approval>({
-            apiVersion: "5.1-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/approvals",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues,
-            body: config
-        });
-    }
-
-    /**
-     * Get an approval.
-     * 
-     * @param project - Project ID or project name
-     * @param approvalId - Id of the approval.
-     */
-    public async getApproval(
-        project: string,
-        approvalId: string
-        ): Promise<TaskAgent.Approval> {
-
-        const queryValues: any = {
-            approvalId: approvalId
-        };
-
-        return this.beginRequest<TaskAgent.Approval>({
-            apiVersion: "5.1-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/approvals",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Query approval steps.
-     * 
-     * @param queryParameters - 
-     * @param project - Project ID or project name
-     */
-    public async querySteps(
-        queryParameters: TaskAgent.ApprovalStepQueryParameters,
-        project: string
-        ): Promise<TaskAgent.ApprovalStep[]> {
-
-        return this.beginRequest<TaskAgent.ApprovalStep[]>({
-            apiVersion: "5.1-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/approvals",
-            routeValues: {
-                project: project
-            },
-            body: queryParameters
-        });
-    }
-
-    /**
-     * Update an approval.
-     * 
-     * @param updateParameter - 
-     * @param project - Project ID or project name
-     * @param approvalId - 
-     */
-    public async updateApproval(
-        updateParameter: TaskAgent.ApprovalStatusUpdateParameter,
-        project: string,
-        approvalId: string
-        ): Promise<TaskAgent.Approval> {
-
-        const queryValues: any = {
-            approvalId: approvalId
-        };
-
-        return this.beginRequest<TaskAgent.Approval>({
-            apiVersion: "5.1-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/approvals",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues,
-            body: updateParameter
-        });
-    }
-
-    /**
-     * Update approval steps.
-     * 
-     * @param updateParameters - 
-     * @param project - Project ID or project name
-     */
-    public async updateSteps(
-        updateParameters: TaskAgent.ApprovalStatusUpdateParameter[],
-        project: string
-        ): Promise<TaskAgent.ApprovalStep[]> {
-
-        return this.beginRequest<TaskAgent.ApprovalStep[]>({
-            apiVersion: "5.1-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/approvals",
-            routeValues: {
-                project: project
-            },
-            body: updateParameters
-        });
-    }
-
-    /**
      * Returns list of azure subscriptions
      * 
      */
@@ -861,70 +734,33 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * Add an environment deployment execution history record.
-     * 
-     * @param executionRecord - 
-     */
-    public async addEnvironmentDeploymentExecutionRecord(
-        executionRecord: TaskAgent.EnvironmentDeploymentExecutionRecord
-        ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord> {
-
-        return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord>({
-            apiVersion: "5.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
-            body: executionRecord
-        });
-    }
-
-    /**
      * Get environment deployment execution history
      * 
+     * @param project - Project ID or project name
      * @param environmentId - 
-     * @param scopeId - 
-     * @param serviceGroupId - 
      * @param continuationToken - 
      * @param top - 
      */
     public async getEnvironmentDeploymentExecutionRecords(
+        project: string,
         environmentId: number,
-        scopeId?: string,
-        serviceGroupId?: number,
         continuationToken?: string,
         top?: number
         ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord[]> {
 
         const queryValues: any = {
-            scopeId: scopeId,
-            serviceGroupId: serviceGroupId,
             continuationToken: continuationToken,
             top: top
         };
 
         return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord[]>({
             apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
             routeValues: {
+                project: project,
                 environmentId: environmentId
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Updates environment deployment execution record
-     * 
-     * @param executionRecord - Environment deployment execution record to update.
-     */
-    public async updateEnvironmentDeploymentExecutionRecord(
-        executionRecord: TaskAgent.EnvironmentDeploymentExecutionRecord
-        ): Promise<TaskAgent.EnvironmentDeploymentExecutionRecord> {
-
-        return this.beginRequest<TaskAgent.EnvironmentDeploymentExecutionRecord>({
-            apiVersion: "5.1-preview.1",
-            method: "PATCH",
-            routeTemplate: "_apis/distributedtask/environments/{environmentId}/environmentdeploymentRecords",
-            body: executionRecord
         });
     }
 
@@ -1150,11 +986,17 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param poolId - 
      * @param requestId - 
+     * @param includeStatus - 
      */
     public async getAgentRequest(
         poolId: number,
-        requestId: number
+        requestId: number,
+        includeStatus?: boolean
         ): Promise<TaskAgent.TaskAgentJobRequest> {
+
+        const queryValues: any = {
+            includeStatus: includeStatus
+        };
 
         return this.beginRequest<TaskAgent.TaskAgentJobRequest>({
             apiVersion: "5.1-preview.1",
@@ -1162,7 +1004,8 @@ export class TaskAgentRestClient extends RestClientBase {
             routeValues: {
                 poolId: poolId,
                 requestId: requestId
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -1325,7 +1168,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param environmentId - 
      */
-    public async addServiceGroup(
+    public async addKubernetesServiceGroup(
         createParameters: TaskAgent.KubernetesServiceGroupCreateParameters,
         project: string,
         environmentId: number
@@ -1348,7 +1191,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param environmentId - 
      * @param serviceGroupId - 
      */
-    public async deleteServiceGroup(
+    public async deleteKubernetesServiceGroup(
         project: string,
         environmentId: number,
         serviceGroupId: number
@@ -1371,7 +1214,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param environmentId - 
      * @param serviceGroupId - 
      */
-    public async getServiceGroup(
+    public async getKubernetesServiceGroup(
         project: string,
         environmentId: number,
         serviceGroupId: number
@@ -1393,7 +1236,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param environmentId - 
      */
-    public async updateServiceGroup(
+    public async updateKubernetesServiceGroup(
         serviceGroup: TaskAgent.KubernetesServiceGroup,
         project: string,
         environmentId: number
@@ -2468,7 +2311,7 @@ export class TaskAgentRestClient extends RestClientBase {
 
         return this.beginRequest<TaskAgent.TaskAgentCloudRequest[]>({
             apiVersion: "5.1-preview.1",
-            routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}/requests",
+            routeTemplate: "_apis/distributedtask/agentclouds/{agentCloudId}/requests/{agentCloudRequestId}",
             routeValues: {
                 agentCloudId: agentCloudId
             }
@@ -3685,6 +3528,129 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * @param createParameters - 
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     */
+    public async addVirtualMachineGroup(
+        createParameters: TaskAgent.VirtualMachineGroupCreateParameters,
+        project: string,
+        environmentId: number
+        ): Promise<TaskAgent.VirtualMachineGroup> {
+
+        return this.beginRequest<TaskAgent.VirtualMachineGroup>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId
+            },
+            body: createParameters
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param serviceGroupId - 
+     */
+    public async deleteVirtualMachineGroup(
+        project: string,
+        environmentId: number,
+        serviceGroupId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                serviceGroupId: serviceGroupId
+            }
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param serviceGroupId - 
+     */
+    public async getVirtualMachineGroup(
+        project: string,
+        environmentId: number,
+        serviceGroupId: number
+        ): Promise<TaskAgent.VirtualMachineGroup> {
+
+        return this.beginRequest<TaskAgent.VirtualMachineGroup>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                serviceGroupId: serviceGroupId
+            }
+        });
+    }
+
+    /**
+     * @param serviceGroup - 
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     */
+    public async updateVirtualMachineGroup(
+        serviceGroup: TaskAgent.VirtualMachineGroup,
+        project: string,
+        environmentId: number
+        ): Promise<TaskAgent.VirtualMachineGroup> {
+
+        return this.beginRequest<TaskAgent.VirtualMachineGroup>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeValues: {
+                project: project,
+                environmentId: environmentId
+            },
+            body: serviceGroup
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param serviceGroupId - 
+     * @param continuationToken - 
+     * @param top - 
+     */
+    public async getVirtualMachines(
+        project: string,
+        environmentId: number,
+        serviceGroupId: number,
+        continuationToken?: string,
+        top?: number
+        ): Promise<TaskAgent.VirtualMachine[]> {
+
+        const queryValues: any = {
+            continuationToken: continuationToken,
+            '$top': top
+        };
+
+        return this.beginRequest<TaskAgent.VirtualMachine[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}/virtualmachines",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                serviceGroupId: serviceGroupId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param authenticationRequest - 
      */
     public async acquireAccessToken(
@@ -3738,6 +3704,17 @@ export class TaskAgentRestClient extends RestClientBase {
         return this.beginRequest<string>({
             apiVersion: "5.1-preview.1",
             routeTemplate: "_apis/distributedtask/serviceendpointproxy/vstsaadoauth"
+        });
+    }
+
+    /**
+     */
+    public async getYamlSchema(
+        ): Promise<any> {
+
+        return this.beginRequest<any>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/distributedtask/yamlschema"
         });
     }
 
