@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import TfsCore = require("../Core/Core");
-import Work = require("../Work/Work");
+import * as TfsCore from "../Core/Core";
+import * as Work from "../Work/Work";
 
 export class WorkRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -315,16 +315,16 @@ export class WorkRestClient extends RestClientBase {
      * @param teamContext - The team context for the operation
      * @param iterationId - ID of the iteration
      */
-    public async getCapacities(
+    public async getCapacitiesWithIdentityRef(
         teamContext: TfsCore.TeamContext,
         iterationId: string
-        ): Promise<Work.TeamMemberCapacity[]> {
+        ): Promise<Work.TeamMemberCapacityIdentityRef[]> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Work.TeamMemberCapacity[]>({
-            apiVersion: "5.1-preview.1",
+        return this.beginRequest<Work.TeamMemberCapacityIdentityRef[]>({
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
                 project: project,
@@ -341,17 +341,17 @@ export class WorkRestClient extends RestClientBase {
      * @param iterationId - ID of the iteration
      * @param teamMemberId - ID of the team member
      */
-    public async getCapacity(
+    public async getCapacityWithIdentityRef(
         teamContext: TfsCore.TeamContext,
         iterationId: string,
         teamMemberId: string
-        ): Promise<Work.TeamMemberCapacity> {
+        ): Promise<Work.TeamMemberCapacityIdentityRef> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Work.TeamMemberCapacity>({
-            apiVersion: "5.1-preview.1",
+        return this.beginRequest<Work.TeamMemberCapacityIdentityRef>({
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
                 project: project,
@@ -369,17 +369,17 @@ export class WorkRestClient extends RestClientBase {
      * @param teamContext - The team context for the operation
      * @param iterationId - ID of the iteration
      */
-    public async replaceCapacities(
-        capacities: Work.TeamMemberCapacity[],
+    public async replaceCapacitiesWithIdentityRef(
+        capacities: Work.TeamMemberCapacityIdentityRef[],
         teamContext: TfsCore.TeamContext,
         iterationId: string
-        ): Promise<Work.TeamMemberCapacity[]> {
+        ): Promise<Work.TeamMemberCapacityIdentityRef[]> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Work.TeamMemberCapacity[]>({
-            apiVersion: "5.1-preview.1",
+        return this.beginRequest<Work.TeamMemberCapacityIdentityRef[]>({
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
@@ -399,18 +399,18 @@ export class WorkRestClient extends RestClientBase {
      * @param iterationId - ID of the iteration
      * @param teamMemberId - ID of the team member
      */
-    public async updateCapacity(
+    public async updateCapacityWithIdentityRef(
         patch: Work.CapacityPatch,
         teamContext: TfsCore.TeamContext,
         iterationId: string,
         teamMemberId: string
-        ): Promise<Work.TeamMemberCapacity> {
+        ): Promise<Work.TeamMemberCapacityIdentityRef> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Work.TeamMemberCapacity>({
-            apiVersion: "5.1-preview.1",
+        return this.beginRequest<Work.TeamMemberCapacityIdentityRef>({
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {

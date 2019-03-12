@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import WorkItemTrackingProcess = require("../WorkItemTrackingProcess/WorkItemTrackingProcess");
+import * as WorkItemTrackingProcess from "../WorkItemTrackingProcess/WorkItemTrackingProcess";
 
 export class WorkItemTrackingProcessRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

@@ -4,11 +4,11 @@
  * ---------------------------------------------------------
  */
 
-import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTaskCommon");
-import Git = require("../Git/Git");
-import Test = require("../Test/Test");
-import TfsCore = require("../Core/Core");
-import WebApi = require("../WebApi/WebApi");
+import * as TfsCore from "../Core/Core";
+import * as DistributedTaskCommon from "../DistributedTaskCommon/DistributedTaskCommon";
+import * as Git from "../Git/Git";
+import * as Test from "../Test/Test";
+import * as WebApi from "../WebApi/WebApi";
 
 /**
  * Represents a queue for running builds.
@@ -147,6 +147,10 @@ export enum AuditAction {
  */
 export interface Build {
     _links: any;
+    /**
+     * The agent specification for the build.
+     */
+    agentSpecification: AgentSpecification;
     /**
      * The build number/name of the build.
      */
@@ -1060,6 +1064,9 @@ export enum BuildQueryOrder {
     StartTimeAscending = 7
 }
 
+export interface BuildQueuedEvent extends BuildUpdatedEvent {
+}
+
 export enum BuildReason {
     /**
      * No reason. This value should not be used.
@@ -1081,6 +1088,10 @@ export enum BuildReason {
      * The build was started for the trigger TriggerType.Schedule.
      */
     Schedule = 8,
+    /**
+     * The build was started for the trigger TriggerType.ScheduleForced.
+     */
+    ScheduleForced = 16,
     /**
      * The build was created by a user.
      */
@@ -1761,6 +1772,13 @@ export interface DesignerProcessTarget {
 }
 
 export interface DockerProcess extends BuildProcess {
+    target: DockerProcessTarget;
+}
+
+/**
+ * Represents the target for the docker build process.
+ */
+export interface DockerProcessTarget extends DesignerProcessTarget {
 }
 
 /**
@@ -2069,6 +2087,7 @@ export interface PullRequestTrigger extends BuildTrigger {
     forks: Forks;
     isCommentRequiredForPullRequest: boolean;
     pathFilters: string[];
+    requireCommentsForNonTeamMembersOnly: boolean;
     settingsSourceType: number;
 }
 

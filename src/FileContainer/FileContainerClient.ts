@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import FileContainer = require("../FileContainer/FileContainer");
-import WebApi = require("../WebApi/WebApi");
+import * as FileContainer from "../FileContainer/FileContainer";
+import * as WebApi from "../WebApi/WebApi";
 
 export class FileContainerRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

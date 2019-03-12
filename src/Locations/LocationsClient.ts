@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Locations = require("../Locations/Locations");
-import WebApi = require("../WebApi/WebApi");
+import * as Locations from "../Locations/Locations";
+import * as WebApi from "../WebApi/WebApi";
 
 export class LocationsRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

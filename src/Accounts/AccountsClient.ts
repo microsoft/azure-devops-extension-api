@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Accounts = require("../Accounts/Accounts");
+import * as Accounts from "../Accounts/Accounts";
 
 export class AccountsRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

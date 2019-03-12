@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Dashboard = require("../Dashboard/Dashboard");
-import TfsCore = require("../Core/Core");
+import * as TfsCore from "../Core/Core";
+import * as Dashboard from "../Dashboard/Dashboard";
 
 export class DashboardRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-import Graph = require("../Graph/Graph");
+import * as Graph from "../Graph/Graph";
 
 /**
  * Information about the location of a REST API resource
@@ -182,7 +182,7 @@ export interface JsonPatchOperation {
      */
     op: Operation;
     /**
-     * The path for the operation
+     * The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
      */
     path: string;
     /**

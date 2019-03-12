@@ -231,4 +231,5 @@ export interface TenantInfo {
     homeTenant: boolean;
     tenantId: string;
     tenantName: string;
+    verifiedDomains: string[];
 }

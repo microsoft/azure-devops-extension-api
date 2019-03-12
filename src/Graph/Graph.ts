@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-import Identities = require("../Identities/Identities");
+import * as Identities from "../Identities/Identities";
 
 export interface GraphCachePolicies {
     /**
@@ -424,6 +424,16 @@ export interface GraphUserOriginIdCreationContext extends GraphUserCreationConte
 }
 
 /**
+ * Use this type to update an existing user using the OriginID as a reference to an existing user from an external AD or AAD backed provider. This is the subset of GraphUser fields required for creation of a GraphUser for the AD and AAD use case when looking up the user by its unique ID in the backing provider.
+ */
+export interface GraphUserOriginIdUpdateContext extends GraphUserUpdateContext {
+    /**
+     * This should be the object id or sid of the user from the source AD or AAD provider. Example: d47d025a-ce2f-4a79-8618-e8862ade30dd Azure Devops will communicate with the source provider to fill all other fields on creation.
+     */
+    originId: string;
+}
+
+/**
  * Use this type to create a new user using the principal name as a reference to an existing user from an external AD or AAD backed provider. This is the subset of GraphUser fields required for creation of a GraphUser for the AD and AAD use case when looking up the user by its principal name in the backing provider.
  */
 export interface GraphUserPrincipalNameCreationContext extends GraphUserCreationContext {
@@ -431,6 +441,16 @@ export interface GraphUserPrincipalNameCreationContext extends GraphUserCreation
      * This should be the principal name or upn of the user in the source AD or AAD provider. Example: jamal\@contoso.com Team Services will communicate with the source provider to fill all other fields on creation.
      */
     principalName: string;
+}
+
+/**
+ * Do not attempt to use this type to update user. Use one of the subclasses instead. This type does not contain sufficient fields to create a new user.
+ */
+export interface GraphUserUpdateContext {
+    /**
+     * Storage key should not be specified in case of updating user
+     */
+    storageKey: string;
 }
 
 export interface PagedGraphGroups {

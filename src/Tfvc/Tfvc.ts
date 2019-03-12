@@ -4,8 +4,8 @@
  * ---------------------------------------------------------
  */
 
-import TfsCore = require("../Core/Core");
-import WebApi = require("../WebApi/WebApi");
+import * as TfsCore from "../Core/Core";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface AssociatedWorkItem {
     assignedTo: string;

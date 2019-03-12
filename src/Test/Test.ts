@@ -4,10 +4,10 @@
  * ---------------------------------------------------------
  */
 
-import System = require("../Common/System");
-import SystemData = require("../Common/SystemData");
-import TfsCore = require("../Core/Core");
-import WebApi = require("../WebApi/WebApi");
+import * as System from "../Common/System";
+import * as SystemData from "../Common/SystemData";
+import * as TfsCore from "../Core/Core";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface AbortTestRunRequest {
     options: number;
@@ -155,6 +155,7 @@ export interface BuildConfiguration {
     repositoryId: number;
     repositoryType: string;
     sourceVersion: string;
+    targetBranchName: string;
     uri: string;
 }
 
@@ -440,6 +441,10 @@ export interface CodeCoverageSummary {
      * Uri of build against which difference in coverage is computed
      */
     deltaBuild: ShallowReference;
+    /**
+     * Uri of build against which difference in coverage is computed
+     */
+    status: CoverageSummaryStatus;
 }
 
 export interface CodeCoverageSummary2 {
@@ -489,6 +494,28 @@ export enum CoverageStatus {
     Covered = 0,
     NotCovered = 1,
     PartiallyCovered = 2
+}
+
+/**
+ * Represents status of code coverage summary for a build
+ */
+export enum CoverageSummaryStatus {
+    /**
+     * No coverage status
+     */
+    None = 0,
+    /**
+     * The summary evaluation is in progress
+     */
+    Pending = 1,
+    /**
+     * The summary evaluation for the previous request is completed. Summary can change in future
+     */
+    Completed = 2,
+    /**
+     * The summary evaluation is finalized and won't change
+     */
+    Finalized = 3
 }
 
 export interface CreateTestMessageLogEntryRequest {
@@ -890,7 +917,7 @@ export interface LineBlockCoverage {
      */
     start: number;
     /**
-     * Coverage status
+     * Coverage status. Covered: 0, NotCovered: 1,  PartiallyCovered: 2
      */
     status: number;
 }
@@ -956,6 +983,11 @@ export interface NameValuePair {
      * Value
      */
     value: string;
+}
+
+export enum OperationType {
+    Add = 1,
+    Delete = 2
 }
 
 /**
@@ -1510,6 +1542,10 @@ export interface RunCreateModel {
      * The state of the run. Valid states - NotStarted, InProgress, Waiting
      */
     state: string;
+    /**
+     * Tags to attach with the test run, maximum of 5 tags can be added to run.
+     */
+    tags: TestTag[];
     testConfigurationsMapping: string;
     /**
      * ID of the test environment associated with the run.
@@ -1670,6 +1706,10 @@ export interface RunUpdateModel {
      */
     state: string;
     substate: TestRunSubstate;
+    /**
+     * Tags to attach with the test run.
+     */
+    tags: TestTag[];
     testEnvironmentId: string;
     /**
      * An abstracted reference to test setting resource.
@@ -2445,6 +2485,20 @@ export interface TestFieldsEx2 {
 }
 
 /**
+ * Test Flaky Identifier
+ */
+export interface TestFlakyIdentifier {
+    /**
+     * Branch Name where Flakiness has to be Marked/Unmarked
+     */
+    branchName: string;
+    /**
+     * State for Flakiness
+     */
+    isFlaky: boolean;
+}
+
+/**
  * Filter to get TestCase result history.
  */
 export interface TestHistoryQuery {
@@ -2569,6 +2623,14 @@ export interface TestLogReference {
      */
     filePath: string;
     /**
+     * ReleaseEnvId for test log, if context is Release
+     */
+    releaseEnvId: number;
+    /**
+     * ReleaseId for test log, if context is Release
+     */
+    releaseId: number;
+    /**
      * Resultid for test log, if context is run and log is related to result
      */
     resultId: number;
@@ -2601,7 +2663,11 @@ export enum TestLogScope {
     /**
      * Log File associated with Build
      */
-    Build = 1
+    Build = 1,
+    /**
+     * Log File associated with Release
+     */
+    Release = 2
 }
 
 /**
@@ -3241,6 +3307,10 @@ export interface TestResultMetaData {
      */
     automatedTestStorage: string;
     /**
+     * List of Flaky Identifier for TestCaseReferenceId
+     */
+    flakyIdentifiers: TestFlakyIdentifier[];
+    /**
      * Owner of test result.
      */
     owner: string;
@@ -3256,6 +3326,20 @@ export interface TestResultMetaData {
      * TestCaseTitle of test result.
      */
     testCaseTitle: string;
+}
+
+/**
+ * Represents a TestResultMetaData Input
+ */
+export interface TestResultMetaDataUpdateInput {
+    /**
+     * List of Flaky Identifiers
+     */
+    flakyIdentifiers: TestFlakyIdentifier[];
+}
+
+export interface TestResultMetaDataUpdateResponse {
+    status: string;
 }
 
 export interface TestResultModelBase {
@@ -3525,6 +3609,10 @@ export interface TestRun {
      */
     state: string;
     substate: TestRunSubstate;
+    /**
+     * Tags attached with this test run.
+     */
+    tags: TestTag[];
     /**
      * Test environment associated with the run.
      */
@@ -4213,6 +4301,33 @@ export interface TestSuiteCloneRequest {
 export interface TestSummaryForWorkItem {
     summary: AggregatedDataForResultTrend;
     workItem: WorkItemReference;
+}
+
+/**
+ * Tag attached to a run or result.
+ */
+export interface TestTag {
+    /**
+     * Name of the tag, alphanumeric value less than 30 chars
+     */
+    name: string;
+}
+
+/**
+ * Test tag summary for build or release grouped by test run.
+ */
+export interface TestTagSummary {
+    /**
+     * Dictionary which contains tags associated with a test run.
+     */
+    tagsGroupByTestArtifact: { [key: number] : TestTag[]; };
+}
+
+/**
+ * Tags to update to a run or result.
+ */
+export interface TestTagsUpdateModel {
+    tags: { key: OperationType; value: TestTag[] }[];
 }
 
 export interface TestToWorkItemLinks {

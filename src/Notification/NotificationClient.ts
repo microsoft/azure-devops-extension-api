@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Notification = require("../Notification/Notification");
-import WebApi = require("../WebApi/WebApi");
+import * as Notification from "../Notification/Notification";
+import * as WebApi from "../WebApi/WebApi";
 
 export class NotificationRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -98,7 +98,7 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
-     * Publish an event.
+     * Publish an event. This request must be directed to the service "extmgmt".
      * 
      * @param notificationEvent - 
      */

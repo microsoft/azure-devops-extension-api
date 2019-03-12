@@ -7,10 +7,10 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Git = require("../Git/Git");
-import Policy = require("../Policy/Policy");
-import TfsCore = require("../Core/Core");
-import WebApi = require("../WebApi/WebApi");
+import * as TfsCore from "../Core/Core";
+import * as Git from "../Git/Git";
+import * as Policy from "../Policy/Policy";
+import * as WebApi from "../WebApi/WebApi";
 
 export class GitRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

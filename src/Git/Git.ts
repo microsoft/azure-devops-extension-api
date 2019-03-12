@@ -4,9 +4,9 @@
  * ---------------------------------------------------------
  */
 
-import Policy = require("../Policy/Policy");
-import TfsCore = require("../Core/Core");
-import WebApi = require("../WebApi/WebApi");
+import * as TfsCore from "../Core/Core";
+import * as Policy from "../Policy/Policy";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface AssociatedWorkItem {
     assignedTo: string;
@@ -1740,7 +1740,11 @@ export interface GitPullRequestCompletionOptions {
      */
     mergeCommitMessage: string;
     /**
-     * If true, the commits in the pull request will be squash-merged into the specified target branch on completion.
+     * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squash if SquashMerge == true. The SquashMerge member is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge member will be ignored.
+     */
+    mergeStrategy: GitPullRequestMergeStrategy;
+    /**
+     * SquashMerge is deprecated. You should explicity set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
      */
     squashMerge: boolean;
     /**
@@ -1850,6 +1854,28 @@ export interface GitPullRequestMergeOptions {
      * If true, rename detection will not be performed during the merge.
      */
     disableRenames: boolean;
+}
+
+/**
+ * Enumeration of possible merge strategies which can be used to complete a pull request.
+ */
+export enum GitPullRequestMergeStrategy {
+    /**
+     * A two-parent, no-fast-forward merge. The source branch is unchanged. This is the default behavior.
+     */
+    NoFastForward = 1,
+    /**
+     * Put all changes from the pull request into a single-parent commit.
+     */
+    Squash = 2,
+    /**
+     * Rebase the source branch on top of the target branch HEAD commit, and fast-forward the target branch. The source branch is updated during the rebase operation.
+     */
+    Rebase = 3,
+    /**
+     * Rebase the source branch on top of the target branch HEAD commit, and create a two-parent, no-fast-forward merge. The source branch is updated during the rebase operation.
+     */
+    RebaseMerge = 4
 }
 
 /**

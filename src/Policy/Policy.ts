@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-import WebApi = require("../WebApi/WebApi");
+import * as WebApi from "../WebApi/WebApi";
 
 /**
  * The full policy configuration with settings.

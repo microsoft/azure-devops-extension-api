@@ -7,9 +7,9 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import FormInput = require("../FormInput/FormInput");
-import Notification = require("../Notification/Notification");
-import ServiceHooks = require("../ServiceHooks/ServiceHooks");
+import * as FormInput from "../FormInput/FormInput";
+import * as Notification from "../Notification/Notification";
+import * as ServiceHooks from "../ServiceHooks/ServiceHooks";
 
 export class ServiceHooksRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

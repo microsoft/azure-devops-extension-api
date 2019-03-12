@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import FeatureManagement = require("../FeatureManagement/FeatureManagement");
+import * as FeatureManagement from "../FeatureManagement/FeatureManagement";
 
 export class FeatureManagementRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

@@ -4,8 +4,8 @@
  * ---------------------------------------------------------
  */
 
-import Identities = require("../Identities/Identities");
-import WebApi = require("../WebApi/WebApi");
+import * as Identities from "../Identities/Identities";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface AccessMapping {
     accessPoint: string;

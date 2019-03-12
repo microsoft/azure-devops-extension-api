@@ -4,8 +4,8 @@
  * ---------------------------------------------------------
  */
 
-import Identities = require("../Identities/Identities");
-import WebApi = require("../WebApi/WebApi");
+import * as Identities from "../Identities/Identities";
+import * as WebApi from "../WebApi/WebApi";
 
 export enum ConnectedServiceKind {
     /**
@@ -63,9 +63,12 @@ export enum ProcessType {
     Inherited = 2
 }
 
+/**
+ * Contains the image data for project avatar.
+ */
 export interface ProjectAvatar {
     /**
-     * The avatar image represented as a byte array
+     * The avatar image represented as a byte array.
      */
     image: number[];
 }

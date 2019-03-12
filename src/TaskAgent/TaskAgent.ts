@@ -4,9 +4,9 @@
  * ---------------------------------------------------------
  */
 
-import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTaskCommon");
-import FormInput = require("../FormInput/FormInput");
-import WebApi = require("../WebApi/WebApi");
+import * as DistributedTaskCommon from "../DistributedTaskCommon/DistributedTaskCommon";
+import * as FormInput from "../FormInput/FormInput";
+import * as WebApi from "../WebApi/WebApi";
 
 export enum AadLoginPromptOption {
     /**
@@ -469,6 +469,10 @@ export interface DeploymentPoolSummary {
      * Deployment pool.
      */
     pool: TaskAgentPoolReference;
+    /**
+     * Virtual machine Resource referring in pool.
+     */
+    resource: EnvironmentResourceReference;
 }
 
 /**
@@ -482,7 +486,11 @@ export enum DeploymentPoolSummaryExpands {
     /**
      * Include deployment groups referring to the deployment pool.
      */
-    DeploymentGroups = 2
+    DeploymentGroups = 2,
+    /**
+     * Include Resource referring to the deployment pool.
+     */
+    Resource = 4
 }
 
 /**
@@ -565,6 +573,24 @@ export interface EndpointUrl {
 }
 
 /**
+ * This is useful in getting a list of Environments, filtered for which caller has permissions to take a particular action.
+ */
+export enum EnvironmentActionFilter {
+    /**
+     * All environments for which user has **view** permission.
+     */
+    None = 0,
+    /**
+     * Only environments for which caller has **manage** permission.
+     */
+    Manage = 2,
+    /**
+     * Only environments for which caller has **use** permission.
+     */
+    Use = 16
+}
+
+/**
  * Properties to create Environment.
  */
 export interface EnvironmentCreateParameter {
@@ -599,6 +625,14 @@ export interface EnvironmentDeploymentExecutionRecord {
      */
     id: number;
     /**
+     * Job Attempt
+     */
+    jobAttempt: number;
+    /**
+     * Job name
+     */
+    jobName: string;
+    /**
      * Owner of the environment deployment execution record
      */
     owner: TaskOrchestrationOwner;
@@ -619,6 +653,10 @@ export interface EnvironmentDeploymentExecutionRecord {
      */
     requestIdentifier: string;
     /**
+     * Resource Id
+     */
+    resourceId: number;
+    /**
      * Result of the environment deployment execution
      */
     result: TaskResult;
@@ -627,13 +665,17 @@ export interface EnvironmentDeploymentExecutionRecord {
      */
     scopeId: string;
     /**
-     * Service group Id
-     */
-    serviceGroupId: number;
-    /**
      * Service owner Id
      */
     serviceOwner: string;
+    /**
+     * Stage Attempt
+     */
+    stageAttempt: number;
+    /**
+     * Stage name
+     */
+    stageName: string;
     /**
      * Start time of the environment deployment execution
      */
@@ -649,9 +691,9 @@ export enum EnvironmentExpands {
      */
     None = 0,
     /**
-     * Include service group references referring to the environment.
+     * Include resource references referring to the environment.
      */
-    ServiceGroupReferences = 1
+    ResourceReferences = 1
 }
 
 /**
@@ -686,12 +728,63 @@ export interface EnvironmentInstance {
      * Name of the Environment.
      */
     name: string;
-    serviceGroups: ServiceGroupReference[];
+    resources: EnvironmentResourceReference[];
 }
 
 export interface EnvironmentReference {
     id: number;
     name: string;
+}
+
+export interface EnvironmentResource {
+    createdBy: WebApi.IdentityRef;
+    createdOn: Date;
+    environmentReference: EnvironmentReference;
+    id: number;
+    lastModifiedBy: WebApi.IdentityRef;
+    lastModifiedOn: Date;
+    name: string;
+    /**
+     * Environment resource type
+     */
+    type: EnvironmentResourceType;
+}
+
+/**
+ * EnvironmentResourceReference.
+ */
+export interface EnvironmentResourceReference {
+    /**
+     * Id of the resource.
+     */
+    id: number;
+    /**
+     * Name of the resource.
+     */
+    name: string;
+    /**
+     * Type of the resource.
+     */
+    type: EnvironmentResourceType;
+}
+
+/**
+ * EnvironmentResourceType.
+ */
+export enum EnvironmentResourceType {
+    Undefined = 0,
+    /**
+     * Unknown resource type
+     */
+    Generic = 1,
+    /**
+     * Virtual machine resource type
+     */
+    VirtualMachine = 2,
+    /**
+     * Kubernetes resource type
+     */
+    Kubernetes = 4
 }
 
 /**
@@ -817,12 +910,12 @@ export interface JobRequestMessage {
 export interface JobStartedEvent extends JobEvent {
 }
 
-export interface KubernetesServiceGroup extends ServiceGroup {
+export interface KubernetesResource extends EnvironmentResource {
     namespace: string;
     serviceEndpointId: string;
 }
 
-export interface KubernetesServiceGroupCreateParameters {
+export interface KubernetesResourceCreateParameters {
     name: string;
     namespace: string;
     serviceEndpointId: string;
@@ -1138,6 +1231,10 @@ export interface ServiceEndpoint {
      */
     operationStatus: any;
     /**
+     * Gets or sets the owner of the endpoint.
+     */
+    owner: string;
+    /**
      * Gets or sets the identity reference for the readers group of the service endpoint.
      */
     readersGroup: WebApi.IdentityRef;
@@ -1298,86 +1395,41 @@ export interface ServiceEndpointType {
     uiContributionId: string;
 }
 
-export interface ServiceGroup {
-    createdBy: WebApi.IdentityRef;
-    createdOn: Date;
-    environmentReference: EnvironmentReference;
-    id: number;
-    lastModifiedBy: WebApi.IdentityRef;
-    lastModifiedOn: Date;
-    name: string;
-    type: ServiceGroupType;
-}
-
 /**
- * ServiceGroupReference.
+ * A task agent.
  */
-export interface ServiceGroupReference {
-    /**
-     * Id of the Service Group.
-     */
-    id: number;
-    /**
-     * Name of the service group.
-     */
-    name: string;
-    /**
-     * Type of the service group.
-     */
-    type: ServiceGroupType;
-}
-
-/**
- * EnvironmentServiceGroupType.
- */
-export enum ServiceGroupType {
-    Undefined = 0,
-    /**
-     * Unknown service group type
-     */
-    Generic = 1,
-    /**
-     * Virtual machine service group type
-     */
-    VirtualMachine = 2,
-    /**
-     * Kubernetes service group type
-     */
-    Kubernetes = 4
-}
-
 export interface TaskAgent extends TaskAgentReference {
     /**
-     * Gets the Agent Cloud Request that's currently associated with this agent
+     * The agent cloud request that's currently associated with this agent.
      */
     assignedAgentCloudRequest: TaskAgentCloudRequest;
     /**
-     * Gets the request which is currently assigned to this agent.
+     * The request which is currently assigned to this agent.
      */
     assignedRequest: TaskAgentJobRequest;
     /**
-     * Gets or sets the authorization information for this agent.
+     * Authorization information for this agent.
      */
     authorization: TaskAgentAuthorization;
     /**
-     * Gets the date on which this agent was created.
+     * Date on which this agent was created.
      */
     createdOn: Date;
     /**
-     * Gets the last request which was completed by this agent.
+     * The last request which was completed by this agent.
      */
     lastCompletedRequest: TaskAgentJobRequest;
     /**
-     * Gets or sets the maximum job parallelism allowed on this host.
+     * Maximum job parallelism allowed for this agent.
      */
     maxParallelism: number;
     /**
-     * Gets the pending update for this agent.
+     * Pending update for this agent.
      */
     pendingUpdate: TaskAgentUpdate;
     properties: any;
     /**
-     * Gets the date on which the last connectivity status change occurred.
+     * Date on which the last connectivity status change occurred.
      */
     statusChangedOn: Date;
     systemCapabilities: { [key: string] : string; };
@@ -1389,15 +1441,15 @@ export interface TaskAgent extends TaskAgentReference {
  */
 export interface TaskAgentAuthorization {
     /**
-     * Gets or sets the endpoint used to obtain access tokens from the configured token service.
+     * Endpoint used to obtain access tokens from the configured token service.
      */
     authorizationUrl: string;
     /**
-     * Gets or sets the client identifier for this agent.
+     * Client identifier for this agent.
      */
     clientId: string;
     /**
-     * Gets or sets the public key used to verify the identity of this agent.
+     * Public key used to verify the identity of this agent.
      */
     publicKey: TaskAgentPublicKey;
 }
@@ -1409,12 +1461,15 @@ export interface TaskAgentCloud {
     acquireAgentEndpoint: string;
     acquisitionTimeout: number;
     agentCloudId: number;
+    getAccountParallelismEndpoint: string;
     getAgentDefinitionEndpoint: string;
     getAgentRequestStatusEndpoint: string;
+    id: string;
     /**
      * Signifies that this Agent Cloud is internal and should not be user-manageable
      */
     internal: boolean;
+    maxParallelism: number;
     name: string;
     releaseAgentEndpoint: string;
     sharedSecret: string;
@@ -1457,34 +1512,100 @@ export interface TaskAgentDelaySource {
     taskAgent: TaskAgentReference;
 }
 
+/**
+ * A job request for an agent.
+ */
 export interface TaskAgentJobRequest {
     agentDelays: TaskAgentDelaySource[];
     agentSpecification: any;
+    /**
+     * The date/time this request was assigned.
+     */
     assignTime: Date;
+    /**
+     * Additional data about the request.
+     */
     data: { [key: string] : string; };
+    /**
+     * The pipeline definition associated with this request
+     */
     definition: TaskOrchestrationOwner;
+    /**
+     * A list of demands required to fulfill this request.
+     */
     demands: Demand[];
     expectedDuration: any;
+    /**
+     * The date/time this request was finished.
+     */
     finishTime: Date;
+    /**
+     * The host which triggered this request.
+     */
     hostId: string;
+    /**
+     * ID of the job resulting from this request.
+     */
     jobId: string;
+    /**
+     * Name of the job resulting from this request.
+     */
     jobName: string;
+    /**
+     * The deadline for the agent to renew the lock.
+     */
     lockedUntil: Date;
     matchedAgents: TaskAgentReference[];
     matchesAllAgentsInPool: boolean;
     orchestrationId: string;
+    /**
+     * The pipeline associated with this request
+     */
     owner: TaskOrchestrationOwner;
     planGroup: string;
+    /**
+     * Internal ID for the orchestration plan connected with this request.
+     */
     planId: string;
+    /**
+     * Internal detail representing the type of orchestration plan.
+     */
     planType: string;
+    /**
+     * The ID of the pool this request targets
+     */
     poolId: number;
+    /**
+     * The ID of the queue this request targets
+     */
     queueId: number;
+    /**
+     * The date/time this request was queued.
+     */
     queueTime: Date;
+    /**
+     * The date/time this request was receieved by an agent.
+     */
     receiveTime: Date;
+    /**
+     * ID of the request.
+     */
     requestId: number;
+    /**
+     * The agent allocated for this request.
+     */
     reservedAgent: TaskAgentReference;
+    /**
+     * The result of this request.
+     */
     result: TaskResult;
+    /**
+     * Scope of the pipeline; matches the project ID.
+     */
     scopeId: string;
+    /**
+     * The service which owns this request.
+     */
     serviceOwner: string;
     statusMessage: string;
 }
@@ -1542,38 +1663,44 @@ export interface TaskAgentMinAgentVersionRequiredUpdate extends TaskAgentUpdateR
     minAgentVersion: Demand;
 }
 
+/**
+ * An organization-level grouping of agents.
+ */
 export interface TaskAgentPool extends TaskAgentPoolReference {
     /**
-     * Gets or sets an agentCloudId
+     * The ID of the associated agent cloud.
      */
     agentCloudId: number;
     /**
-     * Gets or sets a value indicating whether or not a queue should be automatically provisioned for each project collection or not.
+     * Whether or not a queue should be automatically provisioned for each project collection.
      */
     autoProvision: boolean;
     /**
-     * Gets or sets a value indicating whether or not the pool should autosize itself based on the Agent Cloud Provider settings
+     * Whether or not the pool should autosize itself based on the Agent Cloud Provider settings.
      */
     autoSize: boolean;
     /**
-     * Gets the identity who created this pool. The creator of the pool is automatically added into the administrators group for the pool on creation.
+     * Creator of the pool. The creator of the pool is automatically added into the administrators group for the pool on creation.
      */
     createdBy: WebApi.IdentityRef;
     /**
-     * Gets the date/time of the pool creation.
+     * The date/time of the pool creation.
      */
     createdOn: Date;
     /**
-     * Gets the identity who owns or administrates this pool.
+     * Owner or administrator of the pool.
      */
     owner: WebApi.IdentityRef;
     properties: any;
     /**
-     * Gets or sets a value indicating target parallelism
+     * Target parallelism.
      */
     targetSize: number;
 }
 
+/**
+ * Filters pools based on whether the calling user has permission to use or manage the pool.
+ */
 export enum TaskAgentPoolActionFilter {
     None = 0,
     Manage = 2,
@@ -1799,8 +1926,17 @@ export interface TaskAgentPoolSummary {
     rows: MetricsRow[];
 }
 
+/**
+ * The type of agent pool.
+ */
 export enum TaskAgentPoolType {
+    /**
+     * A typical pool of task agents
+     */
     Automation = 1,
+    /**
+     * A deployment pool
+     */
     Deployment = 2
 }
 
@@ -1818,9 +1954,12 @@ export interface TaskAgentPublicKey {
     modulus: number[];
 }
 
+/**
+ * An agent queue.
+ */
 export interface TaskAgentQueue {
     /**
-     * Id of the queue
+     * ID of the queue
      */
     id: number;
     /**
@@ -1832,49 +1971,55 @@ export interface TaskAgentQueue {
      */
     pool: TaskAgentPoolReference;
     /**
-     * Project Id
+     * Project ID
      */
     projectId: string;
 }
 
+/**
+ * Filters queues based on whether the calling user has permission to use or manage the queue.
+ */
 export enum TaskAgentQueueActionFilter {
     None = 0,
     Manage = 2,
     Use = 16
 }
 
+/**
+ * A reference to an agent.
+ */
 export interface TaskAgentReference {
     _links: any;
     /**
-     * Gets the access point of the agent.
+     * This agent's access point.
      */
     accessPoint: string;
     /**
-     * Gets or sets a value indicating whether or not this agent should be enabled for job execution.
+     * Whether or not this agent should run jobs.
      */
     enabled: boolean;
     /**
-     * Gets the identifier of the agent.
+     * Identifier of the agent.
      */
     id: number;
     /**
-     * Gets the name of the agent.
+     * Name of the agent.
      */
     name: string;
     /**
-     * Gets the OS of the agent.
+     * Agent OS.
      */
     osDescription: string;
     /**
-     * Gets or sets the current provisioning state of this agent
+     * Provisioning state of this agent.
      */
     provisioningState: string;
     /**
-     * Gets the current connectivity status of the agent.
+     * Whether or not the agent is online.
      */
     status: TaskAgentStatus;
     /**
-     * Gets the version of the agent.
+     * Agent version.
      */
     version: string;
 }
@@ -1939,29 +2084,32 @@ export enum TaskAgentStatusFilter {
     All = 3
 }
 
+/**
+ * Details about an agent update.
+ */
 export interface TaskAgentUpdate {
     /**
-     * The current state of this agent update
+     * Current state of this agent update.
      */
     currentState: string;
     /**
-     * The reason of this agent update
+     * Reason for this update.
      */
     reason: TaskAgentUpdateReason;
     /**
-     * The identity that request the agent update
+     * Identity which requested this update.
      */
     requestedBy: WebApi.IdentityRef;
     /**
-     * Gets the date on which this agent update was requested.
+     * Date on which this update was requested.
      */
     requestTime: Date;
     /**
-     * Gets or sets the source agent version of the agent update
+     * Source agent version of the update.
      */
     sourceVersion: PackageVersion;
     /**
-     * Gets or sets the target agent version of the agent update
+     * Target agent version of the update.
      */
     targetVersion: PackageVersion;
 }
@@ -2468,7 +2616,8 @@ export interface TaskOrchestrationPlanReference {
 export enum TaskOrchestrationPlanState {
     InProgress = 1,
     Queued = 2,
-    Completed = 4
+    Completed = 4,
+    Throttled = 8
 }
 
 export interface TaskOrchestrationQueuedPlan {
@@ -2743,7 +2892,7 @@ export interface VirtualMachine {
     tags: string[];
 }
 
-export interface VirtualMachineGroup extends ServiceGroup {
+export interface VirtualMachineGroup extends EnvironmentResource {
     poolId: number;
 }
 

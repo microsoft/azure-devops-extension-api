@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import ExtensionManagement = require("../ExtensionManagement/ExtensionManagement");
-import Gallery = require("../Gallery/Gallery");
+import * as ExtensionManagement from "../ExtensionManagement/ExtensionManagement";
+import * as Gallery from "../Gallery/Gallery";
 
 export class ExtensionManagementRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

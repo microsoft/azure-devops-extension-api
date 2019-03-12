@@ -4,9 +4,9 @@
  * ---------------------------------------------------------
  */
 
-import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTaskCommon");
-import FormInput = require("../FormInput/FormInput");
-import WebApi = require("../WebApi/WebApi");
+import * as DistributedTaskCommon from "../DistributedTaskCommon/DistributedTaskCommon";
+import * as FormInput from "../FormInput/FormInput";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface AgentArtifactDefinition {
     /**
@@ -255,6 +255,8 @@ export interface ArtifactContributionDefinition {
     downloadTaskId: string;
     endpointTypeId: string;
     inputDescriptors: FormInput.InputDescriptor[];
+    isCommitsTraceabilitySupported: boolean;
+    isWorkitemsTraceabilitySupported: boolean;
     name: string;
     taskInputMapping: { [key: string] : string; };
     uniqueSourceIdentifier: string;
@@ -269,6 +271,10 @@ export interface ArtifactDownloadInputBase {
      * Gets or sets the name of artifact definition. Valid values are 'Skip', 'Selective', 'All'.
      */
     artifactDownloadMode: string;
+    /**
+     * Gets or sets the artifact items of the input.
+     */
+    artifactItems: string[];
     /**
      * Gets or sets the type of artifact.
      */
@@ -539,10 +545,6 @@ export interface BaseDeploymentInput {
 }
 
 export interface BuildArtifactDownloadInput extends ArtifactDownloadInputBase {
-    /**
-     * Gets or sets the list of files to be downloaded for build artifact.
-     */
-    artifactItems: string[];
 }
 
 export interface BuildVersion {
@@ -643,6 +645,13 @@ export interface CodeRepositoryReference {
      * It can have value as ‘GitHub’, ‘Vsts’.
      */
     systemType: PullRequestSystemType;
+}
+
+export interface ComplianceSettings {
+    /**
+     * Block Release Definition save if any secrets is saved in Release Definition.
+     */
+    blockReleaseDefinitionSaveIfSecretPresent: boolean;
 }
 
 export interface Condition {
@@ -1699,10 +1708,6 @@ export enum IssueSource {
 }
 
 export interface JenkinsArtifactDownloadInput extends ArtifactDownloadInputBase {
-    /**
-     * Gets or sets the artifact items.
-     */
-    artifactItems: string[];
 }
 
 export interface MachineGroupBasedDeployPhase extends DeployPhase {
@@ -3258,6 +3263,10 @@ export interface ReleaseSchedule {
 
 export interface ReleaseSettings {
     /**
+     * Release Compliance settings.
+     */
+    complianceSettings: ComplianceSettings;
+    /**
      * Release retention settings.
      */
     retentionSettings: RetentionSettings;
@@ -3685,6 +3694,10 @@ export interface SourcePullRequestVersion {
      * Date and time of the pull request merge creation. It is required to keep timeline record of Releases created by pull request.
      */
     pullRequestMergedAt: Date;
+    /**
+     * Source branch of the Pull Request.
+     */
+    sourceBranch: string;
     /**
      * Source branch commit Id of the Pull Request for which the release will publish status.
      */

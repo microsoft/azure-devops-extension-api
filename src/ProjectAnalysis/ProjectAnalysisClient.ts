@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import ProjectAnalysis = require("../ProjectAnalysis/ProjectAnalysis");
+import * as ProjectAnalysis from "../ProjectAnalysis/ProjectAnalysis";
 
 export class ProjectAnalysisRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

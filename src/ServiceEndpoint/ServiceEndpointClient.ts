@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import ServiceEndpoint = require("../ServiceEndpoint/ServiceEndpoint");
+import * as ServiceEndpoint from "../ServiceEndpoint/ServiceEndpoint";
 
 export class ServiceEndpointRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

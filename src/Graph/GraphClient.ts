@@ -7,8 +7,9 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Graph = require("../Graph/Graph");
-import WebApi = require("../WebApi/WebApi");
+import * as Graph from "../Graph/Graph";
+import * as Profile from "../Profile/Profile";
+import * as WebApi from "../WebApi/WebApi";
 
 export class GraphRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -16,6 +17,69 @@ export class GraphRestClient extends RestClientBase {
     }
 
     public static readonly RESOURCE_AREA_ID = "bb1e7ec9-e901-4b68-999a-de7012b920f8";
+
+    /**
+     * @param subjectDescriptor - 
+     */
+    public async deleteAvatar(
+        subjectDescriptor: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
+            routeValues: {
+                subjectDescriptor: subjectDescriptor
+            }
+        });
+    }
+
+    /**
+     * @param subjectDescriptor - 
+     * @param size - 
+     * @param format - 
+     */
+    public async getAvatar(
+        subjectDescriptor: string,
+        size?: Profile.AvatarSize,
+        format?: string
+        ): Promise<Profile.Avatar> {
+
+        const queryValues: any = {
+            size: size,
+            format: format
+        };
+
+        return this.beginRequest<Profile.Avatar>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
+            routeValues: {
+                subjectDescriptor: subjectDescriptor
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param avatar - 
+     * @param subjectDescriptor - 
+     */
+    public async setAvatar(
+        avatar: Profile.Avatar,
+        subjectDescriptor: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
+            routeValues: {
+                subjectDescriptor: subjectDescriptor
+            },
+            body: avatar
+        });
+    }
 
     /**
      */
@@ -594,6 +658,28 @@ export class GraphRestClient extends RestClientBase {
             routeValues: {
                 userDescriptor: userDescriptor
             }
+        });
+    }
+
+    /**
+     * Map an existing user to a different identity
+     * 
+     * @param updateContext - The subset of the full graph user used to uniquely find the graph subject in an external provider.
+     * @param userDescriptor - the descriptor of the user to update
+     */
+    public async updateUser(
+        updateContext: Graph.GraphUserUpdateContext,
+        userDescriptor: string
+        ): Promise<Graph.GraphUser> {
+
+        return this.beginRequest<Graph.GraphUser>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "_apis/Graph/Users/{userDescriptor}",
+            routeValues: {
+                userDescriptor: userDescriptor
+            },
+            body: updateContext
         });
     }
 

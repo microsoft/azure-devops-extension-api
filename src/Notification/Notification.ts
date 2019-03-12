@@ -4,8 +4,8 @@
  * ---------------------------------------------------------
  */
 
-import FormInput = require("../FormInput/FormInput");
-import WebApi = require("../WebApi/WebApi");
+import * as FormInput from "../FormInput/FormInput";
+import * as WebApi from "../WebApi/WebApi";
 
 export interface ActorFilter extends RoleBasedFilter {
 }

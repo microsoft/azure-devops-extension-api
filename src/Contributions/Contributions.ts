@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-import Gallery = require("../Gallery/Gallery");
+import * as Gallery from "../Gallery/Gallery";
 
 /**
  * Representaion of a ContributionNode that can be used for serialized to clients.

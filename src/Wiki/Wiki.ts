@@ -4,7 +4,7 @@
  * ---------------------------------------------------------
  */
 
-import Git = require("../Git/Git");
+import * as Git from "../Git/Git";
 
 /**
  * Defines a wiki repository which encapsulates the git repository backing the wiki.

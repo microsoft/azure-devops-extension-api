@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Git = require("../Git/Git");
-import Wiki = require("../Wiki/Wiki");
+import * as Git from "../Git/Git";
+import * as Wiki from "../Wiki/Wiki";
 
 export class WikiRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

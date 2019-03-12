@@ -4,9 +4,9 @@
  * ---------------------------------------------------------
  */
 
-import System = require("../Common/System");
-import WebApi = require("../WebApi/WebApi");
-import WorkItemTracking = require("../WorkItemTracking/WorkItemTracking");
+import * as System from "../Common/System";
+import * as WebApi from "../WebApi/WebApi";
+import * as WorkItemTracking from "../WorkItemTracking/WorkItemTracking";
 
 export interface Activity {
     capacityPerDay: number;
@@ -261,6 +261,17 @@ export enum BugsBehavior {
     Off = 0,
     AsRequirements = 1,
     AsTasks = 2
+}
+
+export interface CapacityContractBase extends TeamSettingsDataContractBase {
+    /**
+     * Collection of capacities associated with the team member
+     */
+    activities: Activity[];
+    /**
+     * The days off associated with the team member
+     */
+    daysOff: DateRange[];
 }
 
 /**
@@ -771,27 +782,38 @@ export interface TeamFieldValuesPatch {
 }
 
 export interface TeamIterationAttributes {
+    /**
+     * Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC.
+     */
     finishDate: Date;
+    /**
+     * Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
+     */
     startDate: Date;
+    /**
+     * Time frame of the iteration, such as past, current or future.
+     */
     timeFrame: TimeFrame;
 }
 
 /**
  * Represents capacity for a specific team member
  */
-export interface TeamMemberCapacity extends TeamSettingsDataContractBase {
-    /**
-     * Collection of capacities associated with the team member
-     */
-    activities: Activity[];
-    /**
-     * The days off associated with the team member
-     */
-    daysOff: DateRange[];
+export interface TeamMemberCapacity extends CapacityContractBase {
     /**
      * Shallow Ref to the associated team member
      */
     teamMember: Member;
+}
+
+/**
+ * Represents capacity for a specific team member
+ */
+export interface TeamMemberCapacityIdentityRef extends CapacityContractBase {
+    /**
+     * Identity ref of the associated team member
+     */
+    teamMember: WebApi.IdentityRef;
 }
 
 /**
@@ -847,23 +869,23 @@ export interface TeamSettingsDaysOffPatch {
 }
 
 /**
- * Represents a shallow ref for a single iteration
+ * Represents a shallow ref for a single iteration.
  */
 export interface TeamSettingsIteration extends TeamSettingsDataContractBase {
     /**
-     * Attributes such as start and end date
+     * Attributes of the iteration such as start and end date.
      */
     attributes: TeamIterationAttributes;
     /**
-     * Id of the resource
+     * Id of the iteration.
      */
     id: string;
     /**
-     * Name of the resource
+     * Name of the iteration.
      */
     name: string;
     /**
-     * Relative path of the iteration
+     * Relative path of the iteration.
      */
     path: string;
 }

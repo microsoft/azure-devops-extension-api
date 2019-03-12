@@ -171,13 +171,37 @@ export enum InputMode {
  * Describes what values are valid for a subscription input
  */
 export interface InputValidation {
+    /**
+     * Gets or sets the data data type to validate.
+     */
     dataType: InputDataType;
+    /**
+     * Gets or sets if this is a required field.
+     */
     isRequired: boolean;
+    /**
+     * Gets or sets the maximum length of this descriptor.
+     */
     maxLength: number;
+    /**
+     * Gets or sets the minimum value for this descriptor.
+     */
     maxValue: number;
+    /**
+     * Gets or sets the minimum length of this descriptor.
+     */
     minLength: number;
+    /**
+     * Gets or sets the minimum value for this descriptor.
+     */
     minValue: number;
+    /**
+     * Gets or sets the pattern to validate.
+     */
     pattern: string;
+    /**
+     * Gets or sets the error on pattern mismatch.
+     */
     patternMismatchErrorMessage: string;
 }
 

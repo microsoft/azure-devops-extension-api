@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Test = require("../Test/Test");
-import TfsCore = require("../Core/Core");
+import * as TfsCore from "../Core/Core";
+import * as Test from "../Test/Test";
 
 export class TestRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

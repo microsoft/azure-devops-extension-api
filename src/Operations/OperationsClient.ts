@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Operations = require("../Operations/Operations");
+import * as Operations from "../Operations/Operations";
 
 export class OperationsRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

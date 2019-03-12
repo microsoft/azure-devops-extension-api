@@ -4,8 +4,8 @@
  * ---------------------------------------------------------
  */
 
-import Gallery = require("../Gallery/Gallery");
-import WebApi = require("../WebApi/WebApi");
+import * as Gallery from "../Gallery/Gallery";
+import * as WebApi from "../WebApi/WebApi";
 
 /**
  * How the acquisition is assigned

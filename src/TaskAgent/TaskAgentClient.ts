@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import TaskAgent = require("../TaskAgent/TaskAgent");
+import * as TaskAgent from "../TaskAgent/TaskAgent";
 
 export class TaskAgentRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -135,8 +135,10 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param agent - 
-     * @param poolId - 
+     * Adds an agent to a pool.  You probably don't want to call this endpoint directly. Instead, [configure an agent](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) using the agent download package.
+     * 
+     * @param agent - Details about the agent being added
+     * @param poolId - The agent pool in which to add the agent
      */
     public async addAgent(
         agent: TaskAgent.TaskAgent,
@@ -155,8 +157,10 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolId - 
-     * @param agentId - 
+     * Delete an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove an agent from your organization.
+     * 
+     * @param poolId - The pool ID to remove the agent from
+     * @param agentId - The agent ID to remove
      */
     public async deleteAgent(
         poolId: number,
@@ -175,11 +179,13 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolId - 
-     * @param agentId - 
-     * @param includeCapabilities - 
-     * @param includeAssignedRequest - 
-     * @param propertyFilters - 
+     * Get information about an agent.
+     * 
+     * @param poolId - The agent pool containing the agent
+     * @param agentId - The agent ID to get information about
+     * @param includeCapabilities - Whether to include the agent's capabilities in the response
+     * @param includeAssignedRequest - Whether to include details about the agent's current work
+     * @param propertyFilters - Filter which custom properties will be returned
      */
     public async getAgent(
         poolId: number,
@@ -207,12 +213,14 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolId - 
-     * @param agentName - 
-     * @param includeCapabilities - 
-     * @param includeAssignedRequest - 
-     * @param propertyFilters - 
-     * @param demands - 
+     * Get a list of agents.
+     * 
+     * @param poolId - The agent pool containing the agents
+     * @param agentName - Filter on agent name
+     * @param includeCapabilities - Whether to include the agents' capabilities in the response
+     * @param includeAssignedRequest - Whether to include details about the agents' current work
+     * @param propertyFilters - Filter which custom properties will be returned
+     * @param demands - Filter by demands the agents can satisfy
      */
     public async getAgents(
         poolId: number,
@@ -242,9 +250,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param agent - 
-     * @param poolId - 
-     * @param agentId - 
+     * Replace an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove and reconfigure an agent from your organization.
+     * 
+     * @param agent - Updated details about the replacing agent
+     * @param poolId - The agent pool to use
+     * @param agentId - The agent to replace
      */
     public async replaceAgent(
         agent: TaskAgent.TaskAgent,
@@ -265,9 +275,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param agent - 
-     * @param poolId - 
-     * @param agentId - 
+     * Update agent details.
+     * 
+     * @param agent - Updated details about the agent
+     * @param poolId - The agent pool to use
+     * @param agentId - The agent to update
      */
     public async updateAgent(
         agent: TaskAgent.TaskAgent,
@@ -608,15 +620,18 @@ export class TaskAgentRestClient extends RestClientBase {
      * 
      * @param poolName - Name of the deployment pool.
      * @param expands - Include these additional details in the returned objects.
+     * @param poolIds - List of deployment pool ids.
      */
     public async getDeploymentPoolsSummary(
         poolName?: string,
-        expands?: TaskAgent.DeploymentPoolSummaryExpands
+        expands?: TaskAgent.DeploymentPoolSummaryExpands,
+        poolIds?: number[]
         ): Promise<TaskAgent.DeploymentPoolSummary[]> {
 
         const queryValues: any = {
             poolName: poolName,
-            expands: expands
+            expands: expands,
+            poolIds: poolIds && poolIds.join(",")
         };
 
         return this.beginRequest<TaskAgent.DeploymentPoolSummary[]>({
@@ -1168,16 +1183,16 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param environmentId - 
      */
-    public async addKubernetesServiceGroup(
-        createParameters: TaskAgent.KubernetesServiceGroupCreateParameters,
+    public async addKubernetesResource(
+        createParameters: TaskAgent.KubernetesResourceCreateParameters,
         project: string,
         environmentId: number
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
+        ): Promise<TaskAgent.KubernetesResource> {
 
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+        return this.beginRequest<TaskAgent.KubernetesResource>({
             apiVersion: "5.1-preview.1",
             method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId
@@ -1189,22 +1204,22 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param project - Project ID or project name
      * @param environmentId - 
-     * @param serviceGroupId - 
+     * @param resourceId - 
      */
-    public async deleteKubernetesServiceGroup(
+    public async deleteKubernetesResource(
         project: string,
         environmentId: number,
-        serviceGroupId: number
+        resourceId: number
         ): Promise<void> {
 
         return this.beginRequest<void>({
             apiVersion: "5.1-preview.1",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId,
-                serviceGroupId: serviceGroupId
+                resourceId: resourceId
             }
         });
     }
@@ -1212,45 +1227,45 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param project - Project ID or project name
      * @param environmentId - 
-     * @param serviceGroupId - 
+     * @param resourceId - 
      */
-    public async getKubernetesServiceGroup(
+    public async getKubernetesResource(
         project: string,
         environmentId: number,
-        serviceGroupId: number
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
+        resourceId: number
+        ): Promise<TaskAgent.KubernetesResource> {
 
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+        return this.beginRequest<TaskAgent.KubernetesResource>({
             apiVersion: "5.1-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId,
-                serviceGroupId: serviceGroupId
+                resourceId: resourceId
             }
         });
     }
 
     /**
-     * @param serviceGroup - 
+     * @param resource - 
      * @param project - Project ID or project name
      * @param environmentId - 
      */
-    public async updateKubernetesServiceGroup(
-        serviceGroup: TaskAgent.KubernetesServiceGroup,
+    public async updateKubernetesResource(
+        resource: TaskAgent.KubernetesResource,
         project: string,
         environmentId: number
-        ): Promise<TaskAgent.KubernetesServiceGroup> {
+        ): Promise<TaskAgent.KubernetesResource> {
 
-        return this.beginRequest<TaskAgent.KubernetesServiceGroup>({
+        return this.beginRequest<TaskAgent.KubernetesResource>({
             apiVersion: "5.1-preview.1",
             method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId
             },
-            body: serviceGroup
+            body: resource
         });
     }
 
@@ -2030,7 +2045,9 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param pool - 
+     * Create an agent pool.
+     * 
+     * @param pool - Details about the new agent pool
      */
     public async addAgentPool(
         pool: TaskAgent.TaskAgentPool
@@ -2045,7 +2062,9 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolId - 
+     * Delete an agent pool.
+     * 
+     * @param poolId - ID of the agent pool to delete
      */
     public async deleteAgentPool(
         poolId: number
@@ -2062,9 +2081,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolId - 
-     * @param properties - 
-     * @param actionFilter - 
+     * Get information about an agent pool.
+     * 
+     * @param poolId - An agent pool ID
+     * @param properties - Agent pool properties (comma-separated)
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentPool(
         poolId: number,
@@ -2088,10 +2109,12 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param poolName - 
-     * @param properties - 
-     * @param poolType - 
-     * @param actionFilter - 
+     * Get a list of agent pools.
+     * 
+     * @param poolName - Filter by name
+     * @param properties - Filter by agent pool properties (comma-separated)
+     * @param poolType - Filter by pool type
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentPools(
         poolName?: string,
@@ -2115,8 +2138,10 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param pool - 
-     * @param poolId - 
+     * Update properties on an agent pool
+     * 
+     * @param pool - Updated agent pool details
+     * @param poolId - The agent pool to update
      */
     public async updateAgentPool(
         pool: TaskAgent.TaskAgentPool,
@@ -2135,9 +2160,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param queue - 
+     * Create a new agent queue to connect a project to an agent pool.
+     * 
+     * @param queue - Details about the queue to create
      * @param project - Project ID or project name
-     * @param authorizePipelines - 
+     * @param authorizePipelines - Automatically authorize this queue when using YAML
      */
     public async addAgentQueue(
         queue: TaskAgent.TaskAgentQueue,
@@ -2162,6 +2189,8 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Create a new team project.
+     * 
      * @param project - Project ID or project name
      */
     public async createTeamProject(
@@ -2179,7 +2208,9 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param queueId - 
+     * Removes an agent queue from a project.
+     * 
+     * @param queueId - The agent queue to remove
      * @param project - Project ID or project name
      */
     public async deleteAgentQueue(
@@ -2199,9 +2230,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param queueId - 
+     * Get information about an agent queue.
+     * 
+     * @param queueId - The agent queue to get information about
      * @param project - Project ID or project name
-     * @param actionFilter - 
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentQueue(
         queueId: number,
@@ -2225,9 +2258,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Get a list of agent queues.
+     * 
      * @param project - Project ID or project name
-     * @param queueName - 
-     * @param actionFilter - 
+     * @param queueName - Filter on the agent queue name
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentQueues(
         project?: string,
@@ -2251,9 +2286,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param queueIds - 
+     * Get a list of agent queues by their IDs
+     * 
+     * @param queueIds - A comma-separated list of agent queue IDs to retrieve
      * @param project - Project ID or project name
-     * @param actionFilter - 
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentQueuesByIds(
         queueIds: number[],
@@ -2277,9 +2314,11 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param queueNames - 
+     * Get a list of agent queues by their names
+     * 
+     * @param queueNames - A comma-separated list of agent names to retrieve
      * @param project - Project ID or project name
-     * @param actionFilter - 
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
      */
     public async getAgentQueuesByNames(
         queueNames: string[],
@@ -3541,7 +3580,7 @@ export class TaskAgentRestClient extends RestClientBase {
         return this.beginRequest<TaskAgent.VirtualMachineGroup>({
             apiVersion: "5.1-preview.1",
             method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId
@@ -3553,22 +3592,22 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param project - Project ID or project name
      * @param environmentId - 
-     * @param serviceGroupId - 
+     * @param resourceId - 
      */
     public async deleteVirtualMachineGroup(
         project: string,
         environmentId: number,
-        serviceGroupId: number
+        resourceId: number
         ): Promise<void> {
 
         return this.beginRequest<void>({
             apiVersion: "5.1-preview.1",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId,
-                serviceGroupId: serviceGroupId
+                resourceId: resourceId
             }
         });
     }
@@ -3576,32 +3615,32 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * @param project - Project ID or project name
      * @param environmentId - 
-     * @param serviceGroupId - 
+     * @param resourceId - 
      */
     public async getVirtualMachineGroup(
         project: string,
         environmentId: number,
-        serviceGroupId: number
+        resourceId: number
         ): Promise<TaskAgent.VirtualMachineGroup> {
 
         return this.beginRequest<TaskAgent.VirtualMachineGroup>({
             apiVersion: "5.1-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId,
-                serviceGroupId: serviceGroupId
+                resourceId: resourceId
             }
         });
     }
 
     /**
-     * @param serviceGroup - 
+     * @param resource - 
      * @param project - Project ID or project name
      * @param environmentId - 
      */
     public async updateVirtualMachineGroup(
-        serviceGroup: TaskAgent.VirtualMachineGroup,
+        resource: TaskAgent.VirtualMachineGroup,
         project: string,
         environmentId: number
         ): Promise<TaskAgent.VirtualMachineGroup> {
@@ -3609,44 +3648,79 @@ export class TaskAgentRestClient extends RestClientBase {
         return this.beginRequest<TaskAgent.VirtualMachineGroup>({
             apiVersion: "5.1-preview.1",
             method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}",
             routeValues: {
                 project: project,
                 environmentId: environmentId
             },
-            body: serviceGroup
+            body: resource
         });
     }
 
     /**
      * @param project - Project ID or project name
      * @param environmentId - 
-     * @param serviceGroupId - 
+     * @param resourceId - 
      * @param continuationToken - 
+     * @param name - 
+     * @param partialNameMatch - 
+     * @param tags - 
      * @param top - 
      */
     public async getVirtualMachines(
         project: string,
         environmentId: number,
-        serviceGroupId: number,
+        resourceId: number,
         continuationToken?: string,
+        name?: string,
+        partialNameMatch?: boolean,
+        tags?: string[],
         top?: number
         ): Promise<TaskAgent.VirtualMachine[]> {
 
         const queryValues: any = {
             continuationToken: continuationToken,
+            name: name,
+            partialNameMatch: partialNameMatch,
+            tags: tags && tags.join(","),
             '$top': top
         };
 
         return this.beginRequest<TaskAgent.VirtualMachine[]>({
             apiVersion: "5.1-preview.1",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{serviceGroupId}/virtualmachines",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}/virtualmachines",
             routeValues: {
                 project: project,
                 environmentId: environmentId,
-                serviceGroupId: serviceGroupId
+                resourceId: resourceId
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param machines - 
+     * @param project - Project ID or project name
+     * @param environmentId - 
+     * @param resourceId - 
+     */
+    public async updateVirtualMachines(
+        machines: TaskAgent.VirtualMachine[],
+        project: string,
+        environmentId: number,
+        resourceId: number
+        ): Promise<TaskAgent.VirtualMachine[]> {
+
+        return this.beginRequest<TaskAgent.VirtualMachine[]>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/virtualmachinegroups/{resourceId}/virtualmachines",
+            routeValues: {
+                project: project,
+                environmentId: environmentId,
+                resourceId: resourceId
+            },
+            body: machines
         });
     }
 

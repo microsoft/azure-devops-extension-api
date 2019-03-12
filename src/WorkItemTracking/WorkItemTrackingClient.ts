@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import WebApi = require("../WebApi/WebApi");
-import WorkItemTracking = require("../WorkItemTracking/WorkItemTracking");
+import * as WebApi from "../WebApi/WebApi";
+import * as WorkItemTracking from "../WorkItemTracking/WorkItemTracking";
 
 export class WorkItemTrackingRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -1541,11 +1541,11 @@ export class WorkItemTrackingRestClient extends RestClientBase {
     }
 
     /**
-     * Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently.
+     * Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently. WARNING: If the destroy parameter is set to true, work items deleted by this command will NOT go to recycle-bin and there is no way to restore/recover them after deletion. It is recommended NOT to use this parameter. If you do, please use this parameter with extreme caution.
      * 
      * @param id - ID of the work item to be deleted
      * @param project - Project ID or project name
-     * @param destroy - Optional parameter, if set to true, the work item is deleted permanently
+     * @param destroy - Optional parameter, if set to true, the work item is deleted permanently. Please note: the destroy action is PERMANENT and cannot be undone.
      */
     public async deleteWorkItem(
         id: number,

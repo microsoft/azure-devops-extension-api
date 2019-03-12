@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Tfvc = require("../Tfvc/Tfvc");
+import * as Tfvc from "../Tfvc/Tfvc";
 
 export class TfvcRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

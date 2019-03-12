@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Build = require("../Build/Build");
-import WebApi = require("../WebApi/WebApi");
+import * as Build from "../Build/Build";
+import * as WebApi from "../WebApi/WebApi";
 
 export class BuildRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -260,7 +260,7 @@ export class BuildRestClient extends RestClientBase {
     }
 
     /**
-     * Gets a badge that indicates the status of the most recent build for a definition.
+     * Gets a badge that indicates the status of the most recent build for a definition. Note that this API is deprecated. Prefer StatusBadgeController.GetStatusBadge.
      * 
      * @param project - The project ID or name.
      * @param definitionId - The ID of the definition.

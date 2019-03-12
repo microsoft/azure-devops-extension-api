@@ -7,9 +7,9 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Core = require("../Core/Core");
-import Operations = require("../Operations/Operations");
-import WebApi = require("../WebApi/WebApi");
+import * as Core from "../Core/Core";
+import * as Operations from "../Operations/Operations";
+import * as WebApi from "../WebApi/WebApi";
 
 export class CoreRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -19,9 +19,9 @@ export class CoreRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "79134c72-4a58-4b42-976c-04e7115f32bf";
 
     /**
-     * Removes the avatar for the project
+     * Removes the avatar for the project.
      * 
-     * @param projectId - The id or name of the project
+     * @param projectId - The ID or name of the project.
      */
     public async removeProjectAvatar(
         projectId: string
@@ -38,10 +38,10 @@ export class CoreRestClient extends RestClientBase {
     }
 
     /**
-     * Upload avatar for the project
+     * Sets the avatar for the project.
      * 
-     * @param avatarBlob - 
-     * @param projectId - The id or name of the project
+     * @param avatarBlob - The avatar blob data object to upload.
+     * @param projectId - The ID or name of the project.
      */
     public async setProjectAvatar(
         avatarBlob: Core.ProjectAvatar,

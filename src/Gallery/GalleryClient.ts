@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Gallery = require("../Gallery/Gallery");
+import * as Gallery from "../Gallery/Gallery";
 
 export class GalleryRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -1402,6 +1402,35 @@ export class GalleryRestClient extends RestClientBase {
                 publisherName: publisherName
             },
             body: publisher
+        });
+    }
+
+    /**
+     * Endpoint to add/modify publisher membership. Currently Supports only addition/modification of 1 user at a time Works only for adding members of same tenant.
+     * 
+     * @param roleAssignments - List of user identifiers(email address) and role to be added. Currently only one entry is supported.
+     * @param publisherName - The name/id of publisher to which users have to be added
+     * @param limitToCallerIdentityDomain - Should cross tenant addtions be allowed or not.
+     */
+    public async updatePublisherMembers(
+        roleAssignments: Gallery.PublisherUserRoleAssignmentRef[],
+        publisherName: string,
+        limitToCallerIdentityDomain?: boolean
+        ): Promise<Gallery.PublisherRoleAssignment[]> {
+
+        const queryValues: any = {
+            limitToCallerIdentityDomain: limitToCallerIdentityDomain
+        };
+
+        return this.beginRequest<Gallery.PublisherRoleAssignment[]>({
+            apiVersion: "5.1-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}",
+            routeValues: {
+                publisherName: publisherName
+            },
+            queryParams: queryValues,
+            body: roleAssignments
         });
     }
 

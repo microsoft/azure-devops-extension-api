@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import Policy = require("../Policy/Policy");
+import * as Policy from "../Policy/Policy";
 
 export class PolicyRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {

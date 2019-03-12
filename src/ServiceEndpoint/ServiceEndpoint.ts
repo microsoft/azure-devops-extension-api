@@ -4,9 +4,9 @@
  * ---------------------------------------------------------
  */
 
-import DistributedTaskCommon = require("../DistributedTaskCommon/DistributedTaskCommon");
-import FormInput = require("../FormInput/FormInput");
-import WebApi = require("../WebApi/WebApi");
+import * as DistributedTaskCommon from "../DistributedTaskCommon/DistributedTaskCommon";
+import * as FormInput from "../FormInput/FormInput";
+import * as WebApi from "../WebApi/WebApi";
 
 export enum AadLoginPromptOption {
     /**
@@ -49,8 +49,17 @@ export enum AccessTokenRequestType {
     Direct = 2
 }
 
+/**
+ * Specifies the authentication scheme to be used for authentication.
+ */
 export interface AuthenticationSchemeReference {
+    /**
+     * Gets or sets the key and value of the fields used for authentication.
+     */
     inputs: { [key: string] : string; };
+    /**
+     * Gets or sets the type of authentication scheme of an endpoint.
+     */
     type: string;
 }
 
@@ -138,6 +147,9 @@ export interface AzureSubscriptionQueryResult {
     value: AzureSubscription[];
 }
 
+/**
+ * Specifies the client certificate to be used for the endpoint request.
+ */
 export interface ClientCertificate {
     /**
      * Gets or sets the value of client certificate.
@@ -145,20 +157,59 @@ export interface ClientCertificate {
     value: string;
 }
 
+/**
+ * Specifies the data sources for this endpoint.
+ */
 export interface DataSource {
+    /**
+     * Gets or sets the authentication scheme for the endpoint request.
+     */
     authenticationScheme: AuthenticationSchemeReference;
+    /**
+     * Gets or sets the pagination format supported by this data source(ContinuationToken/SkipTop).
+     */
     callbackContextTemplate: string;
+    /**
+     * Gets or sets the template to check if subsequent call is needed.
+     */
     callbackRequiredTemplate: string;
+    /**
+     * Gets or sets the endpoint url of the data source.
+     */
     endpointUrl: string;
+    /**
+     * Gets or sets the authorization headers of the request.
+     */
     headers: AuthorizationHeader[];
+    /**
+     * Gets or sets the initial value of the query params.
+     */
     initialContextTemplate: string;
+    /**
+     * Gets or sets the name of the data source.
+     */
     name: string;
+    /**
+     * Gets or sets the request content of the endpoint request.
+     */
     requestContent: string;
+    /**
+     * Gets or sets the request method of the endpoint request.
+     */
     requestVerb: string;
+    /**
+     * Gets or sets the resource url of the endpoint request.
+     */
     resourceUrl: string;
+    /**
+     * Gets or sets the result selector to filter the response of the endpoint request.
+     */
     resultSelector: string;
 }
 
+/**
+ * Represents the data source binding of the endpoint.
+ */
 export interface DataSourceBinding extends DistributedTaskCommon.DataSourceBindingBase {
 }
 
@@ -204,18 +255,45 @@ export interface DataSourceDetails {
     resultSelector: string;
 }
 
+/**
+ * Represents the details of the input on which a given input is dependent.
+ */
 export interface DependencyBinding {
+    /**
+     * Gets or sets the value of the field on which url is dependent.
+     */
     key: string;
+    /**
+     * Gets or sets the corresponding value of url.
+     */
     value: string;
 }
 
+/**
+ * Represents the dependency data for the endpoint inputs.
+ */
 export interface DependencyData {
+    /**
+     * Gets or sets the category of dependency data.
+     */
     input: string;
+    /**
+     * Gets or sets the key-value pair to specify properties and their values.
+     */
     map: { key: string; value: { key: string; value: string }[] }[];
 }
 
+/**
+ * Represents the inputs on which any given input is dependent.
+ */
 export interface DependsOn {
+    /**
+     * Gets or sets the ID of the field on which URL's value is dependent.
+     */
     input: string;
+    /**
+     * Gets or sets key-value pair containing other's field value and corresponding url value.
+     */
     map: DependencyBinding[];
 }
 
@@ -264,8 +342,17 @@ export interface EndpointUrl {
     value: string;
 }
 
+/**
+ * Specifies the public url of the help documentation.
+ */
 export interface HelpLink {
+    /**
+     * Gets or sets the help text.
+     */
     text: string;
+    /**
+     * Gets or sets the public url of the help documentation.
+     */
     url: string;
 }
 
@@ -390,6 +477,9 @@ export interface ServiceEndpoint {
      * Gets or sets the description of endpoint.
      */
     description: string;
+    /**
+     * This is a deprecated field.
+     */
     groupScopeId: string;
     /**
      * Gets or sets the identifier of this endpoint.
@@ -429,6 +519,9 @@ export interface ServiceEndpoint {
     url: string;
 }
 
+/**
+ * Represents the authentication scheme used to authenticate the endpoint.
+ */
 export interface ServiceEndpointAuthenticationScheme {
     /**
      * Gets or sets the authorization headers of service endpoint authentication scheme.
@@ -442,6 +535,9 @@ export interface ServiceEndpointAuthenticationScheme {
      * Gets or sets the certificates of service endpoint authentication scheme.
      */
     clientCertificates: ClientCertificate[];
+    /**
+     * Gets or sets the data source bindings of the endpoint.
+     */
     dataSourceBindings: DataSourceBinding[];
     /**
      * Gets or sets the display name for the service endpoint authentication scheme.
@@ -528,6 +624,9 @@ export interface ServiceEndpointExecutionOwner {
     name: string;
 }
 
+/**
+ * Represents the details of service ednpoint execution.
+ */
 export interface ServiceEndpointExecutionRecord {
     /**
      * Gets the execution data of service endpoint execution.
@@ -545,11 +644,29 @@ export interface ServiceEndpointExecutionRecordsInput {
 }
 
 export enum ServiceEndpointExecutionResult {
+    /**
+     * "Service endpoint request succeeded.
+     */
     Succeeded = 0,
+    /**
+     * "Service endpoint request succeeded but with some issues.
+     */
     SucceededWithIssues = 1,
+    /**
+     * "Service endpoint request failed.
+     */
     Failed = 2,
+    /**
+     * "Service endpoint request was cancelled.
+     */
     Canceled = 3,
+    /**
+     * "Service endpoint request was skipped.
+     */
     Skipped = 4,
+    /**
+     * "Service endpoint request was abandoned.
+     */
     Abandoned = 5
 }
 
@@ -632,6 +749,9 @@ export interface ServiceEndpointType {
      * Gets or sets the help link of service endpoint type.
      */
     helpLink: HelpLink;
+    /**
+     * Gets or sets the help text shown at the endpoint create dialog.
+     */
     helpMarkDown: string;
     /**
      * Gets or sets the icon url of service endpoint type.

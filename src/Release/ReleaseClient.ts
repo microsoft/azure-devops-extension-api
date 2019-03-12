@@ -7,8 +7,8 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import FormInput = require("../FormInput/FormInput");
-import Release = require("../Release/Release");
+import * as FormInput from "../FormInput/FormInput";
+import * as Release from "../Release/Release";
 
 export class ReleaseRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -749,9 +749,11 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get a release environment.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param environmentId - 
+     * @param releaseId - Id of the release.
+     * @param environmentId - Id of the release environment.
      */
     public async getReleaseEnvironment(
         project: string,

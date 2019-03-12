@@ -7,7 +7,7 @@
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
 
-import FeatureAvailability = require("../FeatureAvailability/FeatureAvailability");
+import * as FeatureAvailability from "../FeatureAvailability/FeatureAvailability";
 
 export class FeatureAvailabilityRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
