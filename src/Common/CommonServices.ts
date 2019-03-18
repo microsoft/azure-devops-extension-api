@@ -452,6 +452,15 @@ export const enum MessageBannerLevel {
 }
 
 export interface IGlobalMessageBanner {
+    /**
+     * A custom icon to replace the default icon in the banner.
+     */
+    customIcon?: string;
+
+    /**
+     * Whether or not the banner will have a close button to dismiss it.
+     */
+    dismissable?: boolean;
 
     /**
      * banner level (controls the background and icon of the banner)
@@ -472,6 +481,11 @@ export interface IGlobalMessageBanner {
      * Links to supply to the format arguments in `messageFormat`
      */
     messageLinks?: IGlobalMessageLink[];
+
+    /**
+     * Where the banner should appear.
+     */
+    position?: string;
 }
 
 /**
@@ -511,13 +525,18 @@ export interface IToast {
 }
 
 export interface IGlobalMessagesService {
+    /**
+     * Adds a new message banner to the displayed banners
+     * @param banner - The message banner to display
+     */
+    addBanner(banner: IGlobalMessageBanner): void;
 
     /**
      * Sets the currently displayed global message banner
-     * 
+     * DEPRECATED - COMPAT OLNY - use @see addBanner instead
      * @param banner - The message banner to display
      */
-    setGlobalMessageBanner(banner: IGlobalMessageBanner): void
+    setGlobalMessageBanner(banner: IGlobalMessageBanner): void;
 
     /**
      * Displays or queues a Toast to display at the bottom of the page
