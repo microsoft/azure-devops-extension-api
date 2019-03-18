@@ -4,6 +4,9 @@
  * ---------------------------------------------------------
  */
 
+// Fetch polyfill for IE11
+import "whatwg-fetch";
+
 import { IAuthorizationTokenProvider } from "./Context";
 
 /**
@@ -128,7 +131,7 @@ export async function issueRequest(requestUrl: string, options?: RequestInit, vs
     }
 
     let headers: Headers;
-
+    
     // If options.headers is set, check if it is a Headers object, and if not, convert it to one.
     if (options.headers) {
         if (options.headers instanceof Headers) {
@@ -173,7 +176,7 @@ export async function issueRequest(requestUrl: string, options?: RequestInit, vs
     let refreshToken = false;
 
     do {
-
+        
         // Ensure we have an authorization token available from the auth manager.
         if (vssRequestOptions && vssRequestOptions.authTokenProvider) {
             headers.append("Authorization", await vssRequestOptions.authTokenProvider.getAuthorizationHeader(refreshToken));
