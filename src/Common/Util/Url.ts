@@ -40,15 +40,28 @@ export interface IUriParseOptions {
     absoluteUriRequired?: boolean;
 }
 
+/**
+ * Type of individual entry values that can be used in Uri.addQueryParams call
+ */
+export type QueryParameterEntryValueType = string | boolean | number | Date | undefined;
+
+/**
+ * Type of values supported by Uri.addQueryParams call
+ */
+export type QueryParameterValueType =
+    | QueryParameterEntryValueType
+    | Array<QueryParameterEntryValueType>
+    | { [key: string]: QueryParameterEntryValueType };
+
 function prepareForComparison(value: string, upperCase: boolean): string {
     return value ? (upperCase ? value.toLocaleUpperCase() : value) : "";
 }
 
-function stringEquals(str1: string, str2: string, ignoreCase: boolean) {
+function stringEquals(str1: string, str2: string, ignoreCase: boolean): boolean {
     if (str1 === str2) {
-        return 0;
+        return true;
     }
-    return prepareForComparison(str1, ignoreCase).localeCompare(prepareForComparison(str2, ignoreCase));
+    return prepareForComparison(str1, ignoreCase).localeCompare(prepareForComparison(str2, ignoreCase)) === 0;
 }
 
 /**
@@ -370,13 +383,13 @@ export class Uri {
     }
 
     /**
-    * Adds a query string parameter to the current uri
-    *
-    * @param name The Query parameter name
-    * @param value The Query parameter value
-    * @param replaceExisting If true, replace all existing parameters with the same name
-    */
-    public addQueryParam(name: string, value: string, replaceExisting?: boolean): void {
+     * Adds a query string parameter to the current uri
+     *
+     * @param name The Query parameter name
+     * @param value The Query parameter value
+     * @param replaceExisting If true, replace all existing parameters with the same name
+     */
+    public addQueryParam(name: string, value: string | null, replaceExisting?: boolean): void {
         if (replaceExisting) {
             this.removeQueryParam(name);
         }
@@ -387,23 +400,25 @@ export class Uri {
     }
 
     /**
-    * Adds query string parameters to the current uri
-    *
-    * @param parameters Query parameters to add
-    * @param replaceExisting If true, replace all existing parameters with the same name
-    */
-    public addQueryParams(parameters: { [key: string]: string | boolean | number | Date | Array<string | boolean | number | Date> | undefined }, replaceExisting?: boolean): void {
+     * Adds query string parameters to the current uri
+     *
+     * @param parameters Query parameters to add
+     * @param replaceExisting If true, replace all existing parameters with the same name
+     * @param keyPrefix If specified, a value to prepend to all query parameter keys
+     */
+    public addQueryParams(parameters: { [key: string]: QueryParameterValueType }, replaceExisting?: boolean, keyPrefix?: string): void {
         for (const key in parameters) {
             const value = parameters[key];
             if (value !== null && value !== undefined) {
+                const keyWithPrefix = (keyPrefix || "") + key;
                 if (value instanceof Date) {
-                    this.addQueryParam(key, value.toJSON());
-                }
-                else if (Array.isArray(value)) {
-                    value.forEach(v => this.addQueryParam(key, "" + v));
-                }
-                else {
-                    this.addQueryParam(key, "" + value);
+                    this.addQueryParam(keyWithPrefix, value.toJSON(), replaceExisting);
+                } else if (Array.isArray(value)) {
+                    value.forEach(v => this.addQueryParam(keyWithPrefix, "" + v, replaceExisting));
+                } else if (typeof value === "object") {
+                    this.addQueryParams(value, replaceExisting, keyWithPrefix + ".");
+                } else {
+                    this.addQueryParam(keyWithPrefix, "" + value, replaceExisting);
                 }
             }
         }

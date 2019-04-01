@@ -172,6 +172,38 @@ export interface Board extends BoardReference {
     rows: BoardRow[];
 }
 
+/**
+ * Represents a board badge.
+ */
+export interface BoardBadge {
+    /**
+     * The ID of the board represented by this badge.
+     */
+    boardId: string;
+    /**
+     * A link to the SVG resource.
+     */
+    imageUrl: string;
+}
+
+/**
+ * Determines what columns to include on the board badge
+ */
+export enum BoardBadgeColumnOptions {
+    /**
+     * Only include In Progress columns
+     */
+    InProgressColumns = 0,
+    /**
+     * Include all columns
+     */
+    AllColumns = 1,
+    /**
+     * Include a custom set of columns
+     */
+    CustomColumns = 2
+}
+
 export interface BoardCardRuleSettings {
     _links: any;
     rules: { [key: string] : Rule[]; };

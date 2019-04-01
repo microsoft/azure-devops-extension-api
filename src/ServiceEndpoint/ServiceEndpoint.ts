@@ -519,6 +519,12 @@ export interface ServiceEndpoint {
     url: string;
 }
 
+export enum ServiceEndpointActionFilter {
+    None = 0,
+    Manage = 2,
+    Use = 16
+}
+
 /**
  * Represents the authentication scheme used to authenticate the endpoint.
  */

@@ -80,6 +80,7 @@ export interface GitRepository {
     sshUrl: string;
     url: string;
     validRemoteUrls: string[];
+    webUrl: string;
 }
 
 export interface GitRepositoryRef {

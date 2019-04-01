@@ -185,6 +185,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param agentId - The agent ID to get information about
      * @param includeCapabilities - Whether to include the agent's capabilities in the response
      * @param includeAssignedRequest - Whether to include details about the agent's current work
+     * @param includeLastCompletedRequest - Whether to include details about the agents' most recent completed work
      * @param propertyFilters - Filter which custom properties will be returned
      */
     public async getAgent(
@@ -192,12 +193,14 @@ export class TaskAgentRestClient extends RestClientBase {
         agentId: number,
         includeCapabilities?: boolean,
         includeAssignedRequest?: boolean,
+        includeLastCompletedRequest?: boolean,
         propertyFilters?: string[]
         ): Promise<TaskAgent.TaskAgent> {
 
         const queryValues: any = {
             includeCapabilities: includeCapabilities,
             includeAssignedRequest: includeAssignedRequest,
+            includeLastCompletedRequest: includeLastCompletedRequest,
             propertyFilters: propertyFilters && propertyFilters.join(",")
         };
 
@@ -219,6 +222,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * @param agentName - Filter on agent name
      * @param includeCapabilities - Whether to include the agents' capabilities in the response
      * @param includeAssignedRequest - Whether to include details about the agents' current work
+     * @param includeLastCompletedRequest - Whether to include details about the agents' most recent completed work
      * @param propertyFilters - Filter which custom properties will be returned
      * @param demands - Filter by demands the agents can satisfy
      */
@@ -227,6 +231,7 @@ export class TaskAgentRestClient extends RestClientBase {
         agentName?: string,
         includeCapabilities?: boolean,
         includeAssignedRequest?: boolean,
+        includeLastCompletedRequest?: boolean,
         propertyFilters?: string[],
         demands?: string[]
         ): Promise<TaskAgent.TaskAgent[]> {
@@ -235,6 +240,7 @@ export class TaskAgentRestClient extends RestClientBase {
             agentName: agentName,
             includeCapabilities: includeCapabilities,
             includeAssignedRequest: includeAssignedRequest,
+            includeLastCompletedRequest: includeLastCompletedRequest,
             propertyFilters: propertyFilters && propertyFilters.join(","),
             demands: demands && demands.join(",")
         };

@@ -112,6 +112,76 @@ export class WorkRestClient extends RestClientBase {
     }
 
     /**
+     * Gets a badge that displays the status of columns on the board.
+     * 
+     * @param teamContext - The team context for the operation
+     * @param id - The id of the board.
+     * @param columnOptions - Determines what columns to show.
+     * @param columns - If columnOptions is set to custom, specify the list of column names.
+     */
+    public async getBoardBadge(
+        teamContext: TfsCore.TeamContext,
+        id: string,
+        columnOptions?: Work.BoardBadgeColumnOptions,
+        columns?: string[]
+        ): Promise<Work.BoardBadge> {
+
+        const queryValues: any = {
+            columnOptions: columnOptions,
+            columns: columns && columns.join(",")
+        };
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<Work.BoardBadge>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/{team}/_apis/work/boardbadge/{id}",
+            routeValues: {
+                project: project,
+                team: team,
+                id: id
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Gets a badge that displays the status of columns on the board.
+     * 
+     * @param teamContext - The team context for the operation
+     * @param id - The id of the board.
+     * @param columnOptions - Determines what columns to show.
+     * @param columns - If columnOptions is set to custom, specify the list of column names.
+     */
+    public async getBoardBadgeData(
+        teamContext: TfsCore.TeamContext,
+        id: string,
+        columnOptions?: Work.BoardBadgeColumnOptions,
+        columns?: string[]
+        ): Promise<string> {
+
+        const queryValues: any = {
+            columnOptions: columnOptions,
+            columns: columns && columns.join(",")
+        };
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<string>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/{team}/_apis/work/boardbadge/{id}",
+            routeValues: {
+                project: project,
+                team: team,
+                id: id
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Get available board columns in a project
      * 
      * @param project - Project ID or project name

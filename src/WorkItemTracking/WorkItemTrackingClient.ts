@@ -530,12 +530,18 @@ export class WorkItemTrackingRestClient extends RestClientBase {
      * @param postedQuery - The query to create.
      * @param project - Project ID or project name
      * @param query - The parent id or path under which the query is to be created.
+     * @param validateWiqlOnly - If you only want to validate your WIQL query without actually creating one, set it to true. Default is false.
      */
     public async createQuery(
         postedQuery: WorkItemTracking.QueryHierarchyItem,
         project: string,
-        query: string
+        query: string,
+        validateWiqlOnly?: boolean
         ): Promise<WorkItemTracking.QueryHierarchyItem> {
+
+        const queryValues: any = {
+            validateWiqlOnly: validateWiqlOnly
+        };
 
         return this.beginRequest<WorkItemTracking.QueryHierarchyItem>({
             apiVersion: "5.0",
@@ -545,6 +551,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
                 project: project,
                 query: query
             },
+            queryParams: queryValues,
             body: postedQuery
         });
     }

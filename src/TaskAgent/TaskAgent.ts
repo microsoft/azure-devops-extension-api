@@ -911,11 +911,13 @@ export interface JobStartedEvent extends JobEvent {
 }
 
 export interface KubernetesResource extends EnvironmentResource {
+    clusterName: string;
     namespace: string;
     serviceEndpointId: string;
 }
 
 export interface KubernetesResourceCreateParameters {
+    clusterName: string;
     name: string;
     namespace: string;
     serviceEndpointId: string;
@@ -1891,6 +1893,10 @@ export interface TaskAgentPoolReference {
      * Gets or sets a value indicating whether or not this pool is managed by the service.
      */
     isHosted: boolean;
+    /**
+     * Determines whether the pool is legacy.
+     */
+    isLegacy: boolean;
     name: string;
     /**
      * Gets or sets the type of the pool

@@ -507,7 +507,7 @@ export enum CoverageSummaryStatus {
     /**
      * The summary evaluation is in progress
      */
-    Pending = 1,
+    InProgress = 1,
     /**
      * The summary evaluation for the previous request is completed. Summary can change in future
      */
@@ -515,7 +515,11 @@ export enum CoverageSummaryStatus {
     /**
      * The summary evaluation is finalized and won't change
      */
-    Finalized = 3
+    Finalized = 3,
+    /**
+     * The summary evaluation is pending
+     */
+    Pending = 4
 }
 
 export interface CreateTestMessageLogEntryRequest {
@@ -1088,6 +1092,11 @@ export interface PointsFilter {
      * List of tester for filtering.
      */
     testers: WebApi.IdentityRef[];
+}
+
+export interface PointsReference2 {
+    planId: number;
+    pointId: number;
 }
 
 export interface PointsResults2 {

@@ -408,7 +408,7 @@ export class ServiceHooksRestClient extends RestClientBase {
      * Get a list of subscriptions.
      * 
      * @param publisherId - ID for a subscription.
-     * @param eventType - Maximum number of notifications to return. Default is 100.
+     * @param eventType - The event type to filter on (if any).
      * @param consumerId - ID for a consumer.
      * @param consumerActionId - ID for a consumerActionId.
      */
