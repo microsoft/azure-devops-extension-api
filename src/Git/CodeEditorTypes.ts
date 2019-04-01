@@ -16,17 +16,17 @@ export interface ICodeEditorContributionEndpoints {
     /** 
      * Get a resource URI for the specified resource.
      */
-    getResourceUri(version: IResourceVersion): PromiseLike<string>;
+    getResourceUri(version: IResourceVersion): Promise<string>;
 
     /**
      * Get resource version from specified resource URI.
      */
-    getResourceVersion(uri: string): PromiseLike<IResourceVersion>;
+    getResourceVersion(uri: string): Promise<IResourceVersion>;
 
     /**
      * Get the list of currently registered JSON schemas.
      */
-    getJsonSchemas(): PromiseLike<IJsonSchemaRegistration[]>;
+    getJsonSchemas(): Promise<IJsonSchemaRegistration[]>;
     
     /**
      * Register a callback to be informed when a change happens to the current resource:
@@ -49,7 +49,7 @@ export interface ICodeEditorContributionEndpoints {
 
 export interface IResource {
     uri: string;
-    getValue(): PromiseLike<string>;
+    getValue(): Promise<string>;
     languageId: string;
     versionInfo: IResourceVersion;
 }
