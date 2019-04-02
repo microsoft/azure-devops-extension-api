@@ -16,7 +16,7 @@ export interface ICodeEditorContributionEndpoints {
     /** 
      * Get a resource URI for the specified resource.
      */
-    getResourceUri(version: IResourceVersion): Promise<string>;
+    getResourceUriFromResourceVersion(version: IResourceVersion): Promise<string>;
 
     /**
      * Get resource version from specified resource URI.
