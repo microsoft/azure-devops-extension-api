@@ -2,7 +2,7 @@ import { WorkItem, WorkItemField, WorkItemRelation, WorkItemRelationType } from 
 import { IdentityRef } from "../WebApi";
 
 /**
- * Contribution ids of Azure Pipelines services which can be obtained from DevOps.getService
+ * Contribution ids of Azure Boards services which can be obtained from DevOps.getService
  */
 export enum WorkItemTrackingServiceIds {
 
@@ -244,4 +244,86 @@ export interface IWorkItemFormService {
     * @deprecated: Please use save
     */
     beginSaveWorkItem(successCallback: () => void, errorCallback: () => void): Promise<void>;
+}
+
+/**
+* Interface defining the arguments for notifications sent by the ActiveWorkItemService
+*/
+export interface IWorkItemChangedArgs {
+    /**
+    * Id of the work item.
+    */
+    id: number;
+}
+
+/**
+* Interface defining the arguments for the 'onLoaded' notification sent by the ActiveWorkItemService
+*/
+export interface IWorkItemLoadedArgs extends IWorkItemChangedArgs {
+    /**
+    * 'true' if the work item is a 'new', unsaved work item, 'false' otherwise.
+    */
+    isNew: boolean;
+    /**
+     * 'true' write rest apis are disabled. All controls should be rendered as readonly
+     */
+    isReadOnly: boolean;
+}
+
+/**
+* Interface defining the arguments for the 'onFieldChanged' notification sent by the ActiveWorkItemService
+*/
+export interface IWorkItemFieldChangedArgs extends IWorkItemChangedArgs {
+    /**
+    * Set of fields that have been changed.  'key' is the field reference name.
+    */
+    changedFields: { [key: string]: any };
+}
+
+/**
+* Interface defining notifications provided by the ActiveWorkItemService
+*/
+export interface IWorkItemNotificationListener {
+
+    /**
+    * Called when an extension is loaded
+    *
+    * @param workItemLoadedArgs Information about the work item that was loaded.
+    */
+    onLoaded(workItemLoadedArgs: IWorkItemLoadedArgs): void;
+
+    /**
+    * Called when a field is modified
+    *
+    * @param fieldChangedArgs Information about the work item that was modified and the fields that were changed.
+    */
+    onFieldChanged(fieldChangedArgs: IWorkItemFieldChangedArgs): void;
+
+    /**
+    * Called when a work item is saved
+    *
+    * @param savedEventArgs Information about the work item that was saved.
+    */
+    onSaved(savedEventArgs: IWorkItemChangedArgs): void;
+
+    /**
+    * Called when a work item is refreshed
+    *
+    * @param refreshEventArgs Information about the work item that was refreshed.
+    */
+    onRefreshed(refreshEventArgs: IWorkItemChangedArgs): void;
+
+    /**
+    * Called when a work item is reset (undo back to unchanged state)
+    *
+    * @param undoEventArgs Information about the work item that was reset.
+    */
+    onReset(undoEventArgs: IWorkItemChangedArgs): void;
+
+    /**
+    * Called when a work item is unloaded
+    *
+    * @param unloadedEventArgs Information about the work item that was saved.
+    */
+    onUnloaded(unloadedEventArgs: IWorkItemChangedArgs): void;
 }
