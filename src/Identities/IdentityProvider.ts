@@ -1,5 +1,5 @@
 import {  getService } from "azure-devops-extension-sdk";
-import { CommonServiceIds, IVssIdentityService, IIdentity, IdentitiesGetConnectionsResponseModel, IdentitiesSearchRequestModel } from "../Common/CommonServices";
+import { IdentityServiceIds, IVssIdentityService, IIdentity, IdentitiesGetConnectionsResponseModel, IdentitiesSearchRequestModel } from "./IdentityService";
 
 export interface IPeoplePickerProvider {
     /**
@@ -39,7 +39,7 @@ export class PeoplePickerProvider implements IPeoplePickerProvider {
     private identityService: Promise<IVssIdentityService>;
 
     constructor() {
-        this.identityService = getService<IVssIdentityService>(CommonServiceIds.IIVssIdentityService);
+        this.identityService = getService<IVssIdentityService>(IdentityServiceIds.IdentityService);
     }
 
     public addIdentitiesToMRU = (identities: IIdentity[]): Promise<boolean> => {
