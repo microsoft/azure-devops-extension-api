@@ -163,6 +163,12 @@ export interface IDialogOptions<TResult> {
      * Optional initial configuration for the dialog content
      */
     configuration?: any;
+
+    /**
+     * If true, clicking outside the dialog closes it
+     * @default true
+     */
+    lightDismiss?: boolean;
 }
 
 /**
