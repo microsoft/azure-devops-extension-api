@@ -1931,6 +1931,9 @@ export enum IssueType {
     Warning = 2
 }
 
+export interface JustInTimeProcess extends BuildProcess {
+}
+
 /**
  * Represents an entry in a workspace mapping.
  */

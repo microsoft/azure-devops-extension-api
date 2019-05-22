@@ -117,6 +117,7 @@ export interface IdentityBatchInfo {
     includeRestrictedVisibility: boolean;
     propertyNames: string[];
     queryMembership: QueryMembership;
+    socialDescriptors: string[];
     subjectDescriptors: string[];
 }
 

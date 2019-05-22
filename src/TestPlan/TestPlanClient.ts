@@ -138,6 +138,44 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * @param project - Project ID or project name
+     * @param planId - 
+     * @param states - 
+     * @param outcome - 
+     * @param configurations - 
+     * @param testers - 
+     * @param assignedTo - 
+     */
+    public async getTestPointCountByPlanId(
+        project: string,
+        planId: number,
+        states?: string,
+        outcome?: TestPlan.UserFriendlyTestOutcome,
+        configurations?: string,
+        testers?: string,
+        assignedTo?: string
+        ): Promise<TestPlan.TestPointCount[]> {
+
+        const queryValues: any = {
+            states: states,
+            outcome: outcome,
+            configurations: configurations,
+            testers: testers,
+            assignedTo: assignedTo
+        };
+
+        return this.beginRequest<TestPlan.TestPointCount[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "{project}/_apis/testplan/Count/{planId}",
+            routeValues: {
+                project: project,
+                planId: planId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Create a test plan.
      * 
      * @param testPlanCreateParams - A testPlanCreateParams object.TestPlanCreateParams
@@ -480,10 +518,10 @@ export class TestPlanRestClient extends RestClientBase {
     /**
      * Add test cases to a suite with specified configurations
      * 
-     * @param suiteTestCaseCreateUpdateParameters - 
+     * @param suiteTestCaseCreateUpdateParameters - SuiteTestCaseCreateUpdateParameters object.
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
+     * @param planId - ID of the test plan to which test cases are to be added.
+     * @param suiteId - ID of the test suite to which test cases are to be added.
      */
     public async addTestCasesToSuite(
         suiteTestCaseCreateUpdateParameters: TestPlan.SuiteTestCaseCreateUpdateParameters[],
@@ -506,11 +544,13 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Get Test Cases For a Suite.
+     * 
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
-     * @param testCaseIds - 
-     * @param witFields - 
+     * @param planId - ID of the test plan for which test cases are requested.
+     * @param suiteId - ID of the test suite for which test cases are requested.
+     * @param testCaseIds - Test Case Ids to be fetched.
+     * @param witFields - Get the list of witFields.
      */
     public async getTestCase(
         project: string,
@@ -541,12 +581,12 @@ export class TestPlanRestClient extends RestClientBase {
      * Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional paramter. If configuration Ids is null, it return all the test cases
      * 
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
-     * @param testIds - 
-     * @param configurationIds - 
-     * @param witFields - 
-     * @param continuationToken - 
+     * @param planId - ID of the test plan for which test cases are requested.
+     * @param suiteId - ID of the test suite for which test cases are requested.
+     * @param testIds - Test Case Ids to be fetched.
+     * @param configurationIds - Fetch Test Cases which contains all the configuration Ids specified.
+     * @param witFields - Get the list of witFields.
+     * @param continuationToken - If the list of test cases returned is not complete, a continuation token to query next batch of test cases is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test cases.
      */
     public async getTestCaseList(
         project: string,
@@ -581,9 +621,9 @@ export class TestPlanRestClient extends RestClientBase {
      * Removes test cases from a suite based on the list of test case Ids provided.
      * 
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
-     * @param testCaseIds - 
+     * @param planId - ID of the test plan from which test cases are to be removed.
+     * @param suiteId - ID of the test suite from which test cases are to be removed.
+     * @param testCaseIds - Test Case Ids to be removed.
      */
     public async removeTestCasesFromSuite(
         project: string,
@@ -608,10 +648,10 @@ export class TestPlanRestClient extends RestClientBase {
     /**
      * Update the configurations for test cases
      * 
-     * @param suiteTestCaseCreateUpdateParameters - 
+     * @param suiteTestCaseCreateUpdateParameters - A SuiteTestCaseCreateUpdateParameters object.
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
+     * @param planId - ID of the test plan to which test cases are to be updated.
+     * @param suiteId - ID of the test suite to which test cases are to be updated.
      */
     public async updateSuiteTestCases(
         suiteTestCaseCreateUpdateParameters: TestPlan.SuiteTestCaseCreateUpdateParameters[],
@@ -709,9 +749,9 @@ export class TestPlanRestClient extends RestClientBase {
      * Get a list of points based on point Ids provided.
      * 
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
-     * @param pointIds - 
+     * @param planId - ID of the test plan for which test points are requested.
+     * @param suiteId - ID of the test suite for which test points are requested.
+     * @param pointIds - ID of test points to be fetched.
      */
     public async getPoints(
         project: string,
@@ -736,11 +776,11 @@ export class TestPlanRestClient extends RestClientBase {
      * Get all the points inside a suite based on some filters
      * 
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
-     * @param testPointIds - 
-     * @param testCaseId - 
-     * @param continuationToken - 
+     * @param planId - ID of the test plan for which test points are requested.
+     * @param suiteId - ID of the test suite for which test points are requested
+     * @param testPointIds - ID of test points to fetch.
+     * @param testCaseId - Get Test Points for specific test case Ids.
+     * @param continuationToken - If the list of test point returned is not complete, a continuation token to query next batch of test points is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test points.
      */
     public async getPointsList(
         project: string,
@@ -772,10 +812,10 @@ export class TestPlanRestClient extends RestClientBase {
     /**
      * Update Test Points. This is used to Reset test point to active, update the outcome of a test point or update the tester of a test point
      * 
-     * @param testPointUpdateParams - 
+     * @param testPointUpdateParams - A TestPointUpdateParams Object.
      * @param project - Project ID or project name
-     * @param planId - 
-     * @param suiteId - 
+     * @param planId - ID of the test plan for which test points are requested.
+     * @param suiteId - ID of the test suite for which test points are requested.
      */
     public async updateTestPoints(
         testPointUpdateParams: TestPlan.TestPointUpdateParams[],

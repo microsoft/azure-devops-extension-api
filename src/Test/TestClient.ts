@@ -1512,7 +1512,7 @@ export class TestRestClient extends RestClientBase {
     }
 
     /**
-     * Get test run statistics
+     * Get test run statistics , used when we want to get summary of a run by outcome.
      * 
      * @param project - Project ID or project name
      * @param runId - ID of the run to get.

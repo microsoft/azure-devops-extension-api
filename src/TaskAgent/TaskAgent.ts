@@ -731,6 +731,20 @@ export interface EnvironmentInstance {
     resources: EnvironmentResourceReference[];
 }
 
+/**
+ * EnvironmentLinkedResourceReference.
+ */
+export interface EnvironmentLinkedResourceReference {
+    /**
+     * Id of the resource.
+     */
+    id: string;
+    /**
+     * Type of resource.
+     */
+    typeName: string;
+}
+
 export interface EnvironmentReference {
     id: number;
     name: string;
@@ -1514,6 +1528,15 @@ export interface TaskAgentDelaySource {
     taskAgent: TaskAgentReference;
 }
 
+export interface TaskAgentJob {
+    container: string;
+    id: string;
+    name: string;
+    sidecarContainers: { [key: string] : string; };
+    steps: TaskAgentJobStep[];
+    variables: TaskAgentJobVariable[];
+}
+
 /**
  * A job request for an agent.
  */
@@ -1632,6 +1655,37 @@ export enum TaskAgentJobResultFilter {
      * All deployment targets.
      */
     All = 7
+}
+
+export interface TaskAgentJobStep {
+    condition: string;
+    continueOnError: boolean;
+    enabled: boolean;
+    env: { [key: string] : string; };
+    id: string;
+    inputs: { [key: string] : string; };
+    name: string;
+    task: TaskAgentJobTask;
+    timeoutInMinutes: number;
+    type: TaskAgentJobStepType;
+}
+
+export enum TaskAgentJobStepType {
+    Task = 1,
+    Action = 2,
+    Script = 3
+}
+
+export interface TaskAgentJobTask {
+    id: string;
+    name: string;
+    version: string;
+}
+
+export interface TaskAgentJobVariable {
+    name: string;
+    secret: boolean;
+    value: string;
 }
 
 export interface TaskAgentManualUpdate extends TaskAgentUpdateReason {
@@ -2165,6 +2219,7 @@ export interface TaskDefinition {
     friendlyName: string;
     groups: TaskGroupDefinition[];
     helpMarkDown: string;
+    helpUrl: string;
     hostType: string;
     iconUrl: string;
     id: string;
@@ -2385,6 +2440,7 @@ export interface TaskGroupRevision {
     changeType: AuditAction;
     comment: string;
     fileId: number;
+    majorVersion: number;
     revision: number;
     taskGroupId: string;
 }

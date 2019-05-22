@@ -33,10 +33,6 @@ export interface GraphFederatedProviderData {
      */
     accessToken: string;
     /**
-     * Whether or not the immediate provider (i.e. AAD) has indicated that we can call them to attempt to get an access token to communicate with the federated provider on behalf of the target identity.
-     */
-    canQueryAccessToken: boolean;
-    /**
      * The name of the federated provider, e.g. "github.com".
      */
     providerName: string;
@@ -386,6 +382,10 @@ export enum GraphTraversalDirection {
  */
 export interface GraphUser extends GraphMember {
     /**
+     * The short, generally unique name for the user in the backing directory. For AAD users, this corresponds to the mail nickname, which is often but not necessarily similar to the part of the user's mail address before the \@ sign. For GitHub users, this corresponds to the GitHub user handle.
+     */
+    directoryAlias: string;
+    /**
      * When true, the group has been deleted in the identity provider
      */
     isDeletedInOrigin: boolean;
@@ -417,6 +417,10 @@ export interface GraphUserMailAddressCreationContext extends GraphUserCreationCo
  * Use this type to create a new user using the OriginID as a reference to an existing user from an external AD or AAD backed provider. This is the subset of GraphUser fields required for creation of a GraphUser for the AD and AAD use case when looking up the user by its unique ID in the backing provider.
  */
 export interface GraphUserOriginIdCreationContext extends GraphUserCreationContext {
+    /**
+     * This should be the name of the origin provider. Example: github.com
+     */
+    origin: string;
     /**
      * This should be the object id or sid of the user from the source AD or AAD provider. Example: d47d025a-ce2f-4a79-8618-e8862ade30dd Team Services will communicate with the source provider to fill all other fields on creation.
      */

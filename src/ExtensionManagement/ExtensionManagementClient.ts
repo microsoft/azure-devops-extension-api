@@ -71,6 +71,25 @@ export class ExtensionManagementRestClient extends RestClientBase {
     /**
      * @param publisherName - 
      * @param extensionName - 
+     */
+    public async getAuditLog(
+        publisherName: string,
+        extensionName: string
+        ): Promise<ExtensionManagement.ExtensionAuditLog> {
+
+        return this.beginRequest<ExtensionManagement.ExtensionAuditLog>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/ExtensionManagement/AuditLog/{publisherName}/{extensionName}",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName
+            }
+        });
+    }
+
+    /**
+     * @param publisherName - 
+     * @param extensionName - 
      * @param registrationId - 
      */
     public async registerAuthorization(
