@@ -1,6 +1,6 @@
 {
   "name": "azure-devops-extension-api",
-  "version": "1.152.2",
+  "version": "1.152.3",
   "description": "REST client libraries and contracts for Azure DevOps web extension developers.",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://docs.microsoft.com/en-us/azure/devops/integrate",
   "dependencies": {
-    "azure-devops-extension-sdk": "~2.0.9",
+    "azure-devops-extension-sdk": "~2.0.10",
     "whatwg-fetch": "~3.0.0"
   },
   "devDependencies": {
