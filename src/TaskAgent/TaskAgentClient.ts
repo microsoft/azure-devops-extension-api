@@ -1253,29 +1253,6 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param resource - 
-     * @param project - Project ID or project name
-     * @param environmentId - 
-     */
-    public async updateKubernetesResource(
-        resource: TaskAgent.KubernetesResource,
-        project: string,
-        environmentId: number
-        ): Promise<TaskAgent.KubernetesResource> {
-
-        return this.beginRequest<TaskAgent.KubernetesResource>({
-            apiVersion: "5.1-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/environments/{environmentId}/providers/kubernetes/{resourceId}",
-            routeValues: {
-                project: project,
-                environmentId: environmentId
-            },
-            body: resource
-        });
-    }
-
-    /**
      * @param project - Project ID or project name
      * @param machineGroupId - 
      */
@@ -2133,6 +2110,29 @@ export class TaskAgentRestClient extends RestClientBase {
             poolName: poolName,
             properties: properties && properties.join(","),
             poolType: poolType,
+            actionFilter: actionFilter
+        };
+
+        return this.beginRequest<TaskAgent.TaskAgentPool[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/distributedtask/pools/{poolId}",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get a list of agent pools.
+     * 
+     * @param poolIds - pool Ids to fetch
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
+     */
+    public async getAgentPoolsByIds(
+        poolIds: number[],
+        actionFilter?: TaskAgent.TaskAgentPoolActionFilter
+        ): Promise<TaskAgent.TaskAgentPool[]> {
+
+        const queryValues: any = {
+            poolIds: poolIds && poolIds.join(","),
             actionFilter: actionFilter
         };
 

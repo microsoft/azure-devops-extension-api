@@ -49,6 +49,13 @@ export enum AccessTokenRequestType {
     Direct = 2
 }
 
+export interface AuthConfiguration extends OAuthConfiguration {
+    /**
+     * Gets or sets parameters contained in configuration object.
+     */
+    parameters: { [key: string] : Parameter; };
+}
+
 /**
  * Specifies the authentication scheme to be used for authentication.
  */
@@ -115,6 +122,12 @@ export interface AzureManagementGroupQueryResult {
      * List of azure management groups
      */
     value: AzureManagementGroup[];
+}
+
+export interface AzureMLWorkspace {
+    id: string;
+    location: string;
+    name: string;
 }
 
 export interface AzurePermission {
@@ -356,6 +369,16 @@ export interface HelpLink {
     url: string;
 }
 
+export interface OAuth2TokenResult {
+    accessToken: string;
+    error: string;
+    errorDescription: string;
+    expiresIn: string;
+    issuedAt: string;
+    refreshToken: string;
+    scope: string;
+}
+
 export interface OAuthConfiguration {
     /**
      * Gets or sets the ClientId
@@ -431,6 +454,11 @@ export interface OAuthConfigurationParams {
 export interface OAuthEndpointStatus {
     state: string;
     statusMessage: string;
+}
+
+export interface Parameter {
+    isSecret: boolean;
+    value: string;
 }
 
 export interface ProjectReference {

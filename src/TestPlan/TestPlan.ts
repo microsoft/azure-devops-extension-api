@@ -774,6 +774,24 @@ export interface TestPoint {
 }
 
 /**
+ * Test Point Count
+ */
+export interface TestPointCount {
+    /**
+     * Test Point Count
+     */
+    count: number;
+    /**
+     * Test Plan under which the Test Points are
+     */
+    testPlanId: number;
+    /**
+     * Test Suite under which the Test Points are
+     */
+    testSuiteId: number;
+}
+
+/**
  * Test Point Results
  */
 export interface TestPointResults {
@@ -1017,6 +1035,17 @@ export interface TestVariableCreateUpdateParameters {
      * List of allowed values
      */
     values: string[];
+}
+
+export enum UserFriendlyTestOutcome {
+    InProgress = 0,
+    Blocked = 1,
+    Failed = 2,
+    Passed = 3,
+    Ready = 4,
+    NotApplicable = 5,
+    Paused = 6,
+    MaxValue = 6
 }
 
 /**

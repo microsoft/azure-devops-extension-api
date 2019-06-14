@@ -305,15 +305,18 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param endpointId - Id of the service endpoint.
      * @param top - Number of service endpoint execution records to get.
+     * @param continuationToken - A continuation token, returned by a previous call to this method, that can be used to return the next set of records
      */
     public async getServiceEndpointExecutionRecords(
         project: string,
         endpointId: string,
-        top?: number
+        top?: number,
+        continuationToken?: number
         ): Promise<ServiceEndpoint.ServiceEndpointExecutionRecord[]> {
 
         const queryValues: any = {
-            top: top
+            top: top,
+            continuationToken: continuationToken
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointExecutionRecord[]>({

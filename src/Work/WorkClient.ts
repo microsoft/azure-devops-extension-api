@@ -508,7 +508,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardRuleSettings>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardrulesettings",
             routeValues: {
                 project: project,
@@ -535,13 +535,39 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardRuleSettings>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardrulesettings",
             routeValues: {
                 project: project,
                 team: team,
                 board: board
+            },
+            body: boardCardRuleSettings
+        });
+    }
+
+    /**
+     * Update taskboard card Rule settings
+     * 
+     * @param boardCardRuleSettings - 
+     * @param teamContext - The team context for the operation
+     */
+    public async updateTaskboardCardRuleSettings(
+        boardCardRuleSettings: Work.BoardCardRuleSettings,
+        teamContext: TfsCore.TeamContext
+        ): Promise<void> {
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.2",
+            method: "PATCH",
+            routeTemplate: "{project}/{team}/_apis/work/taskboard/cardrulesettings",
+            routeValues: {
+                project: project,
+                team: team
             },
             body: boardCardRuleSettings
         });
@@ -562,7 +588,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardSettings>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardsettings",
             routeValues: {
                 project: project,
@@ -589,13 +615,39 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardSettings>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardsettings",
             routeValues: {
                 project: project,
                 team: team,
                 board: board
+            },
+            body: boardCardSettingsToSave
+        });
+    }
+
+    /**
+     * Update taskboard card settings
+     * 
+     * @param boardCardSettingsToSave - 
+     * @param teamContext - The team context for the operation
+     */
+    public async updateTaskboardCardSettings(
+        boardCardSettingsToSave: Work.BoardCardSettings,
+        teamContext: TfsCore.TeamContext
+        ): Promise<void> {
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<void>({
+            apiVersion: "5.1-preview.2",
+            method: "PUT",
+            routeTemplate: "{project}/{team}/_apis/work/taskboard/cardsettings",
+            routeValues: {
+                project: project,
+                team: team
             },
             body: boardCardSettingsToSave
         });
@@ -1232,6 +1284,64 @@ export class WorkRestClient extends RestClientBase {
                 team: team,
                 iterationId: iterationId
             }
+        });
+    }
+
+    /**
+     * Reorder Product Backlog/Boards Work Items
+     * 
+     * @param operation - 
+     * @param teamContext - The team context for the operation
+     * @param backlogId - The id of the backlog level
+     */
+    public async reorderBacklogWorkItems(
+        operation: Work.ReorderOperation,
+        teamContext: TfsCore.TeamContext,
+        backlogId: string
+        ): Promise<Work.ReorderResult[]> {
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<Work.ReorderResult[]>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/{team}/_apis/work/backlogs/{backlogId}/workitemsorder",
+            routeValues: {
+                project: project,
+                team: team,
+                backlogId: backlogId
+            },
+            body: operation
+        });
+    }
+
+    /**
+     * Reorder Sprint Backlog/Taskboard Work Items
+     * 
+     * @param operation - 
+     * @param teamContext - The team context for the operation
+     * @param iterationId - The id of the iteration
+     */
+    public async reorderIterationWorkItems(
+        operation: Work.ReorderOperation,
+        teamContext: TfsCore.TeamContext,
+        iterationId: string
+        ): Promise<Work.ReorderResult[]> {
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<Work.ReorderResult[]>({
+            apiVersion: "5.1-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/{team}/_apis/work/iterations/{iterationId}/workitemsorder",
+            routeValues: {
+                project: project,
+                team: team,
+                iterationId: iterationId
+            },
+            body: operation
         });
     }
 

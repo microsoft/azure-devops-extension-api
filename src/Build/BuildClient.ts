@@ -293,18 +293,21 @@ export class BuildRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param providerName - The name of the source provider.
      * @param serviceEndpointId - If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-     * @param repository - If specified, the vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories.
+     * @param repository - The vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories.
+     * @param branchName - If supplied, the name of the branch to check for specifically.
      */
     public async listBranches(
         project: string,
         providerName: string,
         serviceEndpointId?: string,
-        repository?: string
+        repository?: string,
+        branchName?: string
         ): Promise<string[]> {
 
         const queryValues: any = {
             serviceEndpointId: serviceEndpointId,
-            repository: repository
+            repository: repository,
+            branchName: branchName
         };
 
         return this.beginRequest<string[]>({

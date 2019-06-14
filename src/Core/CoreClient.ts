@@ -438,6 +438,29 @@ export class CoreRestClient extends RestClientBase {
     }
 
     /**
+     * Get a collection of team project properties for multiple projects.
+     * 
+     * @param projectIds - A comma-delimited string of team project IDs
+     * @param properties - 
+     */
+    public async getProjectsProperties(
+        projectIds: string[],
+        properties?: string[]
+        ): Promise<Core.ProjectProperties[]> {
+
+        const queryValues: any = {
+            projectIds: projectIds && projectIds.join(","),
+            properties: properties && properties.join(",")
+        };
+
+        return this.beginRequest<Core.ProjectProperties[]>({
+            apiVersion: "5.1-preview.1",
+            routeTemplate: "_apis/projectsproperties",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Get a collection of team project properties.
      * 
      * @param projectId - The team project ID.
@@ -545,24 +568,27 @@ export class CoreRestClient extends RestClientBase {
     /**
      * Get a list of all teams.
      * 
-     * @param mine - If true return all the teams requesting user is member, otherwise return all the teams user has read access
+     * @param mine - If true, then return all teams requesting user is member. Otherwise return all teams user has read access.
      * @param top - Maximum number of teams to return.
      * @param skip - Number of teams to skip.
+     * @param expandIdentity - A value indicating whether or not to expand Identity information in the result WebApiTeam object.
      */
     public async getAllTeams(
         mine?: boolean,
         top?: number,
-        skip?: number
+        skip?: number,
+        expandIdentity?: boolean
         ): Promise<Core.WebApiTeam[]> {
 
         const queryValues: any = {
             '$mine': mine,
             '$top': top,
-            '$skip': skip
+            '$skip': skip,
+            '$expandIdentity': expandIdentity
         };
 
         return this.beginRequest<Core.WebApiTeam[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "_apis/teams",
             queryParams: queryValues
         });
@@ -580,7 +606,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiTeam> {
 
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             method: "POST",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
@@ -602,7 +628,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             method: "DELETE",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
@@ -617,19 +643,26 @@ export class CoreRestClient extends RestClientBase {
      * 
      * @param projectId - The name or ID (GUID) of the team project containing the team.
      * @param teamId - The name or ID (GUID) of the team.
+     * @param expandIdentity - A value indicating whether or not to expand Identity information in the result WebApiTeam object.
      */
     public async getTeam(
         projectId: string,
-        teamId: string
+        teamId: string,
+        expandIdentity?: boolean
         ): Promise<Core.WebApiTeam> {
 
+        const queryValues: any = {
+            '$expandIdentity': expandIdentity
+        };
+
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
                 projectId: projectId,
                 teamId: teamId
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -637,25 +670,28 @@ export class CoreRestClient extends RestClientBase {
      * Get a list of teams.
      * 
      * @param projectId - 
-     * @param mine - If true return all the teams requesting user is member, otherwise return all the teams user has read access
+     * @param mine - If true return all the teams requesting user is member, otherwise return all the teams user has read access.
      * @param top - Maximum number of teams to return.
      * @param skip - Number of teams to skip.
+     * @param expandIdentity - A value indicating whether or not to expand Identity information in the result WebApiTeam object.
      */
     public async getTeams(
         projectId: string,
         mine?: boolean,
         top?: number,
-        skip?: number
+        skip?: number,
+        expandIdentity?: boolean
         ): Promise<Core.WebApiTeam[]> {
 
         const queryValues: any = {
             '$mine': mine,
             '$top': top,
-            '$skip': skip
+            '$skip': skip,
+            '$expandIdentity': expandIdentity
         };
 
         return this.beginRequest<Core.WebApiTeam[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
                 projectId: projectId
@@ -678,7 +714,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiTeam> {
 
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.1-preview.3",
             method: "PATCH",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {

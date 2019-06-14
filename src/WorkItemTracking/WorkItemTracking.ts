@@ -185,6 +185,10 @@ export interface Comment extends WorkItemTrackingResource {
      */
     isDeleted: boolean;
     /**
+     * The mentions of the comment.
+     */
+    mentions: CommentMention[];
+    /**
      * IdentityRef of the user who last modified the comment.
      */
     modifiedBy: WebApi.IdentityRef;
@@ -224,14 +228,24 @@ export interface CommentCreate {
  * Specifies the additional data retrieval options for work item comments.
  */
 export enum CommentExpandOptions {
-    /**
-     * No additional options. Default.
-     */
     None = 0,
     /**
-     * Include reactions on the comment
+     * Include comment reactions.
      */
-    Reactions = 1
+    Reactions = 1,
+    /**
+     * Include comment mentions.
+     */
+    Mentions = 2,
+    /**
+     * Include the rendered text (html) in addition to MD text.
+     */
+    RenderedText = 8,
+    /**
+     * If specified, then ONLY rendered text (html) will be returned, w/o markdown. Supposed to be used internally from data provides for optimization purposes.
+     */
+    RenderedTextOnly = 16,
+    All = -17
 }
 
 /**
@@ -258,6 +272,25 @@ export interface CommentList extends WorkItemTrackingResource {
      * Total count of comments on a work item.
      */
     totalCount: number;
+}
+
+export interface CommentMention extends WorkItemTrackingResource {
+    /**
+     * The artifact portion of the parsed text. (i.e. the work item's id)
+     */
+    artifactId: string;
+    /**
+     * The type the parser assigned to the mention. (i.e. person, work item, etc)
+     */
+    artifactType: string;
+    /**
+     * The comment id of the mention.
+     */
+    commentId: number;
+    /**
+     * The resolved target of the mention. An example of this could be a user's tfid
+     */
+    targetId: string;
 }
 
 /**
@@ -292,16 +325,6 @@ export enum CommentReactionType {
     Hooray = 3,
     Smile = 4,
     Confused = 5
-}
-
-/**
- * Represents a response of work item comments reporting operations.
- */
-export interface CommentReportingList extends CommentList {
-    /**
-     * Indicates if this is the last batch.
-     */
-    isLastBatch: boolean;
 }
 
 export enum CommentSortOrder {

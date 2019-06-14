@@ -15,6 +15,8 @@ export class ProfileRestClient extends RestClientBase {
         super(options);
     }
 
+    public static readonly RESOURCE_AREA_ID = "8ccfef3d-2b87-4e99-8ccb-66e343d2daa8";
+
     /**
      * @param id - 
      * @param descriptor - 
