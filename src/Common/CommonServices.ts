@@ -440,6 +440,78 @@ export interface IProjectPageService {
     getProject(): Promise<IProjectInfo | undefined>;
 }
 
+/**
+ * Definition which can be specified in a contributions "icon" property which can specify a set of values for different themes.
+ */
+export interface IContributedIconDefinition {
+    /**
+     * Icon property (absolute url or relative asset path) to use when the current theme is a "light" theme.
+     */
+    light: string;
+
+    /**
+     * Icon property (absolute url or relative asset path) to use when the current theme is a "dark" theme.
+     */
+    dark: string;
+}
+
+/**
+ * Defines a button from a first- or third- party contribution
+ */
+export interface IContributedButton {
+    /**
+     * The id of a command contribution to execute when the button is clicked
+     */
+    command?: string;
+
+    /**
+     * Optional arugments to pass when invoking the supplied command
+     */
+    commandArguments?: any[];
+
+    /**
+     * Id of the contribution that the button was defined in (optional, used to resolve relative icon URLs)
+     */
+    contributionId?: string;
+
+    /**
+     * If true, the button cannot be interacted with.
+     */
+    disabled?: boolean;
+
+    /**
+     * Href to navigate to when the button is clicked.  Pass in if this is a link button.
+     */
+    href?: string;
+
+    /**
+     * Either a url (relative or fully qualified) or an IContributedIconDefinition with
+     * urls for light and dark themes. This allows the caller to use different styles of
+     * icons based on the theme type.
+     */
+    icon?: string | IContributedIconDefinition;
+
+    /**
+     * Set to true if this button should be styled with a primary color.
+     */
+    primary?: boolean;
+
+    /**
+     * Optional,context in which the linked resource will open.
+     */
+    target?: string;
+
+    /**
+     * Text to render inside the button.
+     */
+    text?: string;
+
+    /**
+     * Optional value to use as an aria-label and tooltip for the button.
+     */
+    tooltip?: string;
+}
+
 export interface IGlobalMessageLink {
 
     /**
@@ -461,6 +533,22 @@ export const enum MessageBannerLevel {
 }
 
 export interface IGlobalMessageBanner {
+    /**
+     * Buttons to display after the message
+     */
+    buttons?: IContributedButton[];
+
+    /**
+     * Custom icon name. Must be an icon in the Azure DevOps icon font.
+     */
+    customIcon?: string;
+
+    /**
+     * Whether or not the message banner is dismissable. If false, do not show the close (X) icon.
+     * @default true
+     */
+    dismissable?: boolean;
+
     /**
      * banner level (controls the background and icon of the banner)
      */
@@ -525,4 +613,9 @@ export interface IGlobalMessagesService {
      * @param toast - The toast to display
      */
     addToast(toast: IToast): void;
+
+    /**
+     * Closes the currently active global message banner
+     */
+    closeBanner(): void;
 }
