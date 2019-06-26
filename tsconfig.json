@@ -9,6 +9,7 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "preserveConstEnums": true,
         "strict": true,
         "lib": [
             "es5",
