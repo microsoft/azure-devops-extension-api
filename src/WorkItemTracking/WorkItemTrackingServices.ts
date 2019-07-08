@@ -136,6 +136,20 @@ export interface IWorkItemFormService {
     */
     setFieldValues(fields: { [fieldName: string]: Object }): Promise<{ [fieldName: string]: boolean }>;
     /**
+     * Filters the allowed values for the field on the active work item. This could only be applied to the fields with a picklist. 
+     * 
+     * @param {string} fieldReferenceName Field reference name.
+     * @param {string[]} values Filtered field values. Values should be a subset of the field's allowed values.
+     */
+    filterAllowedFieldValues(fieldReferenceName: string, values: string[]): Promise<void>;
+    /**
+     * Gets only filtered allowed values for the field on the active work item.
+     * 
+     * @param {string} fieldReferenceName Field reference name.
+     * @returns {Promise<Object[]>} A promise that returns array of filtered allowed values.
+     */
+    getFilteredAllowedFieldValues(fieldReferenceName: string): Promise<Object[]>;
+    /**
     * Gets the allowed values for the field on the active work item.
     *
     * @param {string} fieldReferenceName Field reference name
