@@ -146,9 +146,9 @@ export interface IWorkItemFormService {
      * Gets only filtered allowed values for the field on the active work item.
      * 
      * @param {string} fieldReferenceName Field reference name.
-     * @returns {Promise<Object[]>} A promise that returns array of filtered allowed values.
+     * @returns {Promise<string[]>} A promise that returns array of filtered allowed values.
      */
-    getFilteredAllowedFieldValues(fieldReferenceName: string): Promise<Object[]>;
+    getFilteredAllowedFieldValues(fieldReferenceName: string): Promise<string[]>;
     /**
     * Gets the allowed values for the field on the active work item.
     *
