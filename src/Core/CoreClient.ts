@@ -28,7 +28,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/projects/{projectId}/avatar",
             routeValues: {
@@ -49,7 +49,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/projects/{projectId}/avatar",
             routeValues: {
@@ -69,7 +69,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiConnectedService> {
 
         return this.beginRequest<Core.WebApiConnectedService>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
             routeValues: {
@@ -89,7 +89,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiConnectedServiceDetails> {
 
         return this.beginRequest<Core.WebApiConnectedServiceDetails>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
             routeValues: {
                 projectId: projectId,
@@ -112,7 +112,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.WebApiConnectedService[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/projects/{projectId}/connectedServices/{name}",
             routeValues: {
                 projectId: projectId
@@ -131,7 +131,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/core/identityMru/{mruName}",
             routeValues: {
@@ -151,7 +151,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/core/identityMru/{mruName}",
             routeValues: {
@@ -168,7 +168,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<WebApi.IdentityRef[]> {
 
         return this.beginRequest<WebApi.IdentityRef[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/core/identityMru/{mruName}",
             routeValues: {
                 mruName: mruName
@@ -186,7 +186,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/core/identityMru/{mruName}",
             routeValues: {
@@ -217,7 +217,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WebApi.TeamMember[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/projects/{projectId}/teams/{teamId}/members",
             routeValues: {
                 projectId: projectId,
@@ -237,7 +237,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.Process> {
 
         return this.beginRequest<Core.Process>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/process/processes/{*processId}",
             routeValues: {
                 processId: processId
@@ -253,7 +253,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.Process[]> {
 
         return this.beginRequest<Core.Process[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/process/processes/{*processId}"
         });
     }
@@ -268,7 +268,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.TeamProjectCollection> {
 
         return this.beginRequest<Core.TeamProjectCollection>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/projectCollections/{collectionId}",
             routeValues: {
                 collectionId: collectionId
@@ -293,7 +293,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.TeamProjectCollectionReference[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/projectCollections/{collectionId}",
             queryParams: queryValues
         });
@@ -313,7 +313,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.ProjectInfo[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/projectHistory",
             queryParams: queryValues
         });
@@ -338,7 +338,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.TeamProject>({
-            apiVersion: "5.1-preview.4",
+            apiVersion: "5.2-preview.4",
             routeTemplate: "_apis/projects/{*projectId}",
             routeValues: {
                 projectId: projectId
@@ -373,7 +373,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.TeamProjectReference[]>({
-            apiVersion: "5.1-preview.4",
+            apiVersion: "5.2-preview.4",
             routeTemplate: "_apis/projects/{*projectId}",
             queryParams: queryValues
         });
@@ -389,7 +389,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Operations.OperationReference> {
 
         return this.beginRequest<Operations.OperationReference>({
-            apiVersion: "5.1-preview.4",
+            apiVersion: "5.2-preview.4",
             method: "POST",
             routeTemplate: "_apis/projects/{*projectId}",
             body: projectToCreate
@@ -406,7 +406,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Operations.OperationReference> {
 
         return this.beginRequest<Operations.OperationReference>({
-            apiVersion: "5.1-preview.4",
+            apiVersion: "5.2-preview.4",
             method: "DELETE",
             routeTemplate: "_apis/projects/{*projectId}",
             routeValues: {
@@ -427,7 +427,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Operations.OperationReference> {
 
         return this.beginRequest<Operations.OperationReference>({
-            apiVersion: "5.1-preview.4",
+            apiVersion: "5.2-preview.4",
             method: "PATCH",
             routeTemplate: "_apis/projects/{*projectId}",
             routeValues: {
@@ -454,7 +454,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.ProjectProperties[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/projectsproperties",
             queryParams: queryValues
         });
@@ -476,7 +476,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.ProjectProperty[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/projects/{projectId}/properties",
             routeValues: {
                 projectId: projectId
@@ -497,7 +497,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/projects/{projectId}/properties",
             routeValues: {
@@ -518,7 +518,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.Proxy> {
 
         return this.beginRequest<Core.Proxy>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/proxies",
             body: proxy
@@ -540,7 +540,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/proxies",
             queryParams: queryValues
@@ -559,7 +559,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.Proxy[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/proxies",
             queryParams: queryValues
         });
@@ -588,7 +588,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.WebApiTeam[]>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             routeTemplate: "_apis/teams",
             queryParams: queryValues
         });
@@ -606,7 +606,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiTeam> {
 
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             method: "POST",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
@@ -628,7 +628,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             method: "DELETE",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
@@ -656,7 +656,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
                 projectId: projectId,
@@ -691,7 +691,7 @@ export class CoreRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Core.WebApiTeam[]>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {
                 projectId: projectId
@@ -714,7 +714,7 @@ export class CoreRestClient extends RestClientBase {
         ): Promise<Core.WebApiTeam> {
 
         return this.beginRequest<Core.WebApiTeam>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             method: "PATCH",
             routeTemplate: "_apis/projects/{projectId}/teams/{*teamId}",
             routeValues: {

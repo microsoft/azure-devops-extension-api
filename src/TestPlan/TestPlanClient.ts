@@ -26,7 +26,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestConfiguration> {
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -52,7 +52,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -74,7 +74,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestConfiguration> {
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
                 project: project,
@@ -99,7 +99,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestConfiguration[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
                 project: project
@@ -126,7 +126,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -165,7 +165,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestPointCount[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Count/{planId}",
             routeValues: {
                 project: project,
@@ -187,7 +187,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -209,7 +209,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -231,7 +231,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
                 project: project,
@@ -265,7 +265,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestPlan[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
                 project: project
@@ -288,7 +288,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -317,7 +317,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.SuiteEntry[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/SuiteEntry/{suiteId}",
             routeValues: {
                 project: project,
@@ -341,7 +341,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.SuiteEntry[]> {
 
         return this.beginRequest<TestPlan.SuiteEntry[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/SuiteEntry/{suiteId}",
             routeValues: {
@@ -366,7 +366,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestSuite> {
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -391,7 +391,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -422,7 +422,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
                 project: project,
@@ -457,7 +457,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestSuite[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
                 project: project,
@@ -483,7 +483,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestSuite> {
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -509,7 +509,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestSuite[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/testplan/Suites",
             queryParams: queryValues
         });
@@ -531,7 +531,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestCase[]> {
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
             routeValues: {
@@ -551,21 +551,24 @@ export class TestPlanRestClient extends RestClientBase {
      * @param suiteId - ID of the test suite for which test cases are requested.
      * @param testCaseIds - Test Case Ids to be fetched.
      * @param witFields - Get the list of witFields.
+     * @param returnIdentityRef - If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
      */
     public async getTestCase(
         project: string,
         planId: number,
         suiteId: number,
         testCaseIds: string,
-        witFields?: string
+        witFields?: string,
+        returnIdentityRef?: boolean
         ): Promise<TestPlan.TestCase[]> {
 
         const queryValues: any = {
-            witFields: witFields
+            witFields: witFields,
+            returnIdentityRef: returnIdentityRef
         };
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
             routeValues: {
                 project: project,
@@ -587,6 +590,9 @@ export class TestPlanRestClient extends RestClientBase {
      * @param configurationIds - Fetch Test Cases which contains all the configuration Ids specified.
      * @param witFields - Get the list of witFields.
      * @param continuationToken - If the list of test cases returned is not complete, a continuation token to query next batch of test cases is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test cases.
+     * @param returnIdentityRef - If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
+     * @param expand - If set to false, will get a smaller payload containing only basic details about the suite test case object
+     * @param excludeFlags - Flag to exclude various values from payload. For example to remove point assignments pass exclude = 1. To remove extra information (links, test plan , test suite) pass exclude = 2. To remove both extra information and point assignments pass exclude = 3 (1 + 2).
      */
     public async getTestCaseList(
         project: string,
@@ -595,18 +601,24 @@ export class TestPlanRestClient extends RestClientBase {
         testIds?: string,
         configurationIds?: string,
         witFields?: string,
-        continuationToken?: string
+        continuationToken?: string,
+        returnIdentityRef?: boolean,
+        expand?: boolean,
+        excludeFlags?: TestPlan.ExcludeFlags
         ): Promise<TestPlan.TestCase[]> {
 
         const queryValues: any = {
             testIds: testIds,
             configurationIds: configurationIds,
             witFields: witFields,
-            continuationToken: continuationToken
+            continuationToken: continuationToken,
+            returnIdentityRef: returnIdentityRef,
+            expand: expand,
+            excludeFlags: excludeFlags
         };
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
             routeValues: {
                 project: project,
@@ -633,7 +645,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
             routeValues: {
@@ -661,7 +673,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestCase[]> {
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
             routeValues: {
@@ -685,7 +697,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/TestCases/{testCaseId}",
             routeValues: {
@@ -713,7 +725,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.CloneTestPlanOperationInformation>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/CloneOperation/{cloneOperationId}",
             routeValues: {
@@ -736,7 +748,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.CloneTestPlanOperationInformation> {
 
         return this.beginRequest<TestPlan.CloneTestPlanOperationInformation>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/CloneOperation/{cloneOperationId}",
             routeValues: {
                 project: project,
@@ -752,23 +764,30 @@ export class TestPlanRestClient extends RestClientBase {
      * @param planId - ID of the test plan for which test points are requested.
      * @param suiteId - ID of the test suite for which test points are requested.
      * @param pointIds - ID of test points to be fetched.
+     * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
      */
     public async getPoints(
         project: string,
         planId: number,
         suiteId: number,
-        pointIds: string
+        pointIds: string,
+        returnIdentityRef?: boolean
         ): Promise<TestPlan.TestPoint[]> {
 
+        const queryValues: any = {
+            returnIdentityRef: returnIdentityRef
+        };
+
         return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
                 project: project,
                 planId: planId,
                 suiteId: suiteId,
                 pointIds: pointIds
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -781,6 +800,8 @@ export class TestPlanRestClient extends RestClientBase {
      * @param testPointIds - ID of test points to fetch.
      * @param testCaseId - Get Test Points for specific test case Ids.
      * @param continuationToken - If the list of test point returned is not complete, a continuation token to query next batch of test points is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test points.
+     * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
+     * @param includePointDetails - If set to false, will get a smaller payload containing only basic details about the test point object
      */
     public async getPointsList(
         project: string,
@@ -788,17 +809,21 @@ export class TestPlanRestClient extends RestClientBase {
         suiteId: number,
         testPointIds?: string,
         testCaseId?: string,
-        continuationToken?: string
+        continuationToken?: string,
+        returnIdentityRef?: boolean,
+        includePointDetails?: boolean
         ): Promise<TestPlan.TestPoint[]> {
 
         const queryValues: any = {
             testPointIds: testPointIds,
             testCaseId: testCaseId,
-            continuationToken: continuationToken
+            continuationToken: continuationToken,
+            returnIdentityRef: returnIdentityRef,
+            includePointDetails: includePointDetails
         };
 
         return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
                 project: project,
@@ -825,7 +850,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPoint[]> {
 
         return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
@@ -855,7 +880,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.CloneTestSuiteOperationInformation>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Suites/CloneOperation/{cloneOperationId}",
             routeValues: {
@@ -878,7 +903,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.CloneTestSuiteOperationInformation> {
 
         return this.beginRequest<TestPlan.CloneTestSuiteOperationInformation>({
-            apiVersion: "5.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/testplan/Suites/CloneOperation/{cloneOperationId}",
             routeValues: {
                 project: project,
@@ -899,7 +924,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
@@ -921,7 +946,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
@@ -943,7 +968,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
                 project: project,
@@ -968,7 +993,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestVariable[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
                 project: project
@@ -991,7 +1016,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {

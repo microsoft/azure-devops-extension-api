@@ -38,7 +38,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcBranch>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Branches/{*path}",
             routeValues: {
                 project: project
@@ -72,7 +72,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcBranch[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Branches/{*path}",
             routeValues: {
                 project: project
@@ -103,7 +103,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcBranchRef[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Branches/{*path}",
             routeValues: {
                 project: project
@@ -131,7 +131,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcChange[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/changesets/{id}/changes",
             routeValues: {
                 id: id
@@ -152,7 +152,7 @@ export class TfvcRestClient extends RestClientBase {
         ): Promise<Tfvc.TfvcChangesetRef> {
 
         return this.beginRequest<Tfvc.TfvcChangesetRef>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/tfvc/changesets/{id}",
             routeValues: {
@@ -204,7 +204,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcChangeset>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             routeTemplate: "{project}/_apis/tfvc/changesets/{id}",
             routeValues: {
                 project: project,
@@ -242,7 +242,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcChangesetRef[]>({
-            apiVersion: "5.1-preview.3",
+            apiVersion: "5.2-preview.3",
             routeTemplate: "{project}/_apis/tfvc/changesets/{id}",
             routeValues: {
                 project: project
@@ -261,7 +261,7 @@ export class TfvcRestClient extends RestClientBase {
         ): Promise<Tfvc.TfvcChangesetRef[]> {
 
         return this.beginRequest<Tfvc.TfvcChangesetRef[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/tfvc/ChangesetsBatch",
             body: changesetsRequestData
@@ -271,14 +271,14 @@ export class TfvcRestClient extends RestClientBase {
     /**
      * Retrieves the work items associated with a particular changeset.
      * 
-     * @param id - ID of the changeset. Default: null
+     * @param id - ID of the changeset.
      */
     public async getChangesetWorkItems(
         id?: number
         ): Promise<Tfvc.AssociatedWorkItem[]> {
 
         return this.beginRequest<Tfvc.AssociatedWorkItem[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/changesets/{id}/workItems",
             routeValues: {
                 id: id
@@ -298,7 +298,7 @@ export class TfvcRestClient extends RestClientBase {
         ): Promise<Tfvc.TfvcItem[][]> {
 
         return this.beginRequest<Tfvc.TfvcItem[][]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/tfvc/ItemBatch",
             routeValues: {
@@ -320,7 +320,7 @@ export class TfvcRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/tfvc/ItemBatch",
@@ -365,7 +365,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcItem>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Items/{*path}",
             routeValues: {
                 project: project
@@ -408,7 +408,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/tfvc/Items/{*path}",
             routeValues: {
@@ -443,7 +443,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcItem[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Items/{*path}",
             routeValues: {
                 project: project
@@ -486,7 +486,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/tfvc/Items/{*path}",
             routeValues: {
@@ -530,7 +530,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/tfvc/Items/{*path}",
             routeValues: {
@@ -559,7 +559,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcItem[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/labels/{labelId}/items",
             routeValues: {
                 labelId: labelId
@@ -586,7 +586,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcLabel>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Labels/{labelId}",
             routeValues: {
                 project: project,
@@ -618,7 +618,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcLabelRef[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/Labels/{labelId}",
             routeValues: {
                 project: project
@@ -647,7 +647,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcChange[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/shelvesets/changes",
             queryParams: queryValues
         });
@@ -670,7 +670,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcShelveset>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/shelvesets",
             queryParams: queryValues
         });
@@ -696,7 +696,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcShelvesetRef[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/shelvesets",
             queryParams: queryValues
         });
@@ -716,7 +716,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.AssociatedWorkItem[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/tfvc/shelvesets/workitems",
             queryParams: queryValues
         });
@@ -738,7 +738,7 @@ export class TfvcRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Tfvc.TfvcStatistics>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/tfvc/stats",
             routeValues: {
                 project: project

@@ -467,6 +467,24 @@ export interface ProjectReference {
 }
 
 /**
+ * Specify the properties for refreshing the endpoint authentication object being queried
+ */
+export interface RefreshAuthenticationParameters {
+    /**
+     * EndpointId which needs new authentication params
+     */
+    endpointId: string;
+    /**
+     * Scope of the token requested. For GitHub marketplace apps, scope contains repository Ids
+     */
+    scope: number[];
+    /**
+     * The requested endpoint authentication should be valid for _ minutes. Authentication params will not be refreshed if the token contained in endpoint already has active token.
+     */
+    tokenValidityInMinutes: number;
+}
+
+/**
  * Represents template to tranform the result data.
  */
 export interface ResultTransformationDetails {
@@ -538,6 +556,10 @@ export interface ServiceEndpoint {
      */
     readersGroup: WebApi.IdentityRef;
     /**
+     * All other project references where the service endpoint is shared.
+     */
+    serviceEndpointProjectReferences: ServiceEndpointProjectReference[];
+    /**
      * Gets or sets the type of the endpoint.
      */
     type: string;
@@ -581,6 +603,10 @@ export interface ServiceEndpointAuthenticationScheme {
      * Gets or sets the input descriptors for the service endpoint authentication scheme.
      */
     inputDescriptors: FormInput.InputDescriptor[];
+    /**
+     * Gets or sets whether this auth scheme requires OAuth2 configuration or not.
+     */
+    requiresOAuth2Configuration: boolean;
     /**
      * Gets or sets the scheme for service endpoint authentication.
      */
@@ -708,6 +734,21 @@ export interface ServiceEndpointOAuthConfigurationReference {
     configurationId: string;
     serviceEndpointId: string;
     serviceEndpointProjectId: string;
+}
+
+export interface ServiceEndpointProjectReference {
+    /**
+     * Gets or sets description of the service endpoint.
+     */
+    description: string;
+    /**
+     * Gets or sets name of the service endpoint.
+     */
+    name: string;
+    /**
+     * Gets or sets project reference of the service endpoint.
+     */
+    projectReference: ProjectReference;
 }
 
 export interface ServiceEndpointRequest {

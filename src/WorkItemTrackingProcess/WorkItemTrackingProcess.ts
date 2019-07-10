@@ -9,6 +9,10 @@
  */
 export interface AddProcessWorkItemTypeFieldRequest {
     /**
+     * The list of field allowed values.
+     */
+    allowedValues: string[];
+    /**
      * Allow setting field value to a group identity. Only applies to identity fields.
      */
     allowGroups: boolean;
@@ -785,6 +789,10 @@ export interface ProcessWorkItemType {
  */
 export interface ProcessWorkItemTypeField {
     /**
+     * The list of field allowed values.
+     */
+    allowedValues: any[];
+    /**
      * Allow setting field value to a group identity. Only applies to identity fields.
      */
     allowGroups: boolean;
@@ -824,6 +832,24 @@ export interface ProcessWorkItemTypeField {
      * Resource URL of the field.
      */
     url: string;
+}
+
+/**
+ * Expand options for the work item field(s) request.
+ */
+export enum ProcessWorkItemTypeFieldsExpandLevel {
+    /**
+     * Includes only basic properties of the field.
+     */
+    None = 0,
+    /**
+     * Includes allowed values for the field.
+     */
+    AllowedValues = 1,
+    /**
+     * Includes allowed values and dependent fields of the field.
+     */
+    All = 2
 }
 
 /**
@@ -982,7 +1008,9 @@ export enum RuleConditionType {
     WhenStateChangedFromAndTo = 7,
     WhenWorkItemIsCreated = 8,
     WhenValueIsDefined = 9,
-    WhenValueIsNotDefined = 10
+    WhenValueIsNotDefined = 10,
+    WhenCurrentUserIsMemberOfGroup = 11,
+    WhenCurrentUserIsNotMemberOfGroup = 12
 }
 
 /**
@@ -1039,6 +1067,10 @@ export interface UpdateProcessRuleRequest extends CreateProcessRuleRequest {
  * Class to describe a request that updates a field's properties in a work item type.
  */
 export interface UpdateProcessWorkItemTypeFieldRequest {
+    /**
+     * The list of field allowed values.
+     */
+    allowedValues: string[];
     /**
      * Allow setting field value to a group identity. Only applies to identity fields.
      */

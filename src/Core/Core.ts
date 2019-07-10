@@ -43,6 +43,10 @@ export interface Process extends ProcessReference {
  */
 export enum ProcessCustomizationType {
     /**
+     * Process customization can't be computed.
+     */
+    Unknown = -1,
+    /**
      * Customization based on project-scoped xml customization
      */
     Xml = 0,

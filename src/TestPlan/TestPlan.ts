@@ -174,6 +174,24 @@ export interface DestinationTestSuiteInfo {
     project: string;
 }
 
+/**
+ * Exclude Flags for suite test case object. Exclude Flags exclude various objects from payload depending on the value passed
+ */
+export enum ExcludeFlags {
+    /**
+     * To exclude nothing
+     */
+    None = 0,
+    /**
+     * To exclude point assignments, pass exclude = 1
+     */
+    PointAssignments = 1,
+    /**
+     * To exclude extra information (links, test plan, test suite), pass exclude = 2
+     */
+    ExtraInformation = 2
+}
+
 export enum FailureType {
     None = 0,
     Regression = 1,
@@ -481,10 +499,27 @@ export interface TestCase {
     workItem: WorkItemDetails;
 }
 
+export interface TestCaseAssociatedResult {
+    completedDate: Date;
+    configuration: TestConfigurationReference;
+    outcome: UserFriendlyTestOutcome;
+    plan: TestPlanReference;
+    pointId: number;
+    resultId: number;
+    runBy: WebApi.IdentityRef;
+    runId: number;
+    suite: TestSuiteReference;
+    tester: WebApi.IdentityRef;
+}
+
 /**
  * Test Case Reference
  */
 export interface TestCaseReference {
+    /**
+     * Identity to whom the test case is assigned
+     */
+    assignedTo: WebApi.IdentityRef;
     /**
      * Test Case Id
      */
@@ -493,6 +528,18 @@ export interface TestCaseReference {
      * Test Case Name
      */
     name: string;
+    /**
+     * State of the test case work item
+     */
+    state: string;
+}
+
+/**
+ * This data model is used in TestCaseResultsDataProvider and populates the data required for initial page load
+ */
+export interface TestCaseResultsData {
+    results: TestCaseAssociatedResult[];
+    testCaseName: string;
 }
 
 /**
@@ -688,9 +735,11 @@ export interface TestPlansHubRefreshData {
     isAdvancedExtensionEnabled: boolean;
     selectedSuiteId: number;
     selectedSuiteName: string;
+    testCasePageSize: number;
     testCases: TestCase[];
     testCasesContinuationToken: string;
     testPlan: TestPlanDetailedReference;
+    testPointPageSize: number;
     testPoints: TestPoint[];
     testPointsContinuationToken: string;
     testSuites: TestSuite[];

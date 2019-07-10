@@ -26,7 +26,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
@@ -52,7 +52,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Avatar>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -71,7 +71,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
@@ -87,7 +87,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphCachePolicies> {
 
         return this.beginRequest<Graph.GraphCachePolicies>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/CachePolicies"
         });
     }
@@ -102,7 +102,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphDescriptorResult> {
 
         return this.beginRequest<Graph.GraphDescriptorResult>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Descriptors/{storageKey}",
             routeValues: {
                 storageKey: storageKey
@@ -129,7 +129,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphFederatedProviderData>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/FederatedProviderData/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -157,7 +157,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             queryParams: queryValues,
@@ -175,7 +175,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
@@ -194,7 +194,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphGroup> {
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
                 groupDescriptor: groupDescriptor
@@ -214,7 +214,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphGroup> {
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
@@ -235,7 +235,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<{ [key: string] : Graph.GraphMember; }> {
 
         return this.beginRequest<{ [key: string] : Graph.GraphMember; }>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/MemberLookup",
             body: memberLookup
@@ -252,7 +252,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMember> {
 
         return this.beginRequest<Graph.GraphMember>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Members/{memberDescriptor}",
             routeValues: {
                 memberDescriptor: memberDescriptor
@@ -272,7 +272,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembership> {
 
         return this.beginRequest<Graph.GraphMembership>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
@@ -294,7 +294,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<boolean> {
 
         return this.beginRequest<Response>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "HEAD",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
@@ -323,7 +323,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembership> {
 
         return this.beginRequest<Graph.GraphMembership>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor,
@@ -344,7 +344,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
@@ -373,7 +373,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphMembership[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -392,7 +392,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembershipState> {
 
         return this.beginRequest<Graph.GraphMembershipState>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/MembershipStates/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -419,7 +419,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<{ [key: string] : Graph.GraphMembershipTraversal; }>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/MembershipTraversals/{subjectDescriptor}",
             queryParams: queryValues,
@@ -446,7 +446,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphMembershipTraversal>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/MembershipTraversals/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -463,11 +463,26 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphProviderInfo> {
 
         return this.beginRequest<Graph.GraphProviderInfo>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}/ProviderInfo",
             routeValues: {
                 userDescriptor: userDescriptor
             }
+        });
+    }
+
+    /**
+     * @param message - 
+     */
+    public async requestAccess(
+        message: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Graph/RequestAccess",
+            body: message
         });
     }
 
@@ -481,7 +496,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphScope> {
 
         return this.beginRequest<Graph.GraphScope>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -499,7 +514,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -518,7 +533,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphScope> {
 
         return this.beginRequest<Graph.GraphScope>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
                 scopeDescriptor: scopeDescriptor
@@ -536,7 +551,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -559,7 +574,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphStorageKeyResult> {
 
         return this.beginRequest<Graph.GraphStorageKeyResult>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/StorageKeys/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -577,10 +592,27 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<{ [key: string] : Graph.GraphSubject; }> {
 
         return this.beginRequest<{ [key: string] : Graph.GraphSubject; }>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/SubjectLookup",
             body: subjectLookup
+        });
+    }
+
+    /**
+     * Search for Azure Devops users, or/and groups. Results will be returned in a batch with no more than 100 graph subjects.
+     * 
+     * @param subjectQuery - The query that we'll be using to search includes the following: Query: the search term. The search will be prefix matching only. SubjectKind: "User" or "Group" can be specified, both or either ScopeDescriptor: Non-default scope can be specified, i.e. project scope descriptor
+     */
+    public async querySubjects(
+        subjectQuery: Graph.GraphSubjectQuery
+        ): Promise<Graph.GraphSubject[]> {
+
+        return this.beginRequest<Graph.GraphSubject[]>({
+            apiVersion: "5.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Graph/SubjectQuery",
+            body: subjectQuery
         });
     }
 
@@ -592,7 +624,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphSubject> {
 
         return this.beginRequest<Graph.GraphSubject>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -616,7 +648,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             queryParams: queryValues,
@@ -634,7 +666,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {
@@ -653,7 +685,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphUser> {
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {
                 userDescriptor: userDescriptor
@@ -673,7 +705,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphUser> {
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {

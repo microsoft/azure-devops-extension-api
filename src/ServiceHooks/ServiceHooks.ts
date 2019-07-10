@@ -644,6 +644,38 @@ export interface Subscription {
 }
 
 /**
+ * The scope to which a subcription input applies
+ */
+export enum SubscriptionInputScope {
+    /**
+     * An input defined and consumed by a Publisher or Publisher Event Type
+     */
+    Publisher = 10,
+    /**
+     * An input defined and consumed by a Consumer or Consumer Action
+     */
+    Consumer = 20
+}
+
+/**
+ * Query for obtaining information about the possible/allowed values for one or more subscription inputs
+ */
+export interface SubscriptionInputValuesQuery {
+    /**
+     * The input values to return on input, and the result from the consumer on output.
+     */
+    inputValues: FormInput.InputValues[];
+    /**
+     * The scope at which the properties to query belong
+     */
+    scope: SubscriptionInputScope;
+    /**
+     * Subscription containing information about the publisher/consumer and the current input values
+     */
+    subscription: Subscription;
+}
+
+/**
  * Defines a query for service hook subscriptions.
  */
 export interface SubscriptionsQuery {

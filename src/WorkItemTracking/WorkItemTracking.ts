@@ -479,15 +479,15 @@ export enum FieldType {
      */
     Identity = 10,
     /**
-     * String picklist field type.
+     * String picklist field type. When creating a string picklist field from REST API, use "String" FieldType.
      */
     PicklistString = 11,
     /**
-     * Integer picklist field type.
+     * Integer picklist field type. When creating a integer picklist field from REST API, use "Integer" FieldType.
      */
     PicklistInteger = 12,
     /**
-     * Double picklist field type.
+     * Double picklist field type. When creating a double picklist field from REST API, use "Double" FieldType.
      */
     PicklistDouble = 13
 }
@@ -1590,6 +1590,12 @@ export interface WorkItemStateTransition {
      * Name of the next state.
      */
     to: string;
+}
+
+export interface WorkItemTagDefinition {
+    id: string;
+    name: string;
+    url: string;
 }
 
 /**

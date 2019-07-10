@@ -1633,6 +1633,7 @@ export interface TaskAgentJobRequest {
      */
     serviceOwner: string;
     statusMessage: string;
+    userDelayed: boolean;
 }
 
 /**
@@ -1672,8 +1673,7 @@ export interface TaskAgentJobStep {
 
 export enum TaskAgentJobStepType {
     Task = 1,
-    Action = 2,
-    Script = 3
+    Action = 2
 }
 
 export interface TaskAgentJobTask {
@@ -2809,6 +2809,8 @@ export interface TimelineRecord {
 
 export interface TimelineRecordFeedLinesWrapper {
     count: number;
+    endLine: number;
+    startLine: number;
     stepId: string;
     value: string[];
 }

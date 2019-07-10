@@ -361,6 +361,10 @@ export interface BuildArtifact {
      * The actual resource.
      */
     resource: ArtifactResource;
+    /**
+     * The artifact source, which will be the ID of the job that produced this artifact. If an artifact is associated with multiple sources, this points to the first source.
+     */
+    source: string;
 }
 
 /**

@@ -368,6 +368,24 @@ export interface GraphSubjectLookupKey {
     descriptor: string;
 }
 
+/**
+ * Subject to search using the Graph API
+ */
+export interface GraphSubjectQuery {
+    /**
+     * Search term to search for Azure Devops users or/and groups
+     */
+    query: string;
+    /**
+     * Optional parameter. Specify a non-default scope (collection, project) to search for users or groups within the scope.
+     */
+    scopeDescriptor: string;
+    /**
+     * "User" or "Group" can be specified, both or either
+     */
+    subjectKind: string[];
+}
+
 export interface GraphSystemSubject extends GraphSubject {
 }
 

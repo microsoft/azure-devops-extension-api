@@ -24,7 +24,7 @@ export class ProjectAnalysisRestClient extends RestClientBase {
         ): Promise<ProjectAnalysis.ProjectLanguageAnalytics> {
 
         return this.beginRequest<ProjectAnalysis.ProjectLanguageAnalytics>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/projectanalysis/languagemetrics",
             routeValues: {
                 project: project
@@ -49,7 +49,7 @@ export class ProjectAnalysisRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ProjectAnalysis.ProjectActivityMetrics>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/projectanalysis/projectactivitymetrics",
             routeValues: {
                 project: project
@@ -83,7 +83,7 @@ export class ProjectAnalysisRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ProjectAnalysis.RepositoryActivityMetrics[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/projectanalysis/repositoryactivitymetrics/{repositoryId}",
             routeValues: {
                 project: project
@@ -111,7 +111,7 @@ export class ProjectAnalysisRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ProjectAnalysis.RepositoryActivityMetrics>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/projectanalysis/repositoryactivitymetrics/{repositoryId}",
             routeValues: {
                 project: project,

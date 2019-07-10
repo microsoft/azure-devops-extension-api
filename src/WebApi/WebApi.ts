@@ -209,6 +209,9 @@ export enum Operation {
     Test = 5
 }
 
+export interface PagedList<T> {
+}
+
 /**
  * Represents the public key portion of an RSA asymmetric key.
  */
@@ -267,6 +270,14 @@ export interface ServiceEvent {
      * This is the version of the resource.
      */
     resourceVersion: string;
+}
+
+/**
+ * A signed url allowing limited-time anonymous access to private resources.
+ */
+export interface SignedUrl {
+    signatureExpires: Date;
+    url: string;
 }
 
 export interface TeamMember {

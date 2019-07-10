@@ -24,7 +24,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeature> {
 
         return this.beginRequest<FeatureManagement.ContributedFeature>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/FeatureManagement/Features/{featureId}",
             routeValues: {
                 featureId: featureId
@@ -46,7 +46,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureManagement.ContributedFeature[]>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/FeatureManagement/Features/{featureId}",
             queryParams: queryValues
         });
@@ -64,7 +64,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeatureState> {
 
         return this.beginRequest<FeatureManagement.ContributedFeatureState>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/FeatureManagement/FeatureStates/{userScope}/{featureId}",
             routeValues: {
                 featureId: featureId,
@@ -96,7 +96,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureManagement.ContributedFeatureState>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/FeatureManagement/FeatureStates/{userScope}/{featureId}",
             routeValues: {
@@ -124,7 +124,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeatureState> {
 
         return this.beginRequest<FeatureManagement.ContributedFeatureState>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/FeatureManagement/FeatureStates/{userScope}/{scopeName}/{scopeValue}/{featureId}",
             routeValues: {
                 featureId: featureId,
@@ -162,7 +162,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FeatureManagement.ContributedFeatureState>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/FeatureManagement/FeatureStates/{userScope}/{scopeName}/{scopeValue}/{featureId}",
             routeValues: {
@@ -186,7 +186,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeatureStateQuery> {
 
         return this.beginRequest<FeatureManagement.ContributedFeatureStateQuery>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/FeatureManagement/FeatureStatesQuery",
             body: query
@@ -205,7 +205,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeatureStateQuery> {
 
         return this.beginRequest<FeatureManagement.ContributedFeatureStateQuery>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/FeatureManagement/FeatureStatesQuery/{userScope}",
             routeValues: {
@@ -231,7 +231,7 @@ export class FeatureManagementRestClient extends RestClientBase {
         ): Promise<FeatureManagement.ContributedFeatureStateQuery> {
 
         return this.beginRequest<FeatureManagement.ContributedFeatureStateQuery>({
-            apiVersion: "5.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/FeatureManagement/FeatureStatesQuery/{userScope}/{scopeName}/{scopeValue}",
             routeValues: {

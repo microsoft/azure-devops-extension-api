@@ -740,6 +740,54 @@ export interface FilterPointQuery {
     resultState: number[];
 }
 
+export interface FlakyDetection {
+    /**
+     * FlakyDetectionPipelines defines Pipelines for Detection.
+     */
+    flakyDetectionPipelines: FlakyDetectionPipelines;
+    /**
+     * FlakyDetectionType defines Detection type i.e. 1. System or 2. Manual.
+     */
+    flakyDetectionType: FlakyDetectionType;
+}
+
+export interface FlakyDetectionPipelines {
+    /**
+     * AllowedPipelines - List All Pipelines allowed for detection.
+     */
+    allowedPipelines: number[];
+    /**
+     * IsAllPipelinesAllowed if users configure all system's pipelines.
+     */
+    isAllPipelinesAllowed: boolean;
+}
+
+export enum FlakyDetectionType {
+    /**
+     * Custom defines manual detection type.
+     */
+    Custom = 1,
+    /**
+     * Defines System detection type.
+     */
+    System = 2
+}
+
+export interface FlakySettings {
+    /**
+     * FlakyDetection defines types of detection.
+     */
+    flakyDetection: FlakyDetection;
+    /**
+     * FlakyInSummaryReport defines flaky data should show in summary report or not.
+     */
+    flakyInSummaryReport: boolean;
+    /**
+     * ManualMarkUnmarkFlaky defines manual marking unmarking of flaky testcase.
+     */
+    manualMarkUnmarkFlaky: boolean;
+}
+
 export interface FunctionCoverage {
     class: string;
     name: string;
@@ -1033,6 +1081,28 @@ export interface LinkedWorkItemsQueryResult {
     workItems: WorkItemReference[];
 }
 
+/**
+ * Test summary metrics.
+ */
+export enum Metrics {
+    /**
+     * To get results of all matrix.
+     */
+    All = 1,
+    /**
+     * Get results summary by results outcome
+     */
+    ResultSummary = 2,
+    /**
+     * Get results analysis which include failure analysis, increase/decrease in results count analysis.
+     */
+    ResultsAnalysis = 3,
+    /**
+     * Get runs summary
+     */
+    RunSummary = 4
+}
+
 export interface ModuleCoverage {
     blockCount: number;
     blockData: number[];
@@ -1117,6 +1187,32 @@ export interface PipelineReference {
      * Reference of the stage.
      */
     stageReference: StageReference;
+}
+
+/**
+ * Test summary of a pipeline instance.
+ */
+export interface PipelineTestMetrics {
+    /**
+     * Reference of Pipeline instance for which test summary is calculated.
+     */
+    currentContext: PipelineReference;
+    /**
+     * This is the return value for matric ResultsAnalysis Results insights which include failure analysis, increase/decrease in results count analysis.
+     */
+    resultsAnalysis: ResultsAnalysis;
+    /**
+     * This is the return value for matric ResultSummary Results summary based on results outcome.
+     */
+    resultSummary: ResultSummary;
+    /**
+     * This is the return value for matric RunSummary Run summary.
+     */
+    runSummary: RunSummary;
+    /**
+     * Summary at child node.
+     */
+    summaryAtChild: PipelineTestMetrics[];
 }
 
 /**
@@ -1484,6 +1580,17 @@ export enum ResultGroupType {
     Generic = 4
 }
 
+export enum ResultMetadata {
+    /**
+     * Rerun metadata
+     */
+    Rerun = 1,
+    /**
+     * Flaky metadata
+     */
+    Flaky = 2
+}
+
 /**
  * Additional details with test result metadata
  */
@@ -1534,6 +1641,42 @@ export interface ResultRetentionSettings {
     manualResultsRetentionDuration: number;
 }
 
+/**
+ * Results insights.
+ */
+export interface ResultsAnalysis {
+    /**
+     * Reference of pipeline instance from which to compare the results.
+     */
+    previousContext: PipelineReference;
+    /**
+     * Increase/Decrease in counts of results for a different outcome with respect to PreviousContext.
+     */
+    resultsDifference: AggregatedResultsDifference;
+    /**
+     * Failure analysis of results with respect to PreviousContext
+     */
+    testFailuresAnalysis: TestResultFailuresAnalysis;
+}
+
+/**
+ * Result deatils for a particular test result outcome.
+ */
+export interface ResultsByOutcome {
+    /**
+     * Number of results for current outcome.
+     */
+    count: number;
+    /**
+     * Time taken by results.
+     */
+    duration: any;
+    /**
+     * Test result outcome
+     */
+    outcome: TestOutcome;
+}
+
 export interface ResultsByQueryRequest {
     pageSize: number;
     query: ResultsStoreQuery;
@@ -1564,6 +1707,38 @@ export interface ResultsStoreQuery {
     queryText: string;
     teamProjectName: string;
     timeZone: string;
+}
+
+/**
+ * Result summary by the outcome of test results.
+ */
+export interface ResultsSummaryByOutcome {
+    /**
+     * Time taken by results.
+     */
+    duration: any;
+    /**
+     * Total number of not reported test results.
+     */
+    notReportedTestCount: number;
+    /**
+     * Results details for each test result outcome.
+     */
+    resultsDetailByOutcome: ResultsByOutcome[];
+    /**
+     * Total number of test results.
+     */
+    totalTestCount: number;
+}
+
+/**
+ * Summary of results for a pipeline instance.
+ */
+export interface ResultSummary {
+    /**
+     * Runs count by outcome.
+     */
+    resultSummaryByRunState: { [key: number] : ResultsSummaryByOutcome; };
 }
 
 export interface ResultUpdateRequest {
@@ -1779,9 +1954,39 @@ export interface RunStatistic {
      */
     resolutionState: TestResolutionState;
     /**
+     * ResultMetadata for the given outcome/count.
+     */
+    resultMetadata: ResultMetadata;
+    /**
      * State of the test run
      */
     state: string;
+}
+
+/**
+ * Summary of runs for a pipeline instance.
+ */
+export interface RunSummary {
+    /**
+     * Total time taken by runs.
+     */
+    duration: any;
+    /**
+     * NoConfig runs count.
+     */
+    noConfigRunsCount: number;
+    /**
+     * Runs count by outcome.
+     */
+    runSummaryByOutcome: { [key: number] : number; };
+    /**
+     * Runs count by state.
+     */
+    runSummaryByState: { [key: number] : number; };
+    /**
+     * Total runs count.
+     */
+    totalRunsCount: number;
 }
 
 /**
@@ -2851,6 +3056,9 @@ export interface TestLog {
      * Test Log Context run, build
      */
     logReference: TestLogReference;
+    /**
+     * Meta data for Log file
+     */
     metaData: { [key: string] : string; };
     /**
      * LastUpdatedDate for Log file
@@ -2862,6 +3070,9 @@ export interface TestLog {
     size: number;
 }
 
+/**
+ * Test Log Reference object
+ */
 export interface TestLogReference {
     /**
      * BuildId for test log, if context is build
@@ -2888,7 +3099,7 @@ export interface TestLogReference {
      */
     runId: number;
     /**
-     * Test Log Reference object
+     * Test Log Scope
      */
     scope: TestLogScope;
     /**
@@ -2941,22 +3152,74 @@ export interface TestLogStatus {
  * Test Log Status codes.
  */
 export enum TestLogStatusCode {
+    /**
+     * Operation is successful
+     */
     Success = 0,
+    /**
+     * Operation failed
+     */
     Failed = 1,
+    /**
+     * Operation failed due to file already exist
+     */
     FileAlreadyExists = 2,
+    /**
+     * Invalid input provided by user
+     */
     InvalidInput = 3,
+    /**
+     * Invalid file name provided by user
+     */
     InvalidFileName = 4,
+    /**
+     * Error occurred while operating on container
+     */
     InvalidContainer = 5,
+    /**
+     * Blob Transfer Error
+     */
     TransferFailed = 6,
+    /**
+     * TestLogStore feature is not enabled
+     */
     FeatureDisabled = 7,
+    /**
+     * Build for which operation is requested does not exist
+     */
     BuildDoesNotExist = 8,
+    /**
+     * Run for which operation is requested does not exist
+     */
     RunDoesNotExist = 9,
+    /**
+     * Container cannot be created
+     */
     ContainerNotCreated = 10,
+    /**
+     * Api is not supported
+     */
     APINotSupported = 11,
+    /**
+     * File size is greater than the limitation
+     */
     FileSizeExceeds = 12,
+    /**
+     * Container is not found for which operation is requested
+     */
     ContainerNotFound = 13,
+    /**
+     * File cannot be found
+     */
     FileNotFound = 14,
-    DirectoryNotFound = 15
+    /**
+     * Directory cannot be found
+     */
+    DirectoryNotFound = 15,
+    /**
+     * Storage capacity exceeded
+     */
+    StorageCapacityExceeded = 16
 }
 
 /**
@@ -2977,14 +3240,35 @@ export interface TestLogStoreEndpointDetails {
     status: TestLogStatusCode;
 }
 
+/**
+ * Specifies set of possible log store endpoint type.
+ */
 export enum TestLogStoreEndpointType {
+    /**
+     * Endpoint type is scoped to root
+     */
     Root = 1,
+    /**
+     * Endpoint type is scoped to file
+     */
     File = 2
 }
 
+/**
+ * Specifies set of possible operation type on log store.
+ */
 export enum TestLogStoreOperationType {
+    /**
+     * Operation is scoped to read data only.
+     */
     Read = 1,
+    /**
+     * Operation is scoped to create data only.
+     */
     Create = 2,
+    /**
+     * Operation is scoped to read and create data.
+     */
     ReadAndCreate = 3
 }
 
@@ -3515,6 +3799,12 @@ export interface TestResultDocument {
     payload: TestResultPayload;
 }
 
+export interface TestResultFailuresAnalysis {
+    existingFailures: TestFailureDetails;
+    fixedTests: TestFailureDetails;
+    newFailures: TestFailureDetails;
+}
+
 /**
  * Group by for results
  */
@@ -3691,12 +3981,14 @@ export interface TestResultReset2 {
 export interface TestResultsContext {
     build: BuildReference;
     contextType: TestResultsContextType;
+    pipelineReference: PipelineReference;
     release: ReleaseReference;
 }
 
 export enum TestResultsContextType {
     Build = 1,
-    Release = 2
+    Release = 2,
+    Pipeline = 3
 }
 
 export interface TestResultsDetails {
@@ -3758,6 +4050,24 @@ export interface TestResultsQuery {
     resultsFilter: ResultsFilter;
 }
 
+export interface TestResultsSettings {
+    /**
+     * IsRequired and EmitDefaultValue are passed as false as if users doesn't pass anything, should not come for serialisation and deserialisation.
+     */
+    flakySettings: FlakySettings;
+}
+
+export enum TestResultsSettingsType {
+    /**
+     * Returns All Test Settings.
+     */
+    All = 1,
+    /**
+     * Returns Flaky Test Settings.
+     */
+    Flaky = 2
+}
+
 export interface TestResultSummary {
     aggregatedResultsAnalysis: AggregatedResultsAnalysis;
     noConfigRunsCount: number;
@@ -3765,6 +4075,13 @@ export interface TestResultSummary {
     testFailures: TestFailuresAnalysis;
     testResultsContext: TestResultsContext;
     totalRunsCount: number;
+}
+
+export interface TestResultsUpdateSettings {
+    /**
+     * FlakySettings defines Flaky Setttings Data.
+     */
+    flakySettings: FlakySettings;
 }
 
 export interface TestResultsWithWatermark {
