@@ -36,6 +36,42 @@ export const enum CommonServiceIds {
 }
 
 /**
+ * Route information for the current page
+ */
+export interface IPageRoute {
+    
+    /**
+     * Id of the contributed route
+     */
+    id: string;
+
+    /**
+     * The route values that were specified in the request
+     */
+    routeValues: { [key: string]: string };
+}
+
+/**
+ * Information about a displayed navigation element
+ */
+export interface INavigationElement {
+    /**
+     * Unique id of the displayed navigation
+     */
+    id: string;
+
+    /**
+     * Name of the displayed navigation
+     */
+    name?: string;
+
+    /**
+     * Type of the navigation element
+     */
+    type: string;
+}
+
+/**
  * Service for interacting with the host window's navigation (URLs, new windows, etc.)
  */
 export interface IHostNavigationService {
@@ -88,6 +124,16 @@ export interface IHostNavigationService {
     * @param features - Comma-separated list of features/specs sent as the 3rd parameter to window.open. For example: "height=400,width=400".
     */
     openNewWindow(url: string, features: string): void;
+
+    /**
+     * Gets information about the route that was matched for the current page
+     */
+    getPageRoute(): IPageRoute;
+
+    /**
+     * Gets the set of navigation elements (like hubs and hub groups) selected on the current page.
+     */
+    getPageNavigationElements(): INavigationElement[];
 }
 
 /**
