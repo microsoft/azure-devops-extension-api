@@ -21,7 +21,7 @@
   },
   "homepage": "https://docs.microsoft.com/en-us/azure/devops/integrate",
   "dependencies": {
-    "azure-devops-extension-sdk": "~2.0.10",
+    "azure-devops-extension-sdk": "~2.0.11",
     "whatwg-fetch": "~3.0.0"
   },
   "devDependencies": {
