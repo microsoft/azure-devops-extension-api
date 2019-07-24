@@ -558,6 +558,9 @@ export interface IContributedButton {
     tooltip?: string;
 }
 
+/**
+ * Message links that will be formatted into the message.
+ */
 export interface IGlobalMessageLink {
 
     /**
@@ -571,6 +574,24 @@ export interface IGlobalMessageLink {
     href: string;
 }
 
+/**
+ * Optional help icon info to show after global message text
+ */
+export interface IGlobalMessageHelpInfo {
+    /**
+     * If supplied the help icon will act as a hyperlink to the specified target href
+     */
+    href?: string;
+
+    /**
+     * If supplied, hovering/focusing the help icon will show the given tooltip text
+     */
+    tooltip?: string;
+}
+
+/**
+ * The severity of the message.
+ */
 export const enum MessageBannerLevel {
     info = 0,
     warning = 1,
@@ -578,6 +599,9 @@ export const enum MessageBannerLevel {
     success = 3
 }
 
+/**
+ * Banner Props specifying how it will be rendered by the service
+ */
 export interface IGlobalMessageBanner {
     /**
      * Buttons to display after the message
@@ -594,6 +618,11 @@ export interface IGlobalMessageBanner {
      * @default true
      */
     dismissable?: boolean;
+
+    /**
+     * Optional "?" icon to show after the message that has a tooltip with more information and/or a hyperlink.
+     */
+    helpInfo?: IGlobalMessageHelpInfo;
 
     /**
      * banner level (controls the background and icon of the banner)
