@@ -179,7 +179,11 @@ export async function issueRequest(requestUrl: string, options?: RequestInit, vs
         
         // Ensure we have an authorization token available from the auth manager.
         if (vssRequestOptions && vssRequestOptions.authTokenProvider) {
-            headers.append("Authorization", await vssRequestOptions.authTokenProvider.getAuthorizationHeader(refreshToken));
+            const authHeader = await vssRequestOptions.authTokenProvider.getAuthorizationHeader(refreshToken);
+            if (authHeader) {
+                headers.append("Authorization", authHeader);
+                refreshToken = true;
+            }
             headers.append("X-TFS-FedAuthRedirect", "Suppress");
         }
 

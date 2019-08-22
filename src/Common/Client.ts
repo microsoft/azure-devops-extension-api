@@ -28,7 +28,7 @@ export function getClient<T>(clientClass: RestClientFactory<T>, clientOptions?: 
     if (!options.authTokenProvider) {
         options.authTokenProvider = {
             getAuthorizationHeader: (): Promise<string> => {
-                return getAccessToken().then(token => "Bearer " + token);
+                return getAccessToken().then(token => token ? ("Bearer " + token) : "");
             }
         };
     }
