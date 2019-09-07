@@ -894,7 +894,7 @@ export class GitRestClient extends RestClientBase {
      * @param scopePath - The path scope.  The default is null.
      * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
-     * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
@@ -946,7 +946,7 @@ export class GitRestClient extends RestClientBase {
      * @param scopePath - The path scope.  The default is null.
      * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
-     * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
@@ -998,7 +998,7 @@ export class GitRestClient extends RestClientBase {
      * @param scopePath - The path scope.  The default is null.
      * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
-     * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param includeLinks - Set to true to include links to items.  Default is false.
      * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
@@ -1045,7 +1045,7 @@ export class GitRestClient extends RestClientBase {
      * @param scopePath - The path scope.  The default is null.
      * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
-     * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
@@ -1098,7 +1098,7 @@ export class GitRestClient extends RestClientBase {
      * @param scopePath - The path scope.  The default is null.
      * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
      * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
-     * @param latestProcessedChange - Set to true to include the lastest changes.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
      * @param download - Set to true to download the response as a file.  Default is false.
      * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
      * @param includeContent - Set to true to include item content when requesting json.  Default is false.
@@ -2293,6 +2293,37 @@ export class GitRestClient extends RestClientBase {
                 repositoryId: repositoryId,
                 pullRequestId: pullRequestId
             }
+        });
+    }
+
+    /**
+     * Edit a reviewer entry. These fields are patchable: isFlagged
+     * 
+     * @param reviewer - Reviewer data.\<br /\>If the reviewer's ID is included here, it must match the reviewerID parameter.
+     * @param repositoryId - The repository ID of the pull request’s target branch.
+     * @param pullRequestId - ID of the pull request.
+     * @param reviewerId - ID of the reviewer.
+     * @param project - Project ID or project name
+     */
+    public async updatePullRequestReviewer(
+        reviewer: Git.IdentityRefWithVote,
+        repositoryId: string,
+        pullRequestId: number,
+        reviewerId: string,
+        project?: string
+        ): Promise<Git.IdentityRefWithVote> {
+
+        return this.beginRequest<Git.IdentityRefWithVote>({
+            apiVersion: "5.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/reviewers/{reviewerId}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId,
+                pullRequestId: pullRequestId,
+                reviewerId: reviewerId
+            },
+            body: reviewer
         });
     }
 

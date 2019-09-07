@@ -100,7 +100,7 @@ export interface BacklogLevelConfiguration {
      */
     columnFields: BacklogColumn[];
     /**
-     * Defaulst Work Item Type for the backlog
+     * Default Work Item Type for the backlog
      */
     defaultWorkItemType: WorkItemTracking.WorkItemTypeReference;
     /**
@@ -415,7 +415,7 @@ export interface DateRange {
  */
 export interface DeliveryViewData extends PlanViewData {
     /**
-     * Work item child id to parenet id map
+     * Work item child id to parent id map
      */
     childIdToParentIdMap: { [key: number] : number; };
     /**

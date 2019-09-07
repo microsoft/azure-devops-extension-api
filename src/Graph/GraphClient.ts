@@ -139,7 +139,7 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Create a new VSTS group or materialize an existing AAD group.
+     * Create a new Azure DevOps group or materialize an existing AAD group.
      * 
      * @param creationContext - The subset of the full graph group used to uniquely find the graph subject in an external provider.
      * @param scopeDescriptor - A descriptor referencing the scope (collection, project) in which the group should be created. If omitted, will be created in the scope of the enclosing account or organization. Valid only for VSTS groups.
@@ -166,7 +166,7 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Removes a VSTS group from all of its parent groups.
+     * Removes an Azure DevOps group from all of its parent groups.
      * 
      * @param groupDescriptor - The descriptor of the group to delete.
      */
@@ -203,7 +203,7 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Update the properties of a VSTS group.
+     * Update the properties of an Azure DevOps group.
      * 
      * @param groupDescriptor - The descriptor of the group to modify.
      * @param patchDocument - The JSON+Patch document containing the fields to alter.
@@ -472,17 +472,17 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * @param message - 
+     * @param jsondocument - 
      */
     public async requestAccess(
-        message: string
+        jsondocument: any
         ): Promise<void> {
 
         return this.beginRequest<void>({
             apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/RequestAccess",
-            body: message
+            body: jsondocument
         });
     }
 

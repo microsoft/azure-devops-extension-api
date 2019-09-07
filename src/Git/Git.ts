@@ -2780,6 +2780,10 @@ export interface HistoryEntry<T> {
  */
 export interface IdentityRefWithVote extends WebApi.IdentityRef {
     /**
+     * Indicates if this reviewer is flagged for attention on this pull request.
+     */
+    isFlagged: boolean;
+    /**
      * Indicates if this is a required reviewer for this pull request. \<br /\> Branches can have policies that require particular reviewers are required for pull requests.
      */
     isRequired: boolean;

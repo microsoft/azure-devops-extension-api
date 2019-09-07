@@ -246,6 +246,35 @@ export class ServiceEndpointRestClient extends RestClientBase {
     }
 
     /**
+     * Gets the service endpoints and patch new authorization parameters
+     * 
+     * @param refreshAuthenticationParameters - Scope, Validity of Token requested.
+     * @param project - Project ID or project name
+     * @param endpointIds - Ids of the service endpoints.
+     */
+    public async getServiceEndpointsWithRefreshedAuthentication(
+        refreshAuthenticationParameters: ServiceEndpoint.RefreshAuthenticationParameters[],
+        project: string,
+        endpointIds: string[]
+        ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
+
+        const queryValues: any = {
+            endpointIds: endpointIds && endpointIds.join(",")
+        };
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
+            apiVersion: "5.2-preview.2",
+            method: "POST",
+            routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            body: refreshAuthenticationParameters
+        });
+    }
+
+    /**
      * Update a service endpoint.
      * 
      * @param endpoint - Service endpoint to update.

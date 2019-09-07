@@ -18,7 +18,7 @@ export enum AadLoginPromptOption {
      */
     Login = 1,
     /**
-     * Force the user to select which account they are logging in with instead of automatically picking the user up from the session state. NOTE: This does not work for switching bewtween the variants of a dual-homed user.
+     * Force the user to select which account they are logging in with instead of automatically picking the user up from the session state. NOTE: This does not work for switching between the variants of a dual-homed user.
      */
     SelectAccount = 2,
     /**
@@ -342,6 +342,10 @@ export interface EndpointUrl {
      */
     displayName: string;
     /**
+     * Gets or sets the format of the url.
+     */
+    format: string;
+    /**
      * Gets or sets the help text of service endpoint url.
      */
     helpText: string;
@@ -485,7 +489,7 @@ export interface RefreshAuthenticationParameters {
 }
 
 /**
- * Represents template to tranform the result data.
+ * Represents template to transform the result data.
  */
 export interface ResultTransformationDetails {
     /**
@@ -532,7 +536,7 @@ export interface ServiceEndpoint {
      */
     id: string;
     /**
-     * EndPoint state indictor
+     * EndPoint state indicator
      */
     isReady: boolean;
     /**
@@ -603,6 +607,10 @@ export interface ServiceEndpointAuthenticationScheme {
      * Gets or sets the input descriptors for the service endpoint authentication scheme.
      */
     inputDescriptors: FormInput.InputDescriptor[];
+    /**
+     * Gets or sets the properties of service endpoint authentication scheme.
+     */
+    properties: { [key: string] : string; };
     /**
      * Gets or sets whether this auth scheme requires OAuth2 configuration or not.
      */
@@ -685,7 +693,7 @@ export interface ServiceEndpointExecutionOwner {
 }
 
 /**
- * Represents the details of service ednpoint execution.
+ * Represents the details of service endpoint execution.
  */
 export interface ServiceEndpointExecutionRecord {
     /**

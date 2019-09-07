@@ -956,7 +956,11 @@ export enum RuleActionType {
     /**
      * Use the current user to set the value of the target field.
      */
-    CopyFromServerCurrentUser = 13
+    CopyFromServerCurrentUser = 13,
+    /**
+     * Hides target field from the form. This is a server side only action.
+     */
+    HideTargetField = 14
 }
 
 /**

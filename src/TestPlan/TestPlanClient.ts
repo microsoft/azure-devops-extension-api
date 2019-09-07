@@ -765,17 +765,20 @@ export class TestPlanRestClient extends RestClientBase {
      * @param suiteId - ID of the test suite for which test points are requested.
      * @param pointIds - ID of test points to be fetched.
      * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
+     * @param includePointDetails - If set to false, will get a smaller payload containing only basic details about the test point object
      */
     public async getPoints(
         project: string,
         planId: number,
         suiteId: number,
         pointIds: string,
-        returnIdentityRef?: boolean
+        returnIdentityRef?: boolean,
+        includePointDetails?: boolean
         ): Promise<TestPlan.TestPoint[]> {
 
         const queryValues: any = {
-            returnIdentityRef: returnIdentityRef
+            returnIdentityRef: returnIdentityRef,
+            includePointDetails: includePointDetails
         };
 
         return this.beginRequest<TestPlan.TestPoint[]>({
@@ -841,13 +844,22 @@ export class TestPlanRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param planId - ID of the test plan for which test points are requested.
      * @param suiteId - ID of the test suite for which test points are requested.
+     * @param includePointDetails - If set to false, will get a smaller payload containing only basic details about the test point object
+     * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
      */
     public async updateTestPoints(
         testPointUpdateParams: TestPlan.TestPointUpdateParams[],
         project: string,
         planId: number,
-        suiteId: number
+        suiteId: number,
+        includePointDetails?: boolean,
+        returnIdentityRef?: boolean
         ): Promise<TestPlan.TestPoint[]> {
+
+        const queryValues: any = {
+            includePointDetails: includePointDetails,
+            returnIdentityRef: returnIdentityRef
+        };
 
         return this.beginRequest<TestPlan.TestPoint[]>({
             apiVersion: "5.2-preview.2",
@@ -858,6 +870,7 @@ export class TestPlanRestClient extends RestClientBase {
                 planId: planId,
                 suiteId: suiteId
             },
+            queryParams: queryValues,
             body: testPointUpdateParams
         });
     }

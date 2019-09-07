@@ -17,7 +17,7 @@ export enum InputDataType {
      */
     String = 10,
     /**
-     * Represents a numberic value.
+     * Represents a numeric value.
      */
     Number = 20,
     /**

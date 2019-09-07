@@ -1137,6 +1137,80 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
     }
 
     /**
+     * Deletes a system control modification on the work item form.
+     * 
+     * @param processId - The ID of the process.
+     * @param witRefName - The reference name of the work item type.
+     * @param controlId - The ID of the control.
+     */
+    public async deleteSystemControl(
+        processId: string,
+        witRefName: string,
+        controlId: string
+        ): Promise<WorkItemTrackingProcess.Control[]> {
+
+        return this.beginRequest<WorkItemTrackingProcess.Control[]>({
+            apiVersion: "5.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
+            routeValues: {
+                processId: processId,
+                witRefName: witRefName,
+                controlId: controlId
+            }
+        });
+    }
+
+    /**
+     * Gets edited system controls for a work item type in a process. To get all system controls (base + edited) use layout API(s)
+     * 
+     * @param processId - The ID of the process.
+     * @param witRefName - The reference name of the work item type.
+     */
+    public async getSystemControls(
+        processId: string,
+        witRefName: string
+        ): Promise<WorkItemTrackingProcess.Control[]> {
+
+        return this.beginRequest<WorkItemTrackingProcess.Control[]>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
+            routeValues: {
+                processId: processId,
+                witRefName: witRefName
+            }
+        });
+    }
+
+    /**
+     * Updates/adds a system control on the work item form.
+     * 
+     * @param control - 
+     * @param processId - The ID of the process.
+     * @param witRefName - The reference name of the work item type.
+     * @param controlId - The ID of the control.
+     */
+    public async updateSystemControl(
+        control: WorkItemTrackingProcess.Control,
+        processId: string,
+        witRefName: string,
+        controlId: string
+        ): Promise<WorkItemTrackingProcess.Control> {
+
+        return this.beginRequest<WorkItemTrackingProcess.Control>({
+            apiVersion: "5.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
+            routeValues: {
+                processId: processId,
+                witRefName: witRefName,
+                controlId: controlId
+            },
+            body: control
+        });
+    }
+
+    /**
      * Creates a work item type in the process.
      * 
      * @param workItemType - 

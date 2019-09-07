@@ -343,7 +343,7 @@ export class DashboardRestClient extends RestClientBase {
     }
 
     /**
-     * Get all available widget metadata in alphabetical order.
+     * Get all available widget metadata in alphabetical order, including widgets marked with isVisibleFromCatalog == false.
      * 
      * @param scope - 
      * @param project - Project ID or project name

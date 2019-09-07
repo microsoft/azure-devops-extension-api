@@ -620,7 +620,7 @@ export class CoreRestClient extends RestClientBase {
      * Delete a team.
      * 
      * @param projectId - The name or ID (GUID) of the team project containing the team to delete.
-     * @param teamId - The name of ID of the team to delete.
+     * @param teamId - The name or ID of the team to delete.
      */
     public async deleteTeam(
         projectId: string,

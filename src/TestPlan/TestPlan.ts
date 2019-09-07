@@ -350,7 +350,7 @@ export enum ResultState {
      */
     Paused = 4,
     /**
-     * Test has completed, but there is no quantative measure of completeness. This may apply to load tests.
+     * Test has completed, but there is no quantitative measure of completeness. This may apply to load tests.
      */
     Completed = 5,
     MaxValue = 5
@@ -428,7 +428,7 @@ export interface SuiteEntryUpdateParams {
      */
     sequenceNumber: number;
     /**
-     * Defines whther the entry is of type test case or suite.
+     * Defines whether the entry is of type test case or suite.
      */
     suiteEntryType: SuiteEntryTypes;
 }
@@ -538,7 +538,17 @@ export interface TestCaseReference {
  * This data model is used in TestCaseResultsDataProvider and populates the data required for initial page load
  */
 export interface TestCaseResultsData {
+    /**
+     * Point information from where the execution history was viewed. Used to set initial filters.
+     */
+    contextPoint: TestPointDetailedReference;
+    /**
+     * Use to store the results displayed in the table
+     */
     results: TestCaseAssociatedResult[];
+    /**
+     * Test Case Name to be displayed in the table header
+     */
     testCaseName: string;
 }
 
@@ -609,7 +619,7 @@ export interface TestPlan extends TestPlanUpdateParams {
      */
     id: number;
     /**
-     * Previous build Id assocaited with the test plan
+     * Previous build Id associated with the test plan
      */
     previousBuildId: number;
     /**
@@ -631,7 +641,7 @@ export interface TestPlan extends TestPlanUpdateParams {
 }
 
 /**
- * The test plan cerate parameters.
+ * The test plan create parameters.
  */
 export interface TestPlanCreateParams {
     /**
@@ -732,9 +742,10 @@ export interface TestPlanReference {
  * This data model is used in TestPlansHubRefreshDataProvider and populates the data required for initial page load
  */
 export interface TestPlansHubRefreshData {
+    defineColumnOptionFields: string[];
+    executeColumnOptionFields: string[];
     isAdvancedExtensionEnabled: boolean;
     selectedSuiteId: number;
-    selectedSuiteName: string;
     testCasePageSize: number;
     testCases: TestCase[];
     testCasesContinuationToken: string;
@@ -840,6 +851,14 @@ export interface TestPointCount {
     testSuiteId: number;
 }
 
+export interface TestPointDetailedReference {
+    configuration: TestConfigurationReference;
+    plan: TestPlanReference;
+    pointId: number;
+    suite: TestSuiteReference;
+    tester: WebApi.IdentityRef;
+}
+
 /**
  * Test Point Results
  */
@@ -849,7 +868,7 @@ export interface TestPointResults {
      */
     failureType: FailureType;
     /**
-     * Last Resolution State Id for the TEst Point
+     * Last Resolution State Id for the Test Point
      */
     lastResolutionState: LastResolutionState;
     /**
@@ -1017,7 +1036,7 @@ export interface TestSuiteReference {
  */
 export interface TestSuiteReferenceWithProject extends TestSuiteReference {
     /**
-     * Refernce of destination Project
+     * Reference of destination Project
      */
     project: TfsCore.TeamProjectReference;
 }

@@ -1681,6 +1681,45 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Gets the list of results whose failure matches with the provided one.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - id of test run
+     * @param testResultId - id of test result inside a test run
+     * @param testSubResultId - id of subresult inside a test result
+     * @param top - Maximum number of results to return
+     * @param continuationToken - Header to pass the continuationToken
+     */
+    public async getSimilarTestResults(
+        project: string,
+        runId: number,
+        testResultId: number,
+        testSubResultId: number,
+        top?: number,
+        continuationToken?: String
+        ): Promise<Test.TestCaseResult[]> {
+
+        const queryValues: any = {
+            testSubResultId: testSubResultId,
+            '$top': top
+        };
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}/SimilarTestResults",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testResultId: testResultId
+            },
+            customHeaders: {
+                "x-ms-continuationtoken": continuationToken,
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * \<p\>Gets the coverage status for the last successful build of a definition, optionally scoped to a specific branch\</p\>
      * 
      * @param project - Project ID or project name

@@ -2033,6 +2033,24 @@ export enum ProcessTemplateType {
 }
 
 /**
+ * Contains the settings for the retention rules.
+ */
+export interface ProjectRetentionSetting {
+    /**
+     * The rules for artifact retention. Artifacts can not live longer than a run, so will be overridden by a shorter run purge setting.
+     */
+    purgeArtifacts: RetentionSetting;
+    /**
+     * The rules for pull request pipeline run retention.
+     */
+    purgePullRequestRuns: RetentionSetting;
+    /**
+     * The rules for pipeline run retention.
+     */
+    purgeRuns: RetentionSetting;
+}
+
+/**
  * Represents a pull request object.  These are retrieved from Source Providers.
  */
 export interface PullRequest {
@@ -2223,6 +2241,15 @@ export interface RetentionPolicy {
      * The minimum number of builds to keep.
      */
     minimumToKeep: number;
+}
+
+/**
+ * Contains the minimum, maximum, and current value for a retention setting.
+ */
+export interface RetentionSetting {
+    max: number;
+    min: number;
+    value: number;
 }
 
 export interface Schedule {
@@ -2488,6 +2515,11 @@ export interface SourceRepositoryItem {
      * The URL of the item.
      */
     url: string;
+}
+
+export enum StageUpdateType {
+    Cancel = 0,
+    Retry = 1
 }
 
 export interface SupportedTrigger {
@@ -2809,6 +2841,23 @@ export interface TimelineReference {
      * The REST URL of the timeline.
      */
     url: string;
+}
+
+/**
+ * Contains members for updating the retention settings values. All fields are optional.
+ */
+export interface UpdateProjectRetentionSettingModel {
+    artifactsRetention: UpdateRetentionSettingModel;
+    pullRequestRunRetention: UpdateRetentionSettingModel;
+    runRetention: UpdateRetentionSettingModel;
+}
+
+export interface UpdateRetentionSettingModel {
+    value: number;
+}
+
+export interface UpdateStageParameters {
+    state: StageUpdateType;
 }
 
 export enum ValidationResult {

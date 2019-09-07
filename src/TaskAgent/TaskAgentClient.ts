@@ -2348,6 +2348,34 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Get a list of agent queues by pool ids
+     * 
+     * @param poolIds - A comma-separated list of pool ids to get the corresponding queues for
+     * @param project - Project ID or project name
+     * @param actionFilter - Filter by whether the calling user has use or manage permissions
+     */
+    public async getAgentQueuesForPools(
+        poolIds: number[],
+        project?: string,
+        actionFilter?: TaskAgent.TaskAgentQueueActionFilter
+        ): Promise<TaskAgent.TaskAgentQueue[]> {
+
+        const queryValues: any = {
+            poolIds: poolIds && poolIds.join(","),
+            actionFilter: actionFilter
+        };
+
+        return this.beginRequest<TaskAgent.TaskAgentQueue[]>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param agentCloudId - 
      */
     public async getAgentCloudRequests(
@@ -3117,36 +3145,6 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * @param taskGroup - 
-     * @param project - Project ID or project name
-     * @param taskGroupId - 
-     * @param disablePriorVersions - 
-     */
-    public async publishPreviewTaskGroup(
-        taskGroup: TaskAgent.TaskGroup,
-        project: string,
-        taskGroupId: string,
-        disablePriorVersions?: boolean
-        ): Promise<TaskAgent.TaskGroup[]> {
-
-        const queryValues: any = {
-            disablePriorVersions: disablePriorVersions
-        };
-
-        return this.beginRequest<TaskAgent.TaskGroup[]>({
-            apiVersion: "5.2-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
-            routeValues: {
-                project: project,
-                taskGroupId: taskGroupId
-            },
-            queryParams: queryValues,
-            body: taskGroup
-        });
-    }
-
-    /**
      * @param taskGroupMetadata - 
      * @param project - Project ID or project name
      * @param parentTaskGroupId - 
@@ -3215,6 +3213,36 @@ export class TaskAgentRestClient extends RestClientBase {
                 taskGroupId: taskGroupId
             },
             body: taskGroup
+        });
+    }
+
+    /**
+     * @param taskGroupUpdateProperties - 
+     * @param project - Project ID or project name
+     * @param taskGroupId - 
+     * @param disablePriorVersions - 
+     */
+    public async updateTaskGroupProperties(
+        taskGroupUpdateProperties: TaskAgent.TaskGroupUpdatePropertiesBase,
+        project: string,
+        taskGroupId: string,
+        disablePriorVersions?: boolean
+        ): Promise<TaskAgent.TaskGroup[]> {
+
+        const queryValues: any = {
+            disablePriorVersions: disablePriorVersions
+        };
+
+        return this.beginRequest<TaskAgent.TaskGroup[]>({
+            apiVersion: "5.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/distributedtask/taskgroups/{taskGroupId}",
+            routeValues: {
+                project: project,
+                taskGroupId: taskGroupId
+            },
+            queryParams: queryValues,
+            body: taskGroupUpdateProperties
         });
     }
 
@@ -3373,44 +3401,89 @@ export class TaskAgentRestClient extends RestClientBase {
     /**
      * Add a variable group.
      * 
-     * @param group - Variable group to add.
-     * @param project - Project ID or project name
+     * @param variableGroupParameters - 
      */
     public async addVariableGroup(
-        group: TaskAgent.VariableGroupParameters,
-        project: string
+        variableGroupParameters: TaskAgent.VariableGroupParameters
         ): Promise<TaskAgent.VariableGroup> {
 
         return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "5.2-preview.2",
             method: "POST",
-            routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
-            routeValues: {
-                project: project
-            },
-            body: group
+            routeTemplate: "_apis/distributedtask/variablegroups/{groupId}",
+            body: variableGroupParameters
         });
     }
 
     /**
      * Delete a variable group
      * 
-     * @param project - Project ID or project name
      * @param groupId - Id of the variable group.
+     * @param projectIds - 
      */
     public async deleteVariableGroup(
-        project: string,
-        groupId: number
+        groupId: number,
+        projectIds: string[]
         ): Promise<void> {
 
+        const queryValues: any = {
+            projectIds: projectIds && projectIds.join(",")
+        };
+
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "5.2-preview.2",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
+            routeTemplate: "_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
-                project: project,
                 groupId: groupId
-            }
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Add a variable group.
+     * 
+     * @param variableGroupProjectReferences - 
+     * @param variableGroupId - 
+     */
+    public async shareVariableGroup(
+        variableGroupProjectReferences: TaskAgent.VariableGroupProjectReference[],
+        variableGroupId: number
+        ): Promise<void> {
+
+        const queryValues: any = {
+            variableGroupId: variableGroupId
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "5.2-preview.2",
+            method: "PATCH",
+            routeTemplate: "_apis/distributedtask/variablegroups/{groupId}",
+            queryParams: queryValues,
+            body: variableGroupProjectReferences
+        });
+    }
+
+    /**
+     * Update a variable group.
+     * 
+     * @param variableGroupParameters - 
+     * @param groupId - Id of the variable group to update.
+     */
+    public async updateVariableGroup(
+        variableGroupParameters: TaskAgent.VariableGroupParameters,
+        groupId: number
+        ): Promise<TaskAgent.VariableGroup> {
+
+        return this.beginRequest<TaskAgent.VariableGroup>({
+            apiVersion: "5.2-preview.2",
+            method: "PUT",
+            routeTemplate: "_apis/distributedtask/variablegroups/{groupId}",
+            routeValues: {
+                groupId: groupId
+            },
+            body: variableGroupParameters
         });
     }
 
@@ -3426,7 +3499,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.VariableGroup> {
 
         return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project,
@@ -3463,7 +3536,7 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.VariableGroup[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project
@@ -3488,85 +3561,10 @@ export class TaskAgentRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TaskAgent.VariableGroup[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
             routeValues: {
                 project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update a variable group.
-     * 
-     * @param group - Variable group to update.
-     * @param project - Project ID or project name
-     * @param groupId - Id of the variable group to update.
-     */
-    public async updateVariableGroup(
-        group: TaskAgent.VariableGroupParameters,
-        project: string,
-        groupId: number
-        ): Promise<TaskAgent.VariableGroup> {
-
-        return this.beginRequest<TaskAgent.VariableGroup>({
-            apiVersion: "5.2-preview.1",
-            method: "PUT",
-            routeTemplate: "{project}/_apis/distributedtask/variablegroups/{groupId}",
-            routeValues: {
-                project: project,
-                groupId: groupId
-            },
-            body: group
-        });
-    }
-
-    /**
-     * @param groupId - 
-     * @param project - 
-     */
-    public async querySharedProjectsForVariableGroup(
-        groupId: number,
-        project: string
-        ): Promise<TaskAgent.ProjectReference[]> {
-
-        const queryValues: any = {
-            project: project
-        };
-
-        return this.beginRequest<TaskAgent.ProjectReference[]>({
-            apiVersion: "5.2-preview.1",
-            routeTemplate: "_apis/distributedtask/variablegroupshare/{groupId}",
-            routeValues: {
-                groupId: groupId
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param groupId - 
-     * @param fromProject - 
-     * @param withProject - 
-     */
-    public async shareVariableGroupWithProject(
-        groupId: number,
-        fromProject: string,
-        withProject: string
-        ): Promise<void> {
-
-        const queryValues: any = {
-            fromProject: fromProject,
-            withProject: withProject
-        };
-
-        return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/distributedtask/variablegroupshare/{groupId}",
-            routeValues: {
-                groupId: groupId
             },
             queryParams: queryValues
         });

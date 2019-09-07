@@ -73,6 +73,24 @@ export interface Comment extends CommentResourceReference {
 }
 
 /**
+ * Represents an attachment to a comment.
+ */
+export interface CommentAttachment extends CommentResourceReference {
+    /**
+     * IdentityRef of the creator of the attachment.
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * The creation date of the attachment.
+     */
+    createdDate: Date;
+    /**
+     * Unique Id of the attachment.
+     */
+    id: string;
+}
+
+/**
  * Represents a request to create a work item comment.
  */
 export interface CommentCreateParameters {
@@ -95,10 +113,6 @@ export enum CommentExpandOptions {
      * Include comment reactions
      */
     Reactions = 1,
-    /**
-     * Include comment mentions
-     */
-    Mentions = 2,
     /**
      * Include the rendered text (html) in addition to markdown text
      */
@@ -186,7 +200,7 @@ export enum CommentMentionType {
 }
 
 /**
- * Contains information about work item comment reaction for a particular reaction type.
+ * Contains information about comment reaction for a particular reaction type.
  */
 export interface CommentReaction extends CommentResourceReference {
     /**

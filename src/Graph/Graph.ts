@@ -143,41 +143,6 @@ export interface GraphMember extends GraphSubject {
     principalName: string;
 }
 
-export enum GraphMemberSearchFactor {
-    /**
-     * Domain qualified account name (domain\\alias)
-     */
-    PrincipalName = 0,
-    /**
-     * Display name
-     */
-    DisplayName = 1,
-    /**
-     * Administrators group
-     */
-    AdministratorsGroup = 2,
-    /**
-     * Find the identity using the identifier (SID)
-     */
-    Identifier = 3,
-    /**
-     * Email address
-     */
-    MailAddress = 4,
-    /**
-     * A general search for an identity.
-     */
-    General = 5,
-    /**
-     * Alternate login username (Basic Auth Alias)
-     */
-    Alias = 6,
-    /**
-     * Find identity using DirectoryAlias
-     */
-    DirectoryAlias = 8
-}
-
 /**
  * Relationship between a container and a member
  */
@@ -495,4 +460,9 @@ export interface PagedGraphUsers {
      * The enumerable set of users found within a page.
      */
     graphUsers: GraphUser[];
+}
+
+export interface RequestAccessPayLoad {
+    message: string;
+    urlRequested: string;
 }

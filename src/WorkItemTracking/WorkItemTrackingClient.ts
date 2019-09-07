@@ -205,7 +205,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
      * Gets root classification nodes or list of classification nodes for a given list of nodes ids, for a given project. In case ids parameter is supplied you will  get list of classification nodes for those ids. Otherwise you will get root classification nodes for this project.
      * 
      * @param project - Project ID or project name
-     * @param ids - Comma seperated integer classification nodes ids. It's not required, if you want root nodes.
+     * @param ids - Comma separated integer classification nodes ids. It's not required, if you want root nodes.
      * @param depth - Depth of children to fetch.
      * @param errorPolicy - Flag to handle errors in getting some nodes. Possible options are Fail and Omit.
      */
@@ -500,7 +500,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
     }
 
     /**
-     * Returns information for all fields.
+     * Returns information for all fields. The project ID/name parameter is optional.
      * 
      * @param project - Project ID or project name
      * @param expand - Use ExtensionFields to include extension fields, otherwise exclude them. Unless the feature flag for this parameter is enabled, extension fields are always included.
@@ -904,23 +904,6 @@ export class WorkItemTrackingRestClient extends RestClientBase {
                 id: id
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Validates the fields values.
-     * 
-     * @param ruleEngineInput - 
-     */
-    public async evaluateRulesOnField(
-        ruleEngineInput: WorkItemTracking.FieldsToEvaluate
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "5.0",
-            method: "POST",
-            routeTemplate: "_apis/wit/$ruleEngine",
-            body: ruleEngineInput
         });
     }
 

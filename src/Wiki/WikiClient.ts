@@ -9,6 +9,7 @@ import { RestClientBase } from "../Common/RestClientBase";
 
 import * as Comments_Contracts from "../Comments/Comments";
 import * as Git from "../Git/Git";
+import * as WebApi from "../WebApi/WebApi";
 import * as Wiki from "../Wiki/Wiki";
 
 export class WikiRestClient extends RestClientBase {
@@ -17,6 +18,168 @@ export class WikiRestClient extends RestClientBase {
     }
 
     public static readonly RESOURCE_AREA_ID = "bf7d82a0-8aa5-4613-94ef-6172a5ea01f3";
+
+    /**
+     * Uploads an attachment on a comment on a wiki page.
+     * 
+     * @param content - Content to upload
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param pageId - Wiki page ID.
+     */
+    public async createCommentAttachment(
+        content: any,
+        project: string,
+        wikiIdentifier: string,
+        pageId: number
+        ): Promise<Comments_Contracts.CommentAttachment> {
+
+        return this.beginRequest<Comments_Contracts.CommentAttachment>({
+            apiVersion: "5.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/comments/attachments/{attachmentId}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId
+            },
+            customHeaders: {
+                "Content-Type": "application/octet-stream",
+            },
+            body: content,
+            isRawData: true
+        });
+    }
+
+    /**
+     * Downloads an attachment on a comment on a wiki page.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param pageId - Wiki page ID.
+     * @param attachmentId - Attachment ID.
+     */
+    public async getAttachmentContent(
+        project: string,
+        wikiIdentifier: string,
+        pageId: number,
+        attachmentId: string
+        ): Promise<ArrayBuffer> {
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "5.2-preview.1",
+            httpResponseType: "application/octet-stream",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/comments/attachments/{attachmentId}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId,
+                attachmentId: attachmentId
+            }
+        });
+    }
+
+    /**
+     * Add a reaction on a wiki page comment.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name
+     * @param pageId - Wiki page ID
+     * @param commentId - ID of the associated comment
+     * @param type - Type of the reaction being added
+     */
+    public async addCommentReaction(
+        project: string,
+        wikiIdentifier: string,
+        pageId: number,
+        commentId: number,
+        type: Comments_Contracts.CommentReactionType
+        ): Promise<Comments_Contracts.CommentReaction> {
+
+        return this.beginRequest<Comments_Contracts.CommentReaction>({
+            apiVersion: "5.2-preview.1",
+            method: "PUT",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/comments/{commentId}/reactions/{type}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId,
+                commentId: commentId,
+                type: type
+            }
+        });
+    }
+
+    /**
+     * Delete a reaction on a wiki page comment.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or name
+     * @param pageId - Wiki page ID
+     * @param commentId - ID of the associated comment
+     * @param type - Type of the reaction being deleted
+     */
+    public async deleteCommentReaction(
+        project: string,
+        wikiIdentifier: string,
+        pageId: number,
+        commentId: number,
+        type: Comments_Contracts.CommentReactionType
+        ): Promise<Comments_Contracts.CommentReaction> {
+
+        return this.beginRequest<Comments_Contracts.CommentReaction>({
+            apiVersion: "5.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/comments/{commentId}/reactions/{type}",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId,
+                commentId: commentId,
+                type: type
+            }
+        });
+    }
+
+    /**
+     * Gets a list of users who have reacted for the given wiki comment with a given reaction type. Supports paging, with a default page size of 100 users at a time.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param pageId - Wiki page ID.
+     * @param commentId - ID of the associated comment
+     * @param type - Type of the reaction for which the engaged users are being requested
+     * @param top - Number of enagaged users to be returned in a given page. Optional, defaults to 100
+     * @param skip - Number of engaged users to be skipped to page the next set of engaged users, defaults to 0
+     */
+    public async getEngagedUsers(
+        project: string,
+        wikiIdentifier: string,
+        pageId: number,
+        commentId: number,
+        type: Comments_Contracts.CommentReactionType,
+        top?: number,
+        skip?: number
+        ): Promise<WebApi.IdentityRef[]> {
+
+        const queryValues: any = {
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<WebApi.IdentityRef[]>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/comments/{commentId}/reactions/{type}/users",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId,
+                commentId: commentId,
+                type: type
+            },
+            queryParams: queryValues
+        });
+    }
 
     /**
      * Add a comment on a wiki page.

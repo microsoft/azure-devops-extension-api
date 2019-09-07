@@ -348,7 +348,7 @@ export interface NotificationDetails {
      */
     requestDuration: number;
     /**
-     * Gets or sets this notification detail's reponse.
+     * Gets or sets this notification detail's response.
      */
     response: string;
 }
@@ -546,7 +546,7 @@ export interface PublisherEvent {
      */
     publisherInputFilters: FormInput.InputFilter[];
     /**
-     * Gets or sets matchd hooks subscription which caused this event.
+     * Gets or sets matched hooks subscription which caused this event.
      */
     subscription: Subscription;
 }
@@ -574,7 +574,7 @@ export interface PublishersQuery {
  */
 export interface ResourceContainer {
     /**
-     * Gets or sets the container's base URL, i.e. the URL of the host (collection, application, or deploument) containing the container resource.
+     * Gets or sets the container's base URL, i.e. the URL of the host (collection, application, or deployment) containing the container resource.
      */
     baseUrl: string;
     /**
@@ -644,7 +644,7 @@ export interface Subscription {
 }
 
 /**
- * The scope to which a subcription input applies
+ * The scope to which a subscription input applies
  */
 export enum SubscriptionInputScope {
     /**

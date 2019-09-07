@@ -31,12 +31,12 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
-     * List diagnostic logs this service.
+     * Get a list of diagnostic logs for this service.
      * 
-     * @param source - 
-     * @param entryId - 
-     * @param startTime - 
-     * @param endTime - 
+     * @param source - ID specifying which type of logs to check diagnostics for.
+     * @param entryId - The ID of the specific log to query for.
+     * @param startTime - Start time for the time range to query in.
+     * @param endTime - End time for the time range to query in.
      */
     public async listLogs(
         source: string,
@@ -62,7 +62,9 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
-     * @param subscriptionId - 
+     * Get the diagnostics settings for a subscription.
+     * 
+     * @param subscriptionId - The id of the notifications subscription.
      */
     public async getSubscriptionDiagnostics(
         subscriptionId: string
@@ -78,8 +80,10 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
+     * Update the diagnostics settings for a subscription.
+     * 
      * @param updateParameters - 
-     * @param subscriptionId - 
+     * @param subscriptionId - The id of the notifications subscription.
      */
     public async updateSubscriptionDiagnostics(
         updateParameters: Notification.UpdateSubscripitonDiagnosticsParameters,
@@ -154,7 +158,7 @@ export class NotificationRestClient extends RestClientBase {
     /**
      * Get a specific event type.
      * 
-     * @param eventType - 
+     * @param eventType - The ID of the event type.
      */
     public async getEventType(
         eventType: string
@@ -250,7 +254,9 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
-     * @param subscriberId - 
+     * Get delivery preferences of a notifications subscriber.
+     * 
+     * @param subscriberId - ID of the user or group.
      */
     public async getSubscriber(
         subscriberId: string
@@ -266,8 +272,10 @@ export class NotificationRestClient extends RestClientBase {
     }
 
     /**
+     * Update delivery preferences of a notifications subscriber.
+     * 
      * @param updateParameters - 
-     * @param subscriberId - 
+     * @param subscriberId - ID of the user or group.
      */
     public async updateSubscriber(
         updateParameters: Notification.NotificationSubscriberUpdateParameters,

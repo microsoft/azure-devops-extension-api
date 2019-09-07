@@ -78,6 +78,28 @@ export interface AggregatedDataForResultTrend {
     totalTests: number;
 }
 
+/**
+ * Result deatils for a particular test result outcome.
+ */
+export interface AggregatedResultDetailsByOutcome {
+    /**
+     * Number of results for current outcome.
+     */
+    count: number;
+    /**
+     * Time taken by results.
+     */
+    duration: any;
+    /**
+     * Test result outcome
+     */
+    outcome: TestOutcome;
+    /**
+     * Number of results on rerun
+     */
+    rerunResultCount: number;
+}
+
 export interface AggregatedResultsAnalysis {
     duration: any;
     notReportedResultsByOutcome: { [key: number] : AggregatedResultsByOutcome; };
@@ -101,6 +123,7 @@ export interface AggregatedResultsByOutcome {
 export interface AggregatedResultsDifference {
     increaseInDuration: any;
     increaseInFailures: number;
+    increaseInNonImpactedTests: number;
     increaseInOtherTests: number;
     increaseInPassedTests: number;
     increaseInTotalTests: number;
@@ -159,7 +182,7 @@ export interface BuildConfiguration {
      */
     branchName: string;
     /**
-     * BuildDefnitionId for build.
+     * BuildDefinitionId for build.
      */
     buildDefinitionId: number;
     /**
@@ -191,7 +214,7 @@ export interface BuildConfiguration {
      */
     project: ShallowReference;
     /**
-     * ResposotoryGuid for the Build.
+     * Repository Guid for the Build.
      */
     repositoryGuid: string;
     /**
@@ -357,7 +380,7 @@ export interface CloneOperationInformation {
      */
     state: CloneOperationState;
     /**
-     * Url for geting the clone information
+     * Url for getting the clone information
      */
     url: string;
 }
@@ -397,7 +420,7 @@ export interface CloneOptions {
      */
     copyAllSuites: boolean;
     /**
-     * copy ancestor hieracrchy
+     * copy ancestor hierarchy
      */
     copyAncestorHierarchy: boolean;
     /**
@@ -419,7 +442,7 @@ export interface CloneOptions {
  */
 export interface CloneStatistics {
     /**
-     * Number of Requirments cloned so far.
+     * Number of requirements cloned so far.
      */
     clonedRequirementsCount: number;
     /**
@@ -604,7 +627,7 @@ export interface CreateTestRunRequest {
 }
 
 /**
- * A custom field information. Allowed Key : Value pairs - ( AttemptId: IntVaue , IsTestResultFlaky: bool)
+ * A custom field information. Allowed Key : Value pairs - ( AttemptId: int value, IsTestResultFlaky: bool)
  */
 export interface CustomTestField {
     /**
@@ -782,6 +805,10 @@ export interface FlakySettings {
      * FlakyInSummaryReport defines flaky data should show in summary report or not.
      */
     flakyInSummaryReport: boolean;
+    /**
+     * IsFlakyBugCreated defines if there is any bug that has been created with flaky testresult.
+     */
+    isFlakyBugCreated: boolean;
     /**
      * ManualMarkUnmarkFlaky defines manual marking unmarking of flaky testcase.
      */
@@ -1158,7 +1185,7 @@ export enum OperationType {
  */
 export interface PhaseReference {
     /**
-     * Attempt number of the pahse
+     * Attempt number of the phase
      */
     attempt: number;
     /**
@@ -1180,7 +1207,7 @@ export interface PipelineReference {
      */
     phaseReference: PhaseReference;
     /**
-     * Reference of the pipeline with which this pipeline intance is related.
+     * Reference of the pipeline with which this pipeline instance is related.
      */
     pipelineId: number;
     /**
@@ -1198,15 +1225,15 @@ export interface PipelineTestMetrics {
      */
     currentContext: PipelineReference;
     /**
-     * This is the return value for matric ResultsAnalysis Results insights which include failure analysis, increase/decrease in results count analysis.
+     * This is the return value for metric ResultsAnalysis Results insights which include failure analysis, increase/decrease in results count analysis.
      */
     resultsAnalysis: ResultsAnalysis;
     /**
-     * This is the return value for matric ResultSummary Results summary based on results outcome.
+     * This is the return value for metric ResultSummary Results summary based on results outcome.
      */
     resultSummary: ResultSummary;
     /**
-     * This is the return value for matric RunSummary Run summary.
+     * This is the return value for metric RunSummary Run summary.
      */
     runSummary: RunSummary;
     /**
@@ -1642,7 +1669,7 @@ export interface ResultRetentionSettings {
 }
 
 /**
- * Results insights.
+ * Results insights for runs with state completed and NeedInvestigation.
  */
 export interface ResultsAnalysis {
     /**
@@ -1657,24 +1684,6 @@ export interface ResultsAnalysis {
      * Failure analysis of results with respect to PreviousContext
      */
     testFailuresAnalysis: TestResultFailuresAnalysis;
-}
-
-/**
- * Result deatils for a particular test result outcome.
- */
-export interface ResultsByOutcome {
-    /**
-     * Number of results for current outcome.
-     */
-    count: number;
-    /**
-     * Time taken by results.
-     */
-    duration: any;
-    /**
-     * Test result outcome
-     */
-    outcome: TestOutcome;
 }
 
 export interface ResultsByQueryRequest {
@@ -1714,6 +1723,10 @@ export interface ResultsStoreQuery {
  */
 export interface ResultsSummaryByOutcome {
     /**
+     * Aggregated result details for each test result outcome.
+     */
+    aggregatedResultDetailsByOutcome: { [key: number] : AggregatedResultDetailsByOutcome; };
+    /**
      * Time taken by results.
      */
     duration: any;
@@ -1722,11 +1735,7 @@ export interface ResultsSummaryByOutcome {
      */
     notReportedTestCount: number;
     /**
-     * Results details for each test result outcome.
-     */
-    resultsDetailByOutcome: ResultsByOutcome[];
-    /**
-     * Total number of test results.
+     * Total number of test results. (It includes NotImpacted test results as well which need to exclude while calculating pass/fail test result percentage).
      */
     totalTestCount: number;
 }
@@ -1736,7 +1745,7 @@ export interface ResultsSummaryByOutcome {
  */
 export interface ResultSummary {
     /**
-     * Runs count by outcome.
+     * Result summary of pipeline, group by TestRun state.
      */
     resultSummaryByRunState: { [key: number] : ResultsSummaryByOutcome; };
 }
@@ -1886,7 +1895,7 @@ export interface RunCreateModel {
      */
     runSummary: RunSummaryModel[];
     /**
-     * Timespan till the Run RunTimesout.
+     * Timespan till the run times out.
      */
     runTimeout: any;
     /**
@@ -1906,7 +1915,7 @@ export interface RunCreateModel {
      */
     tags: TestTag[];
     /**
-     * TestConfgurationMapping of the test run.
+     * TestConfigurationMapping of the test run.
      */
     testConfigurationsMapping: string;
     /**
@@ -1968,7 +1977,7 @@ export interface RunStatistic {
  */
 export interface RunSummary {
     /**
-     * Total time taken by runs.
+     * Total time taken by runs with state completed and NeedInvestigation.
      */
     duration: any;
     /**
@@ -1976,7 +1985,7 @@ export interface RunSummary {
      */
     noConfigRunsCount: number;
     /**
-     * Runs count by outcome.
+     * Runs count by outcome for runs with state completed and NeedInvestigation runs.
      */
     runSummaryByOutcome: { [key: number] : number; };
     /**
@@ -2965,7 +2974,7 @@ export interface TestHistoryQuery {
      */
     branch: string;
     /**
-     * Get the results history only for this BuildDefinationId. This to get used in query GroupBy should be Branch. If this is provided, Branch will have no use.
+     * Get the results history only for this BuildDefinitionId. This to get used in query GroupBy should be Branch. If this is provided, Branch will have no use.
      */
     buildDefinitionId: number;
     /**
@@ -3007,7 +3016,7 @@ export interface TestIterationDetailsModel {
      */
     actionResults: TestActionResultModel[];
     /**
-     * Refence to attachments in test iteration result.
+     * Reference to attachments in test iteration result.
      */
     attachments: TestCaseResultAttachmentModel[];
     /**
@@ -3291,7 +3300,11 @@ export enum TestLogType {
     /**
      * Temporary files
      */
-    Intermediate = 4
+    Intermediate = 4,
+    /**
+     * Subresult Attachment
+     */
+    System = 5
 }
 
 export interface TestMessageLog2 {
@@ -4079,7 +4092,7 @@ export interface TestResultSummary {
 
 export interface TestResultsUpdateSettings {
     /**
-     * FlakySettings defines Flaky Setttings Data.
+     * FlakySettings defines Flaky Settings Data.
      */
     flakySettings: FlakySettings;
 }
@@ -4384,7 +4397,7 @@ export interface TestRunExtended2 {
  */
 export enum TestRunOutcome {
     /**
-     * Run with zero failed tests and has atleast one impacted test
+     * Run with zero failed tests and has at least one impacted test
      */
     Passed = 0,
     /**
@@ -4443,7 +4456,7 @@ export enum TestRunState {
      */
     Completed = 3,
     /**
-     * Run is stopped and remaing tests have been aborted
+     * Run is stopped and remaining tests have been aborted
      */
     Aborted = 4,
     /**

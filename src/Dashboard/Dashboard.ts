@@ -65,7 +65,7 @@ export interface DashboardGroup {
 }
 
 /**
- * Dashboard group entry, wraping around Dashboard (needed?)
+ * Dashboard group entry, wrapping around Dashboard (needed?)
  */
 export interface DashboardGroupEntry extends Dashboard {
 }
@@ -243,6 +243,10 @@ export interface WidgetMetadata {
      */
     isVisibleFromCatalog: boolean;
     /**
+     * Keywords associated with this widget, non-filterable and invisible
+     */
+    keywords: string[];
+    /**
      * Opt-in properties for customizing widget presentation in a "lightbox" dialog.
      */
     lightboxOptions: LightboxOptions;
@@ -262,6 +266,10 @@ export interface WidgetMetadata {
      * Data contract required for the widget to function and to work in its container.
      */
     supportedScopes: WidgetScope[];
+    /**
+     * Tags associated with this widget, visible on each widget and filterable.
+     */
+    tags: string[];
     /**
      * Contribution target IDs
      */

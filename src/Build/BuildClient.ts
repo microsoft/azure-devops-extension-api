@@ -1667,6 +1667,46 @@ export class BuildRestClient extends RestClientBase {
     }
 
     /**
+     * Gets the project's retention settings.
+     * 
+     * @param project - Project ID or project name
+     */
+    public async getRetentionSettings(
+        project: string
+        ): Promise<Build.ProjectRetentionSetting> {
+
+        return this.beginRequest<Build.ProjectRetentionSetting>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/build/retention",
+            routeValues: {
+                project: project
+            }
+        });
+    }
+
+    /**
+     * Updates the project's retention settings.
+     * 
+     * @param updateModel - 
+     * @param project - Project ID or project name
+     */
+    public async updateRetentionSettings(
+        updateModel: Build.UpdateProjectRetentionSettingModel,
+        project: string
+        ): Promise<Build.ProjectRetentionSetting> {
+
+        return this.beginRequest<Build.ProjectRetentionSetting>({
+            apiVersion: "5.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/build/retention",
+            routeValues: {
+                project: project
+            },
+            body: updateModel
+        });
+    }
+
+    /**
      * Gets all revisions of a definition.
      * 
      * @param project - Project ID or project name
@@ -1742,6 +1782,34 @@ export class BuildRestClient extends RestClientBase {
             routeValues: {
                 project: project
             }
+        });
+    }
+
+    /**
+     * Update a build stage
+     * 
+     * @param updateParameters - 
+     * @param buildId - 
+     * @param stageRefName - 
+     * @param project - Project ID or project name
+     */
+    public async updateStage(
+        updateParameters: Build.UpdateStageParameters,
+        buildId: number,
+        stageRefName: string,
+        project?: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "5.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/build/builds/{buildId}/stages/{stageRefName}",
+            routeValues: {
+                project: project,
+                buildId: buildId,
+                stageRefName: stageRefName
+            },
+            body: updateParameters
         });
     }
 
@@ -1985,6 +2053,28 @@ export class BuildRestClient extends RestClientBase {
     }
 
     /**
+     * Removes a tag from builds, definitions, and from the tag store
+     * 
+     * @param project - Project ID or project name
+     * @param tag - The tag to remove.
+     */
+    public async deleteTag(
+        project: string,
+        tag: string
+        ): Promise<string[]> {
+
+        return this.beginRequest<string[]>({
+            apiVersion: "5.2-preview.2",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/build/tags/{*tag}",
+            routeValues: {
+                project: project,
+                tag: tag
+            }
+        });
+    }
+
+    /**
      * Gets a list of all build tags in the project.
      * 
      * @param project - Project ID or project name
@@ -1995,7 +2085,7 @@ export class BuildRestClient extends RestClientBase {
 
         return this.beginRequest<string[]>({
             apiVersion: "5.2-preview.2",
-            routeTemplate: "{project}/_apis/build/tags",
+            routeTemplate: "{project}/_apis/build/tags/{*tag}",
             routeValues: {
                 project: project
             }
