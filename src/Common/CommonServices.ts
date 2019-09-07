@@ -77,21 +77,51 @@ export interface INavigationElement {
 export interface IHostNavigationService {
 
     /**
-     * Add a callback to be invoked each time the hash navigation has changed
-     *
-     * @param callback - Method invoked on each navigation hash change
-     */
-    onHashChanged(callback: (hash: string) => void): void;
-
-    /**
      * Gets the current hash.
      */
     getHash(): Promise<string>;
 
     /**
-     * Sets the provided hash from the hosted content.
+     * Gets the set of navigation elements (like hubs and hub groups) selected on the current page.
      */
-    setHash(hash: string): void;
+    getPageNavigationElements(): Promise<INavigationElement[]>;
+
+    /**
+     * Gets information about the route that was matched for the current page
+     */
+    getPageRoute(): Promise<IPageRoute>;
+
+    /**
+     * Gets the current set of query parameters in the host page's URL.
+     */
+    getQueryParams(): Promise<{ [key: string]: string }>;
+
+    /**
+     * Navigate the parent page to the specified url
+     *
+     * @param url Url to navigate to
+     */
+    navigate(url: string): void;
+
+    /**
+     * Add a callback to be invoked each time the hash navigation has changed
+     *
+     * @param callback Method invoked on each navigation hash change
+     */
+    onHashChanged(callback: (hash: string) => void): void;
+
+    /**
+     * Open a new window to the specified url
+     *
+     * @param url Url of the new window
+     * @param features Comma-separated list of features/specs sent as the 3rd parameter to window.open. For example: "height=400,width=400".
+     */
+    openNewWindow(url: string, features: string): void;
+
+    /**
+     * Reloads the parent frame
+     */
+    reload(): void;
 
     /**
      * Replace existing hash with the provided hash from the hosted content.
@@ -101,39 +131,21 @@ export interface IHostNavigationService {
     /**
      * Update the host document's title (appears as the browser tab title).
      *
-     * @param title - The new title of the window
+     * @param title The new title of the window
      */
     setDocumentTitle(title: string): void;
 
     /**
-    * Reloads the parent frame
-    */
-    reload(): void;
-
-    /**
-    * Navigate the parent page to the specified url
-    *
-    * @param url - Url to navigate to
-    */
-    navigate(url: string): void;
-
-    /**
-    * Open a new window to the specified url
-    *
-    * @param url - Url of the new window
-    * @param features - Comma-separated list of features/specs sent as the 3rd parameter to window.open. For example: "height=400,width=400".
-    */
-    openNewWindow(url: string, features: string): void;
-
-    /**
-     * Gets information about the route that was matched for the current page
+     * Sets the provided hash from the hosted content.
      */
-    getPageRoute(): IPageRoute;
+    setHash(hash: string): void;
 
     /**
-     * Gets the set of navigation elements (like hubs and hub groups) selected on the current page.
+     * Sets one or more query parameters on the host page
+     *
+     * @param parameters Dictionary of query string parameters to add, update, or remove (pass an empty value to remove)
      */
-    getPageNavigationElements(): INavigationElement[];
+    setQueryParams(parameters: { [key: string]: string }): void;
 }
 
 /**
@@ -693,4 +705,74 @@ export interface IGlobalMessagesService {
      * Closes the currently active global message banner
      */
     closeBanner(): void;
+}
+
+/**
+ * Color used in some UI components
+ */
+export interface IColor {
+    /**
+     * Red coordinate: 0-255
+     */
+    red: number;
+
+    /**
+     * Blue coordinate: 0-255
+     */
+    blue: number;
+
+    /**
+     * Green coordinate: 0-255
+     */
+    green: number;
+
+    /**
+     * Optional color name; may or may not be used by various controls
+     */
+    name?: string;
+}
+
+/**
+ * Defines a pill from a contribution
+ */
+export interface IContributedPill {
+    /**
+     * Background color for the pill
+     * Ignored unless variant is set to Colored
+     * If variant is set to Colored and this is not provided, we'll render as Standard and emit a warning to the console
+     */
+    color?: IColor;
+
+    /**
+     * Id of the contribution that the button was defined in (optional, used to resolve relative icon URLs)
+     */
+    contributionId?: string;
+
+    /**
+     * Either a url (relative or fully qualified) or an IContributedIconDefinition with
+     * urls for light and dark themes. This allows the caller to use different styles of
+     * icons based on the theme type.
+     */
+    icon?: string | IContributedIconDefinition;
+
+    /**
+     * onClick handler for the pill itself
+     */
+    onClick?: () => void;
+
+    /**
+     * Renders the remove button if provided
+     * Handler to remove the pill
+     */
+    onRemoveClick?: () => void;
+
+    /**
+     * The text to render inside the pill.
+     */
+    text: string;
+
+    /**
+     * Optional value to use as an aria-label and tooltip for the pill.
+     */
+    tooltip?: string;
 }
