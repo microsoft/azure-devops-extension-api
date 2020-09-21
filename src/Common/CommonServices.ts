@@ -36,10 +36,9 @@ export const enum CommonServiceIds {
 }
 
 /**
-* Route information for the current page
-*/
+ * Route information for the current page
+ */
 export interface IPageRoute {
-
     /**
      * Id of the contributed route
      */
@@ -52,8 +51,8 @@ export interface IPageRoute {
 }
 
 /**
-* Information about a displayed navigation element
-*/
+ * Information about a displayed navigation element
+ */
 export interface INavigationElement {
     /**
      * Unique id of the displayed navigation
@@ -72,8 +71,8 @@ export interface INavigationElement {
 }
 
 /**
-* Service for interacting with the host window's navigation (URLs, new windows, etc.)
-*/
+ * Service for interacting with the host window's navigation (URLs, new windows, etc.)
+ */
 export interface IHostNavigationService {
 
     /**
@@ -149,8 +148,8 @@ export interface IHostNavigationService {
 }
 
 /**
-* Host level for a VSS service
-*/
+ * Host level for a VSS service
+ */
 export const enum TeamFoundationHostType {
     /**
      * The Deployment host
@@ -169,8 +168,8 @@ export const enum TeamFoundationHostType {
 }
 
 /**
-* Service for external content to get locations
-*/
+ * Service for external content to get locations
+ */
 export interface ILocationService {
 
     /**
@@ -203,8 +202,8 @@ export interface ILocationService {
 }
 
 /**
-* Options for showing host dialogs
-*/
+ * Options for showing host dialogs
+ */
 export interface IDialogOptions<TResult> {
 
     /**
@@ -230,8 +229,8 @@ export interface IDialogOptions<TResult> {
 }
 
 /**
-* Options for showing a message dialog
-*/
+ * Options for showing a message dialog
+ */
 export interface IMessageDialogOptions extends IDialogOptions<boolean> {
 
     /**
@@ -251,8 +250,8 @@ export interface IMessageDialogOptions extends IDialogOptions<boolean> {
 }
 
 /**
-* Size (width) options for panel
-*/
+ * Size (width) options for panel
+ */
 export const enum PanelSize {
     Small = 0,
     Medium = 1,
@@ -260,8 +259,8 @@ export const enum PanelSize {
 }
 
 /**
-* Options for showing panels
-*/
+ * Options for showing panels
+ */
 export interface IPanelOptions<TResult> {
 
     /**
@@ -291,9 +290,9 @@ export interface IPanelOptions<TResult> {
 }
 
 /**
-* Service for interacting with the layout of the page: managing full-screen mode,
-* opening dialogs and panels
-*/
+ * Service for interacting with the layout of the page: managing full-screen mode,
+ * opening dialogs and panels
+ */
 export interface IHostPageLayoutService {
 
     /**
@@ -339,25 +338,25 @@ export interface IHostPageLayoutService {
 export interface IDocumentOptions {
 
     /**
-    * The scope of where the document is stored. Can be Default or User.
-    */
+     * The scope of where the document is stored. Can be Default or User.
+     */
     scopeType?: string;
 
     /**
-    * The value of the scope where the document is stored. Can be Current or Me.
-    */
+     * The value of the scope where the document is stored. Can be Current or Me.
+     */
     scopeValue?: string;
 
     /**
-    * The default value to return when using getValue(). If the document has no value,
-    * this value will be used instead.
-    */
+     * The default value to return when using getValue(). If the document has no value,
+     * this value will be used instead.
+     */
     defaultValue?: any;
 }
 
 /**
-* Represents a single collection for extension data documents
-*/
+ * Represents a single collection for extension data documents
+ */
 export interface ExtensionDataCollection {
     /**
      * The name of the collection
@@ -380,89 +379,89 @@ export interface ExtensionDataCollection {
 export interface IExtensionDataManager {
 
     /**
-    * Returns a promise for retrieving a setting at the provided key and scope
-    *
-    * @param key - The key to retrieve a value for
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for retrieving a setting at the provided key and scope
+     *
+     * @param key - The key to retrieve a value for
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     getValue<T>(key: string, documentOptions?: IDocumentOptions): Promise<T>;
 
     /**
-    * Returns a promise for saving a setting at the provided key and scope
-    *
-    * @param key - The key to save a value for
-    * @param value - The value to save
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for saving a setting at the provided key and scope
+     *
+     * @param key - The key to save a value for
+     * @param value - The value to save
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     setValue<T>(key: string, value: T, documentOptions?: IDocumentOptions): Promise<T>;
 
     /**
-    * Returns a promise for getting a document with the provided id in the provided collection
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param id - The id of the document in the collection
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for getting a document with the provided id in the provided collection
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param id - The id of the document in the collection
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     getDocument(collectionName: string, id: string, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-    * Returns a promise for getting all of the documents in the provided collection
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for getting all of the documents in the provided collection
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     getDocuments(collectionName: string, documentOptions?: IDocumentOptions): Promise<any[]>;
 
     /**
-    * Returns a promise for creating a document in the provided collection
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param doc - The document to store
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for creating a document in the provided collection
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param doc - The document to store
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     createDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-    * Returns a promise for setting a document in the provided collection
-    * Creates the document if it does not exist, otherwise updates the existing document with the id provided
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param doc - The document to store
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for setting a document in the provided collection
+     * Creates the document if it does not exist, otherwise updates the existing document with the id provided
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param doc - The document to store
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     setDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-    * Returns a promise for updating a document in the provided collection
-    * A document with the id provided must exist
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param doc - The document to store
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for updating a document in the provided collection
+     * A document with the id provided must exist
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param doc - The document to store
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     updateDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-    * Returns a promise for deleting the document at the provided scope, collection and id
-    *
-    * @param collectionName - The name of the collection where the document lives
-    * @param id - The id of the document in the collection
-    * @param documentOptions - Extension document options, the default scope value is account-wide
-    */
+     * Returns a promise for deleting the document at the provided scope, collection and id
+     *
+     * @param collectionName - The name of the collection where the document lives
+     * @param id - The id of the document in the collection
+     * @param documentOptions - Extension document options, the default scope value is account-wide
+     */
     deleteDocument(collectionName: string, id: string, documentOptions?: IDocumentOptions): Promise<void>;
 
     /**
-    * Returns a promise for querying a set of collections
-    *
-    * @param collections - The list of collections to query. Assumes Default Scope Type and Current Scope Value
-    */
+     * Returns a promise for querying a set of collections
+     *
+     * @param collections - The list of collections to query. Assumes Default Scope Type and Current Scope Value
+     */
     queryCollectionsByName(collectionNames: string[]): Promise<ExtensionDataCollection[]>;
 
     /**
-    * Returns a promise for querying a set of collections
-    *
-    * @param collections - The list of collections to query. Each collection will contain its collectionName, scopeType, and scopeValue
-    */
+     * Returns a promise for querying a set of collections
+     *
+     * @param collections - The list of collections to query. Each collection will contain its collectionName, scopeType, and scopeValue
+     */
     queryCollections(collections: ExtensionDataCollection[]): Promise<ExtensionDataCollection[]>;
 }
 
@@ -499,8 +498,8 @@ export interface IProjectPageService {
 }
 
 /**
-* Definition which can be specified in a contributions "icon" property which can specify a set of values for different themes.
-*/
+ * Definition which can be specified in a contributions "icon" property which can specify a set of values for different themes.
+ */
 export interface IContributedIconDefinition {
     /**
      * Icon property (absolute url or relative asset path) to use when the current theme is a "light" theme.
@@ -514,8 +513,8 @@ export interface IContributedIconDefinition {
 }
 
 /**
-* Defines a button from a first- or third- party contribution
-*/
+ * Defines a button from a first- or third- party contribution
+ */
 export interface IContributedButton {
     /**
      * The id of a command contribution to execute when the button is clicked
@@ -571,8 +570,8 @@ export interface IContributedButton {
 }
 
 /**
-* Message links that will be formatted into the message.
-*/
+ * Message links that will be formatted into the message.
+ */
 export interface IGlobalMessageLink {
 
     /**
@@ -587,8 +586,8 @@ export interface IGlobalMessageLink {
 }
 
 /**
-* Optional help icon info to show after global message text
-*/
+ * Optional help icon info to show after global message text
+ */
 export interface IGlobalMessageHelpInfo {
     /**
      * If supplied the help icon will act as a hyperlink to the specified target href
@@ -602,8 +601,8 @@ export interface IGlobalMessageHelpInfo {
 }
 
 /**
-* The severity of the message.
-*/
+ * The severity of the message.
+ */
 export const enum MessageBannerLevel {
     info = 0,
     warning = 1,
@@ -612,8 +611,8 @@ export const enum MessageBannerLevel {
 }
 
 /**
-* Banner Props specifying how it will be rendered by the service
-*/
+ * Banner Props specifying how it will be rendered by the service
+ */
 export interface IGlobalMessageBanner {
     /**
      * Buttons to display after the message
@@ -723,8 +722,8 @@ export interface IGlobalDialog {
 }
 
 /**
-* Toast Props with metadata to specify how it will be rendered by the service
-*/
+ * Toast Props with metadata to specify how it will be rendered by the service
+ */
 export interface IToast {
     /**
      * Optional text for the Call to Action
@@ -784,8 +783,8 @@ export interface IGlobalMessagesService {
 }
 
 /**
-* Color used in some UI components
-*/
+ * Color used in some UI components
+ */
 export interface IColor {
     /**
      * Red coordinate: 0-255
@@ -809,8 +808,8 @@ export interface IColor {
 }
 
 /**
-* Defines a pill from a contribution
-*/
+ * Defines a pill from a contribution
+ */
 export interface IContributedPill {
     /**
      * Background color for the pill
