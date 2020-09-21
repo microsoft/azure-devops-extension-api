@@ -338,19 +338,19 @@ export interface IHostPageLayoutService {
 export interface IDocumentOptions {
 
     /**
-     * The scope of where the document is stored. Can be Default or User.
-     */
+    * The scope of where the document is stored. Can be Default or User.
+    */
     scopeType?: string;
 
     /**
-     * The value of the scope where the document is stored. Can be Current or Me.
-     */
+    * The value of the scope where the document is stored. Can be Current or Me.
+    */
     scopeValue?: string;
 
     /**
-     * The default value to return when using getValue(). If the document has no value,
-     * this value will be used instead.
-     */
+    * The default value to return when using getValue(). If the document has no value,
+    * this value will be used instead.
+    */
     defaultValue?: any;
 }
 
@@ -451,17 +451,17 @@ export interface IExtensionDataManager {
     deleteDocument(collectionName: string, id: string, documentOptions?: IDocumentOptions): Promise<void>;
 
     /**
-     * Returns a promise for querying a set of collections
-     *
-     * @param collections - The list of collections to query. Assumes Default Scope Type and Current Scope Value
-     */
+    * Returns a promise for querying a set of collections
+    *
+    * @param collections - The list of collections to query. Assumes Default Scope Type and Current Scope Value
+    */
     queryCollectionsByName(collectionNames: string[]): Promise<ExtensionDataCollection[]>;
 
     /**
-     * Returns a promise for querying a set of collections
-     *
-     * @param collections - The list of collections to query. Each collection will contain its collectionName, scopeType, and scopeValue
-     */
+    * Returns a promise for querying a set of collections
+    *
+    * @param collections - The list of collections to query. Each collection will contain its collectionName, scopeType, and scopeValue
+    */
     queryCollections(collections: ExtensionDataCollection[]): Promise<ExtensionDataCollection[]>;
 }
 
