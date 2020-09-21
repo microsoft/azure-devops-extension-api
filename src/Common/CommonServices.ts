@@ -379,75 +379,75 @@ export interface ExtensionDataCollection {
 export interface IExtensionDataManager {
 
     /**
-     * Returns a promise for retrieving a setting at the provided key and scope
-     *
-     * @param key - The key to retrieve a value for
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for retrieving a setting at the provided key and scope
+    *
+    * @param key - The key to retrieve a value for
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     getValue<T>(key: string, documentOptions?: IDocumentOptions): Promise<T>;
 
     /**
-     * Returns a promise for saving a setting at the provided key and scope
-     *
-     * @param key - The key to save a value for
-     * @param value - The value to save
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for saving a setting at the provided key and scope
+    *
+    * @param key - The key to save a value for
+    * @param value - The value to save
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     setValue<T>(key: string, value: T, documentOptions?: IDocumentOptions): Promise<T>;
 
     /**
-     * Returns a promise for getting a document with the provided id in the provided collection
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param id - The id of the document in the collection
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for getting a document with the provided id in the provided collection
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param id - The id of the document in the collection
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     getDocument(collectionName: string, id: string, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-     * Returns a promise for getting all of the documents in the provided collection
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for getting all of the documents in the provided collection
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     getDocuments(collectionName: string, documentOptions?: IDocumentOptions): Promise<any[]>;
 
     /**
-     * Returns a promise for creating a document in the provided collection
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param doc - The document to store
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for creating a document in the provided collection
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param doc - The document to store
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     createDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-     * Returns a promise for setting a document in the provided collection
-     * Creates the document if it does not exist, otherwise updates the existing document with the id provided
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param doc - The document to store
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for setting a document in the provided collection
+    * Creates the document if it does not exist, otherwise updates the existing document with the id provided
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param doc - The document to store
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     setDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-     * Returns a promise for updating a document in the provided collection
-     * A document with the id provided must exist
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param doc - The document to store
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for updating a document in the provided collection
+    * A document with the id provided must exist
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param doc - The document to store
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     updateDocument(collectionName: string, doc: any, documentOptions?: IDocumentOptions): Promise<any>;
 
     /**
-     * Returns a promise for deleting the document at the provided scope, collection and id
-     *
-     * @param collectionName - The name of the collection where the document lives
-     * @param id - The id of the document in the collection
-     * @param documentOptions - Extension document options, the default scope value is account-wide
-     */
+    * Returns a promise for deleting the document at the provided scope, collection and id
+    *
+    * @param collectionName - The name of the collection where the document lives
+    * @param id - The id of the document in the collection
+    * @param documentOptions - Extension document options, the default scope value is account-wide
+    */
     deleteDocument(collectionName: string, id: string, documentOptions?: IDocumentOptions): Promise<void>;
 
     /**
