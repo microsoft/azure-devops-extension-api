@@ -39,7 +39,6 @@ export const enum CommonServiceIds {
  * Route information for the current page
  */
 export interface IPageRoute {
-    
     /**
      * Id of the contributed route
      */
@@ -216,7 +215,7 @@ export interface IDialogOptions<TResult> {
      * Callback invoked when the dialog is closed
      */
     onClose?: (result: TResult | undefined) => void;
-    
+
     /**
      * Optional initial configuration for the dialog content
      */
@@ -283,7 +282,7 @@ export interface IPanelOptions<TResult> {
      * Size of the panel. (defaults to PanelSize.Medium)
      */
     size?: PanelSize;
-    
+
     /**
      * Optional initial configuration for the panel content
      */
@@ -324,7 +323,7 @@ export interface IHostPageLayoutService {
      * @param options - Panel display options
      */
     openPanel: <TResult>(contentContributionId: string, options: IPanelOptions<TResult>) => void;
-    
+
     /**
      * Enter or exit full screen mode
      *
@@ -491,7 +490,7 @@ export interface IProjectInfo {
 }
 
 export interface IProjectPageService {
-    
+
     /**
      * Gets the project associated with the current page
      */
@@ -658,6 +657,71 @@ export interface IGlobalMessageBanner {
 }
 
 /**
+ * Dialog Props specifying how it will be rendered by the service
+ */
+export interface IGlobalDialog {
+    /**
+     * Props to pass to buttons in the footer.
+     */
+    buttonProps?: Array<Object>;
+
+    /**
+     * Props to pass to the close button.
+     */
+    closeButtonProps?: Object;
+
+    /**
+     * Props (type: ICustomDialogProps) to pass to the custom contribution.
+     */
+    contentProperties?: Object;
+
+    /**
+     * The id of the custom contribution to host in the dialog. Used to render a customized dialog.
+     */
+    contributionId?: string;
+
+    /**
+     * Optional initial configuration for the contributed content. Used in pair with contributionId.
+     */
+    contributionConfiguration?: Object;
+
+    /**
+     * The text of the dialog message. Ignored if contributionId is specified.
+     */
+    message?: string;
+
+    /**
+     * The format to use to replace links within the message.
+     */
+    messageFormat?: string;
+
+    /**
+     * Links to be formatted into the message.
+     */
+    messageLinks?: IGlobalMessageLink[];
+
+    /**
+     * Method that is called when the dialog is dismissed.
+     */
+    onDismiss?: () => void;
+
+    /**
+     * The priority of the dialog determines if it will be shown over others.
+     */
+    priority?: number;
+
+    /**
+     * The id used to check if the dialog has been dismissed.
+     */
+    settingId?: string;
+
+    /**
+     * The title of the dialog.
+     */
+    title?: string;
+}
+
+/**
  * Toast Props with metadata to specify how it will be rendered by the service
  */
 export interface IToast {
@@ -696,6 +760,12 @@ export interface IGlobalMessagesService {
     addBanner(banner: IGlobalMessageBanner): void;
 
     /**
+     * Adds a new dialog to the displayed dialogs. CornerDialog or CustomDialog can be added
+     * @param dialog - The dialog to display
+     */
+    addDialog(dialog: IGlobalDialog): void;
+
+    /**
      * Displays or queues a Toast to display at the bottom of the page
      * @param toast - The toast to display
      */
@@ -705,6 +775,11 @@ export interface IGlobalMessagesService {
      * Closes the currently active global message banner
      */
     closeBanner(): void;
+
+    /**
+     * Closes the currently active global dialog
+     */
+    closeDialog(): void;
 }
 
 /**
