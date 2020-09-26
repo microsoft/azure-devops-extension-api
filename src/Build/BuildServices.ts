@@ -35,5 +35,5 @@ export interface IBuildPageDataService {
     /**
      * Gets contextual information for a build page
      */
-    getBuildPageData(): IBuildPageData | undefined;
+    getBuildPageData(): Promise<IBuildPageData | undefined>;
 }
