@@ -2312,6 +2312,7 @@ export interface GitRepository {
     url: string;
     validRemoteUrls: string[];
     webUrl: string;
+    isDisabled: boolean;
 }
 
 export interface GitRepositoryCreateOptions {
