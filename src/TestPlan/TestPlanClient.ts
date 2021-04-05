@@ -42,7 +42,7 @@ export class TestPlanRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param testConfiguartionId - ID of the test configuration to delete.
      */
-    public async deleteTestConfguration(
+    public async deleteTestConfiguration(
         project: string,
         testConfiguartionId: number
         ): Promise<void> {
