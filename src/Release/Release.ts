@@ -956,13 +956,13 @@ export interface Deployment {
     startedOn: Date;
 }
 
-export interface DeploymentApprovalCompletedEvent {
+export interface DeploymentApprovalCompletedEvent extends DeploymentEvent {
     approval: ReleaseApproval;
     project: ProjectReference;
     release: Release;
 }
 
-export interface DeploymentApprovalPendingEvent {
+export interface DeploymentApprovalPendingEvent extends DeploymentEvent {
     approval: ReleaseApproval;
     approvalOptions: ApprovalOptions;
     completedApprovals: ReleaseApproval[];
@@ -1073,12 +1073,17 @@ export enum DeploymentAuthorizationOwner {
     FirstPreDeploymentApprover = 2
 }
 
-export interface DeploymentCompletedEvent {
+export interface DeploymentCompletedEvent extends DeploymentEvent {
     comment: string;
     data: { [key: string] : any; };
     deployment: Deployment;
     environment: ReleaseEnvironment;
     project: ProjectReference;
+}
+
+export interface DeploymentEvent extends ReleaseEvent {
+    attemptId: number;
+    stageName: string;
 }
 
 export enum DeploymentExpands {
@@ -1294,7 +1299,7 @@ export enum DeploymentsQueryType {
     FailingSince = 2
 }
 
-export interface DeploymentStartedEvent {
+export interface DeploymentStartedEvent extends DeploymentEvent {
     environment: ReleaseEnvironment;
     project: ProjectReference;
     release: Release;
@@ -1580,7 +1585,7 @@ export interface FavoriteItem {
      */
     data: string;
     /**
-     * Unique Id of the the entry.
+     * Unique Id of the entry.
      */
     id: string;
     /**
@@ -1927,6 +1932,24 @@ export interface MultiConfigInput extends ParallelExecutionInputBase {
 export interface MultiMachineInput extends ParallelExecutionInputBase {
 }
 
+export interface OrgPipelineReleaseSettings {
+    /**
+     * Defines whether user can manage pipeline settings.
+     */
+    hasManagePipelinePoliciesPermission: boolean;
+    /**
+     * EnforceJobAuthScope setting at organisaion level. If enabled, scope of access for all release pipelines in the organisation reduces to the current project.
+     */
+    orgEnforceJobAuthScope: boolean;
+}
+
+export interface OrgPipelineReleaseSettingsUpdateParameters {
+    /**
+     * EnforceJobAuthScope setting at organisaion level. If enabled, scope of access for all release pipelines in the organisation reduces to the current project.
+     */
+    orgEnforceJobAuthScope: boolean;
+}
+
 export interface PackageTrigger extends ReleaseTriggerBase {
     /**
      * Package trigger alias.
@@ -1961,6 +1984,32 @@ export interface PipelineProcess {
 export enum PipelineProcessTypes {
     Designer = 1,
     Yaml = 2
+}
+
+export interface ProjectPipelineReleaseSettings {
+    /**
+     * EnforceJobAuthScope setting at project level. If enabled, scope of access for all release pipelines reduces to the current project.
+     */
+    enforceJobAuthScope: boolean;
+    /**
+     * Defines whether user can manage pipeline settings.
+     */
+    hasManageSettingsPermission: boolean;
+    /**
+     * EnforceJobAuthScope setting at organisaion level. If enabled, scope of access for all release pipelines in the organisation reduces to the current project.
+     */
+    orgEnforceJobAuthScope: boolean;
+    /**
+     * Defines whether project is public.
+     */
+    publicProject: boolean;
+}
+
+export interface ProjectPipelineReleaseSettingsUpdateParameters {
+    /**
+     * EnforceJobAuthScope setting at project level. If enabled, scope of access for all release pipelines reduces to the current project.
+     */
+    enforceJobAuthScope: boolean;
 }
 
 export interface ProjectReference {
@@ -2087,6 +2136,10 @@ export interface Release {
      */
     createdBy: WebApi.IdentityRef;
     /**
+     * Gets or sets the identity for whom release was created.
+     */
+    createdFor: WebApi.IdentityRef;
+    /**
      * Gets date on which it got created.
      */
     createdOn: Date;
@@ -2171,7 +2224,7 @@ export interface Release {
     variables: { [key: string] : ConfigurationVariableValue; };
 }
 
-export interface ReleaseAbandonedEvent {
+export interface ReleaseAbandonedEvent extends ReleaseEvent {
     project: ProjectReference;
     release: Release;
 }
@@ -2335,7 +2388,7 @@ export interface ReleaseCondition extends Condition {
     result: boolean;
 }
 
-export interface ReleaseCreatedEvent {
+export interface ReleaseCreatedEvent extends ReleaseEvent {
     project: ProjectReference;
     release: Release;
 }
@@ -3022,6 +3075,17 @@ export interface ReleaseEnvironmentCompletedEvent {
     webAccessUri: string;
 }
 
+export enum ReleaseEnvironmentExpands {
+    /**
+     * Return top level properties of object.
+     */
+    None = 0,
+    /**
+     * Expand environment with tasks.
+     */
+    Tasks = 1
+}
+
 export interface ReleaseEnvironmentShallowReference {
     /**
      * Gets the links to related resources, APIs, and views for the release environment.
@@ -3066,6 +3130,11 @@ export interface ReleaseEnvironmentUpdateMetadata {
      * Sets list of environment variables to be overridden at deployment time.
      */
     variables: { [key: string] : ConfigurationVariableValue; };
+}
+
+export interface ReleaseEvent {
+    id: number;
+    url: string;
 }
 
 export enum ReleaseExpands {
@@ -3333,6 +3402,10 @@ export interface ReleaseStartMetadata {
      * Sets list of artifact to create a release.
      */
     artifacts: ArtifactMetadata[];
+    /**
+     * Optionally provide a requestor identity
+     */
+    createdFor: string;
     /**
      * Sets definition Id to create a release.
      */
@@ -3939,6 +4012,10 @@ export interface VariableGroupProviderData {
 
 export interface VariableValue {
     /**
+     * Gets or sets if the variable is read only or not.
+     */
+    isReadOnly: boolean;
+    /**
      * Gets or sets as the variable is secret or not.
      */
     isSecret: boolean;
@@ -3989,6 +4066,10 @@ export interface WorkflowTask {
      * Gets or sets the reference name of the task.
      */
     refName: string;
+    /**
+     * Gets or sets the task retryCount.
+     */
+    retryCountOnTaskFailure: number;
     /**
      * Gets or sets the ID of the task.
      */

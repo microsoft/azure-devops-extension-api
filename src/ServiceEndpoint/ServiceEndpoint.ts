@@ -84,6 +84,11 @@ export interface AuthorizationHeader {
     value: string;
 }
 
+export interface AzureAppService {
+    id: string;
+    name: string;
+}
+
 export interface AzureKeyVaultPermission extends AzureResourcePermission {
     vault: string;
 }
@@ -511,7 +516,7 @@ export interface ResultTransformationDetails {
  */
 export interface ServiceEndpoint {
     /**
-     * Gets or sets the identity reference for the administrators group of the service endpoint.
+     * This is a deprecated field.
      */
     administratorsGroup: WebApi.IdentityRef;
     /**
@@ -576,7 +581,8 @@ export interface ServiceEndpoint {
 export enum ServiceEndpointActionFilter {
     None = 0,
     Manage = 2,
-    Use = 16
+    Use = 16,
+    View = 32
 }
 
 /**

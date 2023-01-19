@@ -6,6 +6,7 @@
 
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
+import { deserializeVssJsonObject } from "../Common/Util/Serialization";
 
 import * as ServiceEndpoint from "../ServiceEndpoint/ServiceEndpoint";
 
@@ -24,7 +25,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.AzureManagementGroupQueryResult> {
 
         return this.beginRequest<ServiceEndpoint.AzureManagementGroupQueryResult>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/endpointproxy/azurermmanagementgroups"
         });
     }
@@ -37,7 +38,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.AzureSubscriptionQueryResult> {
 
         return this.beginRequest<ServiceEndpoint.AzureSubscriptionQueryResult>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/endpointproxy/azurermsubscriptions"
         });
     }
@@ -60,7 +61,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointRequestResult>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpointproxy",
             routeValues: {
@@ -83,7 +84,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpointproxy",
             routeValues: {
@@ -94,53 +95,116 @@ export class ServiceEndpointRestClient extends RestClientBase {
     }
 
     /**
-     * Create a service endpoint.
+     * Creates a new service endpoint
      * 
-     * @param endpoint - Service endpoint to create.
-     * @param project - Project ID or project name
+     * @param endpoint - Service endpoint to create
      */
     public async createServiceEndpoint(
-        endpoint: ServiceEndpoint.ServiceEndpoint,
-        project: string
+        endpoint: ServiceEndpoint.ServiceEndpoint
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             method: "POST",
-            routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
             body: endpoint
         });
     }
 
     /**
-     * Delete a service endpoint.
+     * Delete a service endpoint
      * 
-     * @param project - Project ID or project name
-     * @param endpointId - Id of the service endpoint to delete.
-     * @param deep - Specific to AzureRM endpoint created in Automatic flow. When set to true, this will also delete corresponding AAD application in Azure. Default value is true.
+     * @param endpointId - Endpoint Id of endpoint to delete
+     * @param projectIds - project Ids from which endpoint needs to be deleted
+     * @param deep - delete the spn created by endpoint
      */
     public async deleteServiceEndpoint(
-        project: string,
         endpointId: string,
+        projectIds: string[],
         deep?: boolean
         ): Promise<void> {
 
         const queryValues: any = {
+            projectIds: projectIds && projectIds.join(","),
             deep: deep
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
-                project: project,
                 endpointId: endpointId
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Share service endpoint across projects
+     * 
+     * @param endpointProjectReferences - Project reference details of the target project
+     * @param endpointId - Endpoint Id of the endpoint to share
+     */
+    public async shareServiceEndpoint(
+        endpointProjectReferences: ServiceEndpoint.ServiceEndpointProjectReference[],
+        endpointId: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.4",
+            method: "PATCH",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
+            routeValues: {
+                endpointId: endpointId
+            },
+            body: endpointProjectReferences
+        });
+    }
+
+    /**
+     * Update the service endpoint
+     * 
+     * @param endpoint - Updated data for the endpoint
+     * @param endpointId - Endpoint Id of the endpoint to update
+     * @param operation - operation type
+     */
+    public async updateServiceEndpoint(
+        endpoint: ServiceEndpoint.ServiceEndpoint,
+        endpointId: string,
+        operation?: string
+        ): Promise<ServiceEndpoint.ServiceEndpoint> {
+
+        const queryValues: any = {
+            operation: operation
+        };
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
+            apiVersion: "7.1-preview.4",
+            method: "PUT",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
+            routeValues: {
+                endpointId: endpointId
+            },
+            queryParams: queryValues,
+            body: endpoint
+        });
+    }
+
+    /**
+     * Update the service endpoints.
+     * 
+     * @param endpoints - Names of the service endpoints to update.
+     */
+    public async updateServiceEndpoints(
+        endpoints: ServiceEndpoint.ServiceEndpoint[]
+        ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
+            apiVersion: "7.1-preview.4",
+            method: "PUT",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
+            body: endpoints
         });
     }
 
@@ -149,19 +213,26 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param endpointId - Id of the service endpoint.
+     * @param actionFilter - Action filter for the service connection. It specifies the action which can be performed on the service connection.
      */
     public async getServiceEndpointDetails(
         project: string,
-        endpointId: string
+        endpointId: string,
+        actionFilter?: ServiceEndpoint.ServiceEndpointActionFilter
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
+        const queryValues: any = {
+            actionFilter: actionFilter
+        };
+
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project,
                 endpointId: endpointId
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -196,7 +267,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -236,7 +307,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
                 project: project
@@ -263,7 +334,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.4",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
             routeValues: {
@@ -271,60 +342,6 @@ export class ServiceEndpointRestClient extends RestClientBase {
             },
             queryParams: queryValues,
             body: refreshAuthenticationParameters
-        });
-    }
-
-    /**
-     * Update a service endpoint.
-     * 
-     * @param endpoint - Service endpoint to update.
-     * @param project - Project ID or project name
-     * @param endpointId - Id of the service endpoint to update.
-     * @param operation - Operation for the service endpoint.
-     */
-    public async updateServiceEndpoint(
-        endpoint: ServiceEndpoint.ServiceEndpoint,
-        project: string,
-        endpointId: string,
-        operation?: string
-        ): Promise<ServiceEndpoint.ServiceEndpoint> {
-
-        const queryValues: any = {
-            operation: operation
-        };
-
-        return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({
-            apiVersion: "5.2-preview.2",
-            method: "PUT",
-            routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
-            routeValues: {
-                project: project,
-                endpointId: endpointId
-            },
-            queryParams: queryValues,
-            body: endpoint
-        });
-    }
-
-    /**
-     * Update the service endpoints.
-     * 
-     * @param endpoints - Names of the service endpoints to update.
-     * @param project - Project ID or project name
-     */
-    public async updateServiceEndpoints(
-        endpoints: ServiceEndpoint.ServiceEndpoint[],
-        project: string
-        ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
-
-        return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
-            apiVersion: "5.2-preview.2",
-            method: "PUT",
-            routeTemplate: "{project}/_apis/serviceendpoint/endpoints/{endpointId}",
-            routeValues: {
-                project: project
-            },
-            body: endpoints
         });
     }
 
@@ -348,14 +365,19 @@ export class ServiceEndpointRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<ServiceEndpoint.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/serviceendpoint/{endpointId}/executionhistory",
             routeValues: {
                 project: project,
                 endpointId: endpointId
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <ServiceEndpoint.ServiceEndpointExecutionRecord[]>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -371,7 +393,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.ServiceEndpointExecutionRecord[]> {
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointExecutionRecord[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/serviceendpoint/executionhistory",
             routeValues: {
@@ -389,7 +411,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             body: configurationParams
@@ -404,7 +426,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
@@ -421,7 +443,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
                 configurationId: configurationId
@@ -444,7 +466,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             queryParams: queryValues
         });
@@ -460,7 +482,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<ServiceEndpoint.OAuthConfiguration> {
 
         return this.beginRequest<ServiceEndpoint.OAuthConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/serviceendpoint/oauthconfiguration/{configurationId}",
             routeValues: {
@@ -484,7 +506,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ProjectReference[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/share/{endpointId}",
             routeValues: {
                 endpointId: endpointId
@@ -510,7 +532,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/serviceendpoint/share/{endpointId}",
             routeValues: {
@@ -537,24 +559,9 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpointType[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/types",
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param authenticationRequest - 
-     */
-    public async acquireAccessToken(
-        authenticationRequest: ServiceEndpoint.AadOauthTokenRequest
-        ): Promise<ServiceEndpoint.AadOauthTokenResult> {
-
-        return this.beginRequest<ServiceEndpoint.AadOauthTokenResult>({
-            apiVersion: "5.2-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth",
-            body: authenticationRequest
         });
     }
 
@@ -582,7 +589,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth",
             queryParams: queryValues
@@ -595,7 +602,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/serviceendpoint/vstsaadoauth/vstsaadoauth"
         });
     }

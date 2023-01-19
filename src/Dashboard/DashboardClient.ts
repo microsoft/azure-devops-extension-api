@@ -32,7 +32,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Dashboard>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
@@ -58,7 +58,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
@@ -84,7 +84,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Dashboard>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
                 project: project,
@@ -95,19 +95,19 @@ export class DashboardRestClient extends RestClientBase {
     }
 
     /**
-     * Get a list of dashboards.
+     * Get a list of dashboards under a project.
      * 
      * @param teamContext - The team context for the operation
      */
-    public async getDashboards(
+    public async getDashboardsByProject(
         teamContext: TfsCore.TeamContext
-        ): Promise<Dashboard.DashboardGroup> {
+        ): Promise<Dashboard.Dashboard[]> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Dashboard.DashboardGroup>({
-            apiVersion: "5.2-preview.2",
+        return this.beginRequest<Dashboard.Dashboard[]>({
+            apiVersion: "7.1-preview.3",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
                 project: project,
@@ -133,7 +133,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Dashboard>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
@@ -160,7 +160,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.DashboardGroup>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/Dashboard/Dashboards/{dashboardId}",
             routeValues: {
@@ -188,7 +188,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Widget>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/Dashboard/dashboards/{dashboardId}/Widgets/{widgetId}",
             routeValues: {
@@ -217,7 +217,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Dashboard>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/{team}/_apis/Dashboard/dashboards/{dashboardId}/Widgets/{widgetId}",
             routeValues: {
@@ -246,7 +246,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Widget>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/{team}/_apis/Dashboard/dashboards/{dashboardId}/Widgets/{widgetId}",
             routeValues: {
                 project: project,
@@ -276,7 +276,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Widget>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/Dashboard/dashboards/{dashboardId}/Widgets/{widgetId}",
             routeValues: {
@@ -308,7 +308,7 @@ export class DashboardRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Dashboard.Widget>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/Dashboard/dashboards/{dashboardId}/Widgets/{widgetId}",
             routeValues: {
@@ -333,7 +333,7 @@ export class DashboardRestClient extends RestClientBase {
         ): Promise<Dashboard.WidgetMetadataResponse> {
 
         return this.beginRequest<Dashboard.WidgetMetadataResponse>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/Dashboard/WidgetTypes/{contributionId}",
             routeValues: {
                 project: project,
@@ -358,7 +358,7 @@ export class DashboardRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Dashboard.WidgetTypesResponse>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/Dashboard/WidgetTypes/{contributionId}",
             routeValues: {
                 project: project
