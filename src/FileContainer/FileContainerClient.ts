@@ -16,7 +16,7 @@ export class FileContainerRestClient extends RestClientBase {
     }
 
     /**
-     * Creates the specified items in in the referenced container.
+     * Creates the specified items in the referenced container.
      * 
      * @param items - 
      * @param containerId - 
@@ -33,7 +33,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FileContainer.FileContainerItem[]>({
-            apiVersion: "5.2-preview.4",
+            apiVersion: "7.1-preview.4",
             method: "POST",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
@@ -63,7 +63,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.4",
+            apiVersion: "7.1-preview.4",
             method: "DELETE",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
@@ -90,7 +90,7 @@ export class FileContainerRestClient extends RestClientBase {
         };
 
         return this.beginRequest<FileContainer.FileContainer[]>({
-            apiVersion: "5.2-preview.4",
+            apiVersion: "7.1-preview.4",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             queryParams: queryValues
         });
@@ -105,6 +105,9 @@ export class FileContainerRestClient extends RestClientBase {
      * @param downloadFileName - 
      * @param includeDownloadTickets - 
      * @param isShallow - 
+     * @param ignoreRequestedMediaType - 
+     * @param includeBlobMetadata - 
+     * @param saveAbsolutePath - 
      */
     public async getItems(
         containerId: number,
@@ -114,7 +117,10 @@ export class FileContainerRestClient extends RestClientBase {
         format?: string,
         downloadFileName?: string,
         includeDownloadTickets?: boolean,
-        isShallow?: boolean
+        isShallow?: boolean,
+        ignoreRequestedMediaType?: boolean,
+        includeBlobMetadata?: boolean,
+        saveAbsolutePath?: boolean
         ): Promise<FileContainer.FileContainerItem[]> {
 
         const queryValues: any = {
@@ -124,11 +130,14 @@ export class FileContainerRestClient extends RestClientBase {
             '$format': format,
             downloadFileName: downloadFileName,
             includeDownloadTickets: includeDownloadTickets,
-            isShallow: isShallow
+            isShallow: isShallow,
+            ignoreRequestedMediaType: ignoreRequestedMediaType,
+            includeBlobMetadata: includeBlobMetadata,
+            saveAbsolutePath: saveAbsolutePath
         };
 
         return this.beginRequest<FileContainer.FileContainerItem[]>({
-            apiVersion: "5.2-preview.4",
+            apiVersion: "7.1-preview.4",
             routeTemplate: "_apis/resources/Containers/{containerId}/{*itemPath}",
             routeValues: {
                 containerId: containerId

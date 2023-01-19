@@ -6,6 +6,7 @@
 
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
+import { deserializeVssJsonObject } from "../Common/Util/Serialization";
 
 import * as Comments_Contracts from "../Comments/Comments";
 import * as Git from "../Git/Git";
@@ -492,6 +493,74 @@ export class WikiRestClient extends RestClientBase {
                 project: project,
                 wikiIdentifier: wikiIdentifier,
                 id: id
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Returns pageable list of Wiki Pages
+     * 
+     * @param pagesBatchRequest - Wiki batch page request.
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param versionDescriptor - GitVersionDescriptor for the page. (Optional in case of ProjectWiki).
+     */
+    public async getPagesBatch(
+        pagesBatchRequest: Wiki.WikiPagesBatchRequest,
+        project: string,
+        wikiIdentifier: string,
+        versionDescriptor?: Git.GitVersionDescriptor
+        ): Promise<Wiki.WikiPageDetail[]> {
+
+        const queryValues: any = {
+            versionDescriptor: versionDescriptor
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "5.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pagesBatch",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier
+            },
+            queryParams: queryValues,
+            body: pagesBatchRequest,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <Wiki.WikiPageDetail[]>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
+     * Returns page detail corresponding to Page ID.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param pageId - Wiki page ID.
+     * @param pageViewsForDays - last N days from the current day for which page views is to be returned. It's inclusive of current day.
+     */
+    public async getPageData(
+        project: string,
+        wikiIdentifier: string,
+        pageId: number,
+        pageViewsForDays?: number
+        ): Promise<Wiki.WikiPageDetail> {
+
+        const queryValues: any = {
+            pageViewsForDays: pageViewsForDays
+        };
+
+        return this.beginRequest<Wiki.WikiPageDetail>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{pageId}/stats",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier,
+                pageId: pageId
             },
             queryParams: queryValues
         });

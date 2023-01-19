@@ -5,10 +5,63 @@
  */
 
 /**
+ * Copy options of a Dashboard.
+ */
+export interface CopyDashboardOptions {
+    /**
+     * Dashboard Scope. Can be either Project or Project_Team
+     */
+    copyDashboardScope: DashboardScope;
+    /**
+     * When this flag is set to true,option to select the folder to copy Queries of copy dashboard will appear.
+     */
+    copyQueriesFlag: boolean;
+    /**
+     * Description of the dashboard
+     */
+    description: string;
+    /**
+     * Name of the dashboard
+     */
+    name: string;
+    /**
+     * ID of the project. Provided by service at creation time.
+     */
+    projectId: string;
+    /**
+     * Path to which the queries should be copied of copy dashboard
+     */
+    queryFolderPath: string;
+    /**
+     * Refresh interval of dashboard
+     */
+    refreshInterval: number;
+    /**
+     * ID of the team. Provided by service at creation time
+     */
+    teamId: string;
+}
+
+export interface CopyDashboardResponse {
+    /**
+     * Copied Dashboard
+     */
+    copiedDashboard: Dashboard;
+    /**
+     * Copy Dashboard options
+     */
+    copyDashboardOptions: CopyDashboardOptions;
+}
+
+/**
  * Model of a Dashboard.
  */
 export interface Dashboard {
     _links: any;
+    /**
+     * Entity to which the dashboard is scoped.
+     */
+    dashboardScope: DashboardScope;
     /**
      * Description of the dashboard.
      */
@@ -18,6 +71,10 @@ export interface Dashboard {
      */
     eTag: string;
     /**
+     * ID of the group for a dashboard. For team-scoped dashboards, this is the unique identifier for the team associated with the dashboard. For project-scoped dashboards this property is empty.
+     */
+    groupId: string;
+    /**
      * ID of the Dashboard. Provided by service at creation time.
      */
     id: string;
@@ -26,7 +83,7 @@ export interface Dashboard {
      */
     name: string;
     /**
-     * ID of the Owner for a dashboard. For any legacy dashboards, this would be the unique identifier for the team associated with the dashboard.
+     * ID of the owner for a dashboard. For team-scoped dashboards, this is the unique identifier for the team associated with the dashboard. For project-scoped dashboards, this is the unique identifier for the user identity associated with the dashboard.
      */
     ownerId: string;
     /**
@@ -83,8 +140,18 @@ export interface DashboardResponse extends DashboardGroupEntry {
  * identifies the scope of dashboard storage and permissions.
  */
 export enum DashboardScope {
+    /**
+     * [DEPRECATED] Dashboard is scoped to the collection user.
+     */
     Collection_User = 0,
-    Project_Team = 1
+    /**
+     * Dashboard is scoped to the team.
+     */
+    Project_Team = 1,
+    /**
+     * Dashboard is scoped to the project.
+     */
+    Project = 2
 }
 
 export enum GroupMemberPermission {
