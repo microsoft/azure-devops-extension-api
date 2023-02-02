@@ -56,55 +56,6 @@ export interface CloneOperationCommonResponse {
     state: Test.CloneOperationState;
 }
 
-export interface CloneTestCaseOperationInformation {
-    /**
-     * Various information related to the clone
-     */
-    cloneOperationResponse: CloneOperationCommonResponse;
-    /**
-     * Test Plan Clone create parameters
-     */
-    cloneOptions: Test.CloneTestCaseOptions;
-    /**
-     * Information of destination Test Suite
-     */
-    destinationTestSuite: TestSuiteReferenceWithProject;
-    /**
-     * Information of source Test Suite
-     */
-    sourceTestSuite: SourceTestSuiteResponse;
-}
-
-/**
- * Parameters for Test Suite clone operation
- */
-export interface CloneTestCaseParams {
-    /**
-     * Test Case Clone create parameters
-     */
-    cloneOptions: Test.CloneTestCaseOptions;
-    /**
-     * Information about destination Test Plan
-     */
-    destinationTestPlan: TestPlanReference;
-    /**
-     * Information about destination Test Suite
-     */
-    destinationTestSuite: DestinationTestSuiteInfo;
-    /**
-     * Information about source Test Plan
-     */
-    sourceTestPlan: TestPlanReference;
-    /**
-     * Information about source Test Suite
-     */
-    sourceTestSuite: SourceTestSuiteInfo;
-    /**
-     * Test Case IDs
-     */
-    testCaseIds: number[];
-}
-
 /**
  * Response for Test Plan clone operation
  */
@@ -259,82 +210,6 @@ export enum LastResolutionState {
     ConfigurationIssue = 4,
     NullValue = 5,
     MaxValue = 5
-}
-
-/**
- * Enum representing the return code of data provider.
- */
-export enum LibraryTestCasesDataReturnCode {
-    Success = 0,
-    Error = 1
-}
-
-/**
- * This data model is used in Work item-based tabs of Test Plans Library.
- */
-export interface LibraryWorkItemsData {
-    /**
-     * Specifies the column option field names
-     */
-    columnOptions: string[];
-    /**
-     * Continuation token to fetch next set of elements. Present only when HasMoreElements is true.
-     */
-    continuationToken: string;
-    /**
-     * Boolean indicating if the WIQL query has exceeded the limit of items returned.
-     */
-    exceededWorkItemQueryLimit: boolean;
-    /**
-     * Boolean indicating if there are more elements present than what are being sent.
-     */
-    hasMoreElements: boolean;
-    /**
-     * Specifies if there was an error while execution of data provider.
-     */
-    returnCode: LibraryTestCasesDataReturnCode;
-    /**
-     * List of work items returned when OrderByField is sent something other than Id.
-     */
-    workItemIds: number[];
-    /**
-     * List of work items to be returned.
-     */
-    workItems: WorkItemDetails[];
-}
-
-/**
- * This is the request data contract for LibraryTestCaseDataProvider.
- */
-export interface LibraryWorkItemsDataProviderRequest {
-    /**
-     * Specifies the list of column options to show in test cases table.
-     */
-    columnOptions: string[];
-    /**
-     * The continuation token required for paging of work items. This is required when getting subsequent sets of work items when OrderByField is Id.
-     */
-    continuationToken: string;
-    /**
-     * List of filter values to be supplied. Currently supported filters are Title, State, AssignedTo, Priority, AreaPath.
-     */
-    filterValues: TestPlansLibraryWorkItemFilter[];
-    /**
-     * Whether the data is to be sorted in ascending or descending order. When not supplied, defaults to descending.
-     */
-    isAscending: boolean;
-    /**
-     * The type of query to run.
-     */
-    libraryQueryType: TestPlansLibraryQuery;
-    /**
-     * Work item field on which to order the results. When not supplied, defaults to work item IDs.
-     */
-    orderByField: string;
-    /**
-     * List of work items to query for field details. This is required when getting subsequent sets of work item fields when OrderByField is other than Id.
-     */
-    workItemIds: number[];
 }
 
 export enum Outcome {
@@ -517,20 +392,6 @@ export interface SourceTestSuiteInfo {
      * Id of the Source Test Suite
      */
     id: number;
-}
-
-/**
- * Source Test Suite Response for Test Case clone operation
- */
-export interface SourceTestSuiteResponse extends TestSuiteReference {
-    /**
-     * project reference
-     */
-    project: TfsCore.TeamProjectReference;
-    /**
-     * Id of suites to be cloned inside source Test Plan
-     */
-    testCaseIds: number[];
 }
 
 /**
@@ -746,33 +607,6 @@ export interface TestConfigurationReference {
 }
 
 /**
- * Test Entity Count Used to store test cases count (define tab) and test point count (execute tab) Used to store test cases count (define tab) and test point count (execute tab)
- */
-export interface TestEntityCount {
-    /**
-     * Test Entity Count
-     */
-    count: number;
-    /**
-     * Test Plan under which the Test Entities are
-     */
-    testPlanId: number;
-    /**
-     * Test Suite under which the Test Entities are
-     */
-    testSuiteId: number;
-    /**
-     * Total test entities in the suite without the applied filters
-     */
-    totalCount: number;
-}
-
-export enum TestEntityTypes {
-    TestCase = 0,
-    TestPoint = 1
-}
-
-/**
  * The test plan resource.
  */
 export interface TestPlan extends TestPlanUpdateParams {
@@ -909,12 +743,8 @@ export interface TestPlanReference {
  */
 export interface TestPlansHubRefreshData {
     defineColumnOptionFields: string[];
-    defineTabCustomColumnFieldMap: { [key: string] : string; };
-    errorMessage: string;
     executeColumnOptionFields: string[];
-    executeTabCustomColumnFieldMap: { [key: string] : string; };
     isAdvancedExtensionEnabled: boolean;
-    selectedPivotId: string;
     selectedSuiteId: number;
     testCasePageSize: number;
     testCases: TestCase[];
@@ -925,48 +755,6 @@ export interface TestPlansHubRefreshData {
     testPointsContinuationToken: string;
     testSuites: TestSuite[];
     testSuitesContinuationToken: string;
-}
-
-/**
- * Enum used to define the queries used in Test Plans Library.
- */
-export enum TestPlansLibraryQuery {
-    None = 0,
-    AllTestCases = 1,
-    TestCasesWithActiveBugs = 2,
-    TestCasesNotLinkedToRequirements = 3,
-    TestCasesLinkedToRequirements = 4,
-    AllSharedSteps = 11,
-    SharedStepsNotLinkedToRequirement = 12
-}
-
-/**
- * Container to hold information about a filter being applied in Test Plans Library.
- */
-export interface TestPlansLibraryWorkItemFilter {
-    /**
-     * Work item field name on which the items are to be filtered.
-     */
-    fieldName: string;
-    /**
-     * Work item field values corresponding to the field name.
-     */
-    fieldValues: string[];
-    /**
-     * Mode of the filter.
-     */
-    filterMode: TestPlansLibraryWorkItemFilterMode;
-}
-
-export enum TestPlansLibraryWorkItemFilterMode {
-    /**
-     * Default. Have the field values separated by an OR clause.
-     */
-    Or = 0,
-    /**
-     * Have the field values separated by an AND clause.
-     */
-    And = 1
 }
 
 /**
@@ -1043,6 +831,24 @@ export interface TestPoint {
      * Test Suite under which the Test Point is
      */
     testSuite: TestSuiteReference;
+}
+
+/**
+ * Test Point Count
+ */
+export interface TestPointCount {
+    /**
+     * Test Point Count
+     */
+    count: number;
+    /**
+     * Test Plan under which the Test Points are
+     */
+    testPlanId: number;
+    /**
+     * Test Suite under which the Test Points are
+     */
+    testSuiteId: number;
 }
 
 export interface TestPointDetailedReference {
@@ -1307,16 +1113,7 @@ export enum UserFriendlyTestOutcome {
     Ready = 4,
     NotApplicable = 5,
     Paused = 6,
-    Timeout = 7,
-    Warning = 8,
-    Error = 9,
-    NotExecuted = 10,
-    Inconclusive = 11,
-    Aborted = 12,
-    None = 13,
-    NotImpacted = 14,
-    Unspecified = 15,
-    MaxValue = 15
+    MaxValue = 6
 }
 
 /**

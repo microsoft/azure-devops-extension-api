@@ -26,7 +26,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/extensions/{extensionId}/accounts/{accountName}",
             routeValues: {
@@ -46,7 +46,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/extensions/{extensionId}/accounts/{accountName}",
             routeValues: {
@@ -68,7 +68,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/accountsbyname/{accountName}",
             routeValues: {
@@ -91,7 +91,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/accountsbyname/{accountName}",
             routeValues: {
@@ -122,7 +122,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.AcquisitionOptions>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/acquisitionoptions/{itemId}",
             routeValues: {
                 itemId: itemId
@@ -139,7 +139,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionAcquisitionRequest> {
 
         return this.beginRequest<Gallery.ExtensionAcquisitionRequest>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/acquisitionrequests",
             body: acquisitionRequest
@@ -171,7 +171,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/public/gallery/publisher/{publisherName}/extension/{extensionName}/{version}/assetbyname/{*assetType}",
             routeValues: {
@@ -210,7 +210,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/public/gallery/extensions/{extensionId}/{version}/assets/{assetType}",
             routeValues: {
@@ -247,7 +247,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/{version}/assets/{*assetType}",
             routeValues: {
@@ -277,7 +277,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.AzurePublisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/azurepublisher",
             routeValues: {
@@ -295,7 +295,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.AzurePublisher> {
 
         return this.beginRequest<Gallery.AzurePublisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/azurepublisher",
             routeValues: {
                 publisherName: publisherName
@@ -315,7 +315,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/categories",
             queryParams: queryValues
         });
@@ -338,7 +338,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.CategoriesResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/categories/{categoryName}",
             routeValues: {
                 categoryName: categoryName
@@ -355,7 +355,6 @@ export class GalleryRestClient extends RestClientBase {
      * @param productVersion - 
      * @param skus - 
      * @param subSkus - 
-     * @param productArchitecture - 
      */
     public async getCategoryTree(
         product: string,
@@ -364,8 +363,7 @@ export class GalleryRestClient extends RestClientBase {
         source?: string,
         productVersion?: string,
         skus?: string,
-        subSkus?: string,
-        productArchitecture?: string
+        subSkus?: string
         ): Promise<Gallery.ProductCategory> {
 
         const queryValues: any = {
@@ -373,12 +371,11 @@ export class GalleryRestClient extends RestClientBase {
             source: source,
             productVersion: productVersion,
             skus: skus,
-            subSkus: subSkus,
-            productArchitecture: productArchitecture
+            subSkus: subSkus
         };
 
         return this.beginRequest<Gallery.ProductCategory>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/{product}/categories/{categoryId}",
             routeValues: {
                 product: product,
@@ -414,7 +411,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ProductCategoriesResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/{product}/categories/root",
             routeValues: {
                 product: product
@@ -435,7 +432,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/certificates/{version}",
             routeValues: {
@@ -456,28 +453,13 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/contentverificationlog",
             routeValues: {
                 publisherName: publisherName,
                 extensionName: extensionName
             }
-        });
-    }
-
-    /**
-     * @param customerSupportRequest - 
-     */
-    public async createSupportRequest(
-        customerSupportRequest: Gallery.CustomerSupportRequest
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/public/support",
-            body: customerSupportRequest
         });
     }
 
@@ -491,7 +473,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/drafts/{draftId}",
             routeValues: {
@@ -515,7 +497,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/drafts/{draftId}",
             routeValues: {
@@ -543,7 +525,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/drafts/{draftId}",
             routeValues: {
@@ -576,7 +558,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraftAsset> {
 
         return this.beginRequest<Gallery.ExtensionDraftAsset>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/drafts/{draftId}/assets/{*assetType}",
             routeValues: {
@@ -607,7 +589,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}",
             routeValues: {
@@ -635,7 +617,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}",
             routeValues: {
@@ -660,7 +642,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraft> {
 
         return this.beginRequest<Gallery.ExtensionDraft>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}",
             routeValues: {
@@ -690,7 +672,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDraftAsset> {
 
         return this.beginRequest<Gallery.ExtensionDraftAsset>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}/assets/{*assetType}",
             routeValues: {
@@ -724,7 +706,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}/assets/{*assetType}",
             routeValues: {
@@ -748,7 +730,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/drafts/{draftId}/assets/{*assetType}",
             routeValues: {
@@ -786,7 +768,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ExtensionEvents>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/events",
             routeValues: {
                 publisherName: publisherName,
@@ -806,7 +788,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/events",
             body: extensionEvents
@@ -829,7 +811,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ExtensionQueryResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/public/gallery/extensionquery",
             customHeaders: {
@@ -842,28 +824,18 @@ export class GalleryRestClient extends RestClientBase {
 
     /**
      * @param content - Content to upload
-     * @param extensionType - 
-     * @param reCaptchaToken - 
      */
     public async createExtension(
-        content: any,
-        extensionType?: string,
-        reCaptchaToken?: string
+        content: any
         ): Promise<Gallery.PublishedExtension> {
 
-        const queryValues: any = {
-            extensionType: extensionType,
-            reCaptchaToken: reCaptchaToken
-        };
-
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/gallery/extensions/{extensionId}",
             customHeaders: {
                 "Content-Type": "application/octet-stream",
             },
-            queryParams: queryValues,
             body: content,
             isRawData: true
         });
@@ -883,7 +855,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/gallery/extensions/{extensionId}",
             routeValues: {
@@ -910,7 +882,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/gallery/extensions/{extensionId}",
             routeValues: {
                 extensionId: extensionId
@@ -921,48 +893,32 @@ export class GalleryRestClient extends RestClientBase {
 
     /**
      * @param extensionId - 
-     * @param reCaptchaToken - 
      */
     public async updateExtensionById(
-        extensionId: string,
-        reCaptchaToken?: string
+        extensionId: string
         ): Promise<Gallery.PublishedExtension> {
 
-        const queryValues: any = {
-            reCaptchaToken: reCaptchaToken
-        };
-
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/gallery/extensions/{extensionId}",
             routeValues: {
                 extensionId: extensionId
-            },
-            queryParams: queryValues
+            }
         });
     }
 
     /**
      * @param content - Content to upload
      * @param publisherName - 
-     * @param extensionType - 
-     * @param reCaptchaToken - 
      */
     public async createExtensionWithPublisher(
         content: any,
-        publisherName: string,
-        extensionType?: string,
-        reCaptchaToken?: string
+        publisherName: string
         ): Promise<Gallery.PublishedExtension> {
 
-        const queryValues: any = {
-            extensionType: extensionType,
-            reCaptchaToken: reCaptchaToken
-        };
-
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}",
             routeValues: {
@@ -971,7 +927,6 @@ export class GalleryRestClient extends RestClientBase {
             customHeaders: {
                 "Content-Type": "application/octet-stream",
             },
-            queryParams: queryValues,
             body: content,
             isRawData: true
         });
@@ -993,7 +948,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}",
             routeValues: {
@@ -1028,7 +983,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}",
             routeValues: {
                 publisherName: publisherName,
@@ -1047,27 +1002,21 @@ export class GalleryRestClient extends RestClientBase {
      * @param content - Content to upload
      * @param publisherName - Name of the publisher
      * @param extensionName - Name of the extension
-     * @param extensionType - 
-     * @param reCaptchaToken - 
      * @param bypassScopeCheck - This parameter decides if the scope change check needs to be invoked or not
      */
     public async updateExtension(
         content: any,
         publisherName: string,
         extensionName: string,
-        extensionType?: string,
-        reCaptchaToken?: string,
         bypassScopeCheck?: boolean
         ): Promise<Gallery.PublishedExtension> {
 
         const queryValues: any = {
-            extensionType: extensionType,
-            reCaptchaToken: reCaptchaToken,
             bypassScopeCheck: bypassScopeCheck
         };
 
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}",
             routeValues: {
@@ -1099,7 +1048,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.PublishedExtension>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}",
             routeValues: {
@@ -1124,7 +1073,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/extensionshare/{hostType}/{hostName}",
             routeValues: {
@@ -1150,7 +1099,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/extensionshare/{hostType}/{hostName}",
             routeValues: {
@@ -1170,7 +1119,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/extensionValidator",
             body: azureRestApiRequestModel
@@ -1187,7 +1136,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/notifications",
             body: notificationData
@@ -1219,7 +1168,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/{version}/package",
             routeValues: {
@@ -1261,7 +1210,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/public/gallery/publisher/{publisherName}/extension/{extensionName}/{version}/privateasset/{assetToken}/{*assetType}",
             routeValues: {
@@ -1294,7 +1243,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/publisherasset",
             routeValues: {
@@ -1320,7 +1269,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/publisherasset",
             routeValues: {
@@ -1350,7 +1299,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<{ [key: string] : string; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/publisherasset",
             routeValues: {
@@ -1367,39 +1316,6 @@ export class GalleryRestClient extends RestClientBase {
     }
 
     /**
-     * @param publisherName - 
-     */
-    public async fetchDomainToken(
-        publisherName: string
-        ): Promise<string> {
-
-        return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
-            routeTemplate: "_apis/gallery/publishers/{publisherName}/verify/token",
-            routeValues: {
-                publisherName: publisherName
-            }
-        });
-    }
-
-    /**
-     * @param publisherName - 
-     */
-    public async verifyDomainToken(
-        publisherName: string
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
-            method: "PUT",
-            routeTemplate: "_apis/gallery/publishers/{publisherName}/verify/token",
-            routeValues: {
-                publisherName: publisherName
-            }
-        });
-    }
-
-    /**
      * @param publisherQuery - 
      */
     public async queryPublishers(
@@ -1407,7 +1323,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.PublisherQueryResult> {
 
         return this.beginRequest<Gallery.PublisherQueryResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/public/gallery/publisherquery",
             body: publisherQuery
@@ -1422,7 +1338,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Publisher> {
 
         return this.beginRequest<Gallery.Publisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}",
             body: publisher
@@ -1437,7 +1353,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{publisherName}",
             routeValues: {
@@ -1460,7 +1376,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.Publisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/publishers/{publisherName}",
             routeValues: {
                 publisherName: publisherName
@@ -1479,7 +1395,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Publisher> {
 
         return this.beginRequest<Gallery.Publisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/gallery/publishers/{publisherName}",
             routeValues: {
@@ -1507,7 +1423,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.PublisherRoleAssignment[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}",
             routeValues: {
@@ -1515,22 +1431,6 @@ export class GalleryRestClient extends RestClientBase {
             },
             queryParams: queryValues,
             body: roleAssignments
-        });
-    }
-
-    /**
-     * @param publisherName - 
-     */
-    public async getPublisherWithoutToken(
-        publisherName: string
-        ): Promise<Gallery.Publisher> {
-
-        return this.beginRequest<Gallery.Publisher>({
-            apiVersion: "7.1-preview.1",
-            routeTemplate: "_apis/public/gallery/publisherWithoutToken/{publisherName}",
-            routeValues: {
-                publisherName: publisherName
-            }
         });
     }
 
@@ -1558,7 +1458,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.QuestionsResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/publishers/{publisherName}/extensions/{extensionName}/qna",
             routeValues: {
                 publisherName: publisherName,
@@ -1584,7 +1484,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Concern> {
 
         return this.beginRequest<Gallery.Concern>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{pubName}/extensions/{extName}/qna/{questionId}/concern",
             routeValues: {
@@ -1610,7 +1510,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Question> {
 
         return this.beginRequest<Gallery.Question>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}",
             routeValues: {
@@ -1635,7 +1535,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}",
             routeValues: {
@@ -1662,7 +1562,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Question> {
 
         return this.beginRequest<Gallery.Question>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}",
             routeValues: {
@@ -1690,7 +1590,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Response> {
 
         return this.beginRequest<Gallery.Response>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}/responses/{responseId}",
             routeValues: {
@@ -1718,7 +1618,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}/responses/{responseId}",
             routeValues: {
@@ -1748,7 +1648,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Response> {
 
         return this.beginRequest<Gallery.Response>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/qna/{questionId}/responses/{responseId}",
             routeValues: {
@@ -1785,7 +1685,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/reports",
             routeValues: {
                 publisherName: publisherName,
@@ -1822,7 +1722,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ReviewsResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/publishers/{publisherName}/extensions/{extensionName}/reviews",
             routeValues: {
                 publisherName: publisherName,
@@ -1853,7 +1753,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ReviewSummary>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/publishers/{pubName}/extensions/{extName}/reviews/summary",
             routeValues: {
                 pubName: pubName,
@@ -1877,7 +1777,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.Review> {
 
         return this.beginRequest<Gallery.Review>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/publishers/{pubName}/extensions/{extName}/reviews/{reviewId}",
             routeValues: {
@@ -1891,7 +1791,7 @@ export class GalleryRestClient extends RestClientBase {
     /**
      * Deletes a review
      * 
-     * @param pubName - Name of the publisher who published the extension
+     * @param pubName - Name of the pubilsher who published the extension
      * @param extName - Name of the extension
      * @param reviewId - Id of the review which needs to be updated
      */
@@ -1902,7 +1802,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/gallery/publishers/{pubName}/extensions/{extName}/reviews/{reviewId}",
             routeValues: {
@@ -1917,7 +1817,7 @@ export class GalleryRestClient extends RestClientBase {
      * Updates or Flags a review
      * 
      * @param reviewPatch - ReviewPatch object which contains the changes to be applied to the review
-     * @param pubName - Name of the publisher who published the extension
+     * @param pubName - Name of the pubilsher who published the extension
      * @param extName - Name of the extension
      * @param reviewId - Id of the review which needs to be updated
      */
@@ -1929,7 +1829,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ReviewPatch> {
 
         return this.beginRequest<Gallery.ReviewPatch>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publishers/{pubName}/extensions/{extName}/reviews/{reviewId}",
             routeValues: {
@@ -1949,7 +1849,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionCategory> {
 
         return this.beginRequest<Gallery.ExtensionCategory>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/categories",
             body: category
@@ -1968,7 +1868,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<{ [key: string] : any; }> {
 
         return this.beginRequest<{ [key: string] : any; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/settings/{userScope}/{*key}",
             routeValues: {
                 userScope: userScope,
@@ -1989,7 +1889,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/settings/{userScope}/{*key}",
             routeValues: {
@@ -2013,7 +1913,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/gallery/signingkey/{keyType}",
             routeValues: {
@@ -2031,7 +1931,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/signingkey/{keyType}",
             routeValues: {
                 keyType: keyType
@@ -2051,7 +1951,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/gallery/publisher/{publisherName}/extension/{extensionName}/statistics",
             routeValues: {
@@ -2084,7 +1984,7 @@ export class GalleryRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Gallery.ExtensionDailyStats>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/stats",
             routeValues: {
                 publisherName: publisherName,
@@ -2108,7 +2008,7 @@ export class GalleryRestClient extends RestClientBase {
         ): Promise<Gallery.ExtensionDailyStats> {
 
         return this.beginRequest<Gallery.ExtensionDailyStats>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/public/gallery/publishers/{publisherName}/extensions/{extensionName}/{version}/stats",
             routeValues: {
                 publisherName: publisherName,
@@ -2125,23 +2025,20 @@ export class GalleryRestClient extends RestClientBase {
      * @param extensionName - Name of the extension
      * @param version - Version of the extension
      * @param statType - Type of stat to increment
-     * @param targetPlatform - 
      */
     public async incrementExtensionDailyStat(
         publisherName: string,
         extensionName: string,
         version: string,
-        statType: string,
-        targetPlatform?: string
+        statType: string
         ): Promise<void> {
 
         const queryValues: any = {
-            statType: statType,
-            targetPlatform: targetPlatform
+            statType: statType
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/public/gallery/publishers/{publisherName}/extensions/{extensionName}/{version}/stats",
             routeValues: {
@@ -2157,51 +2054,21 @@ export class GalleryRestClient extends RestClientBase {
      * @param publisherName - 
      * @param extensionName - 
      * @param version - 
-     * @param targetPlatform - 
      */
     public async getVerificationLog(
         publisherName: string,
         extensionName: string,
-        version: string,
-        targetPlatform?: string
+        version: string
         ): Promise<ArrayBuffer> {
 
-        const queryValues: any = {
-            targetPlatform: targetPlatform
-        };
-
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/{version}/verificationlog",
             routeValues: {
                 publisherName: publisherName,
                 extensionName: extensionName,
                 version: version
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param itemName - 
-     * @param version - 
-     * @param statType - 
-     */
-    public async updateVSCodeWebExtensionStatistics(
-        itemName: string,
-        version: string,
-        statType: Gallery.VSCodeWebExtensionStatisicsType
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/public/gallery/itemName/{itemName}/version/{version}/statType/{statType}/vscodewebextension",
-            routeValues: {
-                itemName: itemName,
-                version: version,
-                statType: statType
             }
         });
     }

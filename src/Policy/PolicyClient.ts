@@ -6,7 +6,6 @@
 
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
-import { deserializeVssJsonObject } from "../Common/Util/Serialization";
 
 import * as Policy from "../Policy/Policy";
 
@@ -22,18 +21,21 @@ export class PolicyRestClient extends RestClientBase {
      * 
      * @param configuration - The policy configuration to create.
      * @param project - Project ID or project name
+     * @param configurationId - 
      */
     public async createPolicyConfiguration(
         configuration: Policy.PolicyConfiguration,
-        project: string
+        project: string,
+        configurationId?: number
         ): Promise<Policy.PolicyConfiguration> {
 
         return this.beginRequest<Policy.PolicyConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/policy/Configurations/{configurationId}",
             routeValues: {
-                project: project
+                project: project,
+                configurationId: configurationId
             },
             body: configuration
         });
@@ -51,7 +53,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/policy/Configurations/{configurationId}",
             routeValues: {
@@ -73,7 +75,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyConfiguration> {
 
         return this.beginRequest<Policy.PolicyConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Configurations/{configurationId}",
             routeValues: {
                 project: project,
@@ -100,18 +102,13 @@ export class PolicyRestClient extends RestClientBase {
             policyType: policyType
         };
 
-        return this.beginRequest<Response>({
-            apiVersion: "7.1-preview.1",
+        return this.beginRequest<Policy.PolicyConfiguration[]>({
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Configurations/{configurationId}",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues,
-            returnRawResponse: true
-        }).then(async response => {
-            const body = <Policy.PolicyConfiguration[]>await response.text().then(deserializeVssJsonObject);
-            body.continuationToken = response.headers.get("x-ms-continuationtoken");
-            return body;
+            queryParams: queryValues
         });
     }
 
@@ -129,7 +126,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyConfiguration> {
 
         return this.beginRequest<Policy.PolicyConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/policy/Configurations/{configurationId}",
             routeValues: {
@@ -152,7 +149,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyEvaluationRecord> {
 
         return this.beginRequest<Policy.PolicyEvaluationRecord>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Evaluations/{evaluationId}",
             routeValues: {
                 project: project,
@@ -173,7 +170,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyEvaluationRecord> {
 
         return this.beginRequest<Policy.PolicyEvaluationRecord>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/policy/Evaluations/{evaluationId}",
             routeValues: {
@@ -208,7 +205,7 @@ export class PolicyRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Policy.PolicyEvaluationRecord[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Evaluations",
             routeValues: {
                 project: project
@@ -231,7 +228,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyConfiguration> {
 
         return this.beginRequest<Policy.PolicyConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/configurations/{configurationId}/Revisions/{revisionId}",
             routeValues: {
                 project: project,
@@ -262,7 +259,7 @@ export class PolicyRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Policy.PolicyConfiguration[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/configurations/{configurationId}/Revisions/{revisionId}",
             routeValues: {
                 project: project,
@@ -284,7 +281,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyType> {
 
         return this.beginRequest<Policy.PolicyType>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Types/{typeId}",
             routeValues: {
                 project: project,
@@ -303,7 +300,7 @@ export class PolicyRestClient extends RestClientBase {
         ): Promise<Policy.PolicyType[]> {
 
         return this.beginRequest<Policy.PolicyType[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/policy/Types/{typeId}",
             routeValues: {
                 project: project

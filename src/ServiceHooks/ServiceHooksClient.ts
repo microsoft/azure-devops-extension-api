@@ -34,7 +34,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.ConsumerAction>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/consumers/{consumerId}/Actions/{consumerActionId}",
             routeValues: {
                 consumerId: consumerId,
@@ -60,7 +60,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.ConsumerAction[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/consumers/{consumerId}/Actions/{consumerActionId}",
             routeValues: {
                 consumerId: consumerId
@@ -85,7 +85,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.Consumer>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Consumers/{consumerId}",
             routeValues: {
                 consumerId: consumerId
@@ -108,7 +108,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.Consumer[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Consumers/{consumerId}",
             queryParams: queryValues
         });
@@ -122,7 +122,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<Notification.SubscriptionDiagnostics> {
 
         return this.beginRequest<Notification.SubscriptionDiagnostics>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/subscriptions/{subscriptionId}/diagnostics",
             routeValues: {
                 subscriptionId: subscriptionId
@@ -140,7 +140,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<Notification.SubscriptionDiagnostics> {
 
         return this.beginRequest<Notification.SubscriptionDiagnostics>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/hooks/subscriptions/{subscriptionId}/diagnostics",
             routeValues: {
@@ -162,7 +162,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.EventTypeDescriptor> {
 
         return this.beginRequest<ServiceHooks.EventTypeDescriptor>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/publishers/{publisherId}/EventTypes/{eventTypeId}",
             routeValues: {
                 publisherId: publisherId,
@@ -181,7 +181,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.EventTypeDescriptor[]> {
 
         return this.beginRequest<ServiceHooks.EventTypeDescriptor[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/publishers/{publisherId}/EventTypes/{eventTypeId}",
             routeValues: {
                 publisherId: publisherId
@@ -206,7 +206,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.PublisherEvent[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/public/hooks/ExternalEvents",
             queryParams: queryValues
@@ -225,7 +225,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Notification> {
 
         return this.beginRequest<ServiceHooks.Notification>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/subscriptions/{subscriptionId}/Notifications/{notificationId}",
             routeValues: {
                 subscriptionId: subscriptionId,
@@ -256,7 +256,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.Notification[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/subscriptions/{subscriptionId}/Notifications/{notificationId}",
             routeValues: {
                 subscriptionId: subscriptionId
@@ -275,7 +275,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.NotificationsQuery> {
 
         return this.beginRequest<ServiceHooks.NotificationsQuery>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/NotificationsQuery",
             body: query
@@ -292,7 +292,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<FormInput.InputValuesQuery> {
 
         return this.beginRequest<FormInput.InputValuesQuery>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/publishers/{publisherId}/inputValuesQuery",
             routeValues: {
@@ -312,7 +312,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Publisher> {
 
         return this.beginRequest<ServiceHooks.Publisher>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Publishers/{publisherId}",
             routeValues: {
                 publisherId: publisherId
@@ -328,7 +328,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Publisher[]> {
 
         return this.beginRequest<ServiceHooks.Publisher[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Publishers/{publisherId}"
         });
     }
@@ -343,7 +343,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.PublishersQuery> {
 
         return this.beginRequest<ServiceHooks.PublishersQuery>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/PublishersQuery",
             body: query
@@ -360,7 +360,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Subscription> {
 
         return this.beginRequest<ServiceHooks.Subscription>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/Subscriptions/{subscriptionId}",
             body: subscription
@@ -377,7 +377,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/hooks/Subscriptions/{subscriptionId}",
             routeValues: {
@@ -396,7 +396,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Subscription> {
 
         return this.beginRequest<ServiceHooks.Subscription>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Subscriptions/{subscriptionId}",
             routeValues: {
                 subscriptionId: subscriptionId
@@ -427,7 +427,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.Subscription[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/hooks/Subscriptions/{subscriptionId}",
             queryParams: queryValues
         });
@@ -445,7 +445,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.Subscription> {
 
         return this.beginRequest<ServiceHooks.Subscription>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/hooks/Subscriptions/{subscriptionId}",
             routeValues: {
@@ -465,7 +465,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         ): Promise<ServiceHooks.SubscriptionsQuery> {
 
         return this.beginRequest<ServiceHooks.SubscriptionsQuery>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/SubscriptionsQuery",
             body: query
@@ -488,7 +488,7 @@ export class ServiceHooksRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ServiceHooks.Notification>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/hooks/TestNotifications/{notificationId}",
             queryParams: queryValues,

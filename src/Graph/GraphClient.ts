@@ -26,7 +26,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
@@ -52,7 +52,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Avatar>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -71,7 +71,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}/Avatars",
             routeValues: {
@@ -87,7 +87,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphCachePolicies> {
 
         return this.beginRequest<Graph.GraphCachePolicies>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/CachePolicies"
         });
     }
@@ -102,7 +102,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphDescriptorResult> {
 
         return this.beginRequest<Graph.GraphDescriptorResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Descriptors/{storageKey}",
             routeValues: {
                 storageKey: storageKey
@@ -129,7 +129,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphFederatedProviderData>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/FederatedProviderData/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -157,7 +157,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             queryParams: queryValues,
@@ -175,7 +175,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
@@ -194,7 +194,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphGroup> {
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
                 groupDescriptor: groupDescriptor
@@ -214,7 +214,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphGroup> {
 
         return this.beginRequest<Graph.GraphGroup>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Groups/{groupDescriptor}",
             routeValues: {
@@ -228,29 +228,6 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Identity Translation - Translate endpoint is supposed to be used by geneva action.
-     * 
-     * @param masterId - 
-     * @param localId - 
-     */
-    public async translate(
-        masterId?: string,
-        localId?: string
-        ): Promise<string> {
-
-        const queryValues: any = {
-            masterId: masterId,
-            localId: localId
-        };
-
-        return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
-            routeTemplate: "_apis/Graph/IdentityTranslation",
-            queryParams: queryValues
-        });
-    }
-
-    /**
      * @param memberLookup - 
      */
     public async lookupMembers(
@@ -258,7 +235,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<{ [key: string] : Graph.GraphMember; }> {
 
         return this.beginRequest<{ [key: string] : Graph.GraphMember; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/MemberLookup",
             body: memberLookup
@@ -275,7 +252,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMember> {
 
         return this.beginRequest<Graph.GraphMember>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Members/{memberDescriptor}",
             routeValues: {
                 memberDescriptor: memberDescriptor
@@ -295,7 +272,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembership> {
 
         return this.beginRequest<Graph.GraphMembership>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
@@ -317,14 +294,13 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<boolean> {
 
         return this.beginRequest<Response>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "HEAD",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor,
                 containerDescriptor: containerDescriptor
-            },
-            returnRawResponse: true
+            }
         }).then(async response => {
             return true;
         }).catch((error) => {
@@ -347,7 +323,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembership> {
 
         return this.beginRequest<Graph.GraphMembership>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor,
@@ -368,7 +344,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}/{containerDescriptor}",
             routeValues: {
@@ -397,7 +373,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphMembership[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Memberships/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -416,7 +392,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphMembershipState> {
 
         return this.beginRequest<Graph.GraphMembershipState>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/MembershipStates/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -443,7 +419,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<{ [key: string] : Graph.GraphMembershipTraversal; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/MembershipTraversals/{subjectDescriptor}",
             queryParams: queryValues,
@@ -470,7 +446,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphMembershipTraversal>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/MembershipTraversals/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -487,7 +463,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphProviderInfo> {
 
         return this.beginRequest<Graph.GraphProviderInfo>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}/ProviderInfo",
             routeValues: {
                 userDescriptor: userDescriptor
@@ -503,27 +479,10 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/RequestAccess",
             body: jsondocument
-        });
-    }
-
-    /**
-     * Batch-map a list of users to new users.
-     * 
-     * @param mappings - A list of mappings.
-     */
-    public async resolve(
-        mappings: Graph.IdentityMappings
-        ): Promise<Graph.ResolveDisconnectedUsersResponse> {
-
-        return this.beginRequest<Graph.ResolveDisconnectedUsersResponse>({
-            apiVersion: "7.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/Graph/ResolveDisconnectedUsers",
-            body: mappings
         });
     }
 
@@ -537,7 +496,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphScope> {
 
         return this.beginRequest<Graph.GraphScope>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -555,7 +514,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -574,7 +533,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphScope> {
 
         return this.beginRequest<Graph.GraphScope>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
                 scopeDescriptor: scopeDescriptor
@@ -592,7 +551,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Scopes/{scopeDescriptor}",
             routeValues: {
@@ -606,89 +565,6 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Materialize an existing AAD service principal into the ADO account.
-     * 
-     * @param creationContext - The subset of the full graph service principal used to uniquely find the graph subject in an external provider.
-     * @param groupDescriptors - A comma separated list of descriptors of groups you want the graph service principal to join
-     */
-    public async createServicePrincipal(
-        creationContext: Graph.GraphServicePrincipalCreationContext,
-        groupDescriptors?: string[]
-        ): Promise<Graph.GraphServicePrincipal> {
-
-        const queryValues: any = {
-            groupDescriptors: groupDescriptors && groupDescriptors.join(",")
-        };
-
-        return this.beginRequest<Graph.GraphServicePrincipal>({
-            apiVersion: "7.1-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/Graph/ServicePrincipals/{servicePrincipalDescriptor}",
-            queryParams: queryValues,
-            body: creationContext
-        });
-    }
-
-    /**
-     * Disables a service principal.
-     * 
-     * @param servicePrincipalDescriptor - The descriptor of the service principal to delete.
-     */
-    public async deleteServicePrincipal(
-        servicePrincipalDescriptor: string
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
-            method: "DELETE",
-            routeTemplate: "_apis/Graph/ServicePrincipals/{servicePrincipalDescriptor}",
-            routeValues: {
-                servicePrincipalDescriptor: servicePrincipalDescriptor
-            }
-        });
-    }
-
-    /**
-     * Get a service principal by its descriptor.
-     * 
-     * @param servicePrincipalDescriptor - The descriptor of the desired service principal.
-     */
-    public async getServicePrincipal(
-        servicePrincipalDescriptor: string
-        ): Promise<Graph.GraphServicePrincipal> {
-
-        return this.beginRequest<Graph.GraphServicePrincipal>({
-            apiVersion: "7.1-preview.1",
-            routeTemplate: "_apis/Graph/ServicePrincipals/{servicePrincipalDescriptor}",
-            routeValues: {
-                servicePrincipalDescriptor: servicePrincipalDescriptor
-            }
-        });
-    }
-
-    /**
-     * Map an existing service principal to a different service principal.
-     * 
-     * @param updateContext - The subset of the full graph service principal used to uniquely find the graph subject in an external provider.
-     * @param servicePrincipalDescriptor - The descriptor of the service principal to update
-     */
-    public async updateServicePrincipal(
-        updateContext: Graph.GraphServicePrincipalUpdateContext,
-        servicePrincipalDescriptor: string
-        ): Promise<Graph.GraphServicePrincipal> {
-
-        return this.beginRequest<Graph.GraphServicePrincipal>({
-            apiVersion: "7.1-preview.1",
-            method: "PATCH",
-            routeTemplate: "_apis/Graph/ServicePrincipals/{servicePrincipalDescriptor}",
-            routeValues: {
-                servicePrincipalDescriptor: servicePrincipalDescriptor
-            },
-            body: updateContext
-        });
-    }
-
-    /**
      * Resolve a descriptor to a storage key.
      * 
      * @param subjectDescriptor - 
@@ -698,7 +574,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphStorageKeyResult> {
 
         return this.beginRequest<Graph.GraphStorageKeyResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/StorageKeys/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -716,7 +592,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<{ [key: string] : Graph.GraphSubject; }> {
 
         return this.beginRequest<{ [key: string] : Graph.GraphSubject; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/SubjectLookup",
             body: subjectLookup
@@ -733,7 +609,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphSubject[]> {
 
         return this.beginRequest<Graph.GraphSubject[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/SubjectQuery",
             body: subjectQuery
@@ -748,7 +624,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphSubject> {
 
         return this.beginRequest<Graph.GraphSubject>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Subjects/{subjectDescriptor}",
             routeValues: {
                 subjectDescriptor: subjectDescriptor
@@ -772,7 +648,7 @@ export class GraphRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             queryParams: queryValues,
@@ -790,7 +666,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {
@@ -809,7 +685,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphUser> {
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {
                 userDescriptor: userDescriptor
@@ -818,10 +694,10 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Map an existing user to a different user.
+     * Map an existing user to a different identity
      * 
      * @param updateContext - The subset of the full graph user used to uniquely find the graph subject in an external provider.
-     * @param userDescriptor - The descriptor of the user to update
+     * @param userDescriptor - the descriptor of the user to update
      */
     public async updateUser(
         updateContext: Graph.GraphUserUpdateContext,
@@ -829,7 +705,7 @@ export class GraphRestClient extends RestClientBase {
         ): Promise<Graph.GraphUser> {
 
         return this.beginRequest<Graph.GraphUser>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Graph/Users/{userDescriptor}",
             routeValues: {

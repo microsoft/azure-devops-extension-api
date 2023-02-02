@@ -376,7 +376,7 @@ export interface CloneOperationInformation {
      */
     sourceProject: ShallowReference;
     /**
-     * Current state of the operation. When State reaches Succeeded or Failed, the operation is complete
+     * Current state of the operation. When State reaches Suceeded or Failed, the operation is complete
      */
     state: CloneOperationState;
     /**
@@ -461,21 +461,6 @@ export interface CloneStatistics {
      * Total number of test cases to be cloned
      */
     totalTestCasesCount: number;
-}
-
-export interface CloneTestCaseOptions {
-    /**
-     * If set to true, include the attachments
-     */
-    includeAttachments: boolean;
-    /**
-     * If set to true, include the links
-     */
-    includeLinks: boolean;
-    /**
-     * Comment on the link that will link the new clone  test case to the original Set null for no comment
-     */
-    relatedLinkComment: string;
 }
 
 /**
@@ -620,11 +605,7 @@ export enum CoverageSummaryStatus {
     /**
      * The summary evaluation is pending
      */
-    Pending = 4,
-    /**
-     * Summary evaluation may be ongoing but another merge has been requested.
-     */
-    UpdateRequestQueued = 5
+    Pending = 4
 }
 
 export interface CreateTestMessageLogEntryRequest {
@@ -722,7 +703,7 @@ export interface FailingSince {
      */
     build: BuildReference;
     /**
-     * Time since failing(UTC).
+     * Time since failing.
      */
     date: Date;
     /**
@@ -883,15 +864,15 @@ export interface JobReference {
  */
 export interface LastResultDetails {
     /**
-     * Completed date of last result.
+     * CompletedDate of LastResult.
      */
     dateCompleted: Date;
     /**
-     * Duration of the last result in milliseconds.
+     * Duration of LastResult.
      */
     duration: number;
     /**
-     * The user who executed the last result.
+     * RunBy.
      */
     runBy: WebApi.IdentityRef;
 }
@@ -1192,13 +1173,6 @@ export interface NameValuePair {
      * Value
      */
     value: string;
-}
-
-export interface NewTestResultLoggingSettings {
-    /**
-     * LogNewTests defines whether or not we will record new test cases coming into the system
-     */
-    logNewTests: boolean;
 }
 
 export enum OperationType {
@@ -1505,7 +1479,7 @@ export interface ReleaseReference {
      */
     attempt: number;
     /**
-     * Release Creation Date(UTC).
+     * Release Creation Date.
      */
     creationDate: Date;
     /**
@@ -1513,7 +1487,7 @@ export interface ReleaseReference {
      */
     definitionId: number;
     /**
-     * Environment creation Date(UTC).
+     * Environment creation Date.
      */
     environmentCreationDate: Date;
     /**
@@ -1933,7 +1907,7 @@ export interface RunCreateModel {
      */
     startDate: string;
     /**
-     * The state of the run. Type TestRunState Valid states - NotStarted, InProgress, Waiting
+     * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
      */
     state: string;
     /**
@@ -2439,7 +2413,7 @@ export interface TestActionResult2 {
  */
 export interface TestActionResultModel extends TestResultModelBase {
     /**
-     * Path identifier for test step in test case workitem. Note: 1) It is represented in Hexadecimal format with 8 digits for a step. 2) Internally, the step ID value for first step starts with 2 so actionPath = 00000002 step 9, will have an ID = 10 and actionPath = 0000000a step 15, will have an ID =16 and actionPath = 00000010 3) actionPath of shared step is concatenated with the parent step of test case. Example, it would be something of type -  0000000300000001 where 00000003 denotes action path of test step and 00000001 denotes action path for shared step
+     * Path identifier test step in test case workitem.
      */
     actionPath: string;
     /**
@@ -2455,7 +2429,7 @@ export interface TestActionResultModel extends TestResultModelBase {
      */
     stepIdentifier: string;
     /**
-     * Url of test action result. Deprecated in hosted environment.
+     * Url of test action result.
      */
     url: string;
 }
@@ -2617,7 +2591,7 @@ export interface TestCaseResult {
      */
     comment: string;
     /**
-     * Time when test execution completed(UTC). Completed date should be greater than StartedDate.
+     * Time when test execution completed. Completed date should be greater than StartedDate.
      */
     completedDate: Date;
     /**
@@ -2629,7 +2603,7 @@ export interface TestCaseResult {
      */
     configuration: ShallowReference;
     /**
-     * Timestamp when test result created(UTC).
+     * Timestamp when test result created.
      */
     createdDate: Date;
     /**
@@ -2665,7 +2639,7 @@ export interface TestCaseResult {
      */
     lastUpdatedBy: WebApi.IdentityRef;
     /**
-     * Last updated datetime of test result(UTC).
+     * Last updated datetime of test result.
      */
     lastUpdatedDate: Date;
     /**
@@ -2721,7 +2695,7 @@ export interface TestCaseResult {
      */
     stackTrace: string;
     /**
-     * Time when test execution started(UTC).
+     * Time when test execution started.
      */
     startedDate: Date;
     /**
@@ -2877,7 +2851,7 @@ export interface TestConfiguration {
      */
     project: ShallowReference;
     /**
-     * Revision of the configuration
+     * Revision of the the configuration
      */
     revision: number;
     /**
@@ -3050,7 +3024,7 @@ export interface TestIterationDetailsModel {
      */
     comment: string;
     /**
-     * Time when execution completed(UTC).
+     * Time when execution completed.
      */
     completedDate: Date;
     /**
@@ -3074,7 +3048,7 @@ export interface TestIterationDetailsModel {
      */
     parameters: TestResultParameterModel[];
     /**
-     * Time when execution started(UTC).
+     * Time when execution started.
      */
     startedDate: Date;
     /**
@@ -3255,46 +3229,6 @@ export enum TestLogStatusCode {
      * Storage capacity exceeded
      */
     StorageCapacityExceeded = 16
-}
-
-/**
- * Attachment metadata for test attachments from LogStore.
- */
-export interface TestLogStoreAttachment {
-    /**
-     * Attachment type.
-     */
-    attachmentType: AttachmentType;
-    /**
-     * Comment associated with attachment.
-     */
-    comment: string;
-    /**
-     * Attachment created date.
-     */
-    createdDate: Date;
-    /**
-     * Attachment file name.
-     */
-    fileName: string;
-    /**
-     * Attachment size.
-     */
-    size: number;
-    /**
-     * Attachment Url.
-     */
-    url: string;
-}
-
-/**
- * Reference to test attachment.
- */
-export interface TestLogStoreAttachmentReference {
-    /**
-     * Url to download the attachment.
-     */
-    url: string;
 }
 
 /**
@@ -3980,7 +3914,7 @@ export interface TestResultModelBase {
      */
     comment: string;
     /**
-     * Time when execution completed(UTC).
+     * Time when execution completed.
      */
     completedDate: Date;
     /**
@@ -3996,7 +3930,7 @@ export interface TestResultModelBase {
      */
     outcome: string;
     /**
-     * Time when execution started(UTC).
+     * Time when execution started.
      */
     startedDate: Date;
 }
@@ -4032,7 +3966,7 @@ export interface TestResultParameterModel {
      */
     stepIdentifier: string;
     /**
-     * Url of test parameter. Deprecated in hosted environment.
+     * Url of test parameter.
      */
     url: string;
     /**
@@ -4134,7 +4068,6 @@ export interface TestResultsSettings {
      * IsRequired and EmitDefaultValue are passed as false as if users doesn't pass anything, should not come for serialisation and deserialisation.
      */
     flakySettings: FlakySettings;
-    newTestResultLoggingSettings: NewTestResultLoggingSettings;
 }
 
 export enum TestResultsSettingsType {
@@ -4145,11 +4078,7 @@ export enum TestResultsSettingsType {
     /**
      * Returns Flaky Test Settings.
      */
-    Flaky = 2,
-    /**
-     * Returns whether to log new tests or not
-     */
-    NewTestLogging = 3
+    Flaky = 2
 }
 
 export interface TestResultSummary {
@@ -4166,10 +4095,6 @@ export interface TestResultsUpdateSettings {
      * FlakySettings defines Flaky Settings Data.
      */
     flakySettings: FlakySettings;
-    /**
-     * NewTestResultLoggingSettings defines the setting for logging new test results
-     */
-    newTestResultLoggingSettings: NewTestResultLoggingSettings;
 }
 
 export interface TestResultsWithWatermark {
@@ -4856,7 +4781,7 @@ export interface TestSubResult {
      */
     comment: string;
     /**
-     * Time when test execution completed(UTC).
+     * Time when test execution completed.
      */
     completedDate: Date;
     /**
@@ -4888,7 +4813,7 @@ export interface TestSubResult {
      */
     id: number;
     /**
-     * Time when result last updated(UTC).
+     * Time when result last updated.
      */
     lastUpdatedDate: Date;
     /**
@@ -4912,7 +4837,7 @@ export interface TestSubResult {
      */
     stackTrace: string;
     /**
-     * Time when test execution started(UTC).
+     * Time when test execution started.
      */
     startedDate: Date;
     /**

@@ -24,7 +24,7 @@ export enum AcquisitionAssignmentType {
 
 export interface AcquisitionOperation {
     /**
-     * State of the AcquisitionOperation for the current user
+     * State of the the AcquisitionOperation for the current user
      */
     operationState: AcquisitionOperationState;
     /**
@@ -277,7 +277,7 @@ export interface ContributionConstraint {
      */
     properties: any;
     /**
-     * Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will eliminate the contribution from the tree completely if the constraint is applied.
+     * Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will elimiate the contribution from the tree completely if the constraint is applied.
      */
     relationships: string[];
 }

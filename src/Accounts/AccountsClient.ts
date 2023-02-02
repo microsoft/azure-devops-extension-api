@@ -30,7 +30,7 @@ export class AccountsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Accounts.Account>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Accounts/{accountId}",
             queryParams: queryValues,
@@ -46,7 +46,7 @@ export class AccountsRestClient extends RestClientBase {
         ): Promise<Accounts.Account> {
 
         return this.beginRequest<Accounts.Account>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Accounts/{accountId}",
             routeValues: {
                 accountId: accountId
@@ -55,7 +55,7 @@ export class AccountsRestClient extends RestClientBase {
     }
 
     /**
-     * Get a list of accounts for a specific owner or a specific member. One of the following parameters is required: ownerId, memberId.
+     * Get a list of accounts for a specific owner or a specific member.
      * 
      * @param ownerId - ID for the owner of the accounts.
      * @param memberId - ID for a member of the accounts.
@@ -74,7 +74,7 @@ export class AccountsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Accounts.Account[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/Accounts/{accountId}",
             queryParams: queryValues
         });
