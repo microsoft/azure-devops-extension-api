@@ -23,7 +23,7 @@ export enum AcquisitionAssignmentType {
 
 export interface AcquisitionOperation {
     /**
-     * State of the AcquisitionOperation for the current user
+     * State of the the AcquisitionOperation for the current user
      */
     operationState: AcquisitionOperationState;
     /**
@@ -235,53 +235,6 @@ export interface CustomerLastContact {
     lastContactDate: Date;
 }
 
-/**
- * An entity representing the data required to create a Customer Support Request.
- */
-export interface CustomerSupportRequest {
-    /**
-     * Display name of extension in concern
-     */
-    displayName: string;
-    /**
-     * Email of user making the support request
-     */
-    emailId: string;
-    /**
-     * Extension name
-     */
-    extensionName: string;
-    /**
-     * Link to the extension details page
-     */
-    extensionURL: string;
-    /**
-     * User-provided support request message.
-     */
-    message: string;
-    /**
-     * Publisher name
-     */
-    publisherName: string;
-    /**
-     * Reason for support request
-     */
-    reason: string;
-    reCaptchaToken: string;
-    /**
-     * VSID of the user making the support request
-     */
-    reporterVSID: string;
-    /**
-     * Review under concern
-     */
-    review: Review;
-    /**
-     * The UI source through which the request was made
-     */
-    sourceLink: string;
-}
-
 export enum DraftPatchOperation {
     Publish = 1,
     Cancel = 2
@@ -384,7 +337,7 @@ export interface ExtensionCategory {
      */
     categoryName: string;
     /**
-     * This parameter is obsolete. Refer to LanguageTitles for language specific titles
+     * This parameter is obsolete. Refer to LanguageTitles for langauge specific titles
      */
     language: string;
     /**
@@ -466,7 +419,6 @@ export interface ExtensionDraftAsset extends ExtensionFile {
 export interface ExtensionDraftPatch {
     extensionData: UnpackagedExtensionData;
     operation: DraftPatchOperation;
-    reCaptchaToken: string;
 }
 
 /**
@@ -711,11 +663,11 @@ export enum ExtensionQueryFilterType {
      */
     FeaturedInCategory = 11,
     /**
-     * When retrieving extensions from a query, exclude the extensions which are having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be excluded. In case of multiple flags to be specified, a logical OR of the interger values should be given as value for this filter This should be at most one filter of this type. This only acts as a restrictive filter after. In case of having a particular flag in both IncludeWithFlags and ExcludeWithFlags, excludeFlags will remove the included extensions giving empty result for that flag.
+     * When retrieving extensions from a query, exclude the extensions which are having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be excluded. In case of mulitple flags to be specified, a logical OR of the interger values should be given as value for this filter This should be at most one filter of this type. This only acts as a restrictive filter after. In case of having a particular flag in both IncludeWithFlags and ExcludeWithFlags, excludeFlags will remove the included extensions giving empty result for that flag.
      */
     ExcludeWithFlags = 12,
     /**
-     * When retrieving extensions from a query, include the extensions which are having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be included. In case of multiple flags to be specified, a logical OR of the integer values should be given as value for this filter This should be at most one filter of this type. This only acts as a restrictive filter after. In case of having a particular flag in both IncludeWithFlags and ExcludeWithFlags, excludeFlags will remove the included extensions giving empty result for that flag. In case of multiple flags given in IncludeWithFlags in ORed fashion, extensions having any of the given flags will be included.
+     * When retrieving extensions from a query, include the extensions which are having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be included. In case of mulitple flags to be specified, a logical OR of the integer values should be given as value for this filter This should be at most one filter of this type. This only acts as a restrictive filter after. In case of having a particular flag in both IncludeWithFlags and ExcludeWithFlags, excludeFlags will remove the included extensions giving empty result for that flag. In case of multiple flags given in IncludeWithFlags in ORed fashion, extensions having any of the given flags will be included.
      */
     IncludeWithFlags = 13,
     /**
@@ -743,25 +695,13 @@ export enum ExtensionQueryFilterType {
      */
     PublisherDisplayName = 19,
     /**
-     * When retrieving extensions from a query, include the extensions which have a publisher having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be included. In case of multiple flags to be specified, a logical OR of the integer values should be given as value for this filter There should be at most one filter of this type. This only acts as a restrictive filter after. In case of multiple flags given in IncludeWithFlags in ORed fashion, extensions having any of the given flags will be included.
+     * When retrieving extensions from a query, include the extensions which have a publisher having the given flags. The value specified for this filter should be a string representing the integer values of the flags to be included. In case of mulitple flags to be specified, a logical OR of the integer values should be given as value for this filter There should be at most one filter of this type. This only acts as a restrictive filter after. In case of multiple flags given in IncludeWithFlags in ORed fashion, extensions having any of the given flags will be included.
      */
     IncludeWithPublisherFlags = 20,
     /**
      * Filter to get extensions shared with particular organization
      */
-    OrganizationSharedWith = 21,
-    /**
-     * Filter to get VS IDE extensions by Product Architecture
-     */
-    ProductArchitecture = 22,
-    /**
-     * Filter to get VS Code extensions by target platform.
-     */
-    TargetPlatform = 23,
-    /**
-     * Retrieve an extension based on the extensionName.
-     */
-    ExtensionName = 24
+    OrganizationSharedWith = 21
 }
 
 /**
@@ -833,10 +773,6 @@ export enum ExtensionQueryFlags {
      */
     IncludeSharedOrganizations = 16384,
     /**
-     * Include the details if an extension is in conflict list or not Currently being used for VSCode extensions.
-     */
-    IncludeNameConflictInfo = 32768,
-    /**
      * AllAttributes is designed to be a mask that defines all sub-elements of the extension should be returned.  NOTE: This is not actually All flags. This is now locked to the set defined since changing this enum would be a breaking change and would change the behavior of anyone using it. Try not to use this value when making calls to the service, instead be explicit about the options required.
      */
     AllAttributes = 16863
@@ -894,7 +830,6 @@ export interface ExtensionVersion {
     flags: ExtensionVersionFlags;
     lastUpdated: Date;
     properties: { key: string; value: string }[];
-    targetPlatform: string;
     validationResultMessage: string;
     version: string;
     versionDescription: string;
@@ -926,10 +861,7 @@ export interface FilterCriteria {
 }
 
 export interface InstallationTarget {
-    extensionVersion: string;
-    productArchitecture: string;
     target: string;
-    targetPlatform: string;
     targetVersion: string;
 }
 
@@ -1038,10 +970,6 @@ export interface PublishedExtension {
     lastUpdated: Date;
     longDescription: string;
     /**
-     * Check if Extension is in conflict list or not. Taking as String and not as boolean because we don't want end customer to see this flag and by making it Boolean it is coming as false for all the cases.
-     */
-    presentInConflictList: string;
-    /**
      * Date on which the extension was first uploaded.
      */
     publishedDate: Date;
@@ -1121,10 +1049,6 @@ export enum PublishedExtensionFlags {
 
 export interface Publisher extends PublisherBase {
     _links: any;
-    domain: string;
-    isDnsTokenVerified: boolean;
-    isDomainVerified: boolean;
-    reCaptchaToken: string;
 }
 
 /**
@@ -1148,9 +1072,7 @@ export interface PublisherBase {
  */
 export interface PublisherFacts {
     displayName: string;
-    domain: string;
     flags: PublisherFlags;
-    isDomainVerified: boolean;
     publisherId: string;
     publisherName: string;
 }
@@ -1453,7 +1375,7 @@ export interface QueryFilter {
      */
     pageSize: number;
     /**
-     * The paging token is a distinct type of filter and the other filter fields are ignored. The paging token represents the continuation of a previously executed query. The information about where in the result and what fields are being filtered are embedded in the token.
+     * The paging token is a distinct type of filter and the other filter fields are ignored. The paging token represents the continuation of a previously executed query. The information about where in the result and what fields are being filtered are embeded in the token.
      */
     pagingToken: string;
     /**
@@ -1470,7 +1392,6 @@ export interface QueryFilter {
  * The structure of the question / thread
  */
 export interface Question extends QnAItem {
-    reCaptchaToken: string;
     /**
      * List of answers in for the question / thread
      */
@@ -1503,7 +1424,6 @@ export interface RatingCountPerRating {
  * The structure of a response
  */
 export interface Response extends QnAItem {
-    reCaptchaToken: string;
 }
 
 /**
@@ -1576,7 +1496,6 @@ export interface Review {
      * Rating provided by the user
      */
     rating: number;
-    reCaptchaToken: string;
     /**
      * Reply, if any, for this review
      */
@@ -1956,10 +1875,4 @@ export interface UserReportedConcern {
      * Id of the user who reported a review
      */
     userId: string;
-}
-
-export enum VSCodeWebExtensionStatisicsType {
-    Install = 1,
-    Update = 2,
-    Uninstall = 3
 }

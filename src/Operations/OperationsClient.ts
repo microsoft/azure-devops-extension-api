@@ -15,7 +15,7 @@ export class OperationsRestClient extends RestClientBase {
     }
 
     /**
-     * Gets an operation from the operationId using the given pluginId.
+     * Gets an operation from the the operationId using the given pluginId.
      * 
      * @param operationId - The ID for the operation.
      * @param pluginId - The ID for the plugin.
@@ -30,7 +30,7 @@ export class OperationsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Operations.Operation>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "_apis/operations/{operationId}",
             routeValues: {
                 operationId: operationId

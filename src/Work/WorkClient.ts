@@ -30,7 +30,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BacklogConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/backlogconfiguration",
             routeValues: {
                 project: project,
@@ -54,7 +54,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BacklogLevelWorkItems>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/backlogs/{backlogId}/workItems",
             routeValues: {
                 project: project,
@@ -79,7 +79,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BacklogLevelConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/backlogs/{id}",
             routeValues: {
                 project: project,
@@ -102,7 +102,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BacklogLevelConfiguration[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/backlogs/{id}",
             routeValues: {
                 project: project,
@@ -135,7 +135,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardBadge>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boardbadge/{id}",
             routeValues: {
                 project: project,
@@ -170,7 +170,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boardbadge/{id}",
             routeValues: {
                 project: project,
@@ -191,7 +191,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.BoardSuggestedValue[]> {
 
         return this.beginRequest<Work.BoardSuggestedValue[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/boardcolumns",
             routeValues: {
                 project: project
@@ -221,7 +221,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.ParentChildWIMap[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/boardparents",
             routeValues: {
                 project: project,
@@ -241,7 +241,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.BoardSuggestedValue[]> {
 
         return this.beginRequest<Work.BoardSuggestedValue[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/boardrows",
             routeValues: {
                 project: project
@@ -264,7 +264,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.Board>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{id}",
             routeValues: {
                 project: project,
@@ -287,7 +287,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{id}",
             routeValues: {
                 project: project,
@@ -313,7 +313,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<{ [key: string] : string; }>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/boards/{id}",
             routeValues: {
@@ -340,7 +340,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardUserSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/boardusersettings",
             routeValues: {
                 project: project,
@@ -367,7 +367,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardUserSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/boardusersettings",
             routeValues: {
@@ -380,21 +380,21 @@ export class WorkRestClient extends RestClientBase {
     }
 
     /**
-     * Get a team's capacity including total capacity and days off
+     * Get a team's capacity
      * 
      * @param teamContext - The team context for the operation
      * @param iterationId - ID of the iteration
      */
-    public async getCapacitiesWithIdentityRefAndTotals(
+    public async getCapacitiesWithIdentityRef(
         teamContext: TfsCore.TeamContext,
         iterationId: string
-        ): Promise<Work.TeamCapacity> {
+        ): Promise<Work.TeamMemberCapacityIdentityRef[]> {
 
         const project = teamContext.projectId || teamContext.project;
         const team = teamContext.teamId || teamContext.team;
 
-        return this.beginRequest<Work.TeamCapacity>({
-            apiVersion: "7.1-preview.3",
+        return this.beginRequest<Work.TeamMemberCapacityIdentityRef[]>({
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
                 project: project,
@@ -421,7 +421,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamMemberCapacityIdentityRef>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
                 project: project,
@@ -449,7 +449,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamMemberCapacityIdentityRef[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
@@ -480,7 +480,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamMemberCapacityIdentityRef>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/capacities/{teamMemberId}",
             routeValues: {
@@ -508,7 +508,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardRuleSettings>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardrulesettings",
             routeValues: {
                 project: project,
@@ -535,7 +535,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardRuleSettings>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardrulesettings",
             routeValues: {
@@ -562,7 +562,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/taskboard/cardrulesettings",
             routeValues: {
@@ -588,7 +588,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardSettings>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardsettings",
             routeValues: {
                 project: project,
@@ -615,7 +615,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardCardSettings>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/cardsettings",
             routeValues: {
@@ -642,7 +642,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "5.2-preview.2",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/taskboard/cardsettings",
             routeValues: {
@@ -670,7 +670,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardChart>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/charts/{name}",
             routeValues: {
                 project: project,
@@ -696,7 +696,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardChartReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/charts/{name}",
             routeValues: {
                 project: project,
@@ -725,7 +725,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardChart>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/charts/{name}",
             routeValues: {
@@ -753,7 +753,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardColumn[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/columns/{id}",
             routeValues: {
                 project: project,
@@ -780,7 +780,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardColumn[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/columns/{id}",
             routeValues: {
@@ -816,34 +816,13 @@ export class WorkRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Work.DeliveryViewData>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/plans/{id}/deliverytimeline",
             routeValues: {
                 project: project,
                 id: id
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Get an iteration's capacity for all teams in iteration
-     * 
-     * @param project - Project ID or project name
-     * @param iterationId - ID of the iteration
-     */
-    public async getTotalIterationCapacities(
-        project: string,
-        iterationId: string
-        ): Promise<Work.IterationCapacity> {
-
-        return this.beginRequest<Work.IterationCapacity>({
-            apiVersion: "7.1-preview.1",
-            routeTemplate: "{project}/_apis/work/iterations/{iterationId}/iterationcapacities",
-            routeValues: {
-                project: project,
-                iterationId: iterationId
-            }
         });
     }
 
@@ -862,7 +841,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{id}",
             routeValues: {
@@ -888,7 +867,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSettingsIteration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{id}",
             routeValues: {
                 project: project,
@@ -917,7 +896,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSettingsIteration[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{id}",
             routeValues: {
                 project: project,
@@ -942,7 +921,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSettingsIteration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{id}",
             routeValues: {
@@ -965,7 +944,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.Plan> {
 
         return this.beginRequest<Work.Plan>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/work/plans/{id}",
             routeValues: {
@@ -987,7 +966,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/work/plans/{id}",
             routeValues: {
@@ -1009,7 +988,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.Plan> {
 
         return this.beginRequest<Work.Plan>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/plans/{id}",
             routeValues: {
                 project: project,
@@ -1028,7 +1007,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.Plan[]> {
 
         return this.beginRequest<Work.Plan[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/plans/{id}",
             routeValues: {
                 project: project
@@ -1050,7 +1029,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.Plan> {
 
         return this.beginRequest<Work.Plan>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/_apis/work/plans/{id}",
             routeValues: {
@@ -1071,7 +1050,7 @@ export class WorkRestClient extends RestClientBase {
         ): Promise<Work.ProcessConfiguration> {
 
         return this.beginRequest<Work.ProcessConfiguration>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/_apis/work/processconfiguration",
             routeValues: {
                 project: project
@@ -1094,7 +1073,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardRow[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/rows/{id}",
             routeValues: {
                 project: project,
@@ -1121,7 +1100,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.BoardRow[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/boards/{board}/rows/{id}",
             routeValues: {
@@ -1144,7 +1123,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TaskboardColumns>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/taskboardColumns",
             routeValues: {
                 project: project,
@@ -1166,7 +1145,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TaskboardColumns>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PUT",
             routeTemplate: "{project}/{team}/_apis/work/taskboardColumns",
             routeValues: {
@@ -1190,7 +1169,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TaskboardWorkItemColumn[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/taskboardWorkItems/{iterationId}/{workItemId}",
             routeValues: {
                 project: project,
@@ -1217,7 +1196,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/taskboardWorkItems/{iterationId}/{workItemId}",
             routeValues: {
@@ -1245,7 +1224,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSettingsDaysOff>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/teamdaysoff",
             routeValues: {
                 project: project,
@@ -1258,7 +1237,7 @@ export class WorkRestClient extends RestClientBase {
     /**
      * Set a team's days off for an iteration
      * 
-     * @param daysOffPatch - Team's days off patch containing a list of start and end dates
+     * @param daysOffPatch - Team's days off patch containting a list of start and end dates
      * @param teamContext - The team context for the operation
      * @param iterationId - ID of the iteration
      */
@@ -1272,7 +1251,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSettingsDaysOff>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/teamdaysoff",
             routeValues: {
@@ -1297,7 +1276,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamFieldValues>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/teamfieldvalues",
             routeValues: {
                 project: project,
@@ -1321,7 +1300,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamFieldValues>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/teamfieldvalues",
             routeValues: {
@@ -1345,7 +1324,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSetting>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings",
             routeValues: {
                 project: project,
@@ -1369,7 +1348,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.TeamSetting>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings",
             routeValues: {
@@ -1395,7 +1374,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.IterationWorkItems>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             routeTemplate: "{project}/{team}/_apis/work/teamsettings/iterations/{iterationId}/workitems",
             routeValues: {
                 project: project,
@@ -1420,7 +1399,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.ReorderResult[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/workitemsorder",
             routeValues: {
@@ -1448,7 +1427,7 @@ export class WorkRestClient extends RestClientBase {
         const team = teamContext.teamId || teamContext.team;
 
         return this.beginRequest<Work.ReorderResult[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "5.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/{team}/_apis/work/iterations/{iterationId}/workitemsorder",
             routeValues: {

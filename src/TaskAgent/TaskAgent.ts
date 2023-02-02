@@ -58,6 +58,10 @@ export interface AgentJobRequestMessage extends JobRequestMessage {
     tasks: TaskInstance[];
 }
 
+export interface AgentMigrationMessage {
+    accessToken: string;
+}
+
 export interface AgentPoolEvent {
     eventType: string;
     pool: TaskAgentPool;
@@ -230,18 +234,6 @@ export interface DemandExists extends Demand {
 }
 
 export interface DemandMinimumVersion extends Demand {
-    source: DemandSource;
-}
-
-export interface DemandSource {
-    sourceName: string;
-    sourceType: DemandSourceType;
-    sourceVersion: string;
-}
-
-export enum DemandSourceType {
-    Task = 0,
-    Feature = 1
 }
 
 export interface DependencyBinding {
@@ -543,282 +535,6 @@ export interface DiagnosticLogMetadata {
     poolId: number;
 }
 
-export interface ElasticAgentPoolResizedEvent {
-    newSize: number;
-    poolId: number;
-    poolName: string;
-    previousSize: number;
-    resourceId: string;
-}
-
-export enum ElasticAgentState {
-    None = 0,
-    Enabled = 1,
-    Online = 2,
-    Assigned = 4
-}
-
-export enum ElasticComputeState {
-    None = 0,
-    Healthy = 1,
-    Creating = 2,
-    Deleting = 3,
-    Failed = 4,
-    Stopped = 5,
-    Reimaging = 6
-}
-
-/**
- * Data and settings for an elastic node
- */
-export interface ElasticNode {
-    /**
-     * Distributed Task's Agent Id
-     */
-    agentId: number;
-    /**
-     * Summary of the state of the agent
-     */
-    agentState: ElasticAgentState;
-    /**
-     * Compute Id.  VMSS's InstanceId
-     */
-    computeId: string;
-    /**
-     * State of the compute host
-     */
-    computeState: ElasticComputeState;
-    /**
-     * Users can force state changes to specific states (ToReimage, ToDelete, Save)
-     */
-    desiredState: ElasticNodeState;
-    /**
-     * Unique identifier since the agent and/or VM may be null
-     */
-    id: number;
-    /**
-     * Computer name. Used to match a scaleset VM with an agent
-     */
-    name: string;
-    /**
-     * Pool Id that this node belongs to
-     */
-    poolId: number;
-    /**
-     * Last job RequestId assigned to this agent
-     */
-    requestId: number;
-    /**
-     * State of the ElasticNode
-     */
-    state: ElasticNodeState;
-    /**
-     * Last state change. Only updated by SQL.
-     */
-    stateChangedOn: Date;
-}
-
-/**
- * Class used for updating an elastic node where only certain members are populated
- */
-export interface ElasticNodeSettings {
-    /**
-     * State of the ElasticNode
-     */
-    state: ElasticNodeState;
-}
-
-export enum ElasticNodeState {
-    None = 0,
-    New = 1,
-    CreatingCompute = 2,
-    StartingAgent = 3,
-    Idle = 4,
-    Assigned = 5,
-    Offline = 6,
-    PendingReimage = 7,
-    PendingDelete = 8,
-    Saved = 9,
-    DeletingCompute = 10,
-    Deleted = 11,
-    Lost = 12,
-    ReimagingCompute = 13,
-    RestartingAgent = 14,
-    FailedToStartPendingDelete = 15,
-    FailedToRestartPendingDelete = 16,
-    FailedVMPendingDelete = 17
-}
-
-/**
- * Data and settings for an elastic pool
- */
-export interface ElasticPool {
-    /**
-     * Set whether agents should be configured to run with interactive UI
-     */
-    agentInteractiveUI: boolean;
-    /**
-     * Azure string representing to location of the resource
-     */
-    azureId: string;
-    /**
-     * Number of agents to have ready waiting for jobs
-     */
-    desiredIdle: number;
-    /**
-     * The desired size of the pool
-     */
-    desiredSize: number;
-    /**
-     * Maximum number of nodes that will exist in the elastic pool
-     */
-    maxCapacity: number;
-    /**
-     * Keep nodes in the pool on failure for investigation
-     */
-    maxSavedNodeCount: number;
-    /**
-     * Timestamp the pool was first detected to be offline
-     */
-    offlineSince: Date;
-    /**
-     * Operating system type of the nodes in the pool
-     */
-    osType: OperatingSystemType;
-    /**
-     * Id of the associated TaskAgentPool
-     */
-    poolId: number;
-    /**
-     * Discard node after each job completes
-     */
-    recycleAfterEachUse: boolean;
-    /**
-     * Id of the Service Endpoint used to connect to Azure
-     */
-    serviceEndpointId: string;
-    /**
-     * Scope the Service Endpoint belongs to
-     */
-    serviceEndpointScope: string;
-    /**
-     * The number of sizing attempts executed while trying to achieve a desired size
-     */
-    sizingAttempts: number;
-    /**
-     * State of the pool
-     */
-    state: ElasticPoolState;
-    /**
-     * The minimum time in minutes to keep idle agents alive
-     */
-    timeToLiveMinutes: number;
-}
-
-/**
- * Returned result from creating a new elastic pool
- */
-export interface ElasticPoolCreationResult {
-    /**
-     * Created agent pool
-     */
-    agentPool: TaskAgentPool;
-    /**
-     * Created agent queue
-     */
-    agentQueue: TaskAgentQueue;
-    /**
-     * Created elastic pool
-     */
-    elasticPool: ElasticPool;
-}
-
-/**
- * Log data for an Elastic Pool
- */
-export interface ElasticPoolLog {
-    /**
-     * Log Id
-     */
-    id: number;
-    /**
-     * E.g. error, warning, info
-     */
-    level: LogLevel;
-    /**
-     * Log contents
-     */
-    message: string;
-    /**
-     * Operation that triggered the message being logged
-     */
-    operation: OperationType;
-    /**
-     * Id of the associated TaskAgentPool
-     */
-    poolId: number;
-    /**
-     * Datetime that the log occurred
-     */
-    timestamp: Date;
-}
-
-/**
- * Class used for updating an elastic pool where only certain members are populated
- */
-export interface ElasticPoolSettings {
-    /**
-     * Set whether agents should be configured to run with interactive UI
-     */
-    agentInteractiveUI: boolean;
-    /**
-     * Azure string representing to location of the resource
-     */
-    azureId: string;
-    /**
-     * Number of machines to have ready waiting for jobs
-     */
-    desiredIdle: number;
-    /**
-     * Maximum number of machines that will exist in the elastic pool
-     */
-    maxCapacity: number;
-    /**
-     * Keep machines in the pool on failure for investigation
-     */
-    maxSavedNodeCount: number;
-    /**
-     * Operating system type of the machines in the pool
-     */
-    osType: OperatingSystemType;
-    /**
-     * Discard machines after each job completes
-     */
-    recycleAfterEachUse: boolean;
-    /**
-     * Id of the Service Endpoint used to connect to Azure
-     */
-    serviceEndpointId: string;
-    /**
-     * Scope the Service Endpoint belongs to
-     */
-    serviceEndpointScope: string;
-    /**
-     * The minimum time in minutes to keep idle agents alive
-     */
-    timeToLiveMinutes: number;
-}
-
-export enum ElasticPoolState {
-    /**
-     * Online and healthy
-     */
-    Online = 0,
-    Offline = 1,
-    Unhealthy = 2,
-    New = 3
-}
-
 export interface EndpointAuthorization {
     /**
      * Gets or sets the parameters for the selected authorization scheme.
@@ -1057,36 +773,6 @@ export interface EnvironmentResource {
 }
 
 /**
- * EnvironmentResourceDeploymentExecutionRecord.
- */
-export interface EnvironmentResourceDeploymentExecutionRecord {
-    /**
-     * Id of the Environment
-     */
-    environmentId: number;
-    /**
-     * Finish time of the environment resource deployment execution
-     */
-    finishTime: Date;
-    /**
-     * Id of the Environment deployment execution history record
-     */
-    requestId: number;
-    /**
-     * Resource Id
-     */
-    resourceId: number;
-    /**
-     * Result of the environment deployment execution
-     */
-    result: TaskResult;
-    /**
-     * Start time of the environment resource deployment execution
-     */
-    startTime: Date;
-}
-
-/**
  * EnvironmentResourceReference.
  */
 export interface EnvironmentResourceReference {
@@ -1144,11 +830,6 @@ export interface EnvironmentUpdateParameter {
 export interface EventsConfig {
 }
 
-export enum ExclusiveLockType {
-    RunLatest = 0,
-    Sequential = 1
-}
-
 export interface ExpressionValidationItem extends ValidationItem {
 }
 
@@ -1175,52 +856,20 @@ export interface InputValidationRequest {
     inputs: { [key: string] : ValidationItem; };
 }
 
-/**
- * An issue (error, warning) associated with a pipeline run.
- */
 export interface Issue {
-    /**
-     * The category of the issue. \<br /\>Example: Code - refers to compilation errors \<br /\>Example: General - refers to generic errors
-     */
     category: string;
-    /**
-     * A dictionary containing details about the issue.
-     */
     data: { [key: string] : string; };
-    /**
-     * A description of issue.
-     */
     message: string;
-    /**
-     * The type (error, warning) of the issue.
-     */
     type: IssueType;
 }
 
-/**
- * The type of issue based on severity.
- */
 export enum IssueType {
     Error = 1,
     Warning = 2
 }
 
 export interface JobAssignedEvent extends JobEvent {
-    /**
-     * A pipeline job request for an agent.
-     */
     request: TaskAgentJobRequest;
-}
-
-export interface JobCanceledEvent extends JobEvent {
-    /**
-     * The reason for job cancellation.
-     */
-    reason: string;
-    /**
-     * The job's timeout interval.
-     */
-    timeout: any;
 }
 
 export interface JobCancelMessage {
@@ -1229,17 +878,7 @@ export interface JobCancelMessage {
 }
 
 export interface JobCompletedEvent extends JobEvent {
-    /**
-     * Indicates whether the agent is in the process of shutting down.
-     */
-    agentShuttingDown: boolean;
-    /**
-     * The ID of the request.
-     */
     requestId: number;
-    /**
-     * The result of the request.
-     */
     result: TaskResult;
 }
 
@@ -1258,17 +897,8 @@ export interface JobEnvironment {
     variables: { [key: string] : string; };
 }
 
-/**
- * A pipeline job event to be processed by the execution plan.
- */
 export interface JobEvent {
-    /**
-     * The ID of the pipeline job affected by the event.
-     */
     jobId: string;
-    /**
-     * The name of the pipeline job event.
-     */
     name: string;
 }
 
@@ -1280,27 +910,6 @@ export interface JobEventsConfig extends EventsConfig {
     jobAssigned: JobEventConfig;
     jobCompleted: JobEventConfig;
     jobStarted: JobEventConfig;
-}
-
-export interface JobMetadataEvent extends JobEvent {
-    /**
-     * A message to be sent to an agent currently running the job.
-     */
-    message: JobMetadataMessage;
-}
-
-/**
- * A message to be sent to an agent currently running the job.
- */
-export interface JobMetadataMessage {
-    /**
-     * The id of the job.
-     */
-    jobId: string;
-    /**
-     * The agent's frequency of posting lines to the logs console expressed in milliseconds. There are 2 modes: Slow (10 seconds) and Fast (half a second).
-     */
-    postLinesFrequencyMillis: number;
 }
 
 /**
@@ -1337,33 +946,11 @@ export interface KubernetesResourceCreateParameters {
     clusterName: string;
     name: string;
     namespace: string;
+    serviceEndpointId: string;
     /**
      * Tags of the kubernetes resource.
      */
     tags: string[];
-}
-
-export interface KubernetesResourceCreateParametersExistingEndpoint extends KubernetesResourceCreateParameters {
-    serviceEndpointId: string;
-}
-
-export interface KubernetesResourceCreateParametersNewEndpoint extends KubernetesResourceCreateParameters {
-    endpoint: ServiceEndpoint;
-}
-
-export interface KubernetesResourcePatchParameters {
-    authorizationParameters: { [key: string] : string; };
-    /**
-     * Provider type (CustomProvider or AzureKubernetesServiceProvider) of the resource to be updated
-     */
-    providerType: string;
-    resourceId: number;
-}
-
-export enum LogLevel {
-    Error = 0,
-    Warning = 1,
-    Info = 2
 }
 
 export enum MachineGroupActionFilter {
@@ -1440,19 +1027,6 @@ export interface MetricsRow {
      * Metrics in serialized format. Should be deserialized based on the data type provided in header.
      */
     metrics: string[];
-}
-
-export enum OperatingSystemType {
-    Windows = 0,
-    Linux = 1
-}
-
-export enum OperationType {
-    ConfigurationJob = 0,
-    SizingJob = 1,
-    IncreaseCapacity = 2,
-    Reimage = 3,
-    DeleteVMs = 4
 }
 
 /**
@@ -1590,81 +1164,8 @@ export interface ResourceLimit {
     totalMinutes: number;
 }
 
-/**
- * A request for a resource's exclusive lock
- */
-export interface ResourceLockRequest {
-    /**
-     * The date/time this request was assigned.
-     */
-    assignTime: Date;
-    /**
-     * The ID of the check run waiting on this request
-     */
-    checkRunId: string;
-    /**
-     * The ID of the pipeline that requested this resource
-     */
-    definitionId: number;
-    /**
-     * The date/time this request was finished.
-     */
-    finishTime: Date;
-    /**
-     * The behavior this request should exhibit in relation to other lock requests
-     */
-    lockType: ExclusiveLockType;
-    /**
-     * Attempt of the graph node
-     */
-    nodeAttempt: number;
-    /**
-     * Name of the graph node (currently stage) requesting this resource
-     */
-    nodeName: string;
-    /**
-     * Internal ID for the orchestration plan connected with this request.
-     */
-    planId: string;
-    /**
-     * The ID of the project of the check run and definition exist in
-     */
-    projectId: string;
-    /**
-     * The date/time this request was queued.
-     */
-    queueTime: Date;
-    /**
-     * ID of the request.
-     */
-    requestId: number;
-    /**
-     * The id of the resource
-     */
-    resourceId: string;
-    /**
-     * The type of the resource
-     */
-    resourceType: string;
-    /**
-     * The result of this request.
-     */
-    status: ResourceLockStatus;
-}
-
-export enum ResourceLockStatus {
-    Queued = 0,
-    InUse = 1,
-    Finished = 2,
-    TimedOut = 3,
-    Canceled = 4,
-    Abandoned = 5,
-    WaitingOnChecks = 6
-}
-
 export interface ResourcesHubData {
     continuationToken: string;
-    hasProjectLevelManagePermission: boolean;
     resourceFilterOptions: ResourceFilterOptions;
     resourceFilters: ResourceFilters;
     resourceItems: ResourceItem[];
@@ -1963,13 +1464,7 @@ export interface TaskAgent extends TaskAgentReference {
      * Date on which the last connectivity status change occurred.
      */
     statusChangedOn: Date;
-    /**
-     * System-defined capabilities supported by this agent's host. Warning: To set capabilities use the PUT method, PUT will completely overwrite existing capabilities.
-     */
     systemCapabilities: { [key: string] : string; };
-    /**
-     * User-defined capabilities supported by this agent's host. Warning: To set capabilities use the PUT method, PUT will completely overwrite existing capabilities.
-     */
     userCapabilities: { [key: string] : string; };
 }
 
@@ -2044,7 +1539,9 @@ export interface TaskAgentCloudType {
     name: string;
 }
 
-export interface TaskAgentDowngrade extends TaskAgentUpdateReason {
+export interface TaskAgentDelaySource {
+    delays: any[];
+    taskAgent: TaskAgentReference;
 }
 
 export interface TaskAgentJob {
@@ -2060,6 +1557,7 @@ export interface TaskAgentJob {
  * A job request for an agent.
  */
 export interface TaskAgentJobRequest {
+    agentDelays: TaskAgentDelaySource[];
     agentSpecification: any;
     /**
      * The date/time this request was assigned.
@@ -2077,6 +1575,7 @@ export interface TaskAgentJobRequest {
      * A list of demands required to fulfill this request.
      */
     demands: Demand[];
+    expectedDuration: any;
     /**
      * The date/time this request was finished.
      */
@@ -2117,7 +1616,6 @@ export interface TaskAgentJobRequest {
      * The ID of the pool this request targets
      */
     poolId: number;
-    priority: number;
     /**
      * The ID of the queue this request targets
      */
@@ -2184,7 +1682,6 @@ export interface TaskAgentJobStep {
     id: string;
     inputs: { [key: string] : string; };
     name: string;
-    retryCountOnTaskFailure: number;
     task: TaskAgentJobTask;
     timeoutInMinutes: number;
     type: TaskAgentJobStepType;
@@ -2255,10 +1752,6 @@ export interface TaskAgentPool extends TaskAgentPoolReference {
      */
     autoSize: boolean;
     /**
-     * Whether or not agents in this pool are allowed to automatically update
-     */
-    autoUpdate: boolean;
-    /**
      * Creator of the pool. The creator of the pool is automatically added into the administrators group for the pool on creation.
      */
     createdBy: WebApi.IdentityRef;
@@ -2272,7 +1765,7 @@ export interface TaskAgentPool extends TaskAgentPoolReference {
     owner: WebApi.IdentityRef;
     properties: any;
     /**
-     * Target parallelism - Only applies to agent pools that are backed by pool providers. It will be null for regular pools.
+     * Target parallelism.
      */
     targetSize: number;
 }
@@ -2464,25 +1957,6 @@ export enum TaskAgentPoolMaintenanceScheduleDays {
     All = 127
 }
 
-/**
- * Additional settings and descriptors for a TaskAgentPool
- */
-export enum TaskAgentPoolOptions {
-    None = 0,
-    /**
-     * TaskAgentPool backed by the Elastic pool service
-     */
-    ElasticPool = 1,
-    /**
-     * Set to true if agents are re-imaged after each TaskAgentJobRequest
-     */
-    SingleUseAgents = 2,
-    /**
-     * Set to true if agents are held for investigation after a TaskAgentJobRequest failure
-     */
-    PreserveAgentOnJobFailure = 4
-}
-
 export interface TaskAgentPoolReference {
     id: number;
     /**
@@ -2494,10 +1968,6 @@ export interface TaskAgentPoolReference {
      */
     isLegacy: boolean;
     name: string;
-    /**
-     * Additional pool settings and details
-     */
-    options: TaskAgentPoolOptions;
     /**
      * Gets or sets the type of the pool
      */
@@ -2630,11 +2100,6 @@ export interface TaskAgentReference {
     version: string;
 }
 
-export enum TaskAgentRequestUpdateOptions {
-    None = 0,
-    BumpRequestToTop = 1
-}
-
 /**
  * Represents a session for performing message exchanges from an agent.
  */
@@ -2731,8 +2196,7 @@ export interface TaskAgentUpdateReason {
 
 export enum TaskAgentUpdateReasonType {
     Manual = 1,
-    MinAgentVersionRequired = 2,
-    Downgrade = 3
+    MinAgentVersionRequired = 2
 }
 
 export interface TaskAssignedEvent extends TaskEvent {
@@ -2749,19 +2213,7 @@ export interface TaskAttachment {
     type: string;
 }
 
-export enum TaskCommandMode {
-    Any = 0,
-    Restricted = 1
-}
-
-export interface TaskCommandRestrictions {
-    mode: TaskCommandMode;
-}
-
 export interface TaskCompletedEvent extends TaskEvent {
-    /**
-     * The result of the task.
-     */
     result: TaskResult;
 }
 
@@ -2798,7 +2250,6 @@ export interface TaskDefinition {
     preJobExecution: { [key: string] : any; };
     preview: boolean;
     releaseNotes: string;
-    restrictions: TaskRestrictions;
     runsOn: string[];
     satisfies: string[];
     serverOwned: boolean;
@@ -2864,9 +2315,6 @@ export enum TaskDefinitionStatus {
 }
 
 export interface TaskEvent extends JobEvent {
-    /**
-     * The ID of the task definition.
-     */
     taskId: string;
 }
 
@@ -3072,10 +2520,6 @@ export interface TaskGroupStep {
      */
     inputs: { [key: string] : string; };
     /**
-     * Gets or sets the maximum number of retries
-     */
-    retryCountOnTaskFailure: number;
-    /**
      * Gets or sets the reference of the task.
      */
     task: TaskDefinitionReference;
@@ -3164,6 +2608,7 @@ export interface TaskHubLicenseDetails {
     hostedAgentMinutesFreeCount: number;
     hostedAgentMinutesUsedCount: number;
     hostedLicensesArePremium: boolean;
+    marketplacePurchasedHostedLicenses: MarketplacePurchasedLicense[];
     msdnUsersCount: number;
     /**
      * Microsoft-hosted licenses purchased from VSTS directly.
@@ -3190,47 +2635,19 @@ export interface TaskInstance extends TaskReference {
     environment: { [key: string] : string; };
     instanceId: string;
     refName: string;
-    retryCountOnTaskFailure: number;
     timeoutInMinutes: number;
 }
 
-/**
- * A task log connected to a timeline record.
- */
 export interface TaskLog extends TaskLogReference {
-    /**
-     * The time of the task log creation.
-     */
     createdOn: Date;
-    /**
-     * The REST URL of the task log when indexed.
-     */
     indexLocation: string;
-    /**
-     * The time of the last modification of the task log.
-     */
     lastChangedOn: Date;
-    /**
-     * The number of the task log lines.
-     */
     lineCount: number;
-    /**
-     * The path of the task log.
-     */
     path: string;
 }
 
-/**
- * A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run.
- */
 export interface TaskLogReference {
-    /**
-     * The ID of the task log.
-     */
     id: number;
-    /**
-     * The REST URL of the task log.
-     */
     location: string;
 }
 
@@ -3272,7 +2689,6 @@ export interface TaskOrchestrationOwner {
 
 export interface TaskOrchestrationPlan extends TaskOrchestrationPlanReference {
     environment: PlanEnvironment;
-    expandedYaml: TaskLogReference;
     finishTime: Date;
     implementation: TaskOrchestrationContainer;
     initializationLog: TaskLogReference;
@@ -3356,36 +2772,13 @@ export interface TaskPackageMetadata {
     version: string;
 }
 
-/**
- * A reference to a task.
- */
 export interface TaskReference {
-    /**
-     * The ID of the task definition. Corresponds to the id value of task.json file. \<br /\>Example: CmdLineV2 \{ "id": "D9BAFED4-0B18-4F58-968D-86655B4D2CE9" \}
-     */
     id: string;
-    /**
-     * A dictionary of inputs specific to a task definition. Corresponds to inputs value of task.json file.
-     */
     inputs: { [key: string] : string; };
-    /**
-     * The name of the task definition. Corresponds to the name value of task.json file. \<br /\>Example: CmdLineV2 \{ "name": "CmdLine" \}
-     */
     name: string;
-    /**
-     * The version of the task definition. Corresponds to the version value of task.json file. \<br /\>Example: CmdLineV2 \{ "version": \{ "Major": 2, "Minor": 212, "Patch": 0 \} \}
-     */
     version: string;
 }
 
-export interface TaskRestrictions {
-    commands: TaskCommandRestrictions;
-    settableVariables: TaskVariableRestrictions;
-}
-
-/**
- * The result of an operation tracked by a timeline record.
- */
 export enum TaskResult {
     Succeeded = 0,
     SucceededWithIssues = 1,
@@ -3401,10 +2794,6 @@ export interface TaskSourceDefinition extends DistributedTaskCommon.TaskSourceDe
 export interface TaskStartedEvent extends TaskEvent {
 }
 
-export interface TaskVariableRestrictions {
-    allowed: string[];
-}
-
 export interface TaskVersion {
     isTest: boolean;
     major: number;
@@ -3418,147 +2807,54 @@ export interface Timeline extends TimelineReference {
     records: TimelineRecord[];
 }
 
-/**
- * An attempt to update a TimelineRecord.
- */
 export interface TimelineAttempt {
     /**
-     * The attempt of the record.
+     * Gets or sets the attempt of the record.
      */
     attempt: number;
     /**
-     * The unique identifier for the record.
+     * Gets or sets the unique identifier for the record.
      */
     identifier: string;
     /**
-     * The record identifier located within the specified timeline.
+     * Gets or sets the record identifier located within the specified timeline.
      */
     recordId: string;
     /**
-     * The timeline identifier which owns the record representing this attempt.
+     * Gets or sets the timeline identifier which owns the record representing this attempt.
      */
     timelineId: string;
 }
 
-/**
- * Detailed information about the execution of different operations during pipeline run.
- */
 export interface TimelineRecord {
-    /**
-     * The specification of an agent running a pipeline job, in binary format. Applicable when record is of type Job. \<br /\>Example: \{ "VMImage" : "windows-2019" \}
-     */
     agentSpecification: any;
-    /**
-     * The number of record attempts.
-     */
     attempt: number;
-    /**
-     * The ID connecting all records updated at the same time. This value is taken from timeline's ChangeId.
-     */
     changeId: number;
-    /**
-     * A string that indicates the current operation.
-     */
     currentOperation: string;
-    /**
-     * A reference to a sub-timeline.
-     */
     details: TimelineReference;
-    /**
-     * The number of errors produced by this operation.
-     */
     errorCount: number;
-    /**
-     * The finish time of the record.
-     */
     finishTime: Date;
-    /**
-     * The ID of the record.
-     */
     id: string;
-    /**
-     * String identifier that is consistent across attempts.
-     */
     identifier: string;
-    /**
-     * The list of issues produced by this operation.
-     */
     issues: Issue[];
-    /**
-     * The time the record was last modified.
-     */
     lastModified: Date;
-    /**
-     * The REST URL of the record.
-     */
     location: string;
-    /**
-     * A reference to the log produced by this operation.
-     */
     log: TaskLogReference;
-    /**
-     * The name of the record.
-     */
     name: string;
-    /**
-     * An ordinal value relative to other records within the timeline.
-     */
     order: number;
-    /**
-     * The ID of the record's parent. \<br /\>Example: Stage is a parent of a Phase, Phase is a parent of a Job, Job is a parent of a Task.
-     */
     parentId: string;
-    /**
-     * The percentage of record completion.
-     */
     percentComplete: number;
-    /**
-     * The previous record attempts.
-     */
     previousAttempts: TimelineAttempt[];
-    /**
-     * The ID of the queue which connects projects to agent pools on which the operation ran on. Applicable when record is of type Job.
-     */
     queueId: number;
-    /**
-     * Name of the referenced record.
-     */
     refName: string;
-    /**
-     * The result of the record.
-     */
     result: TaskResult;
-    /**
-     * Evaluation of predefined conditions upon completion of record's operation. \<br /\>Example: Evaluating \`succeeded()\`, Result = True \<br /\>Example: Evaluating \`and(succeeded(), eq(variables['system.debug'], False))\`, Result = False
-     */
     resultCode: string;
-    /**
-     * The start time of the record.
-     */
     startTime: Date;
-    /**
-     * The state of the record.
-     */
     state: TimelineRecordState;
-    /**
-     * A reference to the task. Applicable when record is of type Task.
-     */
     task: TaskReference;
-    /**
-     * The type of operation being tracked by the record. \<br /\>Example: Stage, Phase, Job, Task...
-     */
     type: string;
-    /**
-     * The variables of the record.
-     */
     variables: { [key: string] : VariableValue; };
-    /**
-     * The number of warnings produced by this operation.
-     */
     warningCount: number;
-    /**
-     * The name of the agent running the operation. Applicable when record is of type Job.
-     */
     workerName: string;
 }
 
@@ -3570,30 +2866,15 @@ export interface TimelineRecordFeedLinesWrapper {
     value: string[];
 }
 
-/**
- * The state of the timeline record.
- */
 export enum TimelineRecordState {
     Pending = 0,
     InProgress = 1,
     Completed = 2
 }
 
-/**
- * A reference to a timeline.
- */
 export interface TimelineReference {
-    /**
-     * The change ID.
-     */
     changeId: number;
-    /**
-     * The ID of the timeline.
-     */
     id: string;
-    /**
-     * The REST URL of the timeline.
-     */
     location: string;
 }
 
@@ -3738,21 +3019,8 @@ export enum VariableGroupQueryOrder {
     IdDescending = 1
 }
 
-/**
- * A wrapper class for a generic variable.
- */
 export interface VariableValue {
-    /**
-     * Indicates whether the variable can be changed during script's execution runtime.
-     */
-    isReadOnly: boolean;
-    /**
-     * Indicates whether the variable should be encrypted at rest.
-     */
     isSecret: boolean;
-    /**
-     * The value of the variable.
-     */
     value: string;
 }
 
@@ -3775,5 +3043,5 @@ export interface VirtualMachineResource extends EnvironmentResource {
 }
 
 export interface VirtualMachineResourceCreateParameters {
-    virtualMachineResource: VirtualMachineResource;
+    name: string;
 }

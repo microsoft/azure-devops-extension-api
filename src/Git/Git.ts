@@ -831,10 +831,6 @@ export interface GitCommitRef {
      */
     committer: GitUserDate;
     /**
-     * Indicates that commit contains too many changes to be displayed
-     */
-    commitTooManyChanges: boolean;
-    /**
      * An enumeration of the parent commit IDs for this commit.
      */
     parents: string[];
@@ -1473,9 +1469,7 @@ export interface GitMergeOperationStatusDetail {
 }
 
 export interface GitMergeOriginRef {
-    cherryPickId: number;
     pullRequestId: number;
-    revertId: number;
 }
 
 /**
@@ -1601,10 +1595,6 @@ export interface GitPullRequest {
      * If this is a PR from a fork this will contain information about its source.
      */
     forkSource: GitForkRef;
-    /**
-     * Multiple mergebases warning
-     */
-    hasMultipleMergeBases: boolean;
     /**
      * Draft / WIP pull request.
      */
@@ -1734,10 +1724,6 @@ export interface GitPullRequestCommentThreadContext {
  */
 export interface GitPullRequestCompletionOptions {
     /**
-     * List of any policy configuration Id's which auto-complete should not wait for. Only applies to optional policies (isBlocking == false). Auto-complete always waits for required policies (isBlocking == true).
-     */
-    autoCompleteIgnoreConfigIds: number[];
-    /**
      * If true, policies will be explicitly bypassed while the pull request is completed.
      */
     bypassPolicy: boolean;
@@ -1754,11 +1740,11 @@ export interface GitPullRequestCompletionOptions {
      */
     mergeCommitMessage: string;
     /**
-     * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squashed if SquashMerge == true. The SquashMerge property is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge property will be ignored.
+     * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squash if SquashMerge == true. The SquashMerge member is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge member will be ignored.
      */
     mergeStrategy: GitPullRequestMergeStrategy;
     /**
-     * SquashMerge is deprecated. You should explicitly set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
+     * SquashMerge is deprecated. You should explicity set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
      */
     squashMerge: boolean;
     /**
@@ -1863,10 +1849,6 @@ export interface GitPullRequestIterationChanges {
  * The options which are used when a pull request merge is created.
  */
 export interface GitPullRequestMergeOptions {
-    /**
-     * If true, conflict resolutions applied during the merge will be put in separate commits to preserve authorship info for git blame, etc.
-     */
-    conflictAuthorshipCommits: boolean;
     detectRenameFalsePositives: boolean;
     /**
      * If true, rename detection will not be performed during the merge.
@@ -2113,10 +2095,6 @@ export interface GitQueryCommitsCriteria {
      */
     itemVersion: GitVersionDescriptor;
     /**
-     * If enabled, this option will ignore the itemVersion and compareVersion parameters
-     */
-    showOldestCommitsFirst: boolean;
-    /**
      * If provided, an upper bound for filtering commits alphabetically
      */
     toCommitId: string;
@@ -2319,17 +2297,9 @@ export interface GitRepository {
     defaultBranch: string;
     id: string;
     /**
-     * True if the repository is disabled. False otherwise.
-     */
-    isDisabled: boolean;
-    /**
-     * True if the repository was created as a fork.
+     * True if the repository was created as a fork
      */
     isFork: boolean;
-    /**
-     * True if the repository is in maintenance. False otherwise.
-     */
-    isInMaintenance: boolean;
     name: string;
     parentRepository: GitRepositoryRef;
     project: TfsCore.TeamProjectReference;
@@ -2608,7 +2578,7 @@ export interface GitTreeDiff {
      */
     baseTreeId: string;
     /**
-     * List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yield more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
+     * List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yeild more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
      */
     diffEntries: GitTreeDiffEntry[];
     /**
@@ -2810,10 +2780,6 @@ export interface HistoryEntry<T> {
  */
 export interface IdentityRefWithVote extends WebApi.IdentityRef {
     /**
-     * Indicates if this reviewer has declined to review this pull request.
-     */
-    hasDeclined: boolean;
-    /**
      * Indicates if this reviewer is flagged for attention on this pull request.
      */
     isFlagged: boolean;
@@ -2830,7 +2796,7 @@ export interface IdentityRefWithVote extends WebApi.IdentityRef {
      */
     vote: number;
     /**
-     * Groups or teams that this reviewer contributed to. \<br /\> Groups and teams can be reviewers on pull requests but can not vote directly.  When a member of the group or team votes, that vote is rolled up into the group or team vote.  VotedFor is a list of such votes.
+     * Groups or teams that that this reviewer contributed to. \<br /\> Groups and teams can be reviewers on pull requests but can not vote directly.  When a member of the group or team votes, that vote is rolled up into the group or team vote.  VotedFor is a list of such votes.
      */
     votedFor: IdentityRefWithVote[];
 }
@@ -2898,8 +2864,7 @@ export enum IterationReason {
     Create = 2,
     Rebase = 4,
     Unknown = 8,
-    Retarget = 16,
-    ResolveConflicts = 32
+    Retarget = 16
 }
 
 /**
@@ -3047,7 +3012,7 @@ export enum PullRequestStatus {
      */
     Completed = 3,
     /**
-     * Used in pull request search criteria to include all statuses.
+     * Used in pull request search criterias to include all statuses.
      */
     All = 4
 }

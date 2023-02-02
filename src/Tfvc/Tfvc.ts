@@ -66,17 +66,9 @@ export interface GitRepository {
     defaultBranch: string;
     id: string;
     /**
-     * True if the repository is disabled. False otherwise.
-     */
-    isDisabled: boolean;
-    /**
-     * True if the repository was created as a fork.
+     * True if the repository was created as a fork
      */
     isFork: boolean;
-    /**
-     * True if the repository is in maintenance. False otherwise.
-     */
-    isInMaintenance: boolean;
     name: string;
     parentRepository: GitRepositoryRef;
     project: TfsCore.TeamProjectReference;

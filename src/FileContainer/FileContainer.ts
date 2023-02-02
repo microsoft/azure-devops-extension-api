@@ -5,25 +5,6 @@
  */
 
 /**
- * Compression type for file stored in Blobstore
- */
-export enum BlobCompressionType {
-    None = 0,
-    GZip = 1
-}
-
-/**
- * Represents an reference to a file in Blobstore
- */
-export interface ContainerItemBlobReference {
-    artifactHash: string;
-    artifactId: number;
-    compressionType: BlobCompressionType;
-    scopeIdentifier: string;
-    sessionId: string;
-}
-
-/**
  * Status of a container item.
  */
 export enum ContainerItemStatus {
@@ -131,11 +112,6 @@ export interface FileContainer {
  * Represents an item in a container.
  */
 export interface FileContainerItem {
-    /**
-     * Id for Blobstore reference
-     */
-    artifactId: number;
-    blobMetadata: ContainerItemBlobReference;
     /**
      * Container Id.
      */
