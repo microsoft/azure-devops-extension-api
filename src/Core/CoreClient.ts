@@ -353,14 +353,14 @@ export class CoreRestClient extends RestClientBase {
      * @param stateFilter - Filter on team projects in a specific team project state (default: WellFormed).
      * @param top - 
      * @param skip - 
-     * @param continuationToken - 
+     * @param continuationToken - Pointer that shows how many projects already been fetched.
      * @param getDefaultTeamImageUrl - 
      */
     public async getProjects(
         stateFilter?: any,
         top?: number,
         skip?: number,
-        continuationToken?: string,
+        continuationToken?: number,
         getDefaultTeamImageUrl?: boolean
         ): Promise<Core.TeamProjectReference[]> {
 
