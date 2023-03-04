@@ -211,16 +211,19 @@ export class WorkItemTrackingRestClient extends RestClientBase {
      */
     public async getClassificationNodes(
         project: string,
-        ids: number[],
+        ids: number[] | undefined,
         depth?: number,
         errorPolicy?: WorkItemTracking.ClassificationNodesErrorPolicy
         ): Promise<WorkItemTracking.WorkItemClassificationNode[]> {
 
         const queryValues: any = {
-            ids: ids && ids.join(","),
             '$depth': depth,
             errorPolicy: errorPolicy
         };
+
+        if (ids && ids.length > 0) {
+            queryValues["ids"] = ids.join(",");
+        }
 
         return this.beginRequest<WorkItemTracking.WorkItemClassificationNode[]>({
             apiVersion: "5.0",
