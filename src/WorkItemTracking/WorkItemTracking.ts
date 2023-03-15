@@ -394,6 +394,21 @@ export interface CommentVersion extends WorkItemTrackingResource {
     version: number;
 }
 
+export interface EmailRecipients {
+    /**
+     * Plaintext email addresses.
+     */
+    emailAddresses: string[];
+    /**
+     * TfIds
+     */
+    tfIds: string[];
+    /**
+     * Unresolved entity ids
+     */
+    unresolvedEntityIds: string[];
+}
+
 export interface ExternalDeployment {
     artifactId: string;
     createdBy: string;
@@ -492,6 +507,20 @@ export enum FieldType {
      * Double picklist field type. When creating a double picklist field from REST API, use "Double" FieldType.
      */
     PicklistDouble = 13
+}
+
+/**
+ * Describes an update request for a work item field.
+ */
+export interface FieldUpdate {
+    /**
+     * Indicates whether the user wants to restore the field.
+     */
+    isDeleted: boolean;
+    /**
+     * Indicates whether the user wants to lock the field.
+     */
+    isLocked: boolean;
 }
 
 /**
@@ -599,6 +628,61 @@ export enum LogicalOperation {
     NONE = 0,
     AND = 1,
     OR = 2
+}
+
+export interface MailMessage {
+    /**
+     * The mail body in HTML format.
+     */
+    body: string;
+    /**
+     * CC recipients.
+     */
+    cc: EmailRecipients;
+    /**
+     * The in-reply-to header value
+     */
+    inReplyTo: string;
+    /**
+     * The Message Id value
+     */
+    messageId: string;
+    /**
+     * Reply To recipients.
+     */
+    replyTo: EmailRecipients;
+    /**
+     * The mail subject.
+     */
+    subject: string;
+    /**
+     * To recipients
+     */
+    to: EmailRecipients;
+}
+
+/**
+ * Stores process ID.
+ */
+export interface ProcessIdModel {
+    /**
+     * The ID of the process.
+     */
+    typeId: string;
+}
+
+/**
+ * Stores project ID and its process ID.
+ */
+export interface ProcessMigrationResultModel {
+    /**
+     * The ID of the process.
+     */
+    processId: string;
+    /**
+     * The ID of the project.
+     */
+    projectId: string;
 }
 
 /**
@@ -908,6 +992,17 @@ export interface ReportingWorkItemRevisionsFilter {
     types: string[];
 }
 
+export interface SendMailBody {
+    fields: string[];
+    ids: number[];
+    message: MailMessage;
+    persistenceId: string;
+    projectId: string;
+    sortFields: string[];
+    tempQueryId: string;
+    wiql: string;
+}
+
 /**
  * The class describes reporting work item revision batch.
  */
@@ -939,6 +1034,26 @@ export enum TemplateType {
 }
 
 /**
+ * Describes a request to create a temporary query
+ */
+export interface TemporaryQueryRequestModel extends WorkItemTrackingResource {
+    /**
+     * The WIQL text of the temporary query
+     */
+    wiql: string;
+}
+
+/**
+ * The result of a temporary query creation.
+ */
+export interface TemporaryQueryResponseModel {
+    /**
+     * The id of the temporary query item.
+     */
+    id: string;
+}
+
+/**
  * Types of tree node structures.
  */
 export enum TreeNodeStructureType {
@@ -958,6 +1073,16 @@ export enum TreeNodeStructureType {
 export enum TreeStructureGroup {
     Areas = 0,
     Iterations = 1
+}
+
+/**
+ * Describes an update request for a work item field.
+ */
+export interface UpdateWorkItemField {
+    /**
+     * Indicates whether the user wants to restore the field.
+     */
+    isDeleted: boolean;
 }
 
 /**
@@ -1159,6 +1284,34 @@ export interface WorkItemDelete extends WorkItemDeleteReference {
 }
 
 /**
+ * Describes response to delete a set of work items.
+ */
+export interface WorkItemDeleteBatch {
+    /**
+     * List of results for each work item
+     */
+    results: WorkItemDelete[];
+}
+
+/**
+ * Describes a request to delete a set of work items
+ */
+export interface WorkItemDeleteBatchRequest {
+    /**
+     * Optional parameter, if set to true, the work item is deleted permanently. Please note: the destroy action is PERMANENT and cannot be undone.
+     */
+    destroy: boolean;
+    /**
+     * The requested work item ids
+     */
+    ids: number[];
+    /**
+     * Optional parameter, if set to true, notifications will be disabled.
+     */
+    skipNotifications: boolean;
+}
+
+/**
  * Reference to a deleted work item.
  */
 export interface WorkItemDeleteReference {
@@ -1324,6 +1477,30 @@ export interface WorkItemField extends WorkItemTrackingResource {
      * The usage of the field.
      */
     usage: FieldUsage;
+}
+
+/**
+ * Describes a field on a work item and it's properties specific to that work item type.
+ */
+export interface WorkItemField2 extends WorkItemField {
+    /**
+     * Indicates whether this field is marked as locked for editing.
+     */
+    isLocked: boolean;
+}
+
+/**
+ * Describes the list of allowed values of the field.
+ */
+export interface WorkItemFieldAllowedValues {
+    /**
+     * The list of field allowed values.
+     */
+    allowedValues: string[];
+    /**
+     * Name of the field.
+     */
+    fieldName: string;
 }
 
 /**
@@ -1604,6 +1781,7 @@ export interface WorkItemStateTransition {
 
 export interface WorkItemTagDefinition {
     id: string;
+    lastUpdated: Date;
     name: string;
     url: string;
 }
@@ -1759,7 +1937,7 @@ export interface WorkItemTypeColor {
 }
 
 /**
- * Describes work item type nam, its icon and color.
+ * Describes work item type name, its icon and color.
  */
 export interface WorkItemTypeColorAndIcon {
     /**
@@ -1770,6 +1948,10 @@ export interface WorkItemTypeColorAndIcon {
      * The work item type icon.
      */
     icon: string;
+    /**
+     * Indicates if the work item is disabled in the process.
+     */
+    isDisabled: boolean;
     /**
      * The name of the work item type.
      */

@@ -172,7 +172,7 @@ export enum InputMode {
  */
 export interface InputValidation {
     /**
-     * Gets or sets the data data type to validate.
+     * Gets or sets the data type to validate.
      */
     dataType: InputDataType;
     /**
