@@ -2115,10 +2115,6 @@ export interface PhaseTarget {
  */
 export interface PipelineGeneralSettings {
     /**
-     * If enabled, audit logs will be generated whenever someone queues a pipeline run and defines variables that are not marked as "Settable at queue time".
-     */
-    auditEnforceSettableVar: boolean;
-    /**
      * Disable classic pipelines creation.
      */
     disableClassicPipelineCreation: boolean;

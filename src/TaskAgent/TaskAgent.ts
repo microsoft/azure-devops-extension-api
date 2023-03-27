@@ -184,14 +184,6 @@ export interface AzureSubscriptionQueryResult {
     value: AzureSubscription[];
 }
 
-export enum CancellationInitiatorType {
-    NotProvided = 0,
-    OrchestrationEngine = 1,
-    Server = 2,
-    User = 3,
-    Agent = 4
-}
-
 export interface ClientCertificate {
     /**
      * Gets or sets the value of client certificate.
@@ -1231,11 +1223,6 @@ export interface JobAssignedEvent extends JobEvent {
 }
 
 export interface JobCanceledEvent extends JobEvent {
-    /**
-     * The job cancellation's initiator
-     */
-    initiator: string;
-    initiatorType: CancellationInitiatorType;
     /**
      * The reason for job cancellation.
      */
