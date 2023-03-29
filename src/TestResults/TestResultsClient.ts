@@ -6,13 +6,17 @@
 
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
+import { deserializeVssJsonObject } from "../Common/Util/Serialization";
 
 import * as Test from "../Test/Test";
+import * as WebApi from "../WebApi/WebApi";
 
 export class TestResultsRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
         super(options);
     }
+
+    public static readonly RESOURCE_AREA_ID = "c83eaf52-edf3-4034-ae11-17d38f25404c";
 
     /**
      * @param attachmentRequestModel - 
@@ -37,7 +41,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -64,7 +68,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestAttachmentReference> {
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -96,7 +100,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -123,7 +127,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -132,6 +136,76 @@ export class TestResultsRestClient extends RestClientBase {
                 testCaseResultId: testCaseResultId,
                 attachmentId: attachmentId
             }
+        });
+    }
+
+    /**
+     * Returns a test iteration attachment
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     * @param attachmentId - 
+     * @param iterationId - 
+     */
+    public async getTestIterationAttachmentContent(
+        project: string,
+        runId: number,
+        testCaseResultId: number,
+        attachmentId: number,
+        iterationId: number
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            iterationId: iterationId
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.1-preview.1",
+            httpResponseType: "application/octet-stream",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId,
+                attachmentId: attachmentId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Returns a test iteration attachment
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     * @param attachmentId - 
+     * @param iterationId - 
+     */
+    public async getTestIterationAttachmentZip(
+        project: string,
+        runId: number,
+        testCaseResultId: number,
+        attachmentId: number,
+        iterationId: number
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            iterationId: iterationId
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.1-preview.1",
+            httpResponseType: "application/zip",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId,
+                attachmentId: attachmentId
+            },
+            queryParams: queryValues
         });
     }
 
@@ -151,7 +225,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -175,7 +249,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestAttachment[]> {
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -201,7 +275,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -235,7 +309,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -268,7 +342,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -301,7 +375,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachments/{attachmentId}",
             routeValues: {
@@ -326,7 +400,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestAttachmentReference> {
 
         return this.beginRequest<Test.TestAttachmentReference>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachments/{attachmentId}",
             routeValues: {
@@ -349,7 +423,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachments/{attachmentId}",
             routeValues: {
@@ -374,7 +448,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachments/{attachmentId}",
             routeValues: {
@@ -395,7 +469,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestAttachment[]> {
 
         return this.beginRequest<Test.TestAttachment[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachments/{attachmentId}",
             routeValues: {
                 project: project,
@@ -418,7 +492,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachments/{attachmentId}",
             routeValues: {
@@ -441,7 +515,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.WorkItemReference[]> {
 
         return this.beginRequest<Test.WorkItemReference[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/bugs",
             routeValues: {
                 project: project,
@@ -468,7 +542,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.BuildCoverage[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/codecoverage",
             routeValues: {
                 project: project
@@ -494,7 +568,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.CodeCoverageSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/codecoverage",
             routeValues: {
                 project: project
@@ -521,7 +595,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/codecoverage",
             routeValues: {
@@ -548,7 +622,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRunCoverage[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/codecoverage",
             routeValues: {
                 project: project,
@@ -570,7 +644,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/testresults/codecoverage/filecoverage",
@@ -591,7 +665,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultHistory> {
 
         return this.beginRequest<Test.TestResultHistory>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/results/History",
             routeValues: {
@@ -613,7 +687,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestMessageLogDetails[]> {
 
         return this.beginRequest<Test.TestMessageLogDetails[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/MessageLogs",
             routeValues: {
                 project: project,
@@ -653,7 +727,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.PipelineTestMetrics>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/metrics",
             routeValues: {
                 project: project
@@ -694,7 +768,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultdetailsbybuild",
             routeValues: {
                 project: project
@@ -738,7 +812,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultdetailsbyrelease",
             routeValues: {
                 project: project
@@ -759,7 +833,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultDocument> {
 
         return this.beginRequest<Test.TestResultDocument>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/ResultDocument",
             routeValues: {
@@ -783,7 +857,7 @@ export class TestResultsRestClient extends RestClientBase {
         publishContext: string,
         fields?: string[],
         continuationToken?: string
-        ): Promise<Test.FieldDetailsForTestResults[]> {
+        ): Promise<WebApi.PagedList<Test.FieldDetailsForTestResults>> {
 
         const queryValues: any = {
             buildId: buildId,
@@ -792,13 +866,18 @@ export class TestResultsRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<Test.FieldDetailsForTestResults[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultgroupsbybuild",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.FieldDetailsForTestResults>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -817,7 +896,7 @@ export class TestResultsRestClient extends RestClientBase {
         releaseEnvId?: number,
         fields?: string[],
         continuationToken?: string
-        ): Promise<Test.FieldDetailsForTestResults[]> {
+        ): Promise<WebApi.PagedList<Test.FieldDetailsForTestResults>> {
 
         const queryValues: any = {
             releaseId: releaseId,
@@ -827,20 +906,25 @@ export class TestResultsRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<Test.FieldDetailsForTestResults[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultgroupsbyrelease",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.FieldDetailsForTestResults>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
     /**
      * Get list of test Result meta data details for corresponding testcasereferenceId
      * 
-     * @param testCaseReferenceIds - 
+     * @param testCaseReferenceIds - TestCaseReference Ids of the test Result to be queried, comma separated list of valid ids (limit no. of ids 200).
      * @param project - Project ID or project name
      * @param detailsToInclude - Details to include with test results metadata. Default is None. Other values are FlakyIdentifiers.
      */
@@ -855,7 +939,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultMetaData[]>({
-            apiVersion: "5.2-preview.3",
+            apiVersion: "7.1-preview.4",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/results/ResultMetaData/{testCaseReferenceId}",
             routeValues: {
@@ -880,7 +964,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultMetaData> {
 
         return this.beginRequest<Test.TestResultMetaData>({
-            apiVersion: "5.2-preview.3",
+            apiVersion: "7.1-preview.4",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/results/ResultMetaData/{testCaseReferenceId}",
             routeValues: {
@@ -901,7 +985,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultsQuery> {
 
         return this.beginRequest<Test.TestResultsQuery>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/results",
             routeValues: {
@@ -936,7 +1020,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/results/query",
             routeValues: {
@@ -959,7 +1043,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestCaseResult[]> {
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}",
             routeValues: {
@@ -988,7 +1072,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}",
             routeValues: {
                 project: project,
@@ -1006,6 +1090,7 @@ export class TestResultsRestClient extends RestClientBase {
      * @param skip - 
      * @param top - 
      * @param outcomes - 
+     * @param newTestsOnly - 
      */
     public async getTestResults(
         project: string,
@@ -1013,18 +1098,20 @@ export class TestResultsRestClient extends RestClientBase {
         detailsToInclude?: Test.ResultDetails,
         skip?: number,
         top?: number,
-        outcomes?: Test.TestOutcome[]
+        outcomes?: Test.TestOutcome[],
+        newTestsOnly?: boolean
         ): Promise<Test.TestCaseResult[]> {
 
         const queryValues: any = {
             detailsToInclude: detailsToInclude,
             '$skip': skip,
             '$top': top,
-            outcomes: outcomes && outcomes.join(",")
+            outcomes: outcomes && outcomes.join(","),
+            '$newTestsOnly': newTestsOnly
         };
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}",
             routeValues: {
                 project: project,
@@ -1046,7 +1133,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestCaseResult[]> {
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}",
             routeValues: {
@@ -1072,7 +1159,7 @@ export class TestResultsRestClient extends RestClientBase {
         outcomes?: Test.TestOutcome[],
         top?: number,
         continuationToken?: string
-        ): Promise<Test.ShallowTestCaseResult[]> {
+        ): Promise<WebApi.PagedList<Test.ShallowTestCaseResult>> {
 
         const queryValues: any = {
             buildId: buildId,
@@ -1082,13 +1169,18 @@ export class TestResultsRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<Test.ShallowTestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsbybuild",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.ShallowTestCaseResult>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1113,7 +1205,7 @@ export class TestResultsRestClient extends RestClientBase {
         outcomes?: Test.TestOutcome[],
         top?: number,
         continuationToken?: String
-        ): Promise<Test.ShallowTestCaseResult[]> {
+        ): Promise<WebApi.PagedList<Test.ShallowTestCaseResult>> {
 
         const queryValues: any = {
             pipelineId: pipelineId,
@@ -1124,8 +1216,8 @@ export class TestResultsRestClient extends RestClientBase {
             '$top': top
         };
 
-        return this.beginRequest<Test.ShallowTestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsbypipeline",
             routeValues: {
                 project: project
@@ -1133,7 +1225,12 @@ export class TestResultsRestClient extends RestClientBase {
             customHeaders: {
                 "x-ms-continuationtoken": continuationToken,
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.ShallowTestCaseResult>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1154,7 +1251,7 @@ export class TestResultsRestClient extends RestClientBase {
         outcomes?: Test.TestOutcome[],
         top?: number,
         continuationToken?: string
-        ): Promise<Test.ShallowTestCaseResult[]> {
+        ): Promise<WebApi.PagedList<Test.ShallowTestCaseResult>> {
 
         const queryValues: any = {
             releaseId: releaseId,
@@ -1165,13 +1262,18 @@ export class TestResultsRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<Test.ShallowTestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsbyrelease",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.ShallowTestCaseResult>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1206,7 +1308,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsgroupDetails",
             routeValues: {
                 project: project
@@ -1238,7 +1340,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsummarybybuild",
             routeValues: {
                 project: project
@@ -1275,7 +1377,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsummarybypipeline",
             routeValues: {
                 project: project
@@ -1310,7 +1412,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/resultsummarybyrelease",
             routeValues: {
                 project: project
@@ -1329,7 +1431,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultSummary[]> {
 
         return this.beginRequest<Test.TestResultSummary[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/resultsummarybyrelease",
             routeValues: {
@@ -1355,7 +1457,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestSummaryForWorkItem[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/resultsummarybyrequirement",
             routeValues: {
@@ -1376,7 +1478,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.AggregatedDataForResultTrend[]> {
 
         return this.beginRequest<Test.AggregatedDataForResultTrend[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/ResultTrendByBuild",
             routeValues: {
@@ -1396,34 +1498,13 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.AggregatedDataForResultTrend[]> {
 
         return this.beginRequest<Test.AggregatedDataForResultTrend[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/ResultTrendByRelease",
             routeValues: {
                 project: project
             },
             body: filter
-        });
-    }
-
-    /**
-     * Get test run statistics , used when we want to get summary of a run by outcome.
-     * 
-     * @param project - Project ID or project name
-     * @param runId - ID of the run to get.
-     */
-    public async getTestRunStatistics(
-        project: string,
-        runId: number
-        ): Promise<Test.TestRunStatistic> {
-
-        return this.beginRequest<Test.TestRunStatistic>({
-            apiVersion: "5.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/runs/{runId}/statistics",
-            routeValues: {
-                project: project,
-                runId: runId
-            }
         });
     }
 
@@ -1437,7 +1518,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestRun> {
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
@@ -1457,7 +1538,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
@@ -1486,7 +1567,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
                 project: project,
@@ -1531,7 +1612,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestRun[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
                 project: project
@@ -1547,16 +1628,16 @@ export class TestResultsRestClient extends RestClientBase {
      * @param minLastUpdatedDate - Minimum Last Modified Date of run to be queried (Mandatory).
      * @param maxLastUpdatedDate - Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
      * @param state - Current state of the Runs to be queried.
-     * @param planIds - Plan Ids of the Runs to be queried, comma seperated list of valid ids.
+     * @param planIds - Plan Ids of the Runs to be queried, comma separated list of valid ids.
      * @param isAutomated - Automation type of the Runs to be queried.
      * @param publishContext - PublishContext of the Runs to be queried.
-     * @param buildIds - Build Ids of the Runs to be queried, comma seperated list of valid ids.
-     * @param buildDefIds - Build Definition Ids of the Runs to be queried, comma seperated list of valid ids.
+     * @param buildIds - Build Ids of the Runs to be queried, comma separated list of valid ids.
+     * @param buildDefIds - Build Definition Ids of the Runs to be queried, comma separated list of valid ids.
      * @param branchName - Source Branch name of the Runs to be queried.
-     * @param releaseIds - Release Ids of the Runs to be queried, comma seperated list of valid ids.
-     * @param releaseDefIds - Release Definition Ids of the Runs to be queried, comma seperated list of valid ids.
-     * @param releaseEnvIds - Release Environment Ids of the Runs to be queried, comma seperated list of valid ids.
-     * @param releaseEnvDefIds - Release Environment Definition Ids of the Runs to be queried, comma seperated list of valid ids.
+     * @param releaseIds - Release Ids of the Runs to be queried, comma separated list of valid ids.
+     * @param releaseDefIds - Release Definition Ids of the Runs to be queried, comma separated list of valid ids.
+     * @param releaseEnvIds - Release Environment Ids of the Runs to be queried, comma separated list of valid ids.
+     * @param releaseEnvDefIds - Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids.
      * @param runTitle - Run Title of the Runs to be queried.
      * @param top - Number of runs to be queried. Limit is 100
      * @param continuationToken - continuationToken received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user.
@@ -1579,7 +1660,7 @@ export class TestResultsRestClient extends RestClientBase {
         runTitle?: string,
         top?: number,
         continuationToken?: string
-        ): Promise<Test.TestRun[]> {
+        ): Promise<WebApi.PagedList<Test.TestRun>> {
 
         const queryValues: any = {
             minLastUpdatedDate: minLastUpdatedDate,
@@ -1600,13 +1681,18 @@ export class TestResultsRestClient extends RestClientBase {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<Test.TestRun[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestRun>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1622,7 +1708,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestRun> {
 
         return this.beginRequest<Test.TestRun>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}",
             routeValues: {
@@ -1630,6 +1716,27 @@ export class TestResultsRestClient extends RestClientBase {
                 runId: runId
             },
             body: runUpdateModel
+        });
+    }
+
+    /**
+     * Get test run summary, used when we want to get summary of a run by outcome. Test run should be in completed state.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - ID of the run to get.
+     */
+    public async getTestRunSummaryByOutcome(
+        project: string,
+        runId: number
+        ): Promise<Test.TestRunStatistic> {
+
+        return this.beginRequest<Test.TestRunStatistic>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/runsummary",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
         });
     }
 
@@ -1649,7 +1756,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsSettings>({
-            apiVersion: "5.2-preview.3",
+            apiVersion: "7.1-preview.3",
             routeTemplate: "{project}/_apis/testresults/settings",
             routeValues: {
                 project: project
@@ -1670,7 +1777,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestResultsSettings> {
 
         return this.beginRequest<Test.TestResultsSettings>({
-            apiVersion: "5.2-preview.3",
+            apiVersion: "7.1-preview.3",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/settings",
             routeValues: {
@@ -1705,7 +1812,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testResultId}/SimilarTestResults",
             routeValues: {
                 project: project,
@@ -1716,6 +1823,27 @@ export class TestResultsRestClient extends RestClientBase {
                 "x-ms-continuationtoken": continuationToken,
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get test run statistics , used when we want to get summary of a run by outcome.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - ID of the run to get.
+     */
+    public async getTestRunStatistics(
+        project: string,
+        runId: number
+        ): Promise<Test.TestRunStatistic> {
+
+        return this.beginRequest<Test.TestRunStatistic>({
+            apiVersion: "7.1-preview.2",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/statistics",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
         });
     }
 
@@ -1740,7 +1868,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/codecoverage/status/{*definition}",
             routeValues: {
                 project: project,
@@ -1764,7 +1892,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestTag[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/tags",
             routeValues: {
                 project: project
@@ -1790,7 +1918,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestTag[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/tags",
             routeValues: {
                 project: project
@@ -1811,7 +1939,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestTag[]> {
 
         return this.beginRequest<Test.TestTag[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/tags",
             routeValues: {
@@ -1836,7 +1964,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestTagSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/tagsummary",
             routeValues: {
                 project: project
@@ -1862,10 +1990,168 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestTagSummary>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/tagsummary",
             routeValues: {
                 project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Creates an attachment in the LogStore for the specified buildId.
+     * 
+     * @param attachmentRequestModel - Contains attachment info like stream, filename, comment, attachmentType
+     * @param project - Project ID or project name
+     * @param buildId - BuildId
+     */
+    public async createBuildAttachmentInLogStore(
+        attachmentRequestModel: Test.TestAttachmentRequestModel,
+        project: string,
+        buildId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/uploadbuildattachments/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            },
+            body: attachmentRequestModel
+        });
+    }
+
+    /**
+     * Creates an attachment in the LogStore for the specified runId.
+     * 
+     * @param attachmentRequestModel - Contains attachment info like stream, filename, comment, attachmentType
+     * @param project - Project ID or project name
+     * @param runId - Test RunId
+     */
+    public async createTestRunLogStoreAttachment(
+        attachmentRequestModel: Test.TestAttachmentRequestModel,
+        project: string,
+        runId: number
+        ): Promise<Test.TestLogStoreAttachmentReference> {
+
+        return this.beginRequest<Test.TestLogStoreAttachmentReference>({
+            apiVersion: "7.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/testattachments",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            body: attachmentRequestModel
+        });
+    }
+
+    /**
+     * Deletes the attachment with the specified filename for the specified runId from the LogStore.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - Test RunId
+     * @param filename - Attachment FileName
+     */
+    public async deleteTestRunLogStoreAttachment(
+        project: string,
+        runId: number,
+        filename: string
+        ): Promise<void> {
+
+        const queryValues: any = {
+            filename: filename
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/testattachments",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Returns the attachment with the specified filename for the specified runId from the LogStore.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - Test RunId
+     * @param filename - Attachment FileName
+     */
+    public async getTestRunLogStoreAttachmentContent(
+        project: string,
+        runId: number,
+        filename: string
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            filename: filename
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.1-preview.1",
+            httpResponseType: "application/octet-stream",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/testattachments",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Returns a list of attachments for the specified runId from the LogStore.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - Test RunId
+     */
+    public async getTestRunLogStoreAttachments(
+        project: string,
+        runId: number
+        ): Promise<Test.TestLogStoreAttachment[]> {
+
+        return this.beginRequest<Test.TestLogStoreAttachment[]>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/testattachments",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
+        });
+    }
+
+    /**
+     * Returns the attachment with the specified filename for the specified runId from the LogStore.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - Test RunId
+     * @param filename - Attachment FileName
+     */
+    public async getTestRunLogStoreAttachmentZip(
+        project: string,
+        runId: number,
+        filename: string
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            filename: filename
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.1-preview.1",
+            httpResponseType: "application/zip",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/testattachments",
+            routeValues: {
+                project: project,
+                runId: runId
             },
             queryParams: queryValues
         });
@@ -1883,7 +2169,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestHistoryQuery> {
 
         return this.beginRequest<Test.TestHistoryQuery>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/results/TestHistory",
             routeValues: {
@@ -1914,7 +2200,7 @@ export class TestResultsRestClient extends RestClientBase {
         fetchMetaData?: boolean,
         top?: number,
         continuationToken?: String
-        ): Promise<Test.TestLog[]> {
+        ): Promise<WebApi.PagedList<Test.TestLog>> {
 
         const queryValues: any = {
             buildId: buildId,
@@ -1925,8 +2211,8 @@ export class TestResultsRestClient extends RestClientBase {
             top: top
         };
 
-        return this.beginRequest<Test.TestLog[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/testlog",
             routeValues: {
                 project: project
@@ -1934,7 +2220,12 @@ export class TestResultsRestClient extends RestClientBase {
             customHeaders: {
                 "x-ms-continuationtoken": continuationToken,
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestLog>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1961,7 +2252,7 @@ export class TestResultsRestClient extends RestClientBase {
         fetchMetaData?: boolean,
         top?: number,
         continuationToken?: String
-        ): Promise<Test.TestLog[]> {
+        ): Promise<WebApi.PagedList<Test.TestLog>> {
 
         const queryValues: any = {
             type: type,
@@ -1971,8 +2262,8 @@ export class TestResultsRestClient extends RestClientBase {
             top: top
         };
 
-        return this.beginRequest<Test.TestLog[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{resultId}/testlog",
             routeValues: {
                 project: project,
@@ -1982,7 +2273,12 @@ export class TestResultsRestClient extends RestClientBase {
             customHeaders: {
                 "x-ms-continuationtoken": continuationToken,
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestLog>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -2011,7 +2307,7 @@ export class TestResultsRestClient extends RestClientBase {
         fetchMetaData?: boolean,
         top?: number,
         continuationToken?: String
-        ): Promise<Test.TestLog[]> {
+        ): Promise<WebApi.PagedList<Test.TestLog>> {
 
         const queryValues: any = {
             subResultId: subResultId,
@@ -2022,8 +2318,8 @@ export class TestResultsRestClient extends RestClientBase {
             top: top
         };
 
-        return this.beginRequest<Test.TestLog[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{resultId}/testlog",
             routeValues: {
                 project: project,
@@ -2033,7 +2329,12 @@ export class TestResultsRestClient extends RestClientBase {
             customHeaders: {
                 "x-ms-continuationtoken": continuationToken,
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestLog>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -2058,7 +2359,7 @@ export class TestResultsRestClient extends RestClientBase {
         fetchMetaData?: boolean,
         top?: number,
         continuationToken?: String
-        ): Promise<Test.TestLog[]> {
+        ): Promise<WebApi.PagedList<Test.TestLog>> {
 
         const queryValues: any = {
             type: type,
@@ -2068,8 +2369,8 @@ export class TestResultsRestClient extends RestClientBase {
             top: top
         };
 
-        return this.beginRequest<Test.TestLog[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/testlog",
             routeValues: {
                 project: project,
@@ -2078,7 +2379,12 @@ export class TestResultsRestClient extends RestClientBase {
             customHeaders: {
                 "x-ms-continuationtoken": continuationToken,
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestLog>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -2104,7 +2410,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/testlogstoreendpoint",
             routeValues: {
                 project: project
@@ -2132,7 +2438,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testlogstoreendpoint",
             routeValues: {
@@ -2165,7 +2471,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{resultId}/testlogstoreendpoint",
             routeValues: {
                 project: project,
@@ -2202,7 +2508,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{resultId}/testlogstoreendpoint",
             routeValues: {
                 project: project,
@@ -2239,7 +2545,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{resultId}/testlogstoreendpoint",
             routeValues: {
@@ -2272,7 +2578,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/testlogstoreendpoint",
             routeValues: {
                 project: project,
@@ -2306,7 +2612,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestLogStoreEndpointDetails>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/runs/{runId}/testlogstoreendpoint",
             routeValues: {
@@ -2327,7 +2633,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<number> {
 
         return this.beginRequest<number>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testsettings",
             routeValues: {
@@ -2351,7 +2657,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testresults/testsettings",
             routeValues: {
@@ -2375,7 +2681,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestSettings>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/testsettings",
             routeValues: {
                 project: project
@@ -2394,7 +2700,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.WorkItemToTestLinks> {
 
         return this.beginRequest<Test.WorkItemToTestLinks>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testmethods/workitems",
             routeValues: {
@@ -2421,7 +2727,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<boolean>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testresults/testmethods/{testName}/workitems/{workItemId}",
             routeValues: {
@@ -2445,7 +2751,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestToWorkItemLinks>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testmethods/{testName}/workitems/{workItemId}",
             routeValues: {
@@ -2457,7 +2763,31 @@ export class TestResultsRestClient extends RestClientBase {
 
     /**
      * @param project - Project ID or project name
-     * @param workItemCategory - 
+     * @param runId - 
+     * @param testCaseResultId - 
+     */
+    public async getTestResultWorkItemsById(
+        project: string,
+        runId: number,
+        testCaseResultId: number
+        ): Promise<Test.WorkItemReference[]> {
+
+        return this.beginRequest<Test.WorkItemReference[]>({
+            apiVersion: "7.1-preview.2",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/workitems",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId
+            }
+        });
+    }
+
+    /**
+     * Query Test Result WorkItems based on filter
+     * 
+     * @param project - Project ID or project name
+     * @param workItemCategory - can take values Microsoft.BugCategory or all(for getting all workitems)
      * @param automatedTestName - 
      * @param testCaseId - 
      * @param maxCompleteDate - 
@@ -2484,7 +2814,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.WorkItemReference[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testresults/results/workitems",
             routeValues: {
                 project: project

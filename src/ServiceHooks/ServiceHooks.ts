@@ -522,7 +522,7 @@ export interface Publisher {
  */
 export interface PublisherEvent {
     /**
-     * Add key/value pairs which will be stored with a published notification in the SH service DB.  This key/value pairs are for diagnostic purposes only and will have not effect on the delivery of a notificaton.
+     * Add key/value pairs which will be stored with a published notification in the SH service DB.  This key/value pairs are for diagnostic purposes only and will have not effect on the delivery of a notification.
      */
     diagnostics: { [key: string] : string; };
     /**
@@ -629,6 +629,7 @@ export interface Subscription {
     eventDescription: string;
     eventType: string;
     id: string;
+    lastProbationRetryDate: Date;
     modifiedBy: WebApi.IdentityRef;
     modifiedDate: Date;
     probationRetries: number;

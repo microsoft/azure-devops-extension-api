@@ -198,6 +198,7 @@ export interface FieldModel {
     description: string;
     id: string;
     isIdentity: boolean;
+    isLocked: boolean;
     name: string;
     type: FieldType;
     url: string;
@@ -519,7 +520,7 @@ export interface ProcessBehavior {
      */
     color: string;
     /**
-     * Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process.
+     * Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process.
      */
     customization: CustomizationType;
     /**
@@ -809,6 +810,10 @@ export interface ProcessWorkItemTypeField {
      */
     description: string;
     /**
+     * Information about field definition being locked for editing
+     */
+    isLocked: boolean;
+    /**
      * Name of the field.
      */
     name: string;
@@ -960,7 +965,11 @@ export enum RuleActionType {
     /**
      * Hides target field from the form. This is a server side only action.
      */
-    HideTargetField = 14
+    HideTargetField = 14,
+    /**
+     * Disallows a field from being set to a specific value.
+     */
+    DisallowValue = 15
 }
 
 /**
@@ -1242,6 +1251,10 @@ export interface WorkItemTypeBehavior {
      * If true the work item type is the default work item type in the behavior
      */
     isDefault: boolean;
+    /**
+     * If true the work item type is the default work item type in the parent behavior
+     */
+    isLegacyDefault: boolean;
     /**
      * URL of the work item type behavior
      */

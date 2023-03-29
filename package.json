@@ -1,6 +1,6 @@
 {
   "name": "azure-devops-extension-api",
-  "version": "1.215.0",
+  "version": "2.218.0",
   "description": "REST client libraries and contracts for Azure DevOps web extension developers.",
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   "author": "Microsoft",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Microsoft/azure-devops-extension-api/issues"
+    "url": "https://aka.ms/AAk5pcm"
   },
   "homepage": "https://docs.microsoft.com/en-us/azure/devops/integrate",
   "dependencies": {

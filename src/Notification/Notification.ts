@@ -792,7 +792,7 @@ export interface NotificationSubscription {
      */
     subscriber: WebApi.IdentityRef;
     /**
-     * REST API URL of the subscriotion.
+     * REST API URL of the subscription.
      */
     url: string;
     /**
@@ -989,7 +989,7 @@ export interface SubscriptionChannelWithAddress {
 }
 
 /**
- * Contains all the diagonstics settings for a subscription.
+ * Contains all the diagnostics settings for a subscription.
  */
 export interface SubscriptionDiagnostics {
     /**
@@ -1176,7 +1176,7 @@ export interface SubscriptionQueryCondition {
      */
     filter: ISubscriptionFilter;
     /**
-     * Flags to specify the the type subscriptions to query for.
+     * Flags to specify the type subscriptions to query for.
      */
     flags: SubscriptionFlags;
     /**

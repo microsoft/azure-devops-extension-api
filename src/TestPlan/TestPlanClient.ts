@@ -6,8 +6,10 @@
 
 import { IVssRestClientOptions } from "../Common/Context";
 import { RestClientBase } from "../Common/RestClientBase";
+import { deserializeVssJsonObject } from "../Common/Util/Serialization";
 
 import * as TestPlan from "../TestPlan/TestPlan";
+import * as WebApi from "../WebApi/WebApi";
 
 export class TestPlanRestClient extends RestClientBase {
     constructor(options: IVssRestClientOptions) {
@@ -26,7 +28,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestConfiguration> {
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -52,7 +54,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -74,7 +76,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestConfiguration> {
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
                 project: project,
@@ -92,19 +94,24 @@ export class TestPlanRestClient extends RestClientBase {
     public async getTestConfigurations(
         project: string,
         continuationToken?: string
-        ): Promise<TestPlan.TestConfiguration[]> {
+        ): Promise<WebApi.PagedList<TestPlan.TestConfiguration>> {
 
         const queryValues: any = {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<TestPlan.TestConfiguration[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestConfiguration>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -126,7 +133,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestConfiguration>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Configurations/{testConfigurationId}",
             routeValues: {
@@ -145,27 +152,30 @@ export class TestPlanRestClient extends RestClientBase {
      * @param configurations - 
      * @param testers - 
      * @param assignedTo - 
+     * @param entity - 
      */
-    public async getTestPointCountByPlanId(
+    public async getTestEntityCountByPlanId(
         project: string,
         planId: number,
         states?: string,
         outcome?: TestPlan.UserFriendlyTestOutcome,
         configurations?: string,
         testers?: string,
-        assignedTo?: string
-        ): Promise<TestPlan.TestPointCount[]> {
+        assignedTo?: string,
+        entity?: TestPlan.TestEntityTypes
+        ): Promise<TestPlan.TestEntityCount[]> {
 
         const queryValues: any = {
             states: states,
             outcome: outcome,
             configurations: configurations,
             testers: testers,
-            assignedTo: assignedTo
+            assignedTo: assignedTo,
+            entity: entity
         };
 
-        return this.beginRequest<TestPlan.TestPointCount[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<TestPlan.TestEntityCount[]>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Count/{planId}",
             routeValues: {
                 project: project,
@@ -187,7 +197,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -209,7 +219,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -231,7 +241,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
                 project: project,
@@ -255,7 +265,7 @@ export class TestPlanRestClient extends RestClientBase {
         continuationToken?: string,
         includePlanDetails?: boolean,
         filterActivePlans?: boolean
-        ): Promise<TestPlan.TestPlan[]> {
+        ): Promise<WebApi.PagedList<TestPlan.TestPlan>> {
 
         const queryValues: any = {
             owner: owner,
@@ -264,13 +274,18 @@ export class TestPlanRestClient extends RestClientBase {
             filterActivePlans: filterActivePlans
         };
 
-        return this.beginRequest<TestPlan.TestPlan[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestPlan>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -288,7 +303,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestPlan> {
 
         return this.beginRequest<TestPlan.TestPlan>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}",
             routeValues: {
@@ -317,7 +332,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.SuiteEntry[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/SuiteEntry/{suiteId}",
             routeValues: {
                 project: project,
@@ -341,7 +356,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.SuiteEntry[]> {
 
         return this.beginRequest<TestPlan.SuiteEntry[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/SuiteEntry/{suiteId}",
             routeValues: {
@@ -349,6 +364,34 @@ export class TestPlanRestClient extends RestClientBase {
                 suiteId: suiteId
             },
             body: suiteEntries
+        });
+    }
+
+    /**
+     * Create bulk requirement based test suites.
+     * 
+     * @param testSuiteCreateParams - Parameters for suite creation
+     * @param project - Project ID or project name
+     * @param planId - ID of the test plan where requirement based suites need to be created.
+     * @param parentSuiteId - ID of the parent suite under which requirement based suites will be created
+     */
+    public async createBulkTestSuites(
+        testSuiteCreateParams: TestPlan.TestSuiteCreateParams[],
+        project: string,
+        planId: number,
+        parentSuiteId: number
+        ): Promise<TestPlan.TestSuite[]> {
+
+        return this.beginRequest<TestPlan.TestSuite[]>({
+            apiVersion: "7.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{parentSuiteId}/bulk",
+            routeValues: {
+                project: project,
+                planId: planId,
+                parentSuiteId: parentSuiteId
+            },
+            body: testSuiteCreateParams
         });
     }
 
@@ -366,7 +409,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestSuite> {
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -391,7 +434,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -422,7 +465,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
                 project: project,
@@ -448,7 +491,7 @@ export class TestPlanRestClient extends RestClientBase {
         expand?: TestPlan.SuiteExpand,
         continuationToken?: string,
         asTreeView?: boolean
-        ): Promise<TestPlan.TestSuite[]> {
+        ): Promise<WebApi.PagedList<TestPlan.TestSuite>> {
 
         const queryValues: any = {
             expand: expand,
@@ -456,14 +499,19 @@ export class TestPlanRestClient extends RestClientBase {
             asTreeView: asTreeView
         };
 
-        return this.beginRequest<TestPlan.TestSuite[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
                 project: project,
                 planId: planId
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestSuite>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -483,7 +531,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestSuite> {
 
         return this.beginRequest<TestPlan.TestSuite>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}",
             routeValues: {
@@ -509,7 +557,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestSuite[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/testplan/Suites",
             queryParams: queryValues
         });
@@ -531,9 +579,9 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestCase[]> {
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "POST",
-            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
             routeValues: {
                 project: project,
                 planId: planId,
@@ -544,12 +592,12 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
-     * Get Test Cases For a Suite.
+     * Get a particular Test Case from a Suite.
      * 
      * @param project - Project ID or project name
      * @param planId - ID of the test plan for which test cases are requested.
      * @param suiteId - ID of the test suite for which test cases are requested.
-     * @param testCaseIds - Test Case Ids to be fetched.
+     * @param testCaseId - Test Case Id to be fetched.
      * @param witFields - Get the list of witFields.
      * @param returnIdentityRef - If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
      */
@@ -557,7 +605,7 @@ export class TestPlanRestClient extends RestClientBase {
         project: string,
         planId: number,
         suiteId: number,
-        testCaseIds: string,
+        testCaseId: string,
         witFields?: string,
         returnIdentityRef?: boolean
         ): Promise<TestPlan.TestCase[]> {
@@ -568,20 +616,20 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.2-preview.2",
-            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
+            apiVersion: "7.1-preview.3",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
             routeValues: {
                 project: project,
                 planId: planId,
                 suiteId: suiteId,
-                testCaseIds: testCaseIds
+                testCaseId: testCaseId
             },
             queryParams: queryValues
         });
     }
 
     /**
-     * Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional paramter. If configuration Ids is null, it return all the test cases
+     * Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional parameter. If configuration Ids is null, it return all the test cases
      * 
      * @param project - Project ID or project name
      * @param planId - ID of the test plan for which test cases are requested.
@@ -593,6 +641,7 @@ export class TestPlanRestClient extends RestClientBase {
      * @param returnIdentityRef - If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
      * @param expand - If set to false, will get a smaller payload containing only basic details about the suite test case object
      * @param excludeFlags - Flag to exclude various values from payload. For example to remove point assignments pass exclude = 1. To remove extra information (links, test plan , test suite) pass exclude = 2. To remove both extra information and point assignments pass exclude = 3 (1 + 2).
+     * @param isRecursive - 
      */
     public async getTestCaseList(
         project: string,
@@ -604,8 +653,9 @@ export class TestPlanRestClient extends RestClientBase {
         continuationToken?: string,
         returnIdentityRef?: boolean,
         expand?: boolean,
-        excludeFlags?: TestPlan.ExcludeFlags
-        ): Promise<TestPlan.TestCase[]> {
+        excludeFlags?: TestPlan.ExcludeFlags,
+        isRecursive?: boolean
+        ): Promise<WebApi.PagedList<TestPlan.TestCase>> {
 
         const queryValues: any = {
             testIds: testIds,
@@ -614,18 +664,24 @@ export class TestPlanRestClient extends RestClientBase {
             continuationToken: continuationToken,
             returnIdentityRef: returnIdentityRef,
             expand: expand,
-            excludeFlags: excludeFlags
+            excludeFlags: excludeFlags,
+            isRecursive: isRecursive
         };
 
-        return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.2-preview.2",
-            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.3",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
             routeValues: {
                 project: project,
                 planId: planId,
                 suiteId: suiteId
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestCase>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -644,16 +700,52 @@ export class TestPlanRestClient extends RestClientBase {
         testCaseIds: string
         ): Promise<void> {
 
+        const queryValues: any = {
+            testCaseIds: testCaseIds
+        };
+
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
             routeValues: {
                 project: project,
                 planId: planId,
-                suiteId: suiteId,
-                testCaseIds: testCaseIds
-            }
+                suiteId: suiteId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Removes test cases from a suite based on the list of test case Ids provided. This API can be used to remove a larger number of test cases.
+     * 
+     * @param project - Project ID or project name
+     * @param planId - ID of the test plan from which test cases are to be removed.
+     * @param suiteId - ID of the test suite from which test cases are to be removed.
+     * @param testIds - Comma separated string of Test Case Ids to be removed.
+     */
+    public async removeTestCasesListFromSuite(
+        project: string,
+        planId: number,
+        suiteId: number,
+        testIds: string
+        ): Promise<void> {
+
+        const queryValues: any = {
+            testIds: testIds
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.3",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
+            routeValues: {
+                project: project,
+                planId: planId,
+                suiteId: suiteId
+            },
+            queryParams: queryValues
         });
     }
 
@@ -673,15 +765,56 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestCase[]> {
 
         return this.beginRequest<TestPlan.TestCase[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.3",
             method: "PATCH",
-            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseIds}",
+            routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId}",
             routeValues: {
                 project: project,
                 planId: planId,
                 suiteId: suiteId
             },
             body: suiteTestCaseCreateUpdateParameters
+        });
+    }
+
+    /**
+     * @param cloneRequestBody - 
+     * @param project - Project ID or project name
+     */
+    public async cloneTestCase(
+        cloneRequestBody: TestPlan.CloneTestCaseParams,
+        project: string
+        ): Promise<TestPlan.CloneTestCaseOperationInformation> {
+
+        return this.beginRequest<TestPlan.CloneTestCaseOperationInformation>({
+            apiVersion: "7.1-preview.2",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testplan/TestCases/CloneTestCaseOperation/{cloneOperationId}",
+            routeValues: {
+                project: project
+            },
+            body: cloneRequestBody
+        });
+    }
+
+    /**
+     * Get clone information.
+     * 
+     * @param project - Project ID or project name
+     * @param cloneOperationId - Operation ID returned when we queue a clone operation
+     */
+    public async getTestCaseCloneInformation(
+        project: string,
+        cloneOperationId: number
+        ): Promise<TestPlan.CloneTestCaseOperationInformation> {
+
+        return this.beginRequest<TestPlan.CloneTestCaseOperationInformation>({
+            apiVersion: "7.1-preview.2",
+            routeTemplate: "{project}/_apis/testplan/TestCases/CloneTestCaseOperation/{cloneOperationId}",
+            routeValues: {
+                project: project,
+                cloneOperationId: cloneOperationId
+            }
         });
     }
 
@@ -697,7 +830,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/TestCases/{testCaseId}",
             routeValues: {
@@ -725,7 +858,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.CloneTestPlanOperationInformation>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Plans/CloneOperation/{cloneOperationId}",
             routeValues: {
@@ -748,7 +881,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.CloneTestPlanOperationInformation> {
 
         return this.beginRequest<TestPlan.CloneTestPlanOperationInformation>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/CloneOperation/{cloneOperationId}",
             routeValues: {
                 project: project,
@@ -758,12 +891,12 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
-     * Get a list of points based on point Ids provided.
+     * Get a particular Test Point from a suite.
      * 
      * @param project - Project ID or project name
      * @param planId - ID of the test plan for which test points are requested.
      * @param suiteId - ID of the test suite for which test points are requested.
-     * @param pointIds - ID of test points to be fetched.
+     * @param pointId - ID of test point to be fetched.
      * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
      * @param includePointDetails - If set to false, will get a smaller payload containing only basic details about the test point object
      */
@@ -771,24 +904,24 @@ export class TestPlanRestClient extends RestClientBase {
         project: string,
         planId: number,
         suiteId: number,
-        pointIds: string,
+        pointId: string,
         returnIdentityRef?: boolean,
         includePointDetails?: boolean
         ): Promise<TestPlan.TestPoint[]> {
 
         const queryValues: any = {
+            pointId: pointId,
             returnIdentityRef: returnIdentityRef,
             includePointDetails: includePointDetails
         };
 
         return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
                 project: project,
                 planId: planId,
-                suiteId: suiteId,
-                pointIds: pointIds
+                suiteId: suiteId
             },
             queryParams: queryValues
         });
@@ -805,6 +938,7 @@ export class TestPlanRestClient extends RestClientBase {
      * @param continuationToken - If the list of test point returned is not complete, a continuation token to query next batch of test points is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test points.
      * @param returnIdentityRef - If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
      * @param includePointDetails - If set to false, will get a smaller payload containing only basic details about the test point object
+     * @param isRecursive - If set to true, will also fetch test points belonging to child suites recursively.
      */
     public async getPointsList(
         project: string,
@@ -814,26 +948,33 @@ export class TestPlanRestClient extends RestClientBase {
         testCaseId?: string,
         continuationToken?: string,
         returnIdentityRef?: boolean,
-        includePointDetails?: boolean
-        ): Promise<TestPlan.TestPoint[]> {
+        includePointDetails?: boolean,
+        isRecursive?: boolean
+        ): Promise<WebApi.PagedList<TestPlan.TestPoint>> {
 
         const queryValues: any = {
             testPointIds: testPointIds,
             testCaseId: testCaseId,
             continuationToken: continuationToken,
             returnIdentityRef: returnIdentityRef,
-            includePointDetails: includePointDetails
+            includePointDetails: includePointDetails,
+            isRecursive: isRecursive
         };
 
-        return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.2-preview.2",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
                 project: project,
                 planId: planId,
                 suiteId: suiteId
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestPoint>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -862,7 +1003,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.TestPoint[]>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestPoint/{pointIds}",
             routeValues: {
@@ -893,7 +1034,7 @@ export class TestPlanRestClient extends RestClientBase {
         };
 
         return this.beginRequest<TestPlan.CloneTestSuiteOperationInformation>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Suites/CloneOperation/{cloneOperationId}",
             routeValues: {
@@ -916,7 +1057,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.CloneTestSuiteOperationInformation> {
 
         return this.beginRequest<TestPlan.CloneTestSuiteOperationInformation>({
-            apiVersion: "5.2-preview.2",
+            apiVersion: "7.1-preview.2",
             routeTemplate: "{project}/_apis/testplan/Suites/CloneOperation/{cloneOperationId}",
             routeValues: {
                 project: project,
@@ -937,7 +1078,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
@@ -959,7 +1100,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
@@ -981,7 +1122,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
                 project: project,
@@ -999,19 +1140,24 @@ export class TestPlanRestClient extends RestClientBase {
     public async getTestVariables(
         project: string,
         continuationToken?: string
-        ): Promise<TestPlan.TestVariable[]> {
+        ): Promise<WebApi.PagedList<TestPlan.TestVariable>> {
 
         const queryValues: any = {
             continuationToken: continuationToken
         };
 
-        return this.beginRequest<TestPlan.TestVariable[]>({
-            apiVersion: "5.2-preview.1",
+        return this.beginRequest<Response>({
+            apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestVariable>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -1029,7 +1175,7 @@ export class TestPlanRestClient extends RestClientBase {
         ): Promise<TestPlan.TestVariable> {
 
         return this.beginRequest<TestPlan.TestVariable>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testplan/Variables/{testVariableId}",
             routeValues: {

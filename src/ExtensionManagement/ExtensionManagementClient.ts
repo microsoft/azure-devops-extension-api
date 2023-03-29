@@ -47,7 +47,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ExtensionManagement.AcquisitionOptions>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/AcquisitionOptions",
             queryParams: queryValues
         });
@@ -61,7 +61,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.ExtensionAcquisitionRequest> {
 
         return this.beginRequest<ExtensionManagement.ExtensionAcquisitionRequest>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/AcquisitionRequests",
             body: acquisitionRequest
@@ -78,7 +78,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.ExtensionAuditLog> {
 
         return this.beginRequest<ExtensionManagement.ExtensionAuditLog>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/AuditLog/{publisherName}/{extensionName}",
             routeValues: {
                 publisherName: publisherName,
@@ -99,7 +99,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.ExtensionAuthorization> {
 
         return this.beginRequest<ExtensionManagement.ExtensionAuthorization>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Authorizations/{registrationId}",
             routeValues: {
@@ -128,7 +128,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
@@ -160,7 +160,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
@@ -192,7 +192,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
                 publisherName: publisherName,
@@ -221,7 +221,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<any[]> {
 
         return this.beginRequest<any[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
                 publisherName: publisherName,
@@ -251,7 +251,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PUT",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
@@ -283,7 +283,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Data/Scopes/{scopeType}/{scopeValue}/Collections/{collectionName}/Documents/{documentId}",
             routeValues: {
@@ -311,7 +311,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.ExtensionDataCollection[]> {
 
         return this.beginRequest<ExtensionManagement.ExtensionDataCollection[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/ExtensionDataCollectionQuery",
             routeValues: {
@@ -345,7 +345,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ExtensionManagement.ExtensionState[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/ExtensionStates",
             queryParams: queryValues
         });
@@ -359,7 +359,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.InstalledExtension[]> {
 
         return this.beginRequest<ExtensionManagement.InstalledExtension[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensionQuery",
             body: query
@@ -371,7 +371,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
      * 
      * @param includeDisabledExtensions - If true (the default), include disabled extensions in the results.
      * @param includeErrors - If true, include installed extensions with errors.
-     * @param assetTypes - 
+     * @param assetTypes - Determines which files are returned in the files array.  Provide the wildcard '*' to return all files, or a colon separated list to retrieve files with specific asset types.
      * @param includeInstallationIssues - 
      */
     public async getInstalledExtensions(
@@ -389,7 +389,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ExtensionManagement.InstalledExtension[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{extensionId}",
             queryParams: queryValues
         });
@@ -405,7 +405,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.InstalledExtension> {
 
         return this.beginRequest<ExtensionManagement.InstalledExtension>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{extensionId}",
             body: extension
@@ -417,7 +417,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
      * 
      * @param publisherName - Name of the publisher. Example: "fabrikam".
      * @param extensionName - Name of the extension. Example: "ops-tools".
-     * @param assetTypes - 
+     * @param assetTypes - Determines which files are returned in the files array.  Provide the wildcard '*' to return all files, or a colon separated list to retrieve files with specific asset types.
      */
     public async getInstalledExtensionByName(
         publisherName: string,
@@ -430,7 +430,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ExtensionManagement.InstalledExtension>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensionsByName/{publisherName}/{extensionName}/{version}",
             routeValues: {
                 publisherName: publisherName,
@@ -454,7 +454,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.InstalledExtension> {
 
         return this.beginRequest<ExtensionManagement.InstalledExtension>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensionsByName/{publisherName}/{extensionName}/{version}",
             routeValues: {
@@ -486,7 +486,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/ExtensionManagement/InstalledExtensionsByName/{publisherName}/{extensionName}/{version}",
             routeValues: {
@@ -505,7 +505,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<Gallery.UserExtensionPolicy> {
 
         return this.beginRequest<Gallery.UserExtensionPolicy>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/Policies/{userId}",
             routeValues: {
                 userId: userId
@@ -533,7 +533,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<number>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/ExtensionManagement/RequestedExtensions/{publisherName}/{extensionName}/requests/{requesterId}",
             routeValues: {
@@ -552,7 +552,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.RequestedExtension[]> {
 
         return this.beginRequest<ExtensionManagement.RequestedExtension[]>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/RequestedExtensions"
         });
     }
@@ -575,7 +575,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         };
 
         return this.beginRequest<number>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/ExtensionManagement/RequestedExtensions/{publisherName}/{extensionName}",
             routeValues: {
@@ -597,7 +597,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/ExtensionManagement/RequestedExtensions/{publisherName}/{extensionName}/requests/me",
             routeValues: {
@@ -619,7 +619,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<ExtensionManagement.RequestedExtension> {
 
         return this.beginRequest<ExtensionManagement.RequestedExtension>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "_apis/ExtensionManagement/RequestedExtensions/{publisherName}/{extensionName}/requests/me",
             routeValues: {
@@ -636,7 +636,7 @@ export class ExtensionManagementRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "5.2-preview.1",
+            apiVersion: "7.1-preview.1",
             routeTemplate: "_apis/ExtensionManagement/Token"
         });
     }
