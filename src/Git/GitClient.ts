@@ -21,10 +21,37 @@ export class GitRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
 
     /**
+     * DELETE Deletes Enablement status and BillableCommitters data from DB. Deleting the enablement data will effectively disable it for the repositories affected.
+     * 
+     * @param allProjects - 
+     * @param includeBillableCommitters - 
+     * @param projectIds - 
+     */
+    public async deleteEnablementStatus(
+        allProjects: boolean,
+        includeBillableCommitters?: boolean,
+        projectIds?: string[]
+        ): Promise<void> {
+
+        const queryValues: any = {
+            '$allProjects': allProjects,
+            '$includeBillableCommitters': includeBillableCommitters,
+            projectIds: projectIds
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/git/advsecEnablement",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * GET Enablement status for project's repositories.
      * 
      * @param projectIds - Null defaults to all projects in the host, list of project's repos status to return
-     * @param billingDate - Null defaults to Now(), can be provided for a point in time status
+     * @param billingDate - UTC expected, Null defaults to UtcNow(), can be provided for a point in time status
      * @param skip - Skip X rows of resultset to simulate paging.
      * @param take - Return Y rows of resultset to simulate paging.
      */
@@ -69,15 +96,18 @@ export class GitRestClient extends RestClientBase {
     /**
      * GET Advanced Security Permission status.
      * 
+     * @param projectName - 
      * @param repositoryId - Repository user is trying to access
      * @param permission - Permission being requestd, must be "viewAlert" "dismissAlert" or "manage"
      */
     public async getPermission(
+        projectName?: string,
         repositoryId?: string,
         permission?: string
         ): Promise<boolean> {
 
         const queryValues: any = {
+            '$projectName': projectName,
             '$repositoryId': repositoryId,
             '$permission': permission
         };
@@ -142,7 +172,7 @@ export class GitRestClient extends RestClientBase {
      * Retrieve actual billable committers for Advanced Security service for a given date.
      * 
      * @param project - Project ID or project name
-     * @param billingDate - If not specified defaults to the previous billing day.
+     * @param billingDate - UTC expected.  If not specified defaults to the previous billing day.
      * @param skip - Skip X rows of resultset to simulate paging.
      * @param take - Return Y rows of resultset to simulate paging.
      */
@@ -174,7 +204,7 @@ export class GitRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param includeDetails - Return all the details on the billable committers.
-     * @param billingDate - If not specified defaults to the previous billing day.
+     * @param billingDate - UTC expected. If not specified defaults to the previous billing day.
      * @param skip - Skip X rows of resultset to simulate paging.
      * @param take - Return Y rows of resultset to simulate paging.
      */

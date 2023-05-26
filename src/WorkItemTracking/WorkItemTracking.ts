@@ -568,6 +568,60 @@ export enum GetFieldsExpand {
 }
 
 /**
+ * Describes Github connection.
+ */
+export interface GitHubConnectionModel {
+    /**
+     * Github connection authorization type (f. e. PAT, OAuth)
+     */
+    authorizationType: string;
+    /**
+     * Github connection created by
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * Github connection id
+     */
+    id: string;
+    /**
+     * Whether current Github connection is valid or not
+     */
+    isConnectionValid: boolean;
+    /**
+     * Github connection name (should contain organization/user name)
+     */
+    name: string;
+}
+
+/**
+ * Describes Github connection's repo.
+ */
+export interface GitHubConnectionRepoModel {
+    /**
+     * Error message
+     */
+    errorMessage: string;
+    /**
+     * Repository web url
+     */
+    gitHubRepositoryUrl: string;
+}
+
+/**
+ * Describes Github connection's repo bulk request
+ */
+export interface GitHubConnectionReposBatchRequest {
+    /**
+     * Requested repos urls
+     */
+    gitHubRepositoryUrls: GitHubConnectionRepoModel[];
+    /**
+     * Operation type (f. e. add, remove)
+     */
+    operationType: string;
+}
+
+/**
  * Describes a reference to an identity.
  */
 export interface IdentityReference extends WebApi.IdentityRef {
