@@ -2781,6 +2781,7 @@ export interface TaskCompletedEvent extends TaskEvent {
 }
 
 export interface TaskDefinition {
+    _buildConfigMapping: { [key: string] : string; };
     agentExecution: TaskExecution;
     author: string;
     category: string;

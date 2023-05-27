@@ -10,11 +10,19 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface AdvSecEnablementStatus {
     /**
+     * Enabled by VSID
+     */
+    changedById: string;
+    /**
+     * Enabled changed on datetime
+     */
+    changedOnDate: Date;
+    /**
      * Enabled status 0 disabled, 1 enabled, Null never explicitly set, always whatever project is, ya this should probably be an enum somewhere
      */
     enabled: boolean;
     /**
-     * Enabled changed on datetime
+     * Enabled changed on datetime To Be Removed M223 +
      */
     enabledChangedOnDate: Date;
     /**

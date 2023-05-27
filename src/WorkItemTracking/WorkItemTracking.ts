@@ -177,6 +177,10 @@ export interface Comment extends WorkItemTrackingResource {
      */
     createdOnBehalfOf: WebApi.IdentityRef;
     /**
+     * Represents the possible types for the comment format.
+     */
+    format: CommentFormat;
+    /**
      * The id assigned to the comment.
      */
     id: number;
@@ -200,6 +204,10 @@ export interface Comment extends WorkItemTrackingResource {
      * The reactions of the comment.
      */
     reactions: CommentReaction[];
+    /**
+     * The text of the comment in HTML format.
+     */
+    renderedText: string;
     /**
      * The text of the comment.
      */
@@ -242,6 +250,14 @@ export enum CommentExpandOptions {
      */
     RenderedTextOnly = 16,
     All = -17
+}
+
+/**
+ * Represents the possible types for the comment format. Should be in sync with WorkItemCommentFormat.cs
+ */
+export enum CommentFormat {
+    Markdown = 0,
+    Html = 1
 }
 
 /**
@@ -565,6 +581,60 @@ export enum GetFieldsExpand {
      * Includes fields that have been deleted.
      */
     IncludeDeleted = 2
+}
+
+/**
+ * Describes Github connection.
+ */
+export interface GitHubConnectionModel {
+    /**
+     * Github connection authorization type (f. e. PAT, OAuth)
+     */
+    authorizationType: string;
+    /**
+     * Github connection created by
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * Github connection id
+     */
+    id: string;
+    /**
+     * Whether current Github connection is valid or not
+     */
+    isConnectionValid: boolean;
+    /**
+     * Github connection name (should contain organization/user name)
+     */
+    name: string;
+}
+
+/**
+ * Describes Github connection's repo.
+ */
+export interface GitHubConnectionRepoModel {
+    /**
+     * Error message
+     */
+    errorMessage: string;
+    /**
+     * Repository web url
+     */
+    gitHubRepositoryUrl: string;
+}
+
+/**
+ * Describes Github connection's repo bulk request
+ */
+export interface GitHubConnectionReposBatchRequest {
+    /**
+     * Requested repos urls
+     */
+    gitHubRepositoryUrls: GitHubConnectionRepoModel[];
+    /**
+     * Operation type (f. e. add, remove)
+     */
+    operationType: string;
 }
 
 /**
@@ -1207,6 +1277,14 @@ export interface WorkItemClassificationNode extends WorkItemTrackingResource {
  * Comment on Work Item
  */
 export interface WorkItemComment extends WorkItemTrackingResource {
+    /**
+     * Represents the possible types for the comment format.
+     */
+    format: CommentFormat;
+    /**
+     * The text of the comment in HTML format.
+     */
+    renderedText: string;
     /**
      * Identity of user who added the comment.
      */
