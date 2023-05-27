@@ -757,7 +757,7 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * Materialize an existing AAD or MSA user into the VSTS account.
+     * Materialize an existing AAD or MSA user into the ADO account.
      * 
      * @param creationContext - The subset of the full graph user used to uniquely find the graph subject in an external provider.
      * @param groupDescriptors - A comma separated list of descriptors of groups you want the graph user to join

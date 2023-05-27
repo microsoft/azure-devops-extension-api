@@ -2158,6 +2158,68 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Creates a new test failure type
+     * 
+     * @param testResultFailureType - 
+     * @param project - Project ID or project name
+     */
+    public async createFailureType(
+        testResultFailureType: Test.TestFailureType,
+        project: string
+        ): Promise<Test.TestFailureType> {
+
+        return this.beginRequest<Test.TestFailureType>({
+            apiVersion: "7.1-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testfailuretype/{failureTypeId}",
+            routeValues: {
+                project: project
+            },
+            body: testResultFailureType
+        });
+    }
+
+    /**
+     * Deletes a test failure type with specified failureTypeId
+     * 
+     * @param project - Project ID or project name
+     * @param failureTypeId - 
+     */
+    public async deleteFailureType(
+        project: string,
+        failureTypeId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/testresults/testfailuretype/{failureTypeId}",
+            routeValues: {
+                project: project,
+                failureTypeId: failureTypeId
+            }
+        });
+    }
+
+    /**
+     * Returns the list of test failure types.
+     * 
+     * @param project - Project ID or project name
+     */
+    public async getFailureTypes(
+        project: string
+        ): Promise<Test.TestFailureType[]> {
+
+        return this.beginRequest<Test.TestFailureType[]>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testfailuretype/{failureTypeId}",
+            routeValues: {
+                project: project
+            }
+        });
+    }
+
+    /**
      * Get history of a test method using TestHistoryQuery
      * 
      * @param filter - TestHistoryQuery to get history

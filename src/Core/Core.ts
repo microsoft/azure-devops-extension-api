@@ -294,6 +294,10 @@ export interface TeamProjectCollection extends TeamProjectCollectionReference {
  */
 export interface TeamProjectCollectionReference {
     /**
+     * Collection avatar Url.
+     */
+    avatarUrl: string;
+    /**
      * Collection Id.
      */
     id: string;
