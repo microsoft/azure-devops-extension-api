@@ -2063,6 +2063,18 @@ export interface GitPullRequestSearchCriteria {
      */
     includeLinks: boolean;
     /**
+     * If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified.
+     */
+    maxTime: Date;
+    /**
+     * If specified, filters pull requests that created/closed after this date based on the queryTimeRangeType specified.
+     */
+    minTime: Date;
+    /**
+     * The type of time range which should be used for minTime and maxTime. Defaults to Created if unset.
+     */
+    queryTimeRangeType: PullRequestTimeRangeType;
+    /**
      * If set, search for pull requests whose target branch is in this repository.
      */
     repositoryId: string;
@@ -3149,6 +3161,20 @@ export enum PullRequestStatus {
 export interface PullRequestTabExtensionConfig {
     pullRequestId: number;
     repositoryId: string;
+}
+
+/**
+ * Specifies the desired type of time range for pull requests queries.
+ */
+export enum PullRequestTimeRangeType {
+    /**
+     * The date when the pull request was created.
+     */
+    Created = 1,
+    /**
+     * The date when the pull request was closed (completed, abandoned, or merged externally).
+     */
+    Closed = 2
 }
 
 /**
