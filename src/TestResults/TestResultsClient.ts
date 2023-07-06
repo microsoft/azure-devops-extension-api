@@ -2164,11 +2164,11 @@ export class TestResultsRestClient extends RestClientBase {
      * @param project - Project ID or project name
      */
     public async createFailureType(
-        testResultFailureType: Test.TestFailureType,
+        testResultFailureType: Test.TestResultFailureTypeRequestModel,
         project: string
-        ): Promise<Test.TestFailureType> {
+        ): Promise<Test.TestResultFailureType> {
 
-        return this.beginRequest<Test.TestFailureType>({
+        return this.beginRequest<Test.TestResultFailureType>({
             apiVersion: "7.1-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testfailuretype/{failureTypeId}",
@@ -2208,9 +2208,9 @@ export class TestResultsRestClient extends RestClientBase {
      */
     public async getFailureTypes(
         project: string
-        ): Promise<Test.TestFailureType[]> {
+        ): Promise<Test.TestResultFailureType[]> {
 
-        return this.beginRequest<Test.TestFailureType[]>({
+        return this.beginRequest<Test.TestResultFailureType[]>({
             apiVersion: "7.1-preview.1",
             routeTemplate: "{project}/_apis/testresults/testfailuretype/{failureTypeId}",
             routeValues: {
