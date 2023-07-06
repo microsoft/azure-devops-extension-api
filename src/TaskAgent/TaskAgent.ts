@@ -2775,6 +2775,10 @@ export interface TaskCommandRestrictions {
 
 export interface TaskCompletedEvent extends TaskEvent {
     /**
+     * The api request was no delivered successfully
+     */
+    deliveryFailed: boolean;
+    /**
      * The result of the task.
      */
     result: TaskResult;

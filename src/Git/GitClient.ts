@@ -2299,7 +2299,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Create a label for a specified pull request. The only required field is the name of the new label.
+     * Create a tag (if that does not exists yet) and add that as a label (tag) for a specified pull request. The only required field is the name of the new label (tag).
      * 
      * @param label - Label to assign to the pull request.
      * @param repositoryId - The repository ID of the pull request’s target branch.
@@ -2334,7 +2334,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Removes a label from the set of those assigned to the pull request.
+     * Removes a label (tag) from the set of those assigned to the pull request. The tag itself will not be deleted.
      * 
      * @param repositoryId - The repository ID of the pull request’s target branch.
      * @param pullRequestId - ID of the pull request.
@@ -2369,7 +2369,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Retrieves a single label that has been assigned to a pull request.
+     * Retrieves a single label (tag) that has been assigned to a pull request.
      * 
      * @param repositoryId - The repository ID of the pull request’s target branch.
      * @param pullRequestId - ID of the pull request.
@@ -2403,7 +2403,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Get all the labels assigned to a pull request.
+     * Get all the labels (tags) assigned to a pull request.
      * 
      * @param repositoryId - The repository ID of the pull request’s target branch.
      * @param pullRequestId - ID of the pull request.
