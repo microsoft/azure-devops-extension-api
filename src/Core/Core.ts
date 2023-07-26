@@ -7,6 +7,17 @@
 import * as Identities from "../Identities/Identities";
 import * as WebApi from "../WebApi/WebApi";
 
+export interface CategorizedWebApiTeams {
+    /**
+     * Teams that the user is a member of.
+     */
+    myTeams: WebApiTeam[];
+    /**
+     * Teams that the user can read but is not member of.
+     */
+    otherReadableTeams: WebApiTeam[];
+}
+
 export enum ConnectedServiceKind {
     /**
      * Custom or unknown service

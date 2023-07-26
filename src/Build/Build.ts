@@ -2119,9 +2119,17 @@ export interface PipelineGeneralSettings {
      */
     auditEnforceSettableVar: boolean;
     /**
+     * Disable classic build pipelines creation.
+     */
+    disableClassicBuildPipelineCreation: boolean;
+    /**
      * Disable classic pipelines creation.
      */
     disableClassicPipelineCreation: boolean;
+    /**
+     * Disable classic release pipelines creation.
+     */
+    disableClassicReleasePipelineCreation: boolean;
     /**
      * If enabled, scope of access for all non-release pipelines reduces to the current project.
      */
