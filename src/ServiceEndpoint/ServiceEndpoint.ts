@@ -149,6 +149,7 @@ export interface AzureRoleAssignmentPermission extends AzurePermission {
 }
 
 export interface AzureSpnOperationStatus {
+    severity: string;
     state: string;
     statusMessage: string;
 }

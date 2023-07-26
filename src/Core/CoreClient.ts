@@ -61,6 +61,37 @@ export class CoreRestClient extends RestClientBase {
     }
 
     /**
+     * Gets list of user readable teams in a project and teams user is member of (excluded from readable list).
+     * 
+     * @param projectId - The name or ID (GUID) of the team project containing the teams to retrieve.
+     * @param expandIdentity - A value indicating whether or not to expand Identity information in the result WebApiTeam object.
+     * @param top - Maximum number of teams to return.
+     * @param skip - Number of teams to skip.
+     */
+    public async getProjectTeamsByCategory(
+        projectId: string,
+        expandIdentity?: boolean,
+        top?: number,
+        skip?: number
+        ): Promise<Core.CategorizedWebApiTeams> {
+
+        const queryValues: any = {
+            '$expandIdentity': expandIdentity,
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<Core.CategorizedWebApiTeams>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "_apis/projects/{projectId}/categorizedTeams/",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param connectedServiceCreationData - 
      * @param projectId - 
      */
