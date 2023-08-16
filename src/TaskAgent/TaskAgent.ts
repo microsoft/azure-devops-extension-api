@@ -565,7 +565,9 @@ export enum ElasticComputeState {
     Deleting = 3,
     Failed = 4,
     Stopped = 5,
-    Reimaging = 6
+    Reimaging = 6,
+    UnhealthyVm = 7,
+    UnhealthyVmssVm = 8
 }
 
 /**
@@ -648,7 +650,9 @@ export enum ElasticNodeState {
     FailedToRestartPendingDelete = 16,
     FailedVMPendingDelete = 17,
     AssignedPendingDelete = 18,
-    RetryDelete = 19
+    RetryDelete = 19,
+    UnhealthyVm = 20,
+    UnhealthyVmPendingDelete = 21
 }
 
 /**

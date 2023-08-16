@@ -2921,6 +2921,10 @@ export interface IdentityRefWithVote extends WebApi.IdentityRef {
      */
     isFlagged: boolean;
     /**
+     * Indicates if this approve vote should still be handled even though vote didn't change.
+     */
+    isReapprove: boolean;
+    /**
      * Indicates if this is a required reviewer for this pull request. \<br /\> Branches can have policies that require particular reviewers are required for pull requests.
      */
     isRequired: boolean;

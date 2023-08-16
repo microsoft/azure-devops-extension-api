@@ -1128,6 +1128,7 @@ export interface DeploymentJob {
 }
 
 export interface DeploymentManualInterventionPendingEvent {
+    approval: ReleaseApproval;
     deployment: Deployment;
     emailRecipients: string[];
     environmentOwner: WebApi.IdentityRef;
