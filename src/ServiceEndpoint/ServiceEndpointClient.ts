@@ -247,6 +247,7 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param owner - Owner for service endpoints.
      * @param includeFailed - Failed flag for service endpoints.
      * @param includeDetails - Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests
+     * @param actionFilter - The "actionFilter" parameter allows users to evaluate requestor permissions and retrieve a list of endpoints that match the specified conditions, ensuring that only relevant endpoints are returned based on their permissions
      */
     public async getServiceEndpoints(
         project: string,
@@ -255,7 +256,8 @@ export class ServiceEndpointRestClient extends RestClientBase {
         endpointIds?: string[],
         owner?: string,
         includeFailed?: boolean,
-        includeDetails?: boolean
+        includeDetails?: boolean,
+        actionFilter?: ServiceEndpoint.ServiceEndpointActionFilter
         ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
 
         const queryValues: any = {
@@ -264,7 +266,8 @@ export class ServiceEndpointRestClient extends RestClientBase {
             endpointIds: endpointIds && endpointIds.join(","),
             owner: owner,
             includeFailed: includeFailed,
-            includeDetails: includeDetails
+            includeDetails: includeDetails,
+            actionFilter: actionFilter
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({

@@ -538,6 +538,7 @@ export interface CodeCoverageSummary {
      * List of coverage data and details for the build
      */
     coverageData: CodeCoverageData[];
+    coverageDetailedSummaryStatus: CoverageDetailedSummaryStatus;
     /**
      * Uri of build against which difference in coverage is computed
      */
@@ -563,6 +564,104 @@ export interface Coverage2 {
     dateModified: Date;
     lastError: string;
     state: number;
+}
+
+/**
+ * Represents status of code coverage summary for a build
+ */
+export enum CoverageDetailedSummaryStatus {
+    /**
+     * No coverage status
+     */
+    None = 0,
+    /**
+     * The summary evaluation is in progress
+     */
+    InProgress = 1,
+    /**
+     * The summary evaluation is finalized and won't change
+     */
+    Finalized = 2,
+    /**
+     * The summary evaluation is pending
+     */
+    Pending = 3,
+    /**
+     * Summary evaluation may be ongoing but another merge has been requested.
+     */
+    UpdateRequestQueued = 4,
+    /**
+     * No coverage modules found
+     */
+    NoModulesFound = 5,
+    /**
+     * Number of Files exceeded
+     */
+    NumberOfFilesExceeded = 6,
+    /**
+     * TNo Input Files
+     */
+    NoInputFiles = 7,
+    /**
+     * Build got cancelled by user
+     */
+    BuildCancelled = 8,
+    /**
+     * Coverage Jobs failed
+     */
+    FailedJobs = 9,
+    /**
+     * Module merge Timeout
+     */
+    ModuleMergeJobTimeout = 10,
+    /**
+     * Coverage successfully completed
+     */
+    CodeCoverageSuccess = 11,
+    /**
+     * Invalid Build Configuration
+     */
+    InvalidBuildConfiguration = 12,
+    /**
+     * Coverage Analyzer Build not found
+     */
+    CoverageAnalyzerBuildNotFound = 13,
+    /**
+     * Failed to requeue the build
+     */
+    FailedToRequeue = 14,
+    /**
+     * Build got Bailed out
+     */
+    BuildBailedOut = 15,
+    /**
+     * No Code coverage configured
+     */
+    NoCodeCoverageTask = 16,
+    /**
+     * CoverageMerge Job failed
+     */
+    MergeJobFailed = 17,
+    /**
+     * CoverageMergeInvoker Job failed
+     */
+    MergeInvokerJobFailed = 18,
+    /**
+     * CoverageMonitor Job failed
+     */
+    MonitorJobFailed = 19,
+    /**
+     * CoverageMergeInvoker Job timeout
+     */
+    ModuleMergeInvokerJobTimeout = 20,
+    /**
+     * CoverageMonitor Job timeout
+     */
+    MonitorJobTimeout = 21,
+    /**
+     * Invalid Coverage Input file
+     */
+    InvalidCoverageInput = 22
 }
 
 /**
