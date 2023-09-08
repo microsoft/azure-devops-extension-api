@@ -241,6 +241,24 @@ export enum ExcludeFlags {
     ExtraInformation = 2
 }
 
+/**
+ * Parameters for test case export operation
+ */
+export interface ExportTestCaseParams {
+    /**
+     * Test Case IDs to exported
+     */
+    testCaseIds: number[];
+    /**
+     * ID of test plan containing test cases
+     */
+    testPlanId: number;
+    /**
+     * ID of test suite containing test cases
+     */
+    testSuiteId: number;
+}
+
 export enum FailureType {
     None = 0,
     Regression = 1,
