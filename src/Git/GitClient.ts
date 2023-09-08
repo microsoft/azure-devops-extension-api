@@ -77,6 +77,83 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * @param enableOnCreateHost - 
+     */
+    public async getEnableOnCreateHost(
+        enableOnCreateHost: boolean
+        ): Promise<boolean> {
+
+        const queryValues: any = {
+            '$enableOnCreateHost': enableOnCreateHost
+        };
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "_apis/git/advsecEnablement",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param enableOnCreateProjectId - 
+     */
+    public async getEnableOnCreateProject(
+        enableOnCreateProjectId: string
+        ): Promise<boolean> {
+
+        const queryValues: any = {
+            '$enableOnCreateProjectId': enableOnCreateProjectId
+        };
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.1-preview.1",
+            routeTemplate: "_apis/git/advsecEnablement",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param enableOnCreateHost - 
+     */
+    public async setEnableOnCreateHost(
+        enableOnCreateHost: boolean
+        ): Promise<void> {
+
+        const queryValues: any = {
+            '$enableOnCreateHost': enableOnCreateHost
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/git/advsecEnablement",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param enableOnCreateProjectId - 
+     * @param enableOnStatus - 
+     */
+    public async setEnableOnCreateProject(
+        enableOnCreateProjectId: string,
+        enableOnStatus: boolean
+        ): Promise<void> {
+
+        const queryValues: any = {
+            '$enableOnCreateProjectId': enableOnCreateProjectId,
+            '$enableOnStatus': enableOnStatus
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.1-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/git/advsecEnablement",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * POST Enablement status for repositories.
      * 
      * @param enablementUpdates - 
@@ -915,8 +992,8 @@ export class GitRestClient extends RestClientBase {
      * @param searchCriteria - Search options
      * @param repositoryId - The name or ID of the repository.
      * @param project - Project ID or project name
-     * @param skip - Number of commits to skip.
-     * @param top - Maximum number of commits to return.
+     * @param skip - Number of commits to skip. The value cannot exceed 3,000,000.
+     * @param top - Maximum number of commits to return. The value cannot exceed 50,000.
      * @param includeStatuses - True to include additional commit status information.
      */
     public async getCommitsBatch(

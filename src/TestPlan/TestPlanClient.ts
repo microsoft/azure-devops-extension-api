@@ -819,6 +819,29 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Exports a set of test cases from a suite to a file. Currently supported  formats: xlsx
+     * 
+     * @param exportTestCaseRequestBody - A ExportTestCaseParams object.ExportTestCaseParams
+     * @param project - Project ID or project name
+     */
+    public async exportTestCases(
+        exportTestCaseRequestBody: TestPlan.ExportTestCaseParams,
+        project: string
+        ): Promise<ArrayBuffer> {
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.1-preview.1",
+            method: "POST",
+            httpResponseType: "application/octet-stream",
+            routeTemplate: "{project}/_apis/testplan/TestCases/TestCaseFile",
+            routeValues: {
+                project: project
+            },
+            body: exportTestCaseRequestBody
+        });
+    }
+
+    /**
      * Delete a test case.
      * 
      * @param project - Project ID or project name
