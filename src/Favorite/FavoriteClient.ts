@@ -26,7 +26,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.FavoriteProvider[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/FavoriteProviders",
             queryParams: queryValues
         });
@@ -40,7 +40,7 @@ export class FavoriteRestClient extends RestClientBase {
         ): Promise<Favorite.Favorite> {
 
         return this.beginRequest<Favorite.Favorite>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             body: favorite
@@ -64,7 +64,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             queryParams: queryValues,
@@ -92,7 +92,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             routeValues: {
@@ -128,7 +128,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             routeValues: {
@@ -162,7 +162,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             queryParams: queryValues
         });
@@ -191,7 +191,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             routeValues: {
                 favoriteId: favoriteId
@@ -229,7 +229,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             routeValues: {
                 favoriteId: favoriteId
@@ -259,7 +259,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             queryParams: queryValues
         });
@@ -292,7 +292,7 @@ export class FavoriteRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Favorite.Favorite[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Favorite/Favorites/{favoriteId}",
             queryParams: queryValues
         });

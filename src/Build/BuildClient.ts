@@ -32,7 +32,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildArtifact> {
 
         return this.beginRequest<Build.BuildArtifact>({
-            apiVersion: "7.1-preview.5",
+            apiVersion: "7.2-preview.5",
             method: "POST",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/artifacts/{artifactName}",
             routeValues: {
@@ -61,7 +61,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildArtifact>({
-            apiVersion: "7.1-preview.5",
+            apiVersion: "7.2-preview.5",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/artifacts/{artifactName}",
             routeValues: {
                 project: project,
@@ -89,7 +89,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.5",
+            apiVersion: "7.2-preview.5",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/artifacts/{artifactName}",
             routeValues: {
@@ -112,7 +112,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildArtifact[]> {
 
         return this.beginRequest<Build.BuildArtifact[]>({
-            apiVersion: "7.1-preview.5",
+            apiVersion: "7.2-preview.5",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/artifacts/{artifactName}",
             routeValues: {
                 project: project,
@@ -145,7 +145,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.5",
+            apiVersion: "7.2-preview.5",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/artifacts/{artifactName}",
             routeValues: {
@@ -170,7 +170,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.Attachment[]> {
 
         return this.beginRequest<Build.Attachment[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/attachments/{type}",
             routeValues: {
                 project: project,
@@ -200,7 +200,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             httpResponseType: "application/octet-stream",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/{timelineId}/{recordId}/attachments/{type}/{name}",
             routeValues: {
@@ -224,7 +224,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.DefinitionResourceReference[]> {
 
         return this.beginRequest<Build.DefinitionResourceReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/authorizedresources",
             routeValues: {
@@ -251,7 +251,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.DefinitionResourceReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/authorizedresources",
             routeValues: {
                 project: project
@@ -278,7 +278,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/public/build/definitions/{project}/{definitionId}/badge",
             routeValues: {
                 project: project,
@@ -312,7 +312,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/branches",
             routeValues: {
                 project: project,
@@ -343,7 +343,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildBadge>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/repos/{repoType}/badge",
             routeValues: {
                 project: project,
@@ -374,7 +374,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/repos/{repoType}/badge",
             routeValues: {
                 project: project,
@@ -396,7 +396,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.RetentionLease[]> {
 
         return this.beginRequest<Build.RetentionLease[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/leases",
             routeValues: {
                 project: project,
@@ -417,7 +417,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
@@ -445,7 +445,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Build>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
                 project: project,
@@ -528,7 +528,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Response>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
                 project: project
@@ -569,7 +569,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Build>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "POST",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
@@ -600,7 +600,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Build>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
@@ -624,7 +624,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.Build[]> {
 
         return this.beginRequest<Build.Build[]>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/builds/{buildId}",
             routeValues: {
@@ -658,7 +658,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Response>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/changes",
             routeValues: {
                 project: project,
@@ -695,7 +695,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Change[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/changes",
             routeValues: {
                 project: project
@@ -714,7 +714,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildController> {
 
         return this.beginRequest<Build.BuildController>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/build/Controllers/{controllerId}",
             routeValues: {
                 controllerId: controllerId
@@ -736,7 +736,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildController[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/build/Controllers/{controllerId}",
             queryParams: queryValues
         });
@@ -763,7 +763,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "POST",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -786,7 +786,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -823,7 +823,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
                 project: project,
@@ -894,7 +894,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Response>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
                 project: project
@@ -926,7 +926,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -960,7 +960,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.1-preview.7",
+            apiVersion: "7.2-preview.7",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -999,7 +999,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/fileContents",
             routeValues: {
@@ -1028,7 +1028,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Folder>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/folders/{*path}",
             routeValues: {
@@ -1055,7 +1055,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/folders/{*path}",
             routeValues: {
@@ -1083,7 +1083,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Folder[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/folders/{*path}",
             routeValues: {
                 project: project,
@@ -1111,7 +1111,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Folder>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/build/folders/{*path}",
             routeValues: {
@@ -1132,7 +1132,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.PipelineGeneralSettings> {
 
         return this.beginRequest<Build.PipelineGeneralSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/generalSettings",
             routeValues: {
                 project: project
@@ -1152,7 +1152,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.PipelineGeneralSettings> {
 
         return this.beginRequest<Build.PipelineGeneralSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/generalSettings",
             routeValues: {
@@ -1176,7 +1176,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildRetentionHistory>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/build/retention/history",
             queryParams: queryValues
         });
@@ -1200,7 +1200,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Build>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/latest/{*definition}",
             routeValues: {
                 project: project,
@@ -1222,7 +1222,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.RetentionLease[]> {
 
         return this.beginRequest<Build.RetentionLease[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
@@ -1248,7 +1248,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
@@ -1270,7 +1270,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.RetentionLease> {
 
         return this.beginRequest<Build.RetentionLease>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
                 project: project,
@@ -1295,7 +1295,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.RetentionLease[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
                 project: project
@@ -1326,7 +1326,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.RetentionLease[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
                 project: project
@@ -1357,7 +1357,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.RetentionLease[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
                 project: project
@@ -1380,7 +1380,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.RetentionLease> {
 
         return this.beginRequest<Build.RetentionLease>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/retention/leases/{*leaseId}",
             routeValues: {
@@ -1414,7 +1414,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/logs/{logId}",
             routeValues: {
@@ -1449,7 +1449,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/logs/{logId}",
             routeValues: {
                 project: project,
@@ -1472,7 +1472,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildLog[]> {
 
         return this.beginRequest<Build.BuildLog[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/logs/{logId}",
             routeValues: {
                 project: project,
@@ -1493,7 +1493,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/logs/{logId}",
             routeValues: {
@@ -1526,7 +1526,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             httpResponseType: "application/zip",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/logs/{logId}",
             routeValues: {
@@ -1556,7 +1556,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildMetric[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/Metrics/{metricAggregationType}",
             routeValues: {
                 project: project,
@@ -1584,7 +1584,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildMetric[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/Metrics",
             routeValues: {
                 project: project,
@@ -1604,7 +1604,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildOptionDefinition[]> {
 
         return this.beginRequest<Build.BuildOptionDefinition[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/options",
             routeValues: {
                 project: project
@@ -1639,7 +1639,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.SourceRepositoryItem[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/pathContents",
             routeValues: {
                 project: project,
@@ -1667,7 +1667,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/properties",
             routeValues: {
                 project: project,
@@ -1691,7 +1691,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/properties",
             routeValues: {
@@ -1723,7 +1723,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/properties",
             routeValues: {
                 project: project,
@@ -1747,7 +1747,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<any> {
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/properties",
             routeValues: {
@@ -1784,7 +1784,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.PullRequest>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/pullRequests/{pullRequestId}",
             routeValues: {
                 project: project,
@@ -1813,7 +1813,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildReportMetadata>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/report",
             routeValues: {
                 project: project,
@@ -1841,7 +1841,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             httpResponseType: "text/html",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/report",
             routeValues: {
@@ -1882,7 +1882,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.SourceRepositories>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/repositories",
             routeValues: {
                 project: project,
@@ -1904,7 +1904,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.DefinitionResourceReference[]> {
 
         return this.beginRequest<Build.DefinitionResourceReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/resources",
             routeValues: {
@@ -1925,7 +1925,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.DefinitionResourceReference[]> {
 
         return this.beginRequest<Build.DefinitionResourceReference[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/resources",
             routeValues: {
                 project: project,
@@ -1942,7 +1942,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildResourceUsage> {
 
         return this.beginRequest<Build.BuildResourceUsage>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/build/ResourceUsage"
         });
     }
@@ -1957,7 +1957,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.ProjectRetentionSetting> {
 
         return this.beginRequest<Build.ProjectRetentionSetting>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/retention",
             routeValues: {
                 project: project
@@ -1977,7 +1977,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.ProjectRetentionSetting> {
 
         return this.beginRequest<Build.ProjectRetentionSetting>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/retention",
             routeValues: {
@@ -1999,7 +1999,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildDefinitionRevision[]> {
 
         return this.beginRequest<Build.BuildDefinitionRevision[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/revisions",
             routeValues: {
                 project: project,
@@ -2018,7 +2018,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildSettings> {
 
         return this.beginRequest<Build.BuildSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/settings",
             routeValues: {
                 project: project
@@ -2038,7 +2038,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildSettings> {
 
         return this.beginRequest<Build.BuildSettings>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/settings",
             routeValues: {
@@ -2058,7 +2058,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.SourceProviderAttributes[]> {
 
         return this.beginRequest<Build.SourceProviderAttributes[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders",
             routeValues: {
                 project: project
@@ -2082,7 +2082,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/stages/{stageRefName}",
             routeValues: {
@@ -2124,7 +2124,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/status/{*definition}",
             routeValues: {
                 project: project,
@@ -2148,7 +2148,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/tags/{*tag}",
             routeValues: {
@@ -2173,7 +2173,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/tags/{*tag}",
             routeValues: {
@@ -2198,7 +2198,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/tags/{*tag}",
             routeValues: {
@@ -2221,7 +2221,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/tags/{*tag}",
             routeValues: {
                 project: project,
@@ -2244,7 +2244,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/tags/{*tag}",
             routeValues: {
@@ -2269,7 +2269,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/definitions/{DefinitionId}/tags/{*tag}",
             routeValues: {
@@ -2294,7 +2294,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "POST",
             routeTemplate: "{project}/_apis/build/definitions/{DefinitionId}/tags/{*tag}",
             routeValues: {
@@ -2319,7 +2319,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/definitions/{DefinitionId}/tags/{*tag}",
             routeValues: {
@@ -2348,7 +2348,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/definitions/{DefinitionId}/tags/{*tag}",
             routeValues: {
                 project: project,
@@ -2372,7 +2372,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/definitions/{DefinitionId}/tags/{*tag}",
             routeValues: {
@@ -2395,7 +2395,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/tags/{*tag}",
             routeValues: {
@@ -2415,7 +2415,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/tags/{*tag}",
             routeValues: {
                 project: project
@@ -2435,7 +2435,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/definitions/templates/{templateId}",
             routeValues: {
@@ -2457,7 +2457,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildDefinitionTemplate> {
 
         return this.beginRequest<Build.BuildDefinitionTemplate>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/definitions/templates/{templateId}",
             routeValues: {
                 project: project,
@@ -2476,7 +2476,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildDefinitionTemplate[]> {
 
         return this.beginRequest<Build.BuildDefinitionTemplate[]>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/definitions/templates/{templateId}",
             routeValues: {
                 project: project
@@ -2498,7 +2498,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<Build.BuildDefinitionTemplate> {
 
         return this.beginRequest<Build.BuildDefinitionTemplate>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/definitions/templates/{templateId}",
             routeValues: {
@@ -2532,7 +2532,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Timeline>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/Timeline/{timelineId}",
             routeValues: {
                 project: project,
@@ -2566,7 +2566,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/webhooks",
             routeValues: {
@@ -2599,7 +2599,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.RepositoryWebhook[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/sourceProviders/{providerName}/webhooks",
             routeValues: {
                 project: project,
@@ -2627,7 +2627,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WebApi.ResourceRef[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/workitems",
             routeValues: {
                 project: project,
@@ -2657,7 +2657,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WebApi.ResourceRef[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/workitems",
             routeValues: {
@@ -2691,7 +2691,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WebApi.ResourceRef[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/build/workitems",
             routeValues: {
                 project: project
@@ -2727,7 +2727,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.YamlBuild>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}/yaml",
             routeValues: {
                 project: project,

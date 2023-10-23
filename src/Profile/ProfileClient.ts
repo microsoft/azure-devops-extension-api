@@ -31,7 +31,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/Profile/Attributes/{id}",
             routeValues: {
@@ -55,7 +55,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.ProfileAttribute>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/Profile/Attributes/{id}",
             routeValues: {
                 id: id
@@ -90,7 +90,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.ProfileAttribute[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/Profile/Attributes/{id}",
             routeValues: {
                 id: id
@@ -115,7 +115,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/Profile/Attributes/{id}",
             routeValues: {
@@ -136,7 +136,7 @@ export class ProfileRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "_apis/Profile/Attributes/{id}",
             routeValues: {
@@ -163,7 +163,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Avatar>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Profile/Avatar/{id}",
             routeValues: {
                 id: id
@@ -194,7 +194,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Avatar>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Profile/Avatar/{id}",
             routeValues: {
@@ -213,7 +213,7 @@ export class ProfileRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/Profile/Avatar/{id}",
             routeValues: {
@@ -232,7 +232,7 @@ export class ProfileRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/Profile/Avatar/{id}",
             routeValues: {
@@ -258,7 +258,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Profile>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "POST",
             routeTemplate: "_apis/Profile/Profiles/{id}",
             queryParams: queryValues,
@@ -294,7 +294,7 @@ export class ProfileRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Profile.Profile>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "_apis/Profile/Profiles/{id}",
             routeValues: {
                 id: id
@@ -315,7 +315,7 @@ export class ProfileRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.3",
+            apiVersion: "7.2-preview.3",
             method: "PATCH",
             routeTemplate: "_apis/Profile/Profiles/{id}",
             routeValues: {

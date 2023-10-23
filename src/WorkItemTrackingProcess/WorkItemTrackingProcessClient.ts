@@ -28,7 +28,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessBehavior> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessBehavior>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/behaviors/{behaviorRefName}",
             routeValues: {
@@ -50,7 +50,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/behaviors/{behaviorRefName}",
             routeValues: {
@@ -78,7 +78,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessBehavior>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/behaviors/{behaviorRefName}",
             routeValues: {
                 processId: processId,
@@ -104,7 +104,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessBehavior[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/behaviors/{behaviorRefName}",
             routeValues: {
                 processId: processId
@@ -127,7 +127,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessBehavior> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessBehavior>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/behaviors/{behaviorRefName}",
             routeValues: {
@@ -154,7 +154,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Control> {
 
         return this.beginRequest<WorkItemTrackingProcess.Control>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/groups/{groupId}/Controls/{controlId}",
             routeValues: {
@@ -190,7 +190,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.Control>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/groups/{groupId}/Controls/{controlId}",
             routeValues: {
@@ -220,7 +220,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/groups/{groupId}/Controls/{controlId}",
             routeValues: {
@@ -250,7 +250,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Control> {
 
         return this.beginRequest<WorkItemTrackingProcess.Control>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/groups/{groupId}/Controls/{controlId}",
             routeValues: {
@@ -277,7 +277,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessWorkItemTypeField> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemTypeField>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/fields/{fieldRefName}",
             routeValues: {
@@ -300,7 +300,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessWorkItemTypeField[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemTypeField[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/fields/{fieldRefName}",
             routeValues: {
                 processId: processId,
@@ -329,7 +329,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemTypeField>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/fields/{fieldRefName}",
             routeValues: {
                 processId: processId,
@@ -354,7 +354,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/fields/{fieldRefName}",
             routeValues: {
@@ -381,7 +381,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessWorkItemTypeField> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemTypeField>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/fields/{fieldRefName}",
             routeValues: {
@@ -411,7 +411,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Group> {
 
         return this.beginRequest<WorkItemTrackingProcess.Group>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/pages/{pageId}/sections/{sectionId}/Groups/{groupId}",
             routeValues: {
@@ -453,7 +453,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.Group>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/pages/{pageId}/sections/{sectionId}/Groups/{groupId}",
             routeValues: {
@@ -494,7 +494,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.Group>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/pages/{pageId}/sections/{sectionId}/Groups/{groupId}",
             routeValues: {
@@ -527,7 +527,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/pages/{pageId}/sections/{sectionId}/Groups/{groupId}",
             routeValues: {
@@ -560,7 +560,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Group> {
 
         return this.beginRequest<WorkItemTrackingProcess.Group>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/pages/{pageId}/sections/{sectionId}/Groups/{groupId}",
             routeValues: {
@@ -586,7 +586,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.FormLayout> {
 
         return this.beginRequest<WorkItemTrackingProcess.FormLayout>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout",
             routeValues: {
                 processId: processId,
@@ -605,7 +605,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.PickList> {
 
         return this.beginRequest<WorkItemTrackingProcess.PickList>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/lists/{listId}",
             body: picklist
@@ -622,7 +622,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/lists/{listId}",
             routeValues: {
@@ -641,7 +641,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.PickList> {
 
         return this.beginRequest<WorkItemTrackingProcess.PickList>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/lists/{listId}",
             routeValues: {
                 listId: listId
@@ -657,7 +657,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.PickListMetadata[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.PickListMetadata[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/lists/{listId}"
         });
     }
@@ -674,7 +674,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.PickList> {
 
         return this.beginRequest<WorkItemTrackingProcess.PickList>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/work/processes/lists/{listId}",
             routeValues: {
@@ -698,7 +698,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Page> {
 
         return this.beginRequest<WorkItemTrackingProcess.Page>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/Pages/{pageId}",
             routeValues: {
@@ -723,7 +723,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/Pages/{pageId}",
             routeValues: {
@@ -748,7 +748,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Page> {
 
         return this.beginRequest<WorkItemTrackingProcess.Page>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/Pages/{pageId}",
             routeValues: {
@@ -769,7 +769,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessInfo> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessInfo>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processTypeId}",
             body: createRequest
@@ -786,7 +786,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processTypeId}",
             routeValues: {
@@ -807,7 +807,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessInfo> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessInfo>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processTypeId}",
             routeValues: {
@@ -831,7 +831,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessInfo[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processTypeId}",
             queryParams: queryValues
         });
@@ -853,7 +853,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessInfo>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processTypeId}",
             routeValues: {
                 processTypeId: processTypeId
@@ -876,7 +876,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessRule> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessRule>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/rules/{ruleId}",
             routeValues: {
@@ -901,7 +901,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/rules/{ruleId}",
             routeValues: {
@@ -926,7 +926,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessRule> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessRule>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/rules/{ruleId}",
             routeValues: {
                 processId: processId,
@@ -948,7 +948,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessRule[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessRule[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/rules/{ruleId}",
             routeValues: {
                 processId: processId,
@@ -973,7 +973,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessRule> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessRule>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/rules/{ruleId}",
             routeValues: {
@@ -999,7 +999,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemStateResultModel> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemStateResultModel>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
@@ -1024,7 +1024,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
@@ -1049,7 +1049,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemStateResultModel> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemStateResultModel>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
                 processId: processId,
@@ -1071,7 +1071,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemStateResultModel[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemStateResultModel[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
                 processId: processId,
@@ -1096,7 +1096,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemStateResultModel> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemStateResultModel>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PUT",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
@@ -1124,7 +1124,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemStateResultModel> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemStateResultModel>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/states/{stateId}",
             routeValues: {
@@ -1150,7 +1150,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Control[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.Control[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
             routeValues: {
@@ -1173,7 +1173,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Control[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.Control[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
             routeValues: {
                 processId: processId,
@@ -1198,7 +1198,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.Control> {
 
         return this.beginRequest<WorkItemTrackingProcess.Control>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}/layout/systemcontrols/{controlId}",
             routeValues: {
@@ -1222,7 +1222,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessWorkItemType> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemType>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}",
             routeValues: {
@@ -1244,7 +1244,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}",
             routeValues: {
@@ -1272,7 +1272,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemType>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}",
             routeValues: {
                 processId: processId,
@@ -1298,7 +1298,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         };
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemType[]>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}",
             routeValues: {
                 processId: processId
@@ -1321,7 +1321,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.ProcessWorkItemType> {
 
         return this.beginRequest<WorkItemTrackingProcess.ProcessWorkItemType>({
-            apiVersion: "7.1-preview.2",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypes/{witRefName}",
             routeValues: {
@@ -1346,7 +1346,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemTypeBehavior> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemTypeBehavior>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypesBehaviors/{witRefNameForBehaviors}/behaviors/{behaviorRefName}",
             routeValues: {
@@ -1371,7 +1371,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemTypeBehavior> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemTypeBehavior>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypesBehaviors/{witRefNameForBehaviors}/behaviors/{behaviorRefName}",
             routeValues: {
                 processId: processId,
@@ -1393,7 +1393,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemTypeBehavior[]> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemTypeBehavior[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypesBehaviors/{witRefNameForBehaviors}/behaviors/{behaviorRefName}",
             routeValues: {
                 processId: processId,
@@ -1416,7 +1416,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "DELETE",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypesBehaviors/{witRefNameForBehaviors}/behaviors/{behaviorRefName}",
             routeValues: {
@@ -1441,7 +1441,7 @@ export class WorkItemTrackingProcessRestClient extends RestClientBase {
         ): Promise<WorkItemTrackingProcess.WorkItemTypeBehavior> {
 
         return this.beginRequest<WorkItemTrackingProcess.WorkItemTypeBehavior>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/work/processes/{processId}/workItemTypesBehaviors/{witRefNameForBehaviors}/behaviors/{behaviorRefName}",
             routeValues: {

@@ -189,6 +189,24 @@ export interface BillableCommitterDetail extends BillableCommitter {
 }
 
 /**
+ * Used by AdvSec to estimate billable pushers for a Host or Project.
+ */
+export interface BillablePusher {
+    /**
+     * ProjectId that was pushed to.
+     */
+    projectId: string;
+    /**
+     * RepositoryId that was pushed to.
+     */
+    repoId: string;
+    /**
+     * Visual Studio ID /Team Foundation ID
+     */
+    vsid: string;
+}
+
+/**
  * Real time event (SignalR) for a source/target branch update on a pull request
  */
 export interface BranchUpdatedEvent extends RealTimePullRequestEvent {

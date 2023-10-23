@@ -37,7 +37,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.Artifact>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}/artifacts",
             routeValues: {
                 project: project,
@@ -70,7 +70,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.Log>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}/logs/{logId}",
             routeValues: {
                 project: project,
@@ -102,7 +102,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.LogCollection>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}/logs/{logId}",
             routeValues: {
                 project: project,
@@ -125,7 +125,7 @@ export class PipelinesRestClient extends RestClientBase {
         ): Promise<Pipelines.Pipeline> {
 
         return this.beginRequest<Pipelines.Pipeline>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}",
             routeValues: {
@@ -153,7 +153,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.Pipeline>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}",
             routeValues: {
                 project: project,
@@ -185,7 +185,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.Pipeline[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}",
             routeValues: {
                 project: project
@@ -214,7 +214,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.PreviewRun>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/preview",
             routeValues: {
@@ -240,7 +240,7 @@ export class PipelinesRestClient extends RestClientBase {
         ): Promise<Pipelines.Run> {
 
         return this.beginRequest<Pipelines.Run>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}",
             routeValues: {
                 project: project,
@@ -262,7 +262,7 @@ export class PipelinesRestClient extends RestClientBase {
         ): Promise<Pipelines.Run[]> {
 
         return this.beginRequest<Pipelines.Run[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}",
             routeValues: {
                 project: project,
@@ -291,7 +291,7 @@ export class PipelinesRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Pipelines.Run>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/pipelines/{pipelineId}/runs/{runId}",
             routeValues: {

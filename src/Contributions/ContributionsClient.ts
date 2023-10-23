@@ -26,7 +26,7 @@ export class ContributionsRestClient extends RestClientBase {
         ): Promise<Contributions.ContributionNodeQueryResult> {
 
         return this.beginRequest<Contributions.ContributionNodeQueryResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Contribution/nodes/query",
             body: query
@@ -45,7 +45,7 @@ export class ContributionsRestClient extends RestClientBase {
         ): Promise<Contributions.DataProviderResult> {
 
         return this.beginRequest<Contributions.DataProviderResult>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "_apis/Contribution/dataProviders/query/{scopeName}/{scopeValue}",
             routeValues: {
@@ -74,7 +74,7 @@ export class ContributionsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Contributions.InstalledExtension[]>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Contribution/InstalledApps/{extensionId}",
             queryParams: queryValues
         });
@@ -96,7 +96,7 @@ export class ContributionsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Contributions.InstalledExtension>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Contribution/InstalledApps/{publisherName}/{extensionName}",
             routeValues: {
                 publisherName: publisherName,
