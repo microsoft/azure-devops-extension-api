@@ -2193,3 +2193,7 @@ export interface WorkItemUpdate extends WorkItemTrackingResource {
      */
     workItemId: number;
 }
+
+export interface WorkItemUpdate2 extends WorkItemUpdate {
+    id: number;
+}

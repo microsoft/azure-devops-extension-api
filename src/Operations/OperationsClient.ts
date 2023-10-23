@@ -30,7 +30,7 @@ export class OperationsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Operations.Operation>({
-            apiVersion: "7.1-preview.1",
+            apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/operations/{operationId}",
             routeValues: {
                 operationId: operationId

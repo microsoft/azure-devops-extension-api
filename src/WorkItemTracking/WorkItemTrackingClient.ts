@@ -1112,7 +1112,7 @@ export class WorkItemTrackingRestClient extends RestClientBase {
     }
 
     /**
-     * Returns a the deltas between work item revisions
+     * Returns the deltas between work item revisions
      * 
      * @param id - 
      * @param project - Project ID or project name
