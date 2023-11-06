@@ -542,6 +542,10 @@ export interface ServiceEndpoint {
      */
     id: string;
     /**
+     * Indicates whether service endpoint is outdated or not.
+     */
+    isOutdated: boolean;
+    /**
      * EndPoint state indicator
      */
     isReady: boolean;

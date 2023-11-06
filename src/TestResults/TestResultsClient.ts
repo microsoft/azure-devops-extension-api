@@ -528,6 +528,29 @@ export class TestResultsRestClient extends RestClientBase {
     /**
      * @param project - Project ID or project name
      * @param buildId - 
+     */
+    public async fetchSourceCodeCoverageReport(
+        project: string,
+        buildId: number
+        ): Promise<Test.SourceViewBuildCoverage[]> {
+
+        const queryValues: any = {
+            buildId: buildId
+        };
+
+        return this.beginRequest<Test.SourceViewBuildCoverage[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/codecoverage/sourceview",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param buildId - 
      * @param flags - 
      */
     public async getBuildCodeCoverage(

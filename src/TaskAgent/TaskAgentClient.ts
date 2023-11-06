@@ -289,6 +289,34 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Get Permissions on Pool.
+     * 
+     * @param poolId - The agent pool to use
+     * @param agentId - The agent id to use
+     * @param isCheckPermissions - To check the permissions
+     */
+    public async getPoolPermission(
+        poolId: number,
+        agentId: number,
+        isCheckPermissions: boolean
+        ): Promise<boolean> {
+
+        const queryValues: any = {
+            isCheckPermissions: isCheckPermissions
+        };
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
+            routeValues: {
+                poolId: poolId,
+                agentId: agentId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Replace an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove and reconfigure an agent from your organization.
      * 
      * @param agent - Updated details about the replacing agent
