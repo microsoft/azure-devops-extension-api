@@ -2135,6 +2135,10 @@ export interface PipelineGeneralSettings {
      */
     disableClassicReleasePipelineCreation: boolean;
     /**
+     * Disable implied pipeline CI triggers if the trigger section in YAML is missing.
+     */
+    disableImpliedYAMLCiTrigger: boolean;
+    /**
      * Enable shell tasks args sanitizing.
      */
     enableShellTasksArgsSanitizing: boolean;

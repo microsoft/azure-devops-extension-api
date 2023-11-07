@@ -1581,6 +1581,10 @@ export interface ResourceItem {
      */
     id: string;
     /**
+     * Indicates whether resource is outdated or not.
+     */
+    isOutdated: boolean;
+    /**
      * Indicates whether resource is shared with other projects or not.
      */
     isShared: boolean;

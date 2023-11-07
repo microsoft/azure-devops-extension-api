@@ -866,6 +866,11 @@ export interface FileCoverage {
     path: string;
 }
 
+export interface FileCoverageData {
+    coverageStatistics: CoverageStatistics;
+    name: string;
+}
+
 export interface FileCoverageRequest {
     filePath: string;
     pullRequestBaseIterationId: number;
@@ -931,6 +936,13 @@ export interface FlakySettings {
      * ManualMarkUnmarkFlaky defines manual marking unmarking of flaky testcase.
      */
     manualMarkUnmarkFlaky: boolean;
+}
+
+export interface FolderCoverageData {
+    coverageStatistics: CoverageStatistics;
+    files: FileCoverageData[];
+    folders: FolderCoverageData[];
+    name: string;
 }
 
 export interface FunctionCoverage {
@@ -2329,6 +2341,17 @@ export interface SharedStepModel {
     revision: number;
 }
 
+export interface SourceViewBuildCoverage {
+    /**
+     * Build Configuration
+     */
+    configuration: BuildConfiguration;
+    /**
+     * Folder Level CoverageDetails
+     */
+    folderCoverageData: FolderCoverageData;
+}
+
 /**
  * Stage in pipeline
  */
@@ -3469,7 +3492,11 @@ export enum TestLogType {
     /**
      * Subresult Attachment
      */
-    System = 5
+    System = 5,
+    /**
+     * merged Coverage file
+     */
+    MergedCoverageFile = 6
 }
 
 export interface TestMessageLog2 {
