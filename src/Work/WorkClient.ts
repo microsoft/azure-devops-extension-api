@@ -18,6 +18,32 @@ export class WorkRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "1d4f49f9-02b9-4e26-b826-2cdb6195f2a9";
 
     /**
+     * Creates/updates an automation rules settings
+     * 
+     * @param ruleRequestModel - Required parameters to create/update an automation rules settings
+     * @param teamContext - The team context for the operation
+     */
+    public async updateAutomationRule(
+        ruleRequestModel: Work.TeamAutomationRulesSettingsRequestModel,
+        teamContext: TfsCore.TeamContext
+        ): Promise<void> {
+
+        const project = teamContext.projectId || teamContext.project;
+        const team = teamContext.teamId || teamContext.team;
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.2",
+            method: "PATCH",
+            routeTemplate: "{project}/{team}/_apis/work/automationrules",
+            routeValues: {
+                project: project,
+                team: team
+            },
+            body: ruleRequestModel
+        });
+    }
+
+    /**
      * Gets backlog configuration for a team
      * 
      * @param teamContext - The team context for the operation

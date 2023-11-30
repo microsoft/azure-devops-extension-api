@@ -108,6 +108,7 @@ export class FileContainerRestClient extends RestClientBase {
      * @param ignoreRequestedMediaType - 
      * @param includeBlobMetadata - 
      * @param saveAbsolutePath - 
+     * @param preferRedirect - 
      */
     public async getItems(
         containerId: number,
@@ -120,7 +121,8 @@ export class FileContainerRestClient extends RestClientBase {
         isShallow?: boolean,
         ignoreRequestedMediaType?: boolean,
         includeBlobMetadata?: boolean,
-        saveAbsolutePath?: boolean
+        saveAbsolutePath?: boolean,
+        preferRedirect?: boolean
         ): Promise<FileContainer.FileContainerItem[]> {
 
         const queryValues: any = {
@@ -133,7 +135,8 @@ export class FileContainerRestClient extends RestClientBase {
             isShallow: isShallow,
             ignoreRequestedMediaType: ignoreRequestedMediaType,
             includeBlobMetadata: includeBlobMetadata,
-            saveAbsolutePath: saveAbsolutePath
+            saveAbsolutePath: saveAbsolutePath,
+            preferRedirect: preferRedirect
         };
 
         return this.beginRequest<FileContainer.FileContainerItem[]>({
