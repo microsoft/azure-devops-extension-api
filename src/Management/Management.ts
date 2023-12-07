@@ -55,6 +55,7 @@ export interface BillingInfo {
     azureSubscriptionId: string;
     billingMode: BillingMode;
     organizationId: string;
+    tenantId: string;
 }
 
 export enum BillingMode {
@@ -72,12 +73,37 @@ export enum BillingMode {
     MultiOrg = 2
 }
 
+/**
+ * Information related to billing for Advanced Security services
+ */
 export interface MeterUsage {
+    /**
+     * The Azure DevOps account
+     */
     accountId: string;
     azureSubscriptionId: string;
+    /**
+     * A list of identifiers for the commiters to the repositories that have Advanced Security features enabled
+     */
     billedCommitters: string[];
+    /**
+     * The date this billing information pertains to
+     */
     billingDate: Date;
+    /**
+     * True when a bill is generated for Advanced Security feature usage in this organziation
+     */
     isAdvSecBillable: boolean;
+    /**
+     * True when Advanced Security features are enabled in this organization
+     */
     isAdvSecEnabled: boolean;
+    /**
+     * The Azure subscription
+     */
+    tenantId: string;
+    /**
+     * The number of commiters to repositories that have Advanced Security features enabled
+     */
     uniqueCommitterCount: number;
 }

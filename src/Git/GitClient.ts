@@ -227,7 +227,7 @@ export class GitRestClient extends RestClientBase {
      * 
      * @param projectName - 
      * @param repositoryId - Repository user is trying to access
-     * @param permission - Permission being requestd, must be "viewAlert" "dismissAlert" or "manage"
+     * @param permission - Permission being requestd, must be "viewAlert" "dismissAlert" "manage" "viewEnablement" or "repoRead"
      */
     public async getPermission(
         projectName?: string,
@@ -334,22 +334,16 @@ export class GitRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param includeDetails - Return all the details on the billable committers.
      * @param billingDate - UTC expected. If not specified defaults to the previous billing day.
-     * @param skip - Skip X rows of resultset to simulate paging.
-     * @param take - Return Y rows of resultset to simulate paging.
      */
     public async getBillableCommittersDetail(
         project: string,
         includeDetails: string,
-        billingDate?: Date,
-        skip?: number,
-        take?: number
+        billingDate?: Date
         ): Promise<Git.BillableCommitterDetail[]> {
 
         const queryValues: any = {
             '$includeDetails': includeDetails,
-            '$billingDate': billingDate,
-            '$skip': skip,
-            '$take': take
+            '$billingDate': billingDate
         };
 
         return this.beginRequest<Git.BillableCommitterDetail[]>({
@@ -3869,6 +3863,29 @@ export class GitRestClient extends RestClientBase {
         return this.beginRequest<Git.GitRefFavorite[]>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/git/favorites/refs/{favoriteId}",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param identityId - 
+     */
+    public async getRefFavoritesForProject(
+        project: string,
+        identityId?: string
+        ): Promise<Git.GitRefFavorite[]> {
+
+        const queryValues: any = {
+            identityId: identityId
+        };
+
+        return this.beginRequest<Git.GitRefFavorite[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/git/favorites/refsForProject",
             routeValues: {
                 project: project
             },
