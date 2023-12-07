@@ -3603,6 +3603,24 @@ export interface TimelineRecordFeedLinesWrapper {
 }
 
 /**
+ * A reference to a timeline record.
+ */
+export interface TimelineRecordReference {
+    /**
+     * The ID of the record.
+     */
+    id: string;
+    /**
+     * String identifier that is consistent across attempts.
+     */
+    identifier: string;
+    /**
+     * The state of the record.
+     */
+    state: TimelineRecordState;
+}
+
+/**
  * The state of the timeline record.
  */
 export enum TimelineRecordState {
