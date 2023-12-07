@@ -17,9 +17,11 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get an alert.
+     * 
      * @param project - Project ID or project name
-     * @param alertId - 
-     * @param repository - 
+     * @param alertId - ID of alert to retrieve
+     * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
      */
     public async getAlert(
@@ -88,9 +90,11 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get an alert.
+     * 
      * @param project - Project ID or project name
-     * @param alertId - 
-     * @param repository - 
+     * @param alertId - ID of alert to retrieve
+     * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
      */
     public async getAlertSarif(

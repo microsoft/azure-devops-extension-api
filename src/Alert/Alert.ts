@@ -106,9 +106,21 @@ export interface AlertStateUpdate {
 }
 
 export enum AlertType {
+    /**
+     * The code has an unspecified vulnerability type
+     */
     Unknown = 0,
+    /**
+     * The code uses a dependency with a known vulnerability.
+     */
     Dependency = 1,
+    /**
+     * The code contains a secret that has now been compromised and must be revoked.
+     */
     Secret = 2,
+    /**
+     * The code contains a weakness determined by static analysis.
+     */
     Code = 3
 }
 
@@ -287,27 +299,78 @@ export enum ComponentType {
     Vcpkg = 16
 }
 
+/**
+ * Information about a vulnerable dependency
+ */
 export interface Dependency {
+    /**
+     * Dependency name
+     */
     componentName: string;
+    /**
+     * Source of the dependency
+     */
     componentType: ComponentType;
+    /**
+     * Version information
+     */
     componentVersion: string;
+    /**
+     * Unique ID for the dependency
+     */
     dependencyId: number;
 }
 
+/**
+ * An instance of a vulnerable dependency that was detected
+ */
 export interface DependencyResult {
+    /**
+     * Information about the vulnerable dependency that was found
+     */
     dependency: Dependency;
+    /**
+     * Unique ID for this dependency
+     */
     dependencyResultId: number;
+    /**
+     * ID for the Result that this instance belongs to
+     */
     resultId: number;
+    /**
+     * Heirarchal information when multiple instances are found
+     */
     rootDependencyId: number;
+    /**
+     * Information about where the dependency was found
+     */
     versionControlFilePath: VersionControlFilePath;
 }
 
+/**
+ * Information about an alert dismissal
+ */
 export interface Dismissal {
+    /**
+     * Unique ID for this dismissal
+     */
     dismissalId: number;
+    /**
+     * Reason for the dismissal
+     */
     dismissalType: DismissalType;
+    /**
+     * Informational message attached to the dismissal
+     */
     message: string;
     requestedOn: Date;
+    /**
+     * Identity that dismissed the alert
+     */
     stateChangedBy: string;
+    /**
+     * Identity that dismissed the alert
+     */
     stateChangedByIdentity: WebApi.IdentityRef;
 }
 
@@ -338,9 +401,21 @@ export interface LogicalLocation {
     kind: string;
 }
 
+/**
+ * Location in the source control system where the issue was found
+ */
 export interface PhysicalLocation {
+    /**
+     * Path of the file where the issue was found
+     */
     filePath: string;
+    /**
+     * Details about the location where the issue was found including a snippet
+     */
     region: Region;
+    /**
+     * Source control system-specific information about the location
+     */
     versionControl: VersionControlDetails;
 }
 
@@ -352,28 +427,76 @@ export interface Pipeline {
 }
 
 export interface Region {
+    /**
+     * The column where the code snippet ends
+     */
     columnEnd: number;
+    /**
+     * The column where the code snippet starts
+     */
     columnStart: number;
+    /**
+     * A subset of the code snippet highlighting the issue
+     */
     highlightSnippet: string;
+    /**
+     * The line number where the code snippet ends
+     */
     lineEnd: number;
+    /**
+     * The line number where the code snippet starts
+     */
     lineStart: number;
+    /**
+     * The full code snippet
+     */
     snippet: string;
 }
 
 export interface Result {
+    /**
+     * Additional information about the alert.  Valid when ResultType is Dependency
+     */
     dependencyResult: DependencyResult;
+    /**
+     * Full fingerprint of the Result.  This is used to detect duplicate instances of the same alert
+     */
     fingerprint: string;
+    /**
+     * Unique ID of the fingerprint of the Result
+     */
     fingerprintId: number;
+    /**
+     * Unique ID of the Result
+     */
     resultId: number;
     /**
      * This is the index into the SARIF Results array. If we have to do any tool specific insertions, we'll use this key to index back into the SARIF Results array.
      */
     resultIndex: number;
+    /**
+     * Detailed description of the rule that triggered the alert
+     */
     resultMessage: string;
+    /**
+     * The type of rule that triggered the alert
+     */
     resultType: ResultType;
+    /**
+     * ID of the rule that the triggered the alert
+     */
     ruleId: number;
+    /**
+     * Short description of the rule that triggered the alert
+     */
     ruleShortDescription: string;
+    /**
+     * The severity of the alert
+     */
     severity: Severity;
+    /**
+     * Additional information about the alert.  Valid when ResultType is VersionControl
+     */
     versionControlResult: VersionControlResult;
 }
 
@@ -381,8 +504,17 @@ export interface Result {
  * This enum defines the different result types.
  */
 export enum ResultType {
+    /**
+     * The result was found from an unspecified analysis type
+     */
     Unknown = 0,
+    /**
+     * The result was found from dependency analysis
+     */
     Dependency = 1,
+    /**
+     * The result was found from static code analysis
+     */
     VersionControl = 2
 }
 
@@ -390,14 +522,33 @@ export enum ResultType {
  * The analysis rule that caused the alert.
  */
 export interface Rule {
+    /**
+     * Additional properties of this rule
+     */
+    additionalProperties: { [key: string] : any; };
+    /**
+     * Description of what this rule detects
+     */
     description: string;
+    /**
+     * Plain-text rule identifier
+     */
     friendlyName: string;
+    /**
+     * Additional information about this rule
+     */
     helpMessage: string;
+    /**
+     * Tool-specific rule identifier
+     */
     opaqueId: string;
     /**
      * Markdown-formatted list of resources to learn more about the Rule. In some cases, RuleInfo.AdditionalProperties.advisoryUrls is used instead.
      */
     resources: string;
+    /**
+     * Classification tags for this rule
+     */
     tags: string[];
 }
 
@@ -419,7 +570,7 @@ export interface SearchCriteria {
      */
     keywords: string;
     /**
-     * If true, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. \<br /\>This option is ignored if branchName or ref are provided.
+     * If true, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. \<br /\>This option is ignored if ref is provided.
      */
     onlyDefaultBranchAlerts: boolean;
     /**
@@ -468,54 +619,138 @@ export enum Severity {
 }
 
 export enum State {
+    /**
+     * Alert is in an indeterminate state
+     */
     Unknown = 0,
+    /**
+     * Alert has been detected in the code
+     */
     Active = 1,
+    /**
+     * Alert was dismissed by a user
+     */
     Dismissed = 2,
+    /**
+     * The issue is no longer detected in the code
+     */
     Fixed = 4,
+    /**
+     * The tool has determined that the issue is no longer a risk
+     */
     AutoDismissed = 8
 }
 
+/**
+ * An Analysis tool that can generate security alerts
+ */
 export interface Tool {
+    /**
+     * Name of the tool
+     */
     name: string;
+    /**
+     * The rules that the tool defines
+     */
     rules: Rule[];
 }
 
 export interface UxFilters {
+    /**
+     * Branches to display alerts for.  If empty, show alerts from all branches
+     */
     branches: Branch[];
     packages: Dependency[];
+    /**
+     * Pipelines to show alerts for.  If empty, show alerts for all pipelines
+     */
     pipelines: Pipeline[];
     progressPercentage: number;
     rules: Rule[];
     secretTypes: string[];
+    /**
+     * Alert severities to show.  If empty show all alert servities
+     */
     severities: Severity[];
+    /**
+     * Alert states to show.  If empty show all alert states
+     */
     states: State[];
 }
 
+/**
+ * Information for locating files in a source control system
+ */
 export interface VersionControlDetails {
     commitHash: string;
     itemUrl: string;
 }
 
 export interface VersionControlFilePath {
+    /**
+     * Path of the file in the version control system
+     */
     filePath: string;
+    /**
+     * Hash of the file in the version control system
+     */
     filePathHash: number[];
+    /**
+     * Unique ID for the file in the version control system
+     */
     versionControlFilePathId: number;
 }
 
 export interface VersionControlResult {
+    /**
+     * The ID to associate this structure with the cooresponding Result
+     */
     resultId: number;
+    /**
+     * Information about the snippet where the Result was found
+     */
     versionControlSnippet: VersionControlSnippet;
 }
 
 export interface VersionControlSnippet {
+    /**
+     * column in the code file where the snippet ends
+     */
     endColumn: number;
+    /**
+     * line in the code file where the snippet ends
+     */
     endLine: number;
+    /**
+     * subset of the code snippet highlighting the alert issue
+     */
     highlightSnippet: string;
+    /**
+     * larger code snippet
+     */
     snippet: string;
+    /**
+     * column in the code file where the snippet starts
+     */
     startColumn: number;
+    /**
+     * line in the code file where the snippet starts
+     */
     startLine: number;
+    /**
+     * Version control system where the code was found
+     */
     versionControl: string;
+    /**
+     * path of the code file in the version control system
+     */
     versionControlFilePath: VersionControlFilePath;
+    /**
+     * Unique Id number for the file path
+     */
     versionControlFilePathId: number;
+    /**
+     * Unique Id number for this snippet
+     */
     versionControlSnippetId: number;
 }

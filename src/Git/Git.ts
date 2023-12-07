@@ -167,6 +167,14 @@ export interface BillableCommitterDetail extends BillableCommitter {
      */
     commitTime: Date;
     /**
+     * DisplayName of the Pusher.
+     */
+    displayName: string;
+    /**
+     * MailNickName of the Pusher.
+     */
+    mailNickName: string;
+    /**
      * Project Id commit was pushed to.
      */
     projectId: string;
@@ -179,6 +187,10 @@ export interface BillableCommitterDetail extends BillableCommitter {
      */
     pushedTime: Date;
     /**
+     * Pusher Id for the push.
+     */
+    pusherId: string;
+    /**
      * Push Id that contained the commit.
      */
     pushId: number;
@@ -186,6 +198,10 @@ export interface BillableCommitterDetail extends BillableCommitter {
      * Repository name commit was pushed to.
      */
     repoName: string;
+    /**
+     * SamAccountName of the Pusher.
+     */
+    samAccountName: string;
 }
 
 /**
