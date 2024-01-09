@@ -29,18 +29,6 @@ const UglifyES = require("uglify-es");
         process.exit(1);
     }
 
-    // Copy ts files to bin
-    console.log("# Copy declare files to bin.");
-    try {
-        await copy(path.join(__dirname, "src"), path.join(__dirname, "bin"), {
-            filter: f => {
-                return f.endsWith(".d.ts");
-            },
-        });
-    } catch (e) {
-        console.log("Copy failed. " + error);
-    }
-
     // Uglify JavaScript
     console.log("# Minifying JS using the UglifyES API, replacing un-minified files.");
     let count = 0;
