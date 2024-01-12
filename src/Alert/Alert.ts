@@ -67,6 +67,10 @@ export interface Alert {
      * Tools that have detected this issue.
      */
     tools: Tool[];
+    /**
+     * ValidationFingerprints for the secret liveness check. Only return on demanded
+     */
+    validationFingerprints: ValidationFingerprint[];
 }
 
 /**
@@ -393,6 +397,17 @@ export enum DismissalType {
     FalsePositive = 3
 }
 
+export enum ExpandOption {
+    /**
+     * No Expands.
+     */
+    None = 0,
+    /**
+     * Return validationFingerprints in Alert.
+     */
+    ValidationFingerprint = 1
+}
+
 export interface LogicalLocation {
     fullyQualifiedName: string;
     /**
@@ -676,6 +691,11 @@ export interface UxFilters {
      * Alert states to show.  If empty show all alert states
      */
     states: State[];
+}
+
+export interface ValidationFingerprint {
+    validationFingerprintHash: string;
+    validationFingerprintJson: string;
 }
 
 /**

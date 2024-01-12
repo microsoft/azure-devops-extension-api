@@ -40,6 +40,68 @@ export interface AdvSecEnablementStatusUpdate {
 }
 
 /**
+ * Billable Committers Details for Advanced Security Services
+ */
+export interface BillableCommitterDetails {
+    /**
+     * ID (SHA-1) of the commit.
+     */
+    commitId: string;
+    /**
+     * Committer email address after parsing.
+     */
+    committerEmail: string;
+    /**
+     * Time reported by the commit.
+     */
+    commitTime: Date;
+    /**
+     * DisplayName of the Pusher.
+     */
+    displayName: string;
+    /**
+     * MailNickName of the Pusher.
+     */
+    mailNickName: string;
+    /**
+     * Project Id commit was pushed to.
+     */
+    projectId: string;
+    /**
+     * Project name commit was pushed to.
+     */
+    projectName: string;
+    /**
+     * Time of the push that contained the commit.
+     */
+    pushedTime: Date;
+    /**
+     * Pusher Id for the push.
+     */
+    pusherId: string;
+    /**
+     * Push Id that contained the commit.
+     */
+    pushId: number;
+    /**
+     * RepositoryId commit was pushed to.
+     */
+    repoId: string;
+    /**
+     * Repository name commit was pushed to.
+     */
+    repoName: string;
+    /**
+     * SamAccountName of the Pusher.
+     */
+    samAccountName: string;
+    /**
+     * Visual Studio ID /Team Foundation ID
+     */
+    vsid: string;
+}
+
+/**
  * BillingInfo contains an organization, its enablement status and the Azure Subscription for it.
  */
 export interface BillingInfo {
