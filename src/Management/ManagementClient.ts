@@ -91,6 +91,29 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Get all billable committers details, including those not matched with a VSID.
+     * 
+     * @param billingDate - The date to query, or if not provided, today
+     */
+    public async getBillableCommitterDetails(
+        billingDate?: Date
+        ): Promise<Management.BillableCommitterDetails[]> {
+
+        const queryValues: any = {
+            billingDate: billingDate
+        };
+
+        return this.beginRequest<Management.BillableCommitterDetails[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/MeterUsage/{action}",
+            routeValues: {
+                action: "Details"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      */
     public async getLastMeterUsage(
         ): Promise<Management.MeterUsage> {

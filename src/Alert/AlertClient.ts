@@ -23,16 +23,19 @@ export class AlertRestClient extends RestClientBase {
      * @param alertId - ID of alert to retrieve
      * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
+     * @param expand - Expand alert attributes. Possible options are \{ValidationFingerprint, None\}
      */
     public async getAlert(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref?: string,
+        expand?: Alert.ExpandOption
         ): Promise<Alert.Alert> {
 
         const queryValues: any = {
-            ref: ref
+            ref: ref,
+            expand: expand
         };
 
         return this.beginRequest<Alert.Alert>({
@@ -96,16 +99,19 @@ export class AlertRestClient extends RestClientBase {
      * @param alertId - ID of alert to retrieve
      * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
+     * @param expand - Expand alert attributes. Possible options are \{ValidationFingerprint, None\}
      */
     public async getAlertSarif(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref?: string,
+        expand?: Alert.ExpandOption
         ): Promise<string> {
 
         const queryValues: any = {
-            ref: ref
+            ref: ref,
+            expand: expand
         };
 
         return this.beginRequest<string>({

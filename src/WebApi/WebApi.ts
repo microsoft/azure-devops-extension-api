@@ -361,6 +361,16 @@ export interface TraceFilter {
     userLogin: string;
 }
 
+export enum UserProfileSyncState {
+    None = 0,
+    Completed = 1,
+    NewProfileDataAndImageRetrieved = 2,
+    ProfileDataBackupDone = 3,
+    NewProfileDataSet = 4,
+    NewProfileDataUpdateFailed = 5,
+    NewProfileImageUpdateFailed = 6
+}
+
 export interface VssJsonCollectionWrapper extends VssJsonCollectionWrapperBase {
     value: any[];
 }
