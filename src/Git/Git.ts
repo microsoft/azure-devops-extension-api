@@ -2696,7 +2696,11 @@ export enum GitStatusState {
     /**
      * Status is not applicable to the target object.
      */
-    NotApplicable = 5
+    NotApplicable = 5,
+    /**
+     * Status Partially Succeeded, build finished with warnings.
+     */
+    PartiallySucceeded = 6
 }
 
 /**

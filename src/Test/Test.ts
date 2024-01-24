@@ -1007,6 +1007,21 @@ export interface LastResultDetails {
     runBy: WebApi.IdentityRef;
 }
 
+export enum LayoutType {
+    /**
+     * Default
+     */
+    None = 0,
+    /**
+     * Entry type for Group information
+     */
+    Group = 1,
+    /**
+     * Entry type for Job information
+     */
+    Job = 2
+}
+
 export interface LegacyBuildConfiguration {
     branchName: string;
     buildConfigurationId: number;
@@ -1220,6 +1235,20 @@ export interface LineBlockCoverage {
     status: number;
 }
 
+/**
+ * Links
+ */
+export interface Link<T> {
+    /**
+     * Link type
+     */
+    type: T;
+    /**
+     * Link url
+     */
+    url: string;
+}
+
 export interface LinkedWorkItemsQuery {
     automatedTestNames: string[];
     planId: number;
@@ -1310,6 +1339,29 @@ export interface NewTestResultLoggingSettings {
      * LogNewTests defines whether or not we will record new test cases coming into the system
      */
     logNewTests: boolean;
+}
+
+export enum OneMRXSessionState {
+    /**
+     * Default
+     */
+    None = 0,
+    /**
+     * Session state with Running
+     */
+    Running = 1,
+    /**
+     * Session state with Completed
+     */
+    Completed = 2,
+    /**
+     * Session state with Waiting
+     */
+    Waiting = 3,
+    /**
+     * Session state with Cancelled
+     */
+    Cancelled = 4
 }
 
 export enum OperationType {
@@ -2295,6 +2347,119 @@ export enum Service {
 }
 
 /**
+ * This session object is exposed outside for 1MRX to consume and we internally convert to server.OneMRXSession in server.SessionDataContractConverter
+ */
+export interface Session {
+    /**
+     * Session end time
+     */
+    endTimeUTC: Date;
+    /**
+     * Session layout
+     */
+    layout: any[];
+    /**
+     * Session name
+     */
+    name: string;
+    /**
+     * Session result
+     */
+    result: SessionResult;
+    /**
+     * Session source pipeline details
+     */
+    sessionSourcePipeline: SessionSourcePipeline;
+    /**
+     * Session source
+     */
+    source: Source;
+    /**
+     * Session start time
+     */
+    startTimeUTC: Date;
+    /**
+     * Session state
+     */
+    state: OneMRXSessionState;
+    /**
+     * List of test run ids
+     */
+    testRuns: number[];
+    /**
+     * Session timeline
+     */
+    timeline: Timeline<SessionTimelineType>[];
+    /**
+     * Session type
+     */
+    type: string;
+    /**
+     * Session Uid
+     */
+    uid: string;
+}
+
+export enum SessionLinkType {
+    /**
+     * Default
+     */
+    None = 0,
+    /**
+     * Link type for Session information
+     */
+    SessionInfo = 1
+}
+
+export enum SessionResult {
+    /**
+     * Default
+     */
+    None = 0,
+    /**
+     * Session result with Passed
+     */
+    Passed = 1,
+    /**
+     * Session result with Failed
+     */
+    Failed = 2
+}
+
+/**
+ * SessionSourcePipeline
+ */
+export interface SessionSourcePipeline {
+    /**
+     * Source pipeline id
+     */
+    buildId: number;
+    /**
+     * Source pipeline url
+     */
+    buildUrl: string;
+}
+
+export enum SessionTimelineType {
+    /**
+     * Default
+     */
+    None = 0,
+    /**
+     * Timeline type for Queued status
+     */
+    Queued = 1,
+    /**
+     * Timeline type for Completed status
+     */
+    Completed = 2,
+    /**
+     * Timeline type for Started status
+     */
+    Started = 3
+}
+
+/**
  * An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links.
  */
 export interface ShallowReference {
@@ -2339,6 +2504,32 @@ export interface SharedStepModel {
      * Shared step workitem revision.
      */
     revision: number;
+}
+
+/**
+ * Session source
+ */
+export interface Source {
+    /**
+     * Source links
+     */
+    links: Link<SessionLinkType>[];
+    /**
+     * Source origin system
+     */
+    originSystem: string;
+    /**
+     * Source session id
+     */
+    sessionId: string;
+    /**
+     * Source tenant Id
+     */
+    tenantId: string;
+    /**
+     * Source tenant name
+     */
+    tenantName: string;
 }
 
 export interface SourceViewBuildCoverage {
@@ -5265,6 +5456,24 @@ export interface TestVariable {
      * List of allowed values
      */
     values: string[];
+}
+
+/**
+ * Timeline
+ */
+export interface Timeline<T> {
+    /**
+     * Timeline display name
+     */
+    display: string;
+    /**
+     * Timeline timestamp
+     */
+    timestampUTC: Date;
+    /**
+     * Timeline type
+     */
+    type: T;
 }
 
 export interface UpdatedProperties {

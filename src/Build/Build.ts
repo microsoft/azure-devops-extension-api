@@ -228,7 +228,7 @@ export interface Build {
      */
     plans: TaskOrchestrationPlanReference[];
     /**
-     * The build's priority.
+     * Azure Pipelines does not support job priority. This field is deprecated.
      */
     priority: QueuePriority;
     /**
