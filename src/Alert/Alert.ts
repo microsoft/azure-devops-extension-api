@@ -68,6 +68,10 @@ export interface Alert {
      */
     tools: Tool[];
     /**
+     * A truncated/obfuscated version of the secret pertaining to the alert (if applicable).
+     */
+    truncatedSecret: string;
+    /**
      * ValidationFingerprints for the secret liveness check. Only return on demanded
      */
     validationFingerprints: ValidationFingerprint[];
@@ -538,7 +542,7 @@ export enum ResultType {
  */
 export interface Rule {
     /**
-     * Additional properties of this rule
+     * Additional properties of this rule dependent on the rule type.  For example, dependency rules may include the CVE ID if it is available.
      */
     additionalProperties: { [key: string] : any; };
     /**
@@ -624,13 +628,20 @@ export interface SearchCriteria {
      * If provided, only return alerts last seen before this date. \<br /\>Otherwise return all alerts.
      */
     toDate: Date;
+    /**
+     * If provided with toolName, only return alerts detected by this tool. \<br /\>Otherwise, return alerts detected by all tools.
+     */
+    toolName: string;
 }
 
 export enum Severity {
     Low = 0,
     Medium = 1,
     High = 2,
-    Critical = 3
+    Critical = 3,
+    Note = 4,
+    Warning = 5,
+    Error = 6
 }
 
 export enum State {
@@ -691,6 +702,7 @@ export interface UxFilters {
      * Alert states to show.  If empty show all alert states
      */
     states: State[];
+    tools: Tool[];
 }
 
 export interface ValidationFingerprint {

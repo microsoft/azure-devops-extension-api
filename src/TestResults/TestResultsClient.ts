@@ -760,6 +760,78 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Creates OneMRX Session object in TCM data store
+     * 
+     * @param session - Received session object.
+     * @param project - Project ID or project name
+     */
+    public async createOneMRXTestSession(
+        session: Test.Session,
+        project: string
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/onemrx",
+            routeValues: {
+                project: project
+            },
+            body: session
+        });
+    }
+
+    /**
+     * Retrieves OneMRX Session metadata object in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - 
+     */
+    public async getOneMRXTestSession(
+        project: string,
+        buildId: number
+        ): Promise<Test.Session[]> {
+
+        const queryValues: any = {
+            buildId: buildId
+        };
+
+        return this.beginRequest<Test.Session[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/onemrx",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Retrieves OneMRX Session Layout object in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - 
+     */
+    public async getOneMRXTestSessionLayout(
+        project: string,
+        sessionId: string
+        ): Promise<any[]> {
+
+        const queryValues: any = {
+            sessionId: sessionId
+        };
+
+        return this.beginRequest<any[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/onemrx",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param buildId - 
      * @param publishContext - 
