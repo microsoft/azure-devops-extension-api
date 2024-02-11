@@ -16,10 +16,13 @@ const UglifyES = require("uglify-es");
     console.log("# Cleaning bin. Running shelljs rm -rf ./bin");
     shell.rm("-rf", "./bin");
 
+    // On Windows, we need `\`, on Unix we need `/`.
+    const tsc = path.join("node_modules", ".bin", "tsc");
+
     // Compile typescript
-    console.log("# Compiling TypeScript. Executing `node_modules\\.bin\\tsc -p ./tsconfig.json`.");
+    console.log(`# Compiling TypeScript. Executing \`${tsc} -p ./tsconfig.json\`.`);
     try {
-        execSync("node_modules\\.bin\\tsc -p ./tsconfig.json", {
+        execSync(`${tsc} -p ./tsconfig.json`, {
             stdio: [0, 1, 2],
             shell: true,
             cwd: __dirname,
