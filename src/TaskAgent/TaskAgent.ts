@@ -1769,6 +1769,10 @@ export interface ServiceEndpoint {
      */
     id: string;
     /**
+     * If this endpoint is disabled.
+     */
+    isDisabled: boolean;
+    /**
      * EndPoint state indicator
      */
     isReady: boolean;

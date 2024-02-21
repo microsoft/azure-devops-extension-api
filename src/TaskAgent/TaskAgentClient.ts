@@ -289,34 +289,6 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
-     * Get Permissions on Pool.
-     * 
-     * @param poolId - The agent pool to use
-     * @param agentId - The agent id to use
-     * @param isCheckPermissions - To check the permissions
-     */
-    public async getPoolPermission(
-        poolId: number,
-        agentId: number,
-        isCheckPermissions: boolean
-        ): Promise<boolean> {
-
-        const queryValues: any = {
-            isCheckPermissions: isCheckPermissions
-        };
-
-        return this.beginRequest<boolean>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "_apis/distributedtask/pools/{poolId}/agents/{agentId}",
-            routeValues: {
-                poolId: poolId,
-                agentId: agentId
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
      * Replace an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove and reconfigure an agent from your organization.
      * 
      * @param agent - Updated details about the replacing agent
@@ -2140,6 +2112,27 @@ export class TaskAgentRestClient extends RestClientBase {
             },
             body: agentPoolMetadata,
             isRawData: true
+        });
+    }
+
+    /**
+     * Checks if current identity has passed permissions on a pool.
+     * 
+     * @param poolId - Id of the pool to check
+     * @param permissions - Permissions to check. Multiple permissions might be merged into single value using bitwise OR operator (e.g. AgentPoolPermissions.Manage | AgentPoolPermissions.View)
+     */
+    public async hasPoolPermissions(
+        poolId: number,
+        permissions: number
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/distributedtask/pools/{poolId}/permissions/{permissions}",
+            routeValues: {
+                poolId: poolId,
+                permissions: permissions
+            }
         });
     }
 

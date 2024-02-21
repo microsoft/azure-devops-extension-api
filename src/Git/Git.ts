@@ -406,7 +406,7 @@ export interface CommentPosition {
      */
     line: number;
     /**
-     * The character offset of a thread's position inside of a line. Starts at 0.
+     * The character offset of a thread's position inside of a line. Starts at 1.
      */
     offset: number;
 }
