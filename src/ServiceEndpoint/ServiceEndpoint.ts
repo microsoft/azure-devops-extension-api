@@ -542,6 +542,10 @@ export interface ServiceEndpoint {
      */
     id: string;
     /**
+     * Whether service endpoint is disabled or not.
+     */
+    isDisabled: boolean;
+    /**
      * Indicates whether service endpoint is outdated or not.
      */
     isOutdated: boolean;
@@ -793,6 +797,10 @@ export interface ServiceEndpointRequest {
  * Represents result of the service endpoint request.
  */
 export interface ServiceEndpointRequestResult {
+    /**
+     * Gets or sets the activity id of the service endpoint request result.
+     */
+    activityId: string;
     /**
      * Gets or sets the parameters used to make subsequent calls to the data source
      */

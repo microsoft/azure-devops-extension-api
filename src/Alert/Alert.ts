@@ -589,6 +589,10 @@ export interface SearchCriteria {
      */
     keywords: string;
     /**
+     * If provided, only return alerts that were modified since this date. \<br /\>Otherwise return all alerts.
+     */
+    modifiedSince: Date;
+    /**
      * If true, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. \<br /\>This option is ignored if ref is provided.
      */
     onlyDefaultBranchAlerts: boolean;

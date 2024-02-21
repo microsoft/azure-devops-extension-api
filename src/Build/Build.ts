@@ -3134,6 +3134,7 @@ export interface UpdateRetentionSettingModel {
 
 export interface UpdateStageParameters {
     forceRetryAllJobs: boolean;
+    retryDependencies: boolean;
     state: StageUpdateType;
 }
 
