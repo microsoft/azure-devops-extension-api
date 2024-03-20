@@ -18,12 +18,14 @@ export class ExtensionManagementRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "6c2b0933-3600-42ae-bf8b-93d4f7e83594";
 
     /**
-     * @param itemId - 
-     * @param testCommerce - 
-     * @param isFreeOrTrialInstall - 
-     * @param isAccountOwner - 
-     * @param isLinked - 
-     * @param isConnectedServer - 
+     * This API is called by acquisition/install page to get possible user actions like Buy/Request
+     * 
+     * @param itemId - Fully qualified name of extension (\<publisher_id\>.\<extension_id\>)
+     * @param testCommerce - Parameter to test paid preview extension without making azure plans public
+     * @param isFreeOrTrialInstall - Parameter represents install or trial workflow (required for legacy install flows)
+     * @param isAccountOwner - Parameter represents whether user is owner or PCA of an account
+     * @param isLinked - Parameter represents whether account is linked with a subscription
+     * @param isConnectedServer - Parameter represents whether Buy operation should be evaluated
      * @param isBuyOperationValid - 
      */
     public async getAcquisitionOptions(
