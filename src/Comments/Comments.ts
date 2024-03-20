@@ -98,6 +98,9 @@ export interface CommentCreateParameters {
      * Optional CommentId of the parent in order to add a reply for an existing comment
      */
     parentId: number;
+    /**
+     * Text of the comment
+     */
     text: string;
 }
 
@@ -117,6 +120,9 @@ export enum CommentExpandOptions {
      * Include the rendered text (html) in addition to markdown text
      */
     RenderedText = 8,
+    /**
+     * If specified, then ONLY rendered text (html) will be returned, w/o markdown. Supposed to be used internally from data provides for optimization purposes.
+     */
     RenderedTextOnly = 16,
     /**
      * If specified, then responses will be expanded in the results
@@ -237,6 +243,9 @@ export enum CommentReactionType {
  * Base class for comment resource references
  */
 export interface CommentResourceReference {
+    /**
+     * REST URL for the resource.
+     */
     url: string;
 }
 

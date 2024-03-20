@@ -251,6 +251,8 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
+     * Gets all requested members in the current scope (usually organization or account).
+     * 
      * @param memberLookup - 
      */
     public async lookupMembers(
@@ -741,7 +743,9 @@ export class GraphRestClient extends RestClientBase {
     }
 
     /**
-     * @param subjectDescriptor - 
+     * Resolve a descriptor to a user, group or scope.
+     * 
+     * @param subjectDescriptor - The descriptor of the desired subject.
      */
     public async getSubject(
         subjectDescriptor: string

@@ -676,22 +676,24 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
+     * Get a list of deployments
+     * 
      * @param project - Project ID or project name
-     * @param definitionId - 
-     * @param definitionEnvironmentId - 
-     * @param createdBy - 
-     * @param minModifiedTime - 
-     * @param maxModifiedTime - 
-     * @param deploymentStatus - 
-     * @param operationStatus - 
-     * @param latestAttemptsOnly - 
-     * @param queryOrder - 
-     * @param top - 
-     * @param continuationToken - 
-     * @param createdFor - 
-     * @param minStartedTime - 
-     * @param maxStartedTime - 
-     * @param sourceBranch - 
+     * @param definitionId - List the deployments for a given definition id.
+     * @param definitionEnvironmentId - List the deployments for a given definition environment id.
+     * @param createdBy - List the deployments for which deployments are created as identity specified.
+     * @param minModifiedTime - List the deployments with LastModified time \>= minModifiedTime.
+     * @param maxModifiedTime - List the deployments with LastModified time \<= maxModifiedTime.
+     * @param deploymentStatus - List the deployments with given deployment status. Defult is 'All'.
+     * @param operationStatus - List the deployments with given operation status. Default is 'All'.
+     * @param latestAttemptsOnly - 'true' to include deployments with latest attempt only. Default is 'false'.
+     * @param queryOrder - List the deployments with given query order. Default is 'Descending'.
+     * @param top - List the deployments with given top. Default top is '50' and Max top is '100'.
+     * @param continuationToken - List the deployments with deployment id \>= continuationToken.
+     * @param createdFor - List the deployments for which deployments are requested as identity specified.
+     * @param minStartedTime - List the deployments with StartedOn time \>= minStartedTime.
+     * @param maxStartedTime - List the deployments with StartedOn time \<= maxStartedTime.
+     * @param sourceBranch - List the deployments that are deployed from given branch name.
      */
     public async getDeployments(
         project: string,

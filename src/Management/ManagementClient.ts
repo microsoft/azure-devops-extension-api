@@ -15,6 +15,8 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Delete the billing info for an organization.
+     * 
      * @param organizationId - 
      */
     public async deleteBillingInfo(
@@ -33,6 +35,8 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Delete the meter usage history from Primary SU for an organization.
+     * 
      * @param organizationId - 
      */
     public async deleteMeterUsageHistory(
@@ -70,6 +74,8 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Save the billing info for an organization.
+     * 
      * @param billingInfo - 
      * @param organizationId - 
      */

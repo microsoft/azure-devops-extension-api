@@ -562,8 +562,10 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * @param searchCriteria - 
-     * @param repositoryId - 
+     * Retrieve statistics for multiple commits
+     * 
+     * @param searchCriteria - Base Commit and List of Target Commits to compare.
+     * @param repositoryId - The name or ID of the repository.
      * @param project - Project ID or project name
      */
     public async getBranchStatsBatch(

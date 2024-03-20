@@ -575,6 +575,8 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * http://(tfsserver):8080/tfs/DefaultCollection/_apis/test/CodeCoverage?buildId=10&deltaBuildId=9 Request: build id and delta build id (optional)
+     * 
      * @param project - Project ID or project name
      * @param buildId - 
      * @param deltaBuildId - 
@@ -752,78 +754,6 @@ export class TestResultsRestClient extends RestClientBase {
         return this.beginRequest<Test.PipelineTestMetrics>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/testresults/metrics",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Creates OneMRX Session object in TCM data store
-     * 
-     * @param session - Received session object.
-     * @param project - Project ID or project name
-     */
-    public async createOneMRXTestSession(
-        session: Test.Session,
-        project: string
-        ): Promise<number> {
-
-        return this.beginRequest<number>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/testresults/onemrx",
-            routeValues: {
-                project: project
-            },
-            body: session
-        });
-    }
-
-    /**
-     * Retrieves OneMRX Session metadata object in TCM data store
-     * 
-     * @param project - Project ID or project name
-     * @param buildId - 
-     */
-    public async getOneMRXTestSession(
-        project: string,
-        buildId: number
-        ): Promise<Test.Session[]> {
-
-        const queryValues: any = {
-            buildId: buildId
-        };
-
-        return this.beginRequest<Test.Session[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/onemrx",
-            routeValues: {
-                project: project
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Retrieves OneMRX Session Layout object in TCM data store
-     * 
-     * @param project - Project ID or project name
-     * @param sessionId - 
-     */
-    public async getOneMRXTestSessionLayout(
-        project: string,
-        sessionId: string
-        ): Promise<any[]> {
-
-        const queryValues: any = {
-            sessionId: sessionId
-        };
-
-        return this.beginRequest<any[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/onemrx",
             routeValues: {
                 project: project
             },
@@ -1974,8 +1904,10 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get all the tags in a build.
+     * 
      * @param project - Project ID or project name
-     * @param buildId - 
+     * @param buildId - Build ID
      */
     public async getTestTagsForBuild(
         project: string,
@@ -1997,9 +1929,11 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get all the tags in a release.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param releaseEnvId - 
+     * @param releaseId - Release ID
+     * @param releaseEnvId - Release environment ID
      */
     public async getTestTagsForRelease(
         project: string,
@@ -2023,9 +1957,11 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * @param testTagsUpdateModel - 
+     * Update tags of a run, Tags can be Added and Deleted
+     * 
+     * @param testTagsUpdateModel - TestTagsUpdateModel
      * @param project - Project ID or project name
-     * @param runId - 
+     * @param runId - RunId of the run
      */
     public async updateTestRunTags(
         testTagsUpdateModel: Test.TestTagsUpdateModel,
@@ -2046,8 +1982,10 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get all the tags in a build.
+     * 
      * @param project - Project ID or project name
-     * @param buildId - 
+     * @param buildId - Build ID
      */
     public async getTestTagSummaryForBuild(
         project: string,
@@ -2069,9 +2007,11 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get all the tags in a release.
+     * 
      * @param project - Project ID or project name
-     * @param releaseId - 
-     * @param releaseEnvId - 
+     * @param releaseId - Release ID
+     * @param releaseEnvId - Release environment ID
      */
     public async getTestTagSummaryForRelease(
         project: string,
@@ -2777,6 +2717,100 @@ export class TestResultsRestClient extends RestClientBase {
                 runId: runId
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Creates TestResultsSession object in TCM data store
+     * 
+     * @param session - Received session object.
+     * @param project - Project ID or project name
+     */
+    public async createTestSession(
+        session: Test.TestResultsSession,
+        project: string
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeValues: {
+                project: project
+            },
+            body: session
+        });
+    }
+
+    /**
+     * Retrieves TestResultsSession metadata object in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - 
+     */
+    public async getTestSession(
+        project: string,
+        buildId: number
+        ): Promise<Test.TestResultsSession[]> {
+
+        const queryValues: any = {
+            buildId: buildId
+        };
+
+        return this.beginRequest<Test.TestResultsSession[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Retrieves TestResultsSession Layout object in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - 
+     */
+    public async getTestSessionLayout(
+        project: string,
+        sessionId: string
+        ): Promise<any[]> {
+
+        const queryValues: any = {
+            sessionId: sessionId
+        };
+
+        return this.beginRequest<any[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Creates Environment object in TCM data store
+     * 
+     * @param environments - Received Environment object.
+     * @param project - Project ID or project name
+     */
+    public async createEnvironment(
+        environments: Test.TestSessionEnvironment[],
+        project: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/environment",
+            routeValues: {
+                project: project
+            },
+            body: environments
         });
     }
 

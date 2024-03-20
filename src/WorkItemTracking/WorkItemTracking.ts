@@ -641,6 +641,9 @@ export interface GitHubConnectionReposBatchRequest {
  * Describes a reference to an identity.
  */
 export interface IdentityReference extends WebApi.IdentityRef {
+    /**
+     * Gets or sets the identifier of the identity.
+     */
     id: string;
     /**
      * Legacy back-compat property. This has been the WIT specific value from Constants. Will be hidden (but exists) on the client unless they are targeting the newest version
@@ -1921,6 +1924,9 @@ export interface WorkItemTrackingResource extends WorkItemTrackingResourceRefere
  * Base class for work item tracking resource references.
  */
 export interface WorkItemTrackingResourceReference {
+    /**
+     * REST URL for the resource.
+     */
     url: string;
 }
 
@@ -2192,8 +2198,4 @@ export interface WorkItemUpdate extends WorkItemTrackingResource {
      * The work item ID.
      */
     workItemId: number;
-}
-
-export interface WorkItemUpdate2 extends WorkItemUpdate {
-    id: number;
 }

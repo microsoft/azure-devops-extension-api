@@ -1163,7 +1163,9 @@ export class GalleryRestClient extends RestClientBase {
     }
 
     /**
-     * @param azureRestApiRequestModel - 
+     * Rest end point to validate if an Azure publisher owns an extension for 3rd party commerce scenario. Azure only supports POST operations and the above signature is not typical of the REST operations. http://sharepoint/sites/AzureUX/_layouts/15/WopiFrame2.aspx?sourcedoc=\{A793D31E-6DC6-4174-8FA3-DE3F82B51642\}&file=Data%20Market%20Partner%20integration%20with%20Marketplace%20service.docx&action=default
+     * 
+     * @param azureRestApiRequestModel - All the parameters are sent in the request body
      */
     public async extensionValidator(
         azureRestApiRequestModel: Gallery.AzureRestApiRequestModel
@@ -1515,6 +1517,46 @@ export class GalleryRestClient extends RestClientBase {
             },
             queryParams: queryValues,
             body: roleAssignments
+        });
+    }
+
+    /**
+     * @param content - Content to upload
+     * @param publisherName - 
+     * @param extensionName - 
+     * @param extensionType - 
+     * @param reCaptchaToken - 
+     * @param bypassScopeCheck - 
+     */
+    public async publishExtensionWithPublisherSignature(
+        content: any,
+        publisherName: string,
+        extensionName: string,
+        extensionType?: string,
+        reCaptchaToken?: string,
+        bypassScopeCheck?: boolean
+        ): Promise<Gallery.PublishedExtension> {
+
+        const queryValues: any = {
+            extensionType: extensionType,
+            reCaptchaToken: reCaptchaToken,
+            bypassScopeCheck: bypassScopeCheck
+        };
+
+        return this.beginRequest<Gallery.PublishedExtension>({
+            apiVersion: "7.2-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/publishersignedextension/{extensionName}",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName
+            },
+            customHeaders: {
+                "Content-Type": "multipart/related",
+            },
+            queryParams: queryValues,
+            body: content,
+            isRawData: true
         });
     }
 

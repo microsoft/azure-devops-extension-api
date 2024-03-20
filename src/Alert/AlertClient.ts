@@ -155,9 +155,11 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get instances of an alert.
+     * 
      * @param project - Project ID or project name
-     * @param alertId - 
-     * @param repository - 
+     * @param alertId - ID of alert to retrieve
+     * @param repository - Name or id of a repository that alert is part of
      * @param ref - 
      */
     public async getAlertInstances(
@@ -244,10 +246,10 @@ export class AlertRestClient extends RestClientBase {
      */
     public async getSarif(
         sarifId: number
-        ): Promise<boolean> {
+        ): Promise<Alert.SarifUploadStatus> {
 
-        return this.beginRequest<boolean>({
-            apiVersion: "7.2-preview.1",
+        return this.beginRequest<Alert.SarifUploadStatus>({
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/Alert/Sarifs/{sarifId}",
             routeValues: {
                 sarifId: sarifId
