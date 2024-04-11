@@ -18,6 +18,10 @@ export interface AdvSecEnablementStatus {
      */
     changedOnDate: Date;
     /**
+     * True if Dependabot is enabled for the repository, false if it is disabled.
+     */
+    dependabotEnabled: boolean;
+    /**
      * Enabled status 0 disabled, 1 enabled, Null never explicitly set, always whatever project is, ya this should probably be an enum somewhere
      */
     enabled: boolean;
@@ -36,6 +40,10 @@ export interface AdvSecEnablementStatus {
 }
 
 export interface AdvSecEnablementUpdate {
+    /**
+     * New Dependabot status.
+     */
+    newDependabotStatus: boolean;
     /**
      * New status
      */
