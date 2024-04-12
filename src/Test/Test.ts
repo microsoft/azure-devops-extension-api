@@ -1225,7 +1225,15 @@ export interface LineBlockCoverage {
  */
 export interface Link<T> {
     /**
-     * Link type
+     * Display Name
+     */
+    displayName: string;
+    /**
+     * Operation Type
+     */
+    operationType: LinkOperationType;
+    /**
+     * Parent type
      */
     type: T;
     /**
@@ -1250,6 +1258,20 @@ export interface LinkedWorkItemsQueryResult {
     suiteId: number;
     testCaseId: number;
     workItems: WorkItemReference[];
+}
+
+/**
+ * Describes the operation type to take when clicking on a link
+ */
+export enum LinkOperationType {
+    /**
+     * Open link in new tab/window
+     */
+    Open = 0,
+    /**
+     * Make web service call
+     */
+    WebService = 1
 }
 
 /**
@@ -1324,29 +1346,6 @@ export interface NewTestResultLoggingSettings {
      * LogNewTests defines whether or not we will record new test cases coming into the system
      */
     logNewTests: boolean;
-}
-
-export enum OneMRXSessionState {
-    /**
-     * Default
-     */
-    None = 0,
-    /**
-     * Session state with Running
-     */
-    Running = 1,
-    /**
-     * Session state with Completed
-     */
-    Completed = 2,
-    /**
-     * Session state with Waiting
-     */
-    Waiting = 3,
-    /**
-     * Session state with Cancelled
-     */
-    Cancelled = 4
 }
 
 export enum OperationType {
@@ -1785,6 +1784,21 @@ export enum ResultGroupType {
     Generic = 4
 }
 
+export enum ResultLinkType {
+    /**
+     * Result Investigation
+     */
+    ResultInvestigation = 0,
+    /**
+     * Test info
+     */
+    TestInfo = 1,
+    /**
+     * More info
+     */
+    MoreInfo = 2
+}
+
 export enum ResultMetadata {
     /**
      * Rerun metadata
@@ -2008,7 +2022,7 @@ export interface RunCreateModel {
      */
     controller: string;
     /**
-     * Additional properties of test Run.
+     * Additional properties of test Run. Value of the CustomField cannot be more than 1KB.
      */
     customTestFields: CustomTestField[];
     /**
@@ -2255,6 +2269,10 @@ export interface RunUpdateModel {
      */
     controller: string;
     /**
+     * Additional properties of test Run. Value of the CustomField cannot be more than 1KB.
+     */
+    customTestFields: CustomTestField[];
+    /**
      * true to delete inProgess Results , false otherwise.
      */
     deleteInProgressResults: boolean;
@@ -2333,60 +2351,6 @@ export enum Service {
     Any = 0,
     Tcm = 1,
     Tfs = 2
-}
-
-/**
- * This session object is exposed outside for 1MRX to consume and we internally convert to server.OneMRXSession in server.SessionDataContractConverter
- */
-export interface Session {
-    /**
-     * Session end time
-     */
-    endTimeUTC: Date;
-    /**
-     * Session layout
-     */
-    layout: any[];
-    /**
-     * Session name
-     */
-    name: string;
-    /**
-     * Session result
-     */
-    result: SessionResult;
-    /**
-     * Session source pipeline details
-     */
-    sessionSourcePipeline: SessionSourcePipeline;
-    /**
-     * Session source
-     */
-    source: Source;
-    /**
-     * Session start time
-     */
-    startTimeUTC: Date;
-    /**
-     * Session state
-     */
-    state: OneMRXSessionState;
-    /**
-     * List of test run ids
-     */
-    testRuns: number[];
-    /**
-     * Session timeline
-     */
-    timeline: Timeline<SessionTimelineType>[];
-    /**
-     * Session type
-     */
-    type: string;
-    /**
-     * Session Uid
-     */
-    uid: string;
 }
 
 export enum SessionLinkType {
@@ -2887,6 +2851,10 @@ export interface TestCaseResult {
      */
     associatedBugs: ShallowReference[];
     /**
+     * Attempt
+     */
+    attempt: number;
+    /**
      * ID representing test method in a dll.
      */
     automatedTestId: string;
@@ -2907,6 +2875,14 @@ export interface TestCaseResult {
      */
     automatedTestTypeId: string;
     /**
+     * Bucketing System
+     */
+    bucketingSystem: string;
+    /**
+     * Bucket Uid
+     */
+    bucketUid: string;
+    /**
      * Shallow reference to build associated with test result.
      */
     build: ShallowReference;
@@ -2914,6 +2890,10 @@ export interface TestCaseResult {
      * Reference to build associated with test result.
      */
     buildReference: BuildReference;
+    /**
+     * Type of build
+     */
+    buildType: string;
     /**
      * Comment in a test result with maxSize= 1000 chars.
      */
@@ -2939,6 +2919,10 @@ export interface TestCaseResult {
      */
     customFields: CustomTestField[];
     /**
+     * Dimensions
+     */
+    dimensions: TestResultDimension[];
+    /**
      * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
      */
     durationInMs: number;
@@ -2946,6 +2930,14 @@ export interface TestCaseResult {
      * Error message in test execution.
      */
     errorMessage: string;
+    /**
+     * Exception Type
+     */
+    exceptionType: string;
+    /**
+     * Execution number
+     */
+    executionNumber: number;
     /**
      * Information when test results started failing.
      */
@@ -2959,6 +2951,10 @@ export interface TestCaseResult {
      */
     id: number;
     /**
+     * boolean that holds whether it is a system issue or not
+     */
+    isSystemIssue: boolean;
+    /**
      * Test result details of test iterations used only for Manual Testing.
      */
     iterationDetails: TestIterationDetailsModel[];
@@ -2970,6 +2966,18 @@ export interface TestCaseResult {
      * Last updated datetime of test result(UTC).
      */
     lastUpdatedDate: Date;
+    /**
+     * LayoutId
+     */
+    layoutUid: string;
+    /**
+     * Links
+     */
+    links: Link<ResultLinkType>[];
+    /**
+     * Locale
+     */
+    locale: string;
     /**
      * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
      */
@@ -3051,6 +3059,10 @@ export interface TestCaseResult {
      */
     testCaseTitle: string;
     /**
+     * build phase Valid Value= (SystemSetup, UserSetup, Test, UserCleanup, SystemCleanup)
+     */
+    testPhase: string;
+    /**
      * Reference to test plan test case workitem is part of.
      */
     testPlan: ShallowReference;
@@ -3066,6 +3078,10 @@ export interface TestCaseResult {
      * Reference to test suite test case workitem is part of.
      */
     testSuite: ShallowReference;
+    /**
+     * Topology Id
+     */
+    topologyId: number;
     /**
      * Url of test result.
      */
@@ -4179,6 +4195,20 @@ export interface TestResultCreateModel {
     testPoint: ShallowReference;
 }
 
+/**
+ * Represents dimensions
+ */
+export interface TestResultDimension {
+    /**
+     * Test Result Dimension Name
+     */
+    name: string;
+    /**
+     * Test Result Dimension Value
+     */
+    value: string;
+}
+
 export interface TestResultDocument {
     operationReference: TestOperationReference;
     payload: TestResultPayload;
@@ -4467,6 +4497,10 @@ export interface TestResultsSession {
      * TestResultsSession end time
      */
     endTimeUTC: Date;
+    /**
+     * Id of TestResultsSession
+     */
+    id: number;
     /**
      * TestResultsSession layout
      */

@@ -2815,6 +2815,69 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Add Test Results to test run session
+     * 
+     * @param results - 
+     * @param project - Project ID or project name
+     * @param runId - RunId of test run
+     */
+    public async addTestResultsToTestRunSession(
+        results: Test.TestCaseResult[],
+        project: string,
+        runId: number
+        ): Promise<Test.TestCaseResult[]> {
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            body: results
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param detailsToInclude - 
+     * @param skip - 
+     * @param top - 
+     * @param outcomes - 
+     * @param newTestsOnly - 
+     */
+    public async getTestSessionResults(
+        project: string,
+        runId: number,
+        detailsToInclude?: Test.ResultDetails,
+        skip?: number,
+        top?: number,
+        outcomes?: Test.TestOutcome[],
+        newTestsOnly?: boolean
+        ): Promise<Test.TestCaseResult[]> {
+
+        const queryValues: any = {
+            detailsToInclude: detailsToInclude,
+            '$skip': skip,
+            '$top': top,
+            outcomes: outcomes && outcomes.join(","),
+            '$newTestsOnly': newTestsOnly
+        };
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param testSettings - 
      * @param project - Project ID or project name
      */

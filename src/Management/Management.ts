@@ -4,6 +4,8 @@
  * ---------------------------------------------------------
  */
 
+import * as WebApi from "../WebApi/WebApi";
+
 export interface AdvSecEnablementSettings {
     /**
      * Automatically enable Advanced Security on newly created repositories.
@@ -30,13 +32,17 @@ export interface AdvSecEnablementStatus extends AdvSecEnablementStatusUpdate {
 
 export interface AdvSecEnablementStatusUpdate {
     /**
-     * Enabled status False disabled, True enabled, Null never explicitly set.
+     * Advanced Security enablement status set to False when disabled and True when enabled; Null is never explicitly set.
      */
     advSecEnabled: boolean;
     /**
-     * When true, pushes containing secrets will be blocked. \<br /\>When false, pushes are scanned for secrets and are not blocked. \<br /\>If includeAllProperties in the request if false, this value will be null.
+     * When true, pushes containing secrets will be blocked. \<br /\>When false, pushes are scanned for secrets and are not blocked. \<br /\>If includeAllProperties in the request is false, this value will be null.
      */
     blockPushes: boolean;
+    /**
+     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>If includeAllProperties in the request is false, this value will be null.
+     */
+    dependabotEnabled: boolean;
 }
 
 /**
@@ -102,6 +108,20 @@ export interface BillableCommitterDetails {
 }
 
 /**
+ * Information related to billed committers using Advanced Security services
+ */
+export interface BilledCommitter {
+    /**
+     * Cuid of the billed committer. CUID is unique across an Azure Subscription.
+     */
+    cuid: string;
+    /**
+     * Identity Reference object of the billed committer
+     */
+    userIdentity: WebApi.IdentityRef;
+}
+
+/**
  * BillingInfo contains an organization, its enablement status and the Azure Subscription for it.
  */
 export interface BillingInfo {
@@ -145,9 +165,13 @@ export interface MeterUsage {
     accountId: string;
     azureSubscriptionId: string;
     /**
-     * A list of identifiers for the commiters to the repositories that have Advanced Security features enabled
+     * Deprecated - use BilledCommittersIdentities instead A list of Cuids for the commiters to the repositories that have Advanced Security features enabled
      */
     billedCommitters: string[];
+    /**
+     * A list of BilledCommitter objects that contain the identityRef of committers that have AdvSec enabled
+     */
+    billedUsers: BilledCommitter[];
     /**
      * The date this billing information pertains to
      */

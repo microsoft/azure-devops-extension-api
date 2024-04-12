@@ -186,6 +186,31 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Update alert metadata associations.
+     * 
+     * @param alertsMetadata - A list of metadata to associate with alerts.
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async updateAlertsMetadata(
+        alertsMetadata: Alert.AlertMetadata[],
+        project: string,
+        repository: string
+        ): Promise<Alert.AlertMetadataChange[]> {
+
+        return this.beginRequest<Alert.AlertMetadataChange[]>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/Metadata",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: alertsMetadata
+        });
+    }
+
+    /**
      * Upload a Sarif containing security alerts
      * 
      * @param content - Content to upload

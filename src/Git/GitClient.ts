@@ -4332,11 +4332,17 @@ export class GitRestClient extends RestClientBase {
      * 
      * @param repositoryId - ID of the git repository.
      * @param project - Project ID or project name
+     * @param preferCompareBranch - If true, prefer the compare branch over the default branch as target branch for pull requests.
      */
     public async getSuggestions(
         repositoryId: string,
-        project?: string
+        project?: string,
+        preferCompareBranch?: boolean
         ): Promise<Git.GitSuggestion[]> {
+
+        const queryValues: any = {
+            preferCompareBranch: preferCompareBranch
+        };
 
         return this.beginRequest<Git.GitSuggestion[]>({
             apiVersion: "7.2-preview.1",
@@ -4344,7 +4350,8 @@ export class GitRestClient extends RestClientBase {
             routeValues: {
                 project: project,
                 repositoryId: repositoryId
-            }
+            },
+            queryParams: queryValues
         });
     }
 

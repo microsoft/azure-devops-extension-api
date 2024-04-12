@@ -1978,7 +1978,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<string> {
 
         return this.beginRequest<string>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.4",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/Release/definitions/{definitionId}/revisions/{revision}",
             routeValues: {
@@ -2001,7 +2001,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.ReleaseDefinitionRevision[]> {
 
         return this.beginRequest<Release.ReleaseDefinitionRevision[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.4",
             routeTemplate: "{project}/_apis/Release/definitions/{definitionId}/revisions/{revision}",
             routeValues: {
                 project: project,
