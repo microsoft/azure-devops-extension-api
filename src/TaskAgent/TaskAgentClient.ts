@@ -3667,14 +3667,17 @@ export class TaskAgentRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param groupIds - Comma separated list of Ids of variable groups.
+     * @param loadSecrets - 
      */
     public async getVariableGroupsById(
         project: string,
-        groupIds: number[]
+        groupIds: number[],
+        loadSecrets?: boolean
         ): Promise<TaskAgent.VariableGroup[]> {
 
         const queryValues: any = {
-            groupIds: groupIds && groupIds.join(",")
+            groupIds: groupIds && groupIds.join(","),
+            loadSecrets: loadSecrets
         };
 
         return this.beginRequest<TaskAgent.VariableGroup[]>({
