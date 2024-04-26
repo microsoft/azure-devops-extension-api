@@ -361,6 +361,11 @@ export interface TraceFilter {
     userLogin: string;
 }
 
+export enum UserProfileBackupState {
+    Inactive = 0,
+    Active = 1
+}
+
 export enum UserProfileSyncState {
     None = 0,
     Completed = 1,

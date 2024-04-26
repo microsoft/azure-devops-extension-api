@@ -1223,19 +1223,19 @@ export interface LineBlockCoverage {
 /**
  * Links
  */
-export interface Link<T> {
+export interface Link {
     /**
      * Display Name
      */
     displayName: string;
     /**
-     * Operation Type
+     * Link Operation Type Valid values = (Open, WebService)
      */
-    operationType: LinkOperationType;
+    operationType: string;
     /**
-     * Parent type
+     * Link type (maps to enum value; see parent object for acceptable values)
      */
-    type: T;
+    type: string;
     /**
      * Link url
      */
@@ -1258,20 +1258,6 @@ export interface LinkedWorkItemsQueryResult {
     suiteId: number;
     testCaseId: number;
     workItems: WorkItemReference[];
-}
-
-/**
- * Describes the operation type to take when clicking on a link
- */
-export enum LinkOperationType {
-    /**
-     * Open link in new tab/window
-     */
-    Open = 0,
-    /**
-     * Make web service call
-     */
-    WebService = 1
 }
 
 /**
@@ -1782,21 +1768,6 @@ export enum ResultGroupType {
      * Unknown hierarchy type.
      */
     Generic = 4
-}
-
-export enum ResultLinkType {
-    /**
-     * Result Investigation
-     */
-    ResultInvestigation = 0,
-    /**
-     * Test info
-     */
-    TestInfo = 1,
-    /**
-     * More info
-     */
-    MoreInfo = 2
 }
 
 export enum ResultMetadata {
@@ -2353,17 +2324,6 @@ export enum Service {
     Tfs = 2
 }
 
-export enum SessionLinkType {
-    /**
-     * Default
-     */
-    None = 0,
-    /**
-     * Link type for Session information
-     */
-    SessionInfo = 1
-}
-
 export enum SessionResult {
     /**
      * Default
@@ -2464,9 +2424,9 @@ export interface SharedStepModel {
  */
 export interface Source {
     /**
-     * Source links
+     * Source links Valid values for "type" property = (SessionInfo)
      */
-    links: Link<SessionLinkType>[];
+    links: Link[];
     /**
      * Source origin system
      */
@@ -2971,9 +2931,9 @@ export interface TestCaseResult {
      */
     layoutUid: string;
     /**
-     * Links
+     * Links Valid values for "type" property = (MoreInfo, ResultInvestigation, TestInfo)
      */
-    links: Link<ResultLinkType>[];
+    links: Link[];
     /**
      * Locale
      */
@@ -5145,6 +5105,24 @@ export interface TestSessionExploredWorkItemReference extends TestSessionWorkIte
      * Time when explore of workitem was started.
      */
     startTime: Date;
+}
+
+/**
+ * Notifications for the TestResults Session
+ */
+export interface TestSessionNotification {
+    /**
+     * Notification Body
+     */
+    body: string;
+    /**
+     * Notification Severity Valid values = (Informational, Warning, Error, Critical)
+     */
+    severity: string;
+    /**
+     * Notification Title
+     */
+    title: string;
 }
 
 /**

@@ -26,10 +26,6 @@ export interface AdvSecEnablementStatus {
      */
     enabled: boolean;
     /**
-     * Enabled changed on datetime To Be Removed M223 +
-     */
-    enabledChangedOnDate: Date;
-    /**
      * ProjectId
      */
     projectId: string;

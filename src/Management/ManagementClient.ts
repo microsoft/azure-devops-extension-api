@@ -97,6 +97,26 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * During multi-org billing computation in primary scale unit(EUS21), this API is used to create billing snapshot for a specific org. Primary scale unit will call this API for each org in different scsle units to create billing snapshot. Data will be stored in the org specific partition DB -\> billing snapshot table. This is needed as customers will fetch billing data from their org specific partition DB.
+     * 
+     * @param meterUsage - 
+     */
+    public async createBillingSnapshot(
+        meterUsage: Management.MeterUsage
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Management/MeterUsage/{action}",
+            routeValues: {
+                action: "Default"
+            },
+            body: meterUsage
+        });
+    }
+
+    /**
      * Get all billable committers details, including those not matched with a VSID.
      * 
      * @param billingDate - The date to query, or if not provided, today
@@ -153,24 +173,6 @@ export class ManagementRestClient extends RestClientBase {
                 action: "Default"
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param meterUsage - 
-     */
-    public async setBillingSnapshot(
-        meterUsage: Management.MeterUsage
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "_apis/Management/MeterUsage/{action}",
-            routeValues: {
-                action: "Default"
-            },
-            body: meterUsage
         });
     }
 

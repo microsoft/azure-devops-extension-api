@@ -1160,7 +1160,9 @@ export interface EventsConfig {
 
 export enum ExclusiveLockType {
     RunLatest = 0,
-    Sequential = 1
+    Sequential = 1,
+    BranchRunLatest = 2,
+    Parallel = 3
 }
 
 export interface ExpressionValidationItem extends ValidationItem {
@@ -1621,6 +1623,10 @@ export interface ResourceLockRequest {
      * The date/time this request was assigned.
      */
     assignTime: Date;
+    /**
+     * The branch the lock belongs to. It's used only by RunLatest exclusive locks of persisted stages.
+     */
+    branch: string;
     /**
      * The ID of the check run waiting on this request
      */

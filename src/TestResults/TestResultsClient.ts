@@ -658,6 +658,49 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * @param newFields - 
+     * @param project - Project ID or project name
+     */
+    public async addCustomFields(
+        newFields: Test.CustomTestFieldDefinition[],
+        project: string
+        ): Promise<Test.CustomTestFieldDefinition[]> {
+
+        return this.beginRequest<Test.CustomTestFieldDefinition[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/extensionfields",
+            routeValues: {
+                project: project
+            },
+            body: newFields
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param scopeFilter - 
+     */
+    public async queryCustomFields(
+        project: string,
+        scopeFilter: Test.CustomTestFieldScope
+        ): Promise<Test.CustomTestFieldDefinition[]> {
+
+        const queryValues: any = {
+            scopeFilter: scopeFilter
+        };
+
+        return this.beginRequest<Test.CustomTestFieldDefinition[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/extensionfields",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Get file coverage for the specified file
      * 
      * @param fileCoverageRequest - File details with pull request iteration context
@@ -677,6 +720,51 @@ export class TestResultsRestClient extends RestClientBase {
                 project: project
             },
             body: fileCoverageRequest
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param buildDefinitionId - 
+     * @param minBuildCreatedDate - 
+     */
+    public async getFlakyTestResultsByBuildDefinitionId(
+        project: string,
+        buildDefinitionId: number,
+        minBuildCreatedDate: Date
+        ): Promise<Test.TestCaseResult[]> {
+
+        const queryValues: any = {
+            buildDefinitionId: buildDefinitionId,
+            minBuildCreatedDate: minBuildCreatedDate
+        };
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/builddefinition",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param runId - 
+     */
+    public async getFlakyTestResultsByTestRun(
+        project: string,
+        runId: number
+        ): Promise<Test.TestCaseResult[]> {
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/runs/{runId}",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
         });
     }
 
@@ -2721,6 +2809,27 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Retrieves Test runs associated to a session
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - Id of TestResults session to obtain Test Runs for.
+     */
+    public async getTestRunsBySessionId(
+        project: string,
+        sessionId: number
+        ): Promise<number[]> {
+
+        return this.beginRequest<number[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/runs",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            }
+        });
+    }
+
+    /**
      * Creates TestResultsSession object in TCM data store
      * 
      * @param session - Received session object.
@@ -2815,6 +2924,52 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Creates Notification object in TCM data store for a given session
+     * 
+     * @param notifications - Notification(s) to add for the specified sessionId
+     * @param project - Project ID or project name
+     * @param sessionId - ID of Session to add Notification
+     */
+    public async createNotification(
+        notifications: Test.TestSessionNotification[],
+        project: string,
+        sessionId: number
+        ): Promise<number[]> {
+
+        return this.beginRequest<number[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/notifications",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            },
+            body: notifications
+        });
+    }
+
+    /**
+     * Retrieves TestResultsSession Notification objects in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - Id of TestResults session to obtain Notifications for.
+     */
+    public async getSessionNotifications(
+        project: string,
+        sessionId: number
+        ): Promise<Test.TestSessionNotification[]> {
+
+        return this.beginRequest<Test.TestSessionNotification[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/notifications",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            }
+        });
+    }
+
+    /**
      * Add Test Results to test run session
      * 
      * @param results - 
@@ -2874,6 +3029,31 @@ export class TestResultsRestClient extends RestClientBase {
                 runId: runId
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Creates TestResultsMRX objects in TCM data store for existing test results
+     * 
+     * @param results - Results object with only test results MRX properties and existing testResultId
+     * @param project - Project ID or project name
+     * @param runId - RunId of test run
+     */
+    public async updateTestResultsToTestRunSession(
+        results: Test.TestCaseResult[],
+        project: string,
+        runId: number
+        ): Promise<number[]> {
+
+        return this.beginRequest<number[]>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            body: results
         });
     }
 
