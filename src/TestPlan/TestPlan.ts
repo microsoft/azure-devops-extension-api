@@ -825,6 +825,16 @@ export interface TestPlan extends TestPlanUpdateParams {
 }
 
 /**
+ * Test Plan/Suite restore request body params
+ */
+export interface TestPlanAndSuiteRestoreModel {
+    /**
+     * Indicates whether the deleted test plan/suite should be restored.
+     */
+    isDeleted: boolean;
+}
+
+/**
  * The test plan create parameters.
  */
 export interface TestPlanCreateParams {

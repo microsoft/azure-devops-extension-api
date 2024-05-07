@@ -2820,7 +2820,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<number[]> {
 
         return this.beginRequest<number[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/runs",
             routeValues: {
                 project: project,
@@ -2841,7 +2841,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<number> {
 
         return this.beginRequest<number>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testsession/session",
             routeValues: {
@@ -2867,7 +2867,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestResultsSession[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/testresults/testsession/session",
             routeValues: {
                 project: project
@@ -2892,7 +2892,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<any[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/testresults/testsession/session",
             routeValues: {
                 project: project
@@ -2913,13 +2913,34 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testsession/environment",
             routeValues: {
                 project: project
             },
             body: environments
+        });
+    }
+
+    /**
+     * Retrieves TestResultsSession Layout object in TCM data store
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - Retrieve session object.
+     */
+    public async getTestSessionLayoutBySessionId(
+        project: string,
+        sessionId: number
+        ): Promise<any[]> {
+
+        return this.beginRequest<any[]>({
+            apiVersion: "7.2-preview.2",
+            routeTemplate: "{project}/_apis/testresults/testsession/session/{sessionId}/layout",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            }
         });
     }
 
@@ -2937,7 +2958,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<number[]> {
 
         return this.beginRequest<number[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/notifications",
             routeValues: {
@@ -2960,7 +2981,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestSessionNotification[]> {
 
         return this.beginRequest<Test.TestSessionNotification[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/notifications",
             routeValues: {
                 project: project,
@@ -2983,7 +3004,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<Test.TestCaseResult[]> {
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
             routeValues: {
@@ -3022,7 +3043,7 @@ export class TestResultsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Test.TestCaseResult[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
             routeValues: {
                 project: project,
@@ -3046,7 +3067,7 @@ export class TestResultsRestClient extends RestClientBase {
         ): Promise<number[]> {
 
         return this.beginRequest<number[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/results/{testResultId}",
             routeValues: {

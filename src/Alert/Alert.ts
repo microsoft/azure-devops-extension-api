@@ -52,6 +52,10 @@ export interface Alert {
      */
     physicalLocations: PhysicalLocation[];
     /**
+     * Relations between alerts and other artifacts.
+     */
+    relations: RelationMetadata[];
+    /**
      * Repository URL where the alert was detected.
      */
     repositoryUrl: string;
@@ -191,6 +195,10 @@ export interface AnalysisConfiguration {
 }
 
 export interface AnalysisConfigurationDetails {
+    /**
+     * Properties of the pipeline.
+     */
+    additionalProperties: { [key: string] : any; };
     /**
      * Reference to a git object, e.g. branch ref.
      */
@@ -508,8 +516,18 @@ export enum MetadataChangeType {
  * The operation to be performed on the metadata.
  */
 export enum MetadataOperation {
-    Add = 0,
-    Remove = 1
+    /**
+     * Represents the defualt value if the operation is not specified or not supported.
+     */
+    None = 0,
+    /**
+     * Represents the addition of the metadata.
+     */
+    Add = 1,
+    /**
+     * Represents the removal of the metadata.
+     */
+    Remove = 2
 }
 
 /**
@@ -535,6 +553,7 @@ export interface Pipeline {
     name: string;
     phase: string;
     phaseId: string;
+    properties: { [key: string] : any; };
 }
 
 export interface Region {

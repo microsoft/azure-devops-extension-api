@@ -684,7 +684,7 @@ export class ReleaseRestClient extends RestClientBase {
      * @param createdBy - List the deployments for which deployments are created as identity specified.
      * @param minModifiedTime - List the deployments with LastModified time \>= minModifiedTime.
      * @param maxModifiedTime - List the deployments with LastModified time \<= maxModifiedTime.
-     * @param deploymentStatus - List the deployments with given deployment status. Defult is 'All'.
+     * @param deploymentStatus - List the deployments with given deployment status. Default is 'All'.
      * @param operationStatus - List the deployments with given operation status. Default is 'All'.
      * @param latestAttemptsOnly - 'true' to include deployments with latest attempt only. Default is 'false'.
      * @param queryOrder - List the deployments with given query order. Default is 'Descending'.

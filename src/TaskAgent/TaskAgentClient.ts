@@ -3667,7 +3667,7 @@ export class TaskAgentRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param groupIds - Comma separated list of Ids of variable groups.
-     * @param loadSecrets - 
+     * @param loadSecrets - Flag indicating if the secrets within variable groups should be loaded.
      */
     public async getVariableGroupsById(
         project: string,
