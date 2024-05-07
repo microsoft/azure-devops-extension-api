@@ -2806,6 +2806,7 @@ export interface TaskDefinition {
     _buildConfigMapping: { [key: string] : string; };
     agentExecution: TaskExecution;
     author: string;
+    buildConfig: string;
     category: string;
     contentsUploaded: boolean;
     contributionIdentifier: string;
@@ -3402,6 +3403,10 @@ export interface TaskPackageMetadata {
  * A reference to a task.
  */
 export interface TaskReference {
+    /**
+     * The build config of the task definition. Corresponds to the version value of task.json file. \<br /\>Example: CmdLineV2 \{ "_buildConfigMapping": \{ "Default": "2.232.2", "Node20_229_7": "2.232.3" \} \}
+     */
+    buildConfig: string;
     /**
      * The ID of the task definition. Corresponds to the id value of task.json file. \<br /\>Example: CmdLineV2 \{ "id": "D9BAFED4-0B18-4F58-968D-86655B4D2CE9" \}
      */

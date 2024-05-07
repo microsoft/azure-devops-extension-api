@@ -6,6 +6,13 @@
 
 import * as WebApi from "../WebApi/WebApi";
 
+export interface AdvSecEnablementFeatures {
+    /**
+     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>If includeAllProperties in the request is false, this value will be null.
+     */
+    dependabotEnabled: boolean;
+}
+
 export interface AdvSecEnablementSettings {
     /**
      * Automatically enable Advanced Security on newly created repositories.
@@ -36,13 +43,13 @@ export interface AdvSecEnablementStatusUpdate {
      */
     advSecEnabled: boolean;
     /**
+     * Includes additional features that can be enabled alongside Advanced Security
+     */
+    advSecEnablementFeatures: AdvSecEnablementFeatures;
+    /**
      * When true, pushes containing secrets will be blocked. \<br /\>When false, pushes are scanned for secrets and are not blocked. \<br /\>If includeAllProperties in the request is false, this value will be null.
      */
     blockPushes: boolean;
-    /**
-     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>If includeAllProperties in the request is false, this value will be null.
-     */
-    dependabotEnabled: boolean;
 }
 
 /**

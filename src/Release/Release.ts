@@ -681,6 +681,21 @@ export interface CheckConfigurationReference {
     version: number;
 }
 
+export interface CheckConfigurationResource {
+    /**
+     * Id of the resource.
+     */
+    id: string;
+    /**
+     * Name of the resource.
+     */
+    name: string;
+    /**
+     * Type of the resource.
+     */
+    type: string;
+}
+
 export interface CodeRepositoryReference {
     /**
      * Gets and sets the repository references.
@@ -1872,6 +1887,10 @@ export interface ManualIntervention {
      */
     name: string;
     /**
+     * Gets or sets the pop tenant.
+     */
+    poPTenant: string;
+    /**
      * Gets releaseReference for manual intervention.
      */
     release: ReleaseShallowReference;
@@ -1891,6 +1910,10 @@ export interface ManualIntervention {
      * Get task instance identifier.
      */
     taskInstanceId: string;
+    /**
+     * Gets or sets the type.
+     */
+    type: ManualInterventionType;
     /**
      * Gets url to access the manual intervention.
      */
@@ -1921,6 +1944,20 @@ export enum ManualInterventionStatus {
      * The manual intervention is canceled.
      */
     Canceled = 8
+}
+
+/**
+ * Describes manual intervention status
+ */
+export enum ManualInterventionType {
+    /**
+     * The manual intervention server task.
+     */
+    Task = 1,
+    /**
+     * The manual intervention proof of presence server task.
+     */
+    ProofOfPresence = 2
 }
 
 export interface ManualInterventionUpdateMetadata {
@@ -2048,6 +2085,21 @@ export interface ProjectReference {
      * Gets name of project.
      */
     name: string;
+}
+
+export interface ProofOfPresenceTenant {
+    /**
+     * Gets distinct list of resources which have proof of presence check configured for this tenant.
+     */
+    resources: CheckConfigurationResource[];
+    /**
+     * Gets id of protected tenant.
+     */
+    tenantId: string;
+    /**
+     * Gets name of protected tenant.
+     */
+    tenantName: string;
 }
 
 export interface PropertySelector {
@@ -3785,6 +3837,10 @@ export interface ServerDeploymentInput extends BaseDeploymentInput {
      * Gets or sets the parallel execution input.
      */
     parallelExecution: ExecutionInput;
+    /**
+     * Gets or sets the proof of presence data.
+     */
+    proofOfPresenceTenants: { [key: string] : ProofOfPresenceTenant; };
 }
 
 /**

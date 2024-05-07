@@ -1213,6 +1213,229 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download.
+     * 
+     * @param repositoryId - The name or ID of the repository.
+     * @param path - The item path.
+     * @param project - Project ID or project name
+     * @param scopePath - The path scope.  The default is null.
+     * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
+     * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
+     * @param download - Set to true to download the response as a file.  Default is false.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
+     * @param includeContent - Set to true to include item content when requesting json.  Default is false.
+     * @param resolveHfs - Set to true to resolve Git HFS pointer files to return actual content from Git HFS.  Default is true.
+     * @param sanitize - Set to true to sanitize an svg file and return it as image. Useful only if requested for svg file. Default is false.
+     */
+    public async getHfsItem(
+        repositoryId: string,
+        path: string,
+        project?: string,
+        scopePath?: string,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContentMetadata?: boolean,
+        latestProcessedChange?: boolean,
+        download?: boolean,
+        versionDescriptor?: Git.GitVersionDescriptor,
+        includeContent?: boolean,
+        resolveHfs?: boolean,
+        sanitize?: boolean
+        ): Promise<Git.GitItem> {
+
+        const queryValues: any = {
+            path: path,
+            scopePath: scopePath,
+            recursionLevel: recursionLevel,
+            includeContentMetadata: includeContentMetadata,
+            latestProcessedChange: latestProcessedChange,
+            download: download,
+            versionDescriptor: versionDescriptor,
+            includeContent: includeContent,
+            resolveHfs: resolveHfs,
+            sanitize: sanitize
+        };
+
+        return this.beginRequest<Git.GitItem>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/HfsItems/{*path}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download.
+     * 
+     * @param repositoryId - The name or ID of the repository.
+     * @param path - The item path.
+     * @param project - Project ID or project name
+     * @param scopePath - The path scope.  The default is null.
+     * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
+     * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
+     * @param download - Set to true to download the response as a file.  Default is false.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
+     * @param includeContent - Set to true to include item content when requesting json.  Default is false.
+     * @param resolveHfs - Set to true to resolve Git HFS pointer files to return actual content from Git HFS.  Default is true.
+     * @param sanitize - Set to true to sanitize an svg file and return it as image. Useful only if requested for svg file. Default is false.
+     */
+    public async getHfsItemContent(
+        repositoryId: string,
+        path: string,
+        project?: string,
+        scopePath?: string,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContentMetadata?: boolean,
+        latestProcessedChange?: boolean,
+        download?: boolean,
+        versionDescriptor?: Git.GitVersionDescriptor,
+        includeContent?: boolean,
+        resolveHfs?: boolean,
+        sanitize?: boolean
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            path: path,
+            scopePath: scopePath,
+            recursionLevel: recursionLevel,
+            includeContentMetadata: includeContentMetadata,
+            latestProcessedChange: latestProcessedChange,
+            download: download,
+            versionDescriptor: versionDescriptor,
+            includeContent: includeContent,
+            resolveHfs: resolveHfs,
+            sanitize: sanitize
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.2-preview.1",
+            httpResponseType: "application/octet-stream",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/HfsItems/{*path}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download.
+     * 
+     * @param repositoryId - The name or ID of the repository.
+     * @param path - The item path.
+     * @param project - Project ID or project name
+     * @param scopePath - The path scope.  The default is null.
+     * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
+     * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
+     * @param download - Set to true to download the response as a file.  Default is false.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
+     * @param includeContent - Set to true to include item content when requesting json.  Default is false.
+     * @param resolveHfs - Set to true to resolve Git HFS pointer files to return actual content from Git HFS.  Default is true.
+     * @param sanitize - Set to true to sanitize an svg file and return it as image. Useful only if requested for svg file. Default is false.
+     */
+    public async getHfsItemText(
+        repositoryId: string,
+        path: string,
+        project?: string,
+        scopePath?: string,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContentMetadata?: boolean,
+        latestProcessedChange?: boolean,
+        download?: boolean,
+        versionDescriptor?: Git.GitVersionDescriptor,
+        includeContent?: boolean,
+        resolveHfs?: boolean,
+        sanitize?: boolean
+        ): Promise<string> {
+
+        const queryValues: any = {
+            path: path,
+            scopePath: scopePath,
+            recursionLevel: recursionLevel,
+            includeContentMetadata: includeContentMetadata,
+            latestProcessedChange: latestProcessedChange,
+            download: download,
+            versionDescriptor: versionDescriptor,
+            includeContent: includeContent,
+            resolveHfs: resolveHfs,
+            sanitize: sanitize
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            httpResponseType: "text/plain",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/HfsItems/{*path}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download.
+     * 
+     * @param repositoryId - The name or ID of the repository.
+     * @param path - The item path.
+     * @param project - Project ID or project name
+     * @param scopePath - The path scope.  The default is null.
+     * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
+     * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
+     * @param download - Set to true to download the response as a file.  Default is false.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
+     * @param includeContent - Set to true to include item content when requesting json.  Default is false.
+     * @param resolveHfs - Set to true to resolve Git HFS pointer files to return actual content from Git HFS.  Default is true.
+     * @param sanitize - Set to true to sanitize an svg file and return it as image. Useful only if requested for svg file. Default is false.
+     */
+    public async getHfsItemZip(
+        repositoryId: string,
+        path: string,
+        project?: string,
+        scopePath?: string,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContentMetadata?: boolean,
+        latestProcessedChange?: boolean,
+        download?: boolean,
+        versionDescriptor?: Git.GitVersionDescriptor,
+        includeContent?: boolean,
+        resolveHfs?: boolean,
+        sanitize?: boolean
+        ): Promise<ArrayBuffer> {
+
+        const queryValues: any = {
+            path: path,
+            scopePath: scopePath,
+            recursionLevel: recursionLevel,
+            includeContentMetadata: includeContentMetadata,
+            latestProcessedChange: latestProcessedChange,
+            download: download,
+            versionDescriptor: versionDescriptor,
+            includeContent: includeContent,
+            resolveHfs: resolveHfs,
+            sanitize: sanitize
+        };
+
+        return this.beginRequest<ArrayBuffer>({
+            apiVersion: "7.2-preview.1",
+            httpResponseType: "application/zip",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/HfsItems/{*path}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Create an import request.
      * 
      * @param importRequest - The import request to create.

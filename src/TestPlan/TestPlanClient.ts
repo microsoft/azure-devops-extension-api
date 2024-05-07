@@ -864,6 +864,31 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Restore deleted test plan
+     * 
+     * @param restoreModel - The model containing the restore information
+     * @param project - Project ID or project name
+     * @param planId - The ID of the test plan to restore
+     */
+    public async restoreDeletedTestPlan(
+        restoreModel: TestPlan.TestPlanAndSuiteRestoreModel,
+        project: string,
+        planId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testplan/recycleBin/TestPlan/{planId}",
+            routeValues: {
+                project: project,
+                planId: planId
+            },
+            body: restoreModel
+        });
+    }
+
+    /**
      * Clone test plan
      * 
      * @param cloneRequestBody - Plan Clone Request Body detail TestPlanCloneRequest
@@ -1036,6 +1061,31 @@ export class TestPlanRestClient extends RestClientBase {
             },
             queryParams: queryValues,
             body: testPointUpdateParams
+        });
+    }
+
+    /**
+     * Restore deleted test suite
+     * 
+     * @param payload - The model containing the restore information
+     * @param project - Project ID or project name
+     * @param suiteId - The ID of the test suite to restore
+     */
+    public async restoreDeletedTestSuite(
+        payload: TestPlan.TestPlanAndSuiteRestoreModel,
+        project: string,
+        suiteId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testplan/recycleBin/TestSuite/{suiteId}",
+            routeValues: {
+                project: project,
+                suiteId: suiteId
+            },
+            body: payload
         });
     }
 
