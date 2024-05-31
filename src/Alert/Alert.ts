@@ -165,13 +165,21 @@ export enum AlertType {
     /**
      * The code contains a weakness determined by static analysis.
      */
-    Code = 3
+    Code = 3,
+    /**
+     * The code uses a dependency with potential license incompliance.
+     */
+    License = 4
 }
 
 /**
  * AnalysisConfiguration class models a build definition.
  */
 export interface AnalysisConfiguration {
+    /**
+     * The type of alert this configuration is setup to detect.
+     */
+    alertType: AlertType;
     /**
      * Details for the configuration. Populated values depend on the type of configuration.
      */
@@ -381,6 +389,10 @@ export interface Dependency {
      * Unique ID for the dependency
      */
     dependencyId: number;
+    /**
+     * License information of the Component
+     */
+    license: License;
 }
 
 /**
@@ -464,6 +476,43 @@ export enum ExpandOption {
      * Return validationFingerprints in Alert.
      */
     ValidationFingerprint = 1
+}
+
+/**
+ * License information for dependencies
+ */
+export interface License {
+    /**
+     * Unique ID for the license
+     */
+    id: number;
+    /**
+     * License name
+     */
+    name: string;
+    /**
+     * License state
+     */
+    state: LicenseState;
+    /**
+     * Url for license information
+     */
+    url: string;
+}
+
+export enum LicenseState {
+    /**
+     * Information of the license has not been harvested by ClearlyDefined
+     */
+    Unknown = 0,
+    /**
+     * Information of the license has not been harvested by ClearlyDefined
+     */
+    NotHarvested = 1,
+    /**
+     * Information of the license has been harvested by ClearlyDefined
+     */
+    Harvested = 2
 }
 
 export interface LogicalLocation {
@@ -803,7 +852,8 @@ export enum Severity {
     Critical = 3,
     Note = 4,
     Warning = 5,
-    Error = 6
+    Error = 6,
+    Undefined = 7
 }
 
 export enum State {

@@ -701,6 +701,46 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * @param project - Project ID or project name
+     * @param testExtensionFieldId - 
+     */
+    public async deleteCustomFieldById(
+        project: string,
+        testExtensionFieldId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/testresults/extensionfields/{testExtensionFieldId}",
+            routeValues: {
+                project: project,
+                testExtensionFieldId: testExtensionFieldId
+            }
+        });
+    }
+
+    /**
+     * @param updateCustomTestField - 
+     * @param project - Project ID or project name
+     */
+    public async updateCustomField(
+        updateCustomTestField: Test.CustomTestFieldUpdateDefinition,
+        project: string
+        ): Promise<Test.CustomTestFieldDefinition> {
+
+        return this.beginRequest<Test.CustomTestFieldDefinition>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testresults/extensionfields/{testExtensionFieldId}",
+            routeValues: {
+                project: project
+            },
+            body: updateCustomTestField
+        });
+    }
+
+    /**
      * Get file coverage for the specified file
      * 
      * @param fileCoverageRequest - File details with pull request iteration context
@@ -2920,6 +2960,31 @@ export class TestResultsRestClient extends RestClientBase {
                 project: project
             },
             body: environments
+        });
+    }
+
+    /**
+     * For the provided sessionId, creates environment, configuration, and machine objects in TCM data store
+     * 
+     * @param sessionEnvironmentAndMachine - 
+     * @param project - Project ID or project name
+     * @param sessionId - 
+     */
+    public async createEnvironmentAndMachine(
+        sessionEnvironmentAndMachine: Test.SessionEnvironmentAndMachine,
+        project: string,
+        sessionId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.2",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/environment",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            },
+            body: sessionEnvironmentAndMachine
         });
     }
 

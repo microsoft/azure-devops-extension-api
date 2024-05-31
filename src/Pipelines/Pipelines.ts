@@ -259,6 +259,7 @@ export interface Run extends RunReference {
     templateParameters: { [key: string] : any; };
     url: string;
     variables: { [key: string] : Variable; };
+    yamlDetails: RunYamlDetails;
 }
 
 /**
@@ -321,6 +322,13 @@ export enum RunState {
     Completed = 4
 }
 
+export interface RunYamlDetails {
+    expandedYamlUrl: string;
+    extendedTemplates: YamlFileDetails[];
+    includedTemplates: YamlFileDetails[];
+    rootYamlFile: YamlFileDetails;
+}
+
 export interface SignalRConnection {
     signedContent: WebApi.SignedUrl;
 }
@@ -328,4 +336,10 @@ export interface SignalRConnection {
 export interface Variable {
     isSecret: boolean;
     value: string;
+}
+
+export interface YamlFileDetails {
+    ref: string;
+    repoAlias: string;
+    yamlFile: string;
 }
