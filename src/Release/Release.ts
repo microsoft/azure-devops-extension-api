@@ -1887,9 +1887,9 @@ export interface ManualIntervention {
      */
     name: string;
     /**
-     * Gets or sets the pop tenant.
+     * Gets or sets pop tenant information.
      */
-    poPTenant: string;
+    poPTenant: ProofOfPresenceTenant;
     /**
      * Gets releaseReference for manual intervention.
      */
@@ -2088,6 +2088,14 @@ export interface ProjectReference {
 }
 
 export interface ProofOfPresenceTenant {
+    /**
+     * Gets authority of protected tenant.
+     */
+    authority: string;
+    /**
+     * Gets domain hint of protected tenant.
+     */
+    domainHint: string;
     /**
      * Gets distinct list of resources which have proof of presence check configured for this tenant.
      */

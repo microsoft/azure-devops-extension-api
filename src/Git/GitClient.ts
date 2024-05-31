@@ -1324,6 +1324,55 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * Get Item Metadata and/or Content for a collection of items. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
+     * 
+     * @param repositoryId - The name or ID of the repository.
+     * @param project - Project ID or project name
+     * @param scopePath - The path scope.  The default is null.
+     * @param recursionLevel - The recursion level of this request. The default is 'none', no recursion.
+     * @param includeContentMetadata - Set to true to include content metadata.  Default is false.
+     * @param latestProcessedChange - Set to true to include the latest changes.  Default is false.
+     * @param download - Set to true to download the response as a file.  Default is false.
+     * @param includeLinks - Set to true to include links to items.  Default is false.
+     * @param versionDescriptor - Version descriptor.  Default is the default branch for the repository.
+     * @param zipForUnix - Set to true to keep the file permissions for unix (and POSIX) systems like executables and symlinks
+     */
+    public async getHfsItems(
+        repositoryId: string,
+        project?: string,
+        scopePath?: string,
+        recursionLevel?: Git.VersionControlRecursionType,
+        includeContentMetadata?: boolean,
+        latestProcessedChange?: boolean,
+        download?: boolean,
+        includeLinks?: boolean,
+        versionDescriptor?: Git.GitVersionDescriptor,
+        zipForUnix?: boolean
+        ): Promise<Git.GitItem[]> {
+
+        const queryValues: any = {
+            scopePath: scopePath,
+            recursionLevel: recursionLevel,
+            includeContentMetadata: includeContentMetadata,
+            latestProcessedChange: latestProcessedChange,
+            download: download,
+            includeLinks: includeLinks,
+            versionDescriptor: versionDescriptor,
+            zipForUnix: zipForUnix
+        };
+
+        return this.beginRequest<Git.GitItem[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/HfsItems/{*path}",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download.
      * 
      * @param repositoryId - The name or ID of the repository.

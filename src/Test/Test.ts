@@ -769,6 +769,7 @@ export enum CustomTestFieldScope {
     None = 0,
     TestRun = 1,
     TestResult = 2,
+    TestRunAndTestResult = 3,
     System = 4,
     All = 7
 }
@@ -780,6 +781,11 @@ export enum CustomTestFieldType {
     Float = 6,
     String = 12,
     Guid = 14
+}
+
+export interface CustomTestFieldUpdateDefinition {
+    fieldId: number;
+    fieldName: string;
 }
 
 export interface DatedTestFieldData {
@@ -1258,6 +1264,24 @@ export interface LinkedWorkItemsQueryResult {
     suiteId: number;
     testCaseId: number;
     workItems: WorkItemReference[];
+}
+
+/**
+ * Computer which ran tests in the session
+ */
+export interface Machine {
+    /**
+     * GUID identifier for the environment the machine was configured with
+     */
+    environmentUid: string;
+    /**
+     * Name of the machine
+     */
+    name: string;
+    /**
+     * Session Machine timeline Valid values for "type" property = (Requested, Ready, Released)
+     */
+    timeline: Timeline[];
 }
 
 /**
@@ -2324,6 +2348,20 @@ export enum Service {
     Tfs = 2
 }
 
+/**
+ * Container class for TestSessionEnvironment and Machine objects related to a test session
+ */
+export interface SessionEnvironmentAndMachine {
+    /**
+     * Session Environments
+     */
+    environments: TestSessionEnvironment[];
+    /**
+     * Session Machines
+     */
+    machines: Machine[];
+}
+
 export enum SessionResult {
     /**
      * Default
@@ -2351,25 +2389,6 @@ export interface SessionSourcePipeline {
      * Source pipeline url
      */
     buildUrl: string;
-}
-
-export enum SessionTimelineType {
-    /**
-     * Default
-     */
-    None = 0,
-    /**
-     * Timeline type for Queued status
-     */
-    Queued = 1,
-    /**
-     * Timeline type for Completed status
-     */
-    Completed = 2,
-    /**
-     * Timeline type for Started status
-     */
-    Started = 3
 }
 
 /**
@@ -2986,6 +3005,10 @@ export interface TestCaseResult {
      * Reference to identity executed the test.
      */
     runBy: WebApi.IdentityRef;
+    /**
+     * TestCaseId for the testResult from the source system
+     */
+    sourceSystemTestCaseId: string;
     /**
      * Stacktrace with maxSize= 1000 chars.
      */
@@ -4494,9 +4517,9 @@ export interface TestResultsSession {
      */
     testRuns: number[];
     /**
-     * TestResultsSession timeline
+     * TestResultsSession timeline Valid values for "type" property = (Queued, Completed, Started)
      */
-    timeline: Timeline<SessionTimelineType>[];
+    timeline: Timeline[];
     /**
      * TestResultsSession type
      */
@@ -5081,6 +5104,9 @@ export interface TestSession {
     url: string;
 }
 
+/**
+ * Test session environment
+ */
 export interface TestSessionEnvironment {
     /**
      * Environment display name
@@ -5090,6 +5116,10 @@ export interface TestSessionEnvironment {
      * Processor architecture
      */
     processorArchitecture: string;
+    /**
+     * Uid of environment
+     */
+    uid: string;
 }
 
 export interface TestSessionExploredWorkItemReference extends TestSessionWorkItemReference {
@@ -5550,7 +5580,7 @@ export interface TestVariable {
 /**
  * Timeline
  */
-export interface Timeline<T> {
+export interface Timeline {
     /**
      * Timeline display name
      */
@@ -5562,7 +5592,7 @@ export interface Timeline<T> {
     /**
      * Timeline type
      */
-    type: T;
+    type: string;
 }
 
 export interface UpdatedProperties {

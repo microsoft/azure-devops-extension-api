@@ -8,7 +8,7 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface AdvSecEnablementFeatures {
     /**
-     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>If includeAllProperties in the request is false, this value will be null.
+     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>Setting Dependabot enablement state is only supported for repo enablement and not org or project enablement at this time.
      */
     dependabotEnabled: boolean;
 }
@@ -43,7 +43,7 @@ export interface AdvSecEnablementStatusUpdate {
      */
     advSecEnabled: boolean;
     /**
-     * Includes additional features that can be enabled alongside Advanced Security
+     * Includes additional features that can be enabled alongside Advanced Security.
      */
     advSecEnablementFeatures: AdvSecEnablementFeatures;
     /**
