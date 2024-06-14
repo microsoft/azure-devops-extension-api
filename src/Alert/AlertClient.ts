@@ -216,11 +216,13 @@ export class AlertRestClient extends RestClientBase {
      * @param content - Content to upload
      * @param project - Project ID or project name
      * @param repository - The name or ID of a repository
+     * @param notificationFlag - Header to signal that this is a progress notification
      */
     public async uploadSarif(
         content: string,
         project: string,
-        repository: string
+        repository: string,
+        notificationFlag?: String
         ): Promise<number> {
 
         return this.beginRequest<number>({
@@ -233,6 +235,7 @@ export class AlertRestClient extends RestClientBase {
             },
             customHeaders: {
                 "Content-Type": "application/octet-stream",
+                "X-AdvSec-NotificationSarif": notificationFlag,
             },
             body: content
         });

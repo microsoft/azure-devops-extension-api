@@ -864,7 +864,7 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
-     * Restore deleted test plan
+     * Restores the deleted test plan
      * 
      * @param restoreModel - The model containing the restore information
      * @param project - Project ID or project name
@@ -1065,7 +1065,7 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
-     * Restore deleted test suite
+     * Restores the deleted test suite
      * 
      * @param payload - The model containing the restore information
      * @param project - Project ID or project name
