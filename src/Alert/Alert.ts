@@ -757,7 +757,11 @@ export enum SarifJobStatus {
     /**
      * The job type when it fails
      */
-    Failed = 3
+    Failed = 3,
+    /**
+     * The job type when it is queued on exception
+     */
+    Requeued = 4
 }
 
 export interface SarifUploadStatus {

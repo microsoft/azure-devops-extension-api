@@ -215,15 +215,18 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param endpointId - Id of the service endpoint.
      * @param actionFilter - Action filter for the service connection. It specifies the action which can be performed on the service connection.
+     * @param loadConfidetantialData - Flag to include confidential details of service endpoint. This is for internal use only.
      */
     public async getServiceEndpointDetails(
         project: string,
         endpointId: string,
-        actionFilter?: ServiceEndpoint.ServiceEndpointActionFilter
+        actionFilter?: ServiceEndpoint.ServiceEndpointActionFilter,
+        loadConfidetantialData?: boolean
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
         const queryValues: any = {
-            actionFilter: actionFilter
+            actionFilter: actionFilter,
+            loadConfidetantialData: loadConfidetantialData
         };
 
         return this.beginRequest<ServiceEndpoint.ServiceEndpoint>({

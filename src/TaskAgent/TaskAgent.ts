@@ -2060,6 +2060,7 @@ export interface TaskAgentCloudRequest {
     provisionRequestTime: Date;
     releaseRequestTime: Date;
     requestId: string;
+    requestVersion: number;
 }
 
 export interface TaskAgentCloudType {
