@@ -4324,6 +4324,51 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * Retrieve git repositories with filter by name and pagination.
+     * 
+     * @param projectId - ID or name of the team project.
+     * @param includeLinks - [optional] True to include reference links. The default value is false.
+     * @param includeAllUrls - [optional] True to include all remote URLs. The default value is false.
+     * @param includeHidden - [optional] True to include hidden repositories. The default value is false.
+     * @param filterContains - [optional] A filter to apply to the refs (contains).
+     * @param top - [optional] Maximum number of repositories to return. It cannot be bigger than 500. If it is not provided but continuationToken is, top will default to 100.
+     * @param continuationToken - The continuation token used for pagination.
+     */
+    public async getRepositoriesPaged(
+        projectId: string,
+        includeLinks?: boolean,
+        includeAllUrls?: boolean,
+        includeHidden?: boolean,
+        filterContains?: string,
+        top?: number,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<Git.GitRepository>> {
+
+        const queryValues: any = {
+            includeLinks: includeLinks,
+            includeAllUrls: includeAllUrls,
+            includeHidden: includeHidden,
+            filterContains: filterContains,
+            '$top': top,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/git/{projectId}/repositoriesPaged",
+            routeValues: {
+                projectId: projectId
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Git.GitRepository>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
      * Retrieve one conflict for a revert by ID
      * 
      * @param repositoryId - 

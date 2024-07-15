@@ -2942,6 +2942,31 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Creates Session Analysis object in TCM data store for a given session
+     * 
+     * @param analysis - Session Analysis details
+     * @param project - Project ID or project name
+     * @param sessionId - ID of Session to add Notification
+     */
+    public async createAnalysis(
+        analysis: Test.TestSessionAnalysis[],
+        project: string,
+        sessionId: number
+        ): Promise<Test.AnalysisFailureGroupReturn[]> {
+
+        return this.beginRequest<Test.AnalysisFailureGroupReturn[]>({
+            apiVersion: "7.2-preview.2",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/analysis",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            },
+            body: analysis
+        });
+    }
+
+    /**
      * Creates Environment object in TCM data store
      * 
      * @param environments - Received Environment object.

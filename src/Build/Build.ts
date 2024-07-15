@@ -2796,7 +2796,8 @@ export interface SourceRepositoryItem {
 
 export enum StageUpdateType {
     Cancel = 0,
-    Retry = 1
+    Retry = 1,
+    Run = 2
 }
 
 export interface SupportedTrigger {
@@ -2958,7 +2959,9 @@ export enum TaskResult {
     Failed = 2,
     Canceled = 3,
     Skipped = 4,
-    Abandoned = 5
+    Abandoned = 5,
+    ManuallyQueued = 6,
+    DependentOnManualQueue = 7
 }
 
 /**

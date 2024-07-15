@@ -140,6 +140,11 @@ export interface AggregatedRunsByState {
     state: TestRunState;
 }
 
+export interface AnalysisFailureGroupReturn {
+    analysisFailureGroupId: number;
+    failureGroupUid: string;
+}
+
 /**
  * The types of test attachments.
  */
@@ -171,6 +176,17 @@ export interface BatchResponse {
     error: string;
     responses: Response[];
     status: string;
+}
+
+export interface BranchCoverage {
+    /**
+     * number of covered branches
+     */
+    coveredbranches: number;
+    /**
+     * total number of branches
+     */
+    totalbranches: number;
 }
 
 /**
@@ -2705,6 +2721,36 @@ export interface TestActionResultModel extends TestResultModelBase {
     url: string;
 }
 
+/**
+ * Test analysis failure group object
+ */
+export interface TestAnalysisFailureGroup {
+    /**
+     * classification category of the group Allowable values: 'Critical', 'System', 'Discounted'
+     */
+    classificationCategory: string;
+    /**
+     * analysis group dimensions
+     */
+    dimensions: { [key: string] : any; };
+    /**
+     * reason for the analysis category
+     */
+    displayReason: string;
+    /**
+     * title of the analysis category display
+     */
+    displayTitle: string;
+    /**
+     * analysis failure group id
+     */
+    failureGroupId: number;
+    /**
+     * unique id across the object
+     */
+    uid: string;
+}
+
 export interface TestAttachment {
     /**
      * Attachment type.
@@ -2821,6 +2867,10 @@ export interface TestCaseResult {
      * Test attachment ID of action recording.
      */
     afnStripId: number;
+    /**
+     * AnalysisFailureGroups
+     */
+    analysisFailureGroups: TestAnalysisFailureGroup[];
     /**
      * Reference to area path of test.
      */
@@ -5102,6 +5152,24 @@ export interface TestSession {
      * Url of Test Session Resource
      */
     url: string;
+}
+
+/**
+ * Test session anaylsis
+ */
+export interface TestSessionAnalysis {
+    /**
+     * session analysis engine
+     */
+    analysisEngine: string;
+    /**
+     * analysis failure groups
+     */
+    analysisFailureGroups: TestAnalysisFailureGroup[];
+    /**
+     * session analysis type
+     */
+    analysisType: string;
 }
 
 /**

@@ -658,6 +658,14 @@ export interface ServiceEndpointDetails {
     url: string;
 }
 
+export interface ServiceEndpointEvent {
+    authorization: EndpointAuthorization;
+    id: string;
+    name: string;
+    projectIds: string[];
+    type: string;
+}
+
 /**
  * Represents service endpoint execution data.
  */
@@ -821,6 +829,16 @@ export interface ServiceEndpointRequestResult {
      * Gets or sets the status code of the service endpoint request result.
      */
     statusCode: string;
+}
+
+/**
+ * Represents the details of service endpoint execution.
+ */
+export interface ServiceEndpointTokenResult {
+    /**
+     * Gets the access token
+     */
+    accessToken: string;
 }
 
 /**

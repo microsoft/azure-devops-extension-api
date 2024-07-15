@@ -45,16 +45,19 @@ export class LocationsRestClient extends RestClientBase {
      * @param areaId - 
      * @param enterpriseName - 
      * @param organizationName - 
+     * @param accessMapping - 
      */
     public async getResourceArea(
         areaId: string,
         enterpriseName?: string,
-        organizationName?: string
+        organizationName?: string,
+        accessMapping?: string
         ): Promise<Locations.ResourceAreaInfo> {
 
         const queryValues: any = {
             enterpriseName: enterpriseName,
-            organizationName: organizationName
+            organizationName: organizationName,
+            accessMapping: accessMapping
         };
 
         return this.beginRequest<Locations.ResourceAreaInfo>({
@@ -70,14 +73,17 @@ export class LocationsRestClient extends RestClientBase {
     /**
      * @param areaId - 
      * @param hostId - 
+     * @param accessMapping - 
      */
     public async getResourceAreaByHost(
         areaId: string,
-        hostId: string
+        hostId: string,
+        accessMapping?: string
         ): Promise<Locations.ResourceAreaInfo> {
 
         const queryValues: any = {
-            hostId: hostId
+            hostId: hostId,
+            accessMapping: accessMapping
         };
 
         return this.beginRequest<Locations.ResourceAreaInfo>({
