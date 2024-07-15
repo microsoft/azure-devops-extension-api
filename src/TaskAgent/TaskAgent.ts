@@ -68,6 +68,12 @@ export interface AgentQueueEvent {
     queue: TaskAgentQueue;
 }
 
+export interface AgentQueueServiceHookEvent {
+    projectId: string;
+    queueId: number;
+    queueName: string;
+}
+
 export interface AgentQueuesEvent {
     eventType: string;
     queues: TaskAgentQueue[];
@@ -1959,6 +1965,17 @@ export interface ServiceEndpointType {
     uiContributionId: string;
 }
 
+export enum StageTriggerType {
+    /**
+     * Stage starts automatically
+     */
+    Automatic = 0,
+    /**
+     * Stage starts on manual run
+     */
+    Manual = 1
+}
+
 /**
  * A task agent.
  */
@@ -3440,7 +3457,9 @@ export enum TaskResult {
     Failed = 2,
     Canceled = 3,
     Skipped = 4,
-    Abandoned = 5
+    Abandoned = 5,
+    ManuallyQueued = 6,
+    DependentOnManualQueue = 7
 }
 
 export interface TaskSourceDefinition extends DistributedTaskCommon.TaskSourceDefinitionBase {

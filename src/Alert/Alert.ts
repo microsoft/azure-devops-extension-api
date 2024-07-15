@@ -395,6 +395,22 @@ export interface Dependency {
     license: License;
 }
 
+export enum DependencyKind {
+    Unknown = 0,
+    /**
+     * The root dependency introduced the component being alerted.
+     */
+    RootDependency = 1,
+    /**
+     * The component being alerted.
+     */
+    Component = 2,
+    /**
+     * Vulnerable Dependency. Deprecating this value. Use Component instead.
+     */
+    VulnerableDependency = 3
+}
+
 /**
  * An instance of a vulnerable dependency that was detected
  */
@@ -464,7 +480,11 @@ export enum DismissalType {
     /**
      * Dismissal indicating alert is a false positive and will likely not be fixed.
      */
-    FalsePositive = 3
+    FalsePositive = 3,
+    /**
+     * Dismissal indicating user is agreeing to follow license guidance.
+     */
+    AgreedToGuidance = 4
 }
 
 export enum ExpandOption {
@@ -482,10 +502,6 @@ export enum ExpandOption {
  * License information for dependencies
  */
 export interface License {
-    /**
-     * Unique ID for the license
-     */
-    id: number;
     /**
      * License name
      */
@@ -518,9 +534,13 @@ export enum LicenseState {
 export interface LogicalLocation {
     fullyQualifiedName: string;
     /**
-     * Possible values: "unknown" "rootDependency" and "vulnerableDependency"
+     * Dependency kind of this logical location.
      */
-    kind: string;
+    kind: DependencyKind;
+    /**
+     * License information for Dependency Only applicable when Kind is "Component" and the alertType of the alert with this location is License
+     */
+    license: License;
 }
 
 /**
@@ -788,7 +808,7 @@ export interface SearchCriteria {
      */
     confidenceLevels: Confidence[];
     /**
-     * If provided, only alerts for this dependency are returned. \<br /\>Otherwise, return alerts for all dependencies. \<br /\>In a sarif submission, a dependency (or a vulnerable component) is specified in result.RelatedLocations[].logicalLocation.
+     * If provided, only alerts for this dependency are returned. \<br /\>Otherwise, return alerts for all dependencies. \<br /\>In a sarif submission, a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation.
      */
     dependencyName: string;
     /**
@@ -799,6 +819,10 @@ export interface SearchCriteria {
      * If provided, only return alerts whose titles match this pattern.
      */
     keywords: string;
+    /**
+     * If provided, only alerts created for dependency with this license are returned. \<br /\>Otherwise, return alerts for all licenses. \<br /\>In a sarif submission, license for a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation.properties.license.
+     */
+    licenseName: string;
     /**
      * If provided, only return alerts that were modified since this date. \<br /\>Otherwise return all alerts.
      */
@@ -899,29 +923,45 @@ export interface Tool {
 
 export interface UxFilters {
     /**
-     * Branches to display alerts for.  If empty, show alerts from all branches
+     * Display alerts for specified branches. Show alerts for all branches if none are specified.
      */
     branches: Branch[];
     /**
-     * Confidence levels to show, only valid when AlertType is Secret.
+     * Display alerts for specified confidence levels. Show alerts for all confidence levels. if none are specified.
      */
     confidenceLevels: Confidence[];
+    /**
+     * Display alerts for specified licenses. Show alerts for all licenses if none are specified.
+     */
+    licenses: License[];
+    /**
+     * Display alerts for specified packages. Show alerts for all packages if none are specified.
+     */
     packages: Dependency[];
     /**
-     * Pipelines to show alerts for.  If empty, show alerts for all pipelines
+     * Display alerts for specified pipelines. Show alerts for all pipelines if none are specified.
      */
     pipelines: Pipeline[];
     progressPercentage: number;
+    /**
+     * Display alerts for specified rules. Show alerts for all rules if none are specified.
+     */
     rules: Rule[];
+    /**
+     * Display alerts for specified secret types. Show alerts for all secret types if none are specified.
+     */
     secretTypes: string[];
     /**
-     * Alert severities to show.  If empty show all alert servities
+     * Display alerts for specified severities. Show alerts for all severities if none are specified.
      */
     severities: Severity[];
     /**
-     * Alert states to show.  If empty show all alert states
+     * Display alerts for specified states. Show alerts for all states if none are specified.
      */
     states: State[];
+    /**
+     * Display alerts for specified tools. Show alerts for all tools if none are specified.
+     */
     tools: Tool[];
 }
 
