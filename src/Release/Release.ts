@@ -2108,6 +2108,10 @@ export interface ProofOfPresenceTenant {
      * Gets name of protected tenant.
      */
     tenantName: string;
+    /**
+     * Gets timeout of protected tenant PoP check.
+     */
+    timeout: number;
 }
 
 export interface PropertySelector {

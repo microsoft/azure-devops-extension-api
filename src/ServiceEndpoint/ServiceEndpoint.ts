@@ -528,6 +528,10 @@ export interface ServiceEndpoint {
      * Gets or sets the identity reference for the user who created the Service endpoint.
      */
     createdBy: WebApi.IdentityRef;
+    /**
+     * Gets or sets the date, when the Service endpoint has been created.
+     */
+    creationDate: Date;
     data: { [key: string] : string; };
     /**
      * Gets or sets the description of endpoint.
@@ -557,6 +561,14 @@ export interface ServiceEndpoint {
      * Indicates whether service endpoint is shared with other projects or not.
      */
     isShared: boolean;
+    /**
+     * Gets or sets the date, when the Service endpoint has been modified.
+     */
+    modificationDate: Date;
+    /**
+     * Gets or sets the identity reference for the user who did the latest modification of the Service endpoint.
+     */
+    modifiedBy: WebApi.IdentityRef;
     /**
      * Gets or sets the friendly name of the endpoint.
      */
