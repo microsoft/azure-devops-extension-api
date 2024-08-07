@@ -8,6 +8,13 @@ import * as TfsCore from "../Core/Core";
 import * as Policy from "../Policy/Policy";
 import * as WebApi from "../WebApi/WebApi";
 
+export interface AdvSecEnablementOptions {
+    /**
+     * Enforces secret scanning job for a repo where AdvSec is already enabled.
+     */
+    forceRepoSecretScanning: boolean;
+}
+
 export interface AdvSecEnablementStatus {
     /**
      * Enabled by VSID
@@ -44,6 +51,10 @@ export interface AdvSecEnablementUpdate {
      * New status
      */
     newStatus: boolean;
+    /**
+     * Options that can be added during enablement (i.e. force secret scanning job to run)
+     */
+    options: AdvSecEnablementOptions;
     /**
      * ProjectId
      */
