@@ -93,6 +93,12 @@ export interface AzureKeyVaultPermission extends AzureResourcePermission {
     vault: string;
 }
 
+export interface AzureManagedIdentity {
+    clientId: string;
+    id: string;
+    name: string;
+}
+
 /**
  * Azure Management Group
  */

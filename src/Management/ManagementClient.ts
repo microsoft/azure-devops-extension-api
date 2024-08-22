@@ -15,7 +15,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Delete the billing info for an organization.
+     * Delete the billing info for an organization from config DB.
      * 
      * @param organizationId - 
      */
@@ -55,7 +55,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Get the billing info for an organization.
+     * Get the billing info for an organization from config DB.
      * 
      * @param organizationId - Organization ID to get billing info for.
      */
@@ -74,7 +74,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Save the billing info for an organization.
+     * Save the billing info for an organization in config DB.
      * 
      * @param billingInfo - 
      * @param organizationId - 
@@ -214,6 +214,22 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this organization.
+     * 
+     */
+    public async getEstimatedBillablePushersDetailsForOrg(
+        ): Promise<Management.BilledCommitter[]> {
+
+        return this.beginRequest<Management.BilledCommitter[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/meterUsageEstimate/{action}",
+            routeValues: {
+                action: "Details"
+            }
+        });
+    }
+
+    /**
      * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this organization.
      * 
      */
@@ -222,7 +238,10 @@ export class ManagementRestClient extends RestClientBase {
 
         return this.beginRequest<string[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "_apis/Management/meterUsageEstimate"
+            routeTemplate: "_apis/Management/meterUsageEstimate/{action}",
+            routeValues: {
+                action: "Default"
+            }
         });
     }
 
@@ -274,6 +293,25 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this project.
+     * 
+     * @param project - Project ID or project name
+     */
+    public async getEstimatedBillablePushersDetailsForProject(
+        project: string
+        ): Promise<Management.BilledCommitter[]> {
+
+        return this.beginRequest<Management.BilledCommitter[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Management/meterUsageEstimate/{action}",
+            routeValues: {
+                project: project,
+                action: "Details"
+            }
+        });
+    }
+
+    /**
      * Estimate the number of committers that would be added to the customer's usage if Advanced Security was enabled for this project.
      * 
      * @param project - Project ID or project name
@@ -284,9 +322,10 @@ export class ManagementRestClient extends RestClientBase {
 
         return this.beginRequest<string[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/meterUsageEstimate",
+            routeTemplate: "{project}/_apis/Management/meterUsageEstimate/{action}",
             routeValues: {
-                project: project
+                project: project,
+                action: "Default"
             }
         });
     }
@@ -357,10 +396,33 @@ export class ManagementRestClient extends RestClientBase {
 
         return this.beginRequest<string[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate",
+            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate/{action}",
             routeValues: {
                 project: project,
-                repository: repository
+                repository: repository,
+                action: "Default"
+            }
+        });
+    }
+
+    /**
+     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - 
+     */
+    public async getEstimatedRepoBillablePushersDetails(
+        project: string,
+        repository: string
+        ): Promise<Management.BilledCommitter[]> {
+
+        return this.beginRequest<Management.BilledCommitter[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate/{action}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                action: "Details"
             }
         });
     }
