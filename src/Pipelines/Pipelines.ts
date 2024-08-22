@@ -24,6 +24,13 @@ export interface Artifact {
     url: string;
 }
 
+export interface Build {
+    artifactSourceVersionUrl: string;
+    type: string;
+    versionId: string;
+    versionName: string;
+}
+
 export interface BuildResourceParameters {
     version: string;
 }
@@ -209,6 +216,7 @@ export interface PipelineResource {
 }
 
 export interface PipelineResourceParameters {
+    branch: string;
     version: string;
 }
 
@@ -289,6 +297,7 @@ export interface RunReference {
 }
 
 export interface RunResources {
+    builds: { [key: string] : Build; };
     containers: { [key: string] : ContainerResource; };
     pipelines: { [key: string] : PipelineResource; };
     repositories: { [key: string] : RepositoryResource; };

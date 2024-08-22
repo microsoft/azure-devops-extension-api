@@ -890,6 +890,10 @@ export interface TestPlanCreateParams {
      * Value to configure how same tests across test suites under a test plan need to behave
      */
     testOutcomeSettings: Test.TestOutcomeSettings;
+    /**
+     * The Yaml Build Definition associated with this test plan.
+     */
+    yamlBuildDefinitionId: number;
 }
 
 /**

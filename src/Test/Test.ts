@@ -1506,6 +1506,10 @@ export interface PlanUpdateModel {
      * Test Outcome settings
      */
     testOutcomeSettings: TestOutcomeSettings;
+    /**
+     * The Yaml Build DefinitionId that generates a build associated with this test plan.
+     */
+    yamlBuildDefinitionId: number;
 }
 
 /**
@@ -3953,6 +3957,10 @@ export interface TestPlan {
      * URL of the test plan resource.
      */
     url: string;
+    /**
+     * The Yaml Build DefinitionId that generates a build associated with this test plan.
+     */
+    yamlBuildDefinitionId: number;
 }
 
 export interface TestPlanCloneRequest {

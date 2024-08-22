@@ -1943,7 +1943,11 @@ export enum ManualInterventionStatus {
     /**
      * The manual intervention is canceled.
      */
-    Canceled = 8
+    Canceled = 8,
+    /**
+     * The manual intervention is bypassed.
+     */
+    Bypassed = 16
 }
 
 /**

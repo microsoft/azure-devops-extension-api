@@ -1509,6 +1509,10 @@ export interface GitItem extends ItemModel {
      * Git object id
      */
     originalObjectId: string;
+    /**
+     * Web URL if the item is a Git submodule and target service is supported. Supported services are Azure Repos, GitHub, GitLab, Bitbucket.
+     */
+    submoduleWebUrl: string;
 }
 
 export interface GitItemDescriptor {
@@ -1745,6 +1749,10 @@ export interface GitPullRequest {
      * Multiple mergebases warning
      */
     hasMultipleMergeBases: boolean;
+    /**
+     * This optional parameter allows clients to use server-side dynamic choices for the target ref. Due to preexisting contracts, users _must_ specify a target ref, but this option will cause the server to ignore it and choose dynamically from the user's favorites (or the default branch).
+     */
+    ignoreTargetRefAndChooseDynamically: boolean;
     /**
      * Draft / WIP pull request.
      */
