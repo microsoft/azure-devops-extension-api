@@ -787,7 +787,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Release.ReleaseEnvironment>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}/environments/{environmentId}",
             routeValues: {
                 project: project,
@@ -814,7 +814,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.ReleaseEnvironment> {
 
         return this.beginRequest<Release.ReleaseEnvironment>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             method: "PATCH",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}/environments/{environmentId}",
             routeValues: {
@@ -1431,7 +1431,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.ManualIntervention> {
 
         return this.beginRequest<Release.ManualIntervention>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}/manualInterventions/{manualInterventionId}",
             routeValues: {
                 project: project,
@@ -1453,7 +1453,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.ManualIntervention[]> {
 
         return this.beginRequest<Release.ManualIntervention[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}/manualInterventions/{manualInterventionId}",
             routeValues: {
                 project: project,
@@ -1478,7 +1478,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.ManualIntervention> {
 
         return this.beginRequest<Release.ManualIntervention>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}/manualInterventions/{manualInterventionId}",
             routeValues: {
@@ -1623,7 +1623,7 @@ export class ReleaseRestClient extends RestClientBase {
      * @param artifactTypeId - Releases with given artifactTypeId will be returned. Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
      * @param sourceId - Unique identifier of the artifact used. e.g. For build it would be \{projectGuid\}:\{BuildDefinitionId\}, for Jenkins it would be \{JenkinsConnectionId\}:\{JenkinsDefinitionId\}, for TfsOnPrem it would be \{TfsOnPremConnectionId\}:\{ProjectName\}:\{TfsOnPremDefinitionId\}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
      * @param artifactVersionId - Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId.
-     * @param sourceBranchFilter - Releases with given sourceBranchFilter will be returned.
+     * @param sourceBranchFilter - Releases with given sourceBranchFilter will be returned (Not to be used with environmentStatusFilter).
      * @param isDeleted - Gets the soft deleted releases, if true.
      * @param tagFilter - A comma-delimited list of tags. Only releases with these tags will be returned.
      * @param propertyFilters - A comma-delimited list of extended properties to be retrieved. If set, the returned Releases will contain values for the specified property Ids (if they exist). If not set, properties will not be included. Note that this will not filter out any Release from results irrespective of whether it has property set or not.
@@ -1653,7 +1653,7 @@ export class ReleaseRestClient extends RestClientBase {
         propertyFilters?: string[],
         releaseIdFilter?: number[],
         path?: string
-        ): Promise<WebApi.PagedList<Release.Release>> {
+        ): Promise<Release.Release[]> {
 
         const queryValues: any = {
             definitionId: definitionId,
@@ -1679,18 +1679,13 @@ export class ReleaseRestClient extends RestClientBase {
             path: path
         };
 
-        return this.beginRequest<Response>({
-            apiVersion: "7.2-preview.8",
+        return this.beginRequest<Release.Release[]>({
+            apiVersion: "7.2-preview.9",
             routeTemplate: "{project}/_apis/Release/releases",
             routeValues: {
                 project: project
             },
-            queryParams: queryValues,
-            returnRawResponse: true
-        }).then(async response => {
-            const body = <WebApi.PagedList<Release.Release>>await response.text().then(deserializeVssJsonObject);
-            body.continuationToken = response.headers.get("x-ms-continuationtoken");
-            return body;
+            queryParams: queryValues
         });
     }
 
@@ -1706,7 +1701,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.Release> {
 
         return this.beginRequest<Release.Release>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             method: "POST",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
@@ -1734,7 +1729,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             method: "DELETE",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
@@ -1772,7 +1767,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Release.Release>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
                 project: project,
@@ -1807,7 +1802,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Release.ReleaseDefinitionSummary>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
                 project: project
@@ -1834,7 +1829,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<string>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             httpResponseType: "text/plain",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
@@ -1863,7 +1858,7 @@ export class ReleaseRestClient extends RestClientBase {
         };
 
         return this.beginRequest<void>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             method: "PUT",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
@@ -1888,7 +1883,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.Release> {
 
         return this.beginRequest<Release.Release>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             method: "PUT",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {
@@ -1913,7 +1908,7 @@ export class ReleaseRestClient extends RestClientBase {
         ): Promise<Release.Release> {
 
         return this.beginRequest<Release.Release>({
-            apiVersion: "7.2-preview.8",
+            apiVersion: "7.2-preview.9",
             method: "PATCH",
             routeTemplate: "{project}/_apis/Release/releases/{releaseId}",
             routeValues: {

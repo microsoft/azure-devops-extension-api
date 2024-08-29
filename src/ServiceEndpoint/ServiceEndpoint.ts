@@ -155,6 +155,7 @@ export interface AzureRoleAssignmentPermission extends AzurePermission {
 }
 
 export interface AzureSpnOperationStatus {
+    errorCode: SpnEndpointErrorCode;
     severity: string;
     state: string;
     statusMessage: string;
@@ -915,4 +916,11 @@ export interface ServiceEndpointType {
      * Gets or sets the ui contribution id of service endpoint type.
      */
     uiContributionId: string;
+}
+
+export enum SpnEndpointErrorCode {
+    /**
+     * Indicates whether user does not have required permissions to register the app in Entra or WIF is disabled.
+     */
+    AppRegistrationFailed = 1
 }

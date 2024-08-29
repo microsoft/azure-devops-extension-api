@@ -658,7 +658,9 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * @param newFields - 
+     * Creates custom test fields based on the data provided.
+     * 
+     * @param newFields - NewFields is an array of type CustomTestFieldDefinition.
      * @param project - Project ID or project name
      */
     public async addCustomFields(
@@ -678,8 +680,10 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Returns List of custom test fields for the given custom test field scope.
+     * 
      * @param project - Project ID or project name
-     * @param scopeFilter - 
+     * @param scopeFilter - Scope of custom test fields which are to be returned.
      */
     public async queryCustomFields(
         project: string,
@@ -701,8 +705,10 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Returns details of the custom test field for the specified testExtensionFieldId.
+     * 
      * @param project - Project ID or project name
-     * @param testExtensionFieldId - 
+     * @param testExtensionFieldId - Custom test field id which has to be deleted.
      */
     public async deleteCustomFieldById(
         project: string,
@@ -721,7 +727,9 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * @param updateCustomTestField - 
+     * Returns details of the custom test field which is updated.
+     * 
+     * @param updateCustomTestField - Custom test field which has to be updated.
      * @param project - Project ID or project name
      */
     public async updateCustomField(
@@ -2849,27 +2857,6 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Retrieves Test runs associated to a session
-     * 
-     * @param project - Project ID or project name
-     * @param sessionId - Id of TestResults session to obtain Test Runs for.
-     */
-    public async getTestRunsBySessionId(
-        project: string,
-        sessionId: number
-        ): Promise<number[]> {
-
-        return this.beginRequest<number[]>({
-            apiVersion: "7.2-preview.2",
-            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/runs",
-            routeValues: {
-                project: project,
-                sessionId: sessionId
-            }
-        });
-    }
-
-    /**
      * Creates TestResultsSession object in TCM data store
      * 
      * @param session - Received session object.
@@ -3004,7 +2991,7 @@ export class TestResultsRestClient extends RestClientBase {
         return this.beginRequest<void>({
             apiVersion: "7.2-preview.2",
             method: "POST",
-            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/environment",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/machines",
             routeValues: {
                 project: project,
                 sessionId: sessionId
@@ -3165,6 +3152,73 @@ export class TestResultsRestClient extends RestClientBase {
                 runId: runId
             },
             body: results
+        });
+    }
+
+    /**
+     * Creates test result machines for the provided TestRunId
+     * 
+     * @param testResultMachines - List of machines for test results in the run
+     * @param project - Project ID or project name
+     * @param runId - ID of the TestRun to add machines for
+     */
+    public async createTestResultMachines(
+        testResultMachines: Test.TestResultMachine[],
+        project: string,
+        runId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.2",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/machines",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            body: testResultMachines
+        });
+    }
+
+    /**
+     * Gets test result machines for the provided TestRunId
+     * 
+     * @param project - Project ID or project name
+     * @param runId - ID of the TestRun to add machines for
+     */
+    public async getTestResultMachines(
+        project: string,
+        runId: number
+        ): Promise<Test.TestResultMachine[]> {
+
+        return this.beginRequest<Test.TestResultMachine[]>({
+            apiVersion: "7.2-preview.2",
+            routeTemplate: "{project}/_apis/testresults/testsession/runs/{runId}/machines",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
+        });
+    }
+
+    /**
+     * Retrieves Test runs associated to a session
+     * 
+     * @param project - Project ID or project name
+     * @param sessionId - Id of TestResults session to obtain Test Runs for.
+     */
+    public async getTestRunsBySessionId(
+        project: string,
+        sessionId: number
+        ): Promise<number[]> {
+
+        return this.beginRequest<number[]>({
+            apiVersion: "7.2-preview.2",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/runs",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            }
         });
     }
 

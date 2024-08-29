@@ -765,42 +765,102 @@ export interface CreateTestRunRequest {
  */
 export interface CustomTestField {
     /**
-     * Field Name.
+     * Name of the Custom Test Field
      */
     fieldName: string;
     /**
-     * Field value.
+     * 1. If the CustomTestField is registered as Bit data type, value should be sent as case insensitive string - either "true" or "false". 2. If the CustomTestField is registered as Datetime data type, value should be sent as string in the format of "YYYY-MM-DD hh:mm:ss" 3. If the CustomTestField is registered as Int data type, value should be sent as string representation of 32 bit signed integer. Ex: "5". 4. If the CustomTestField is registered as Float data type, value should be sent as string for example "4.237" 5. If the CustomTestField is registered as String data type, Any string up to 1kB is accepted. 6. If the CustomTestField is registered as Guid, value should be sent as case insensitive string representation of GUID in usual format "XXXXXXXX-XXXX-XXXX-XXXXXXXXXXXX" where X can be either number 0-9 or letter A-F. For example "f88d6b84-3549-4af0-a4f4-58139cd0a14f".
      */
     value: any;
 }
 
+/**
+ * Data structure which stores details for the customTestFields to be updated
+ */
 export interface CustomTestFieldDefinition {
+    /**
+     * ID assigned to the custom test field upon creation, should be left empty when creating.
+     */
     fieldId: number;
+    /**
+     * The name of custom field cannot be longer than 50 characters (spaces, numbers, and special characters are not allowed) and must be unique in the project. The names are case insensitive.
+     */
     fieldName: string;
+    /**
+     * Data type of the customTestField.
+     */
     fieldType: CustomTestFieldType;
+    /**
+     * Artifact to which customTestField will be set.
+     */
     scope: CustomTestFieldScope;
 }
 
+/**
+ * Type of the artifact applicable to CustomTestField.
+ */
 export enum CustomTestFieldScope {
     None = 0,
+    /**
+     * Custom field can be used with TestRun artifact.
+     */
     TestRun = 1,
+    /**
+     * Custom field can be used with TestResult artifact.
+     */
     TestResult = 2,
+    /**
+     * Custom test field can be used with either TestRun or TestResult artifact.
+     */
     TestRunAndTestResult = 3,
+    /**
+     * Reserved for internal Azure DevOps functionality. Not to be used.
+     */
     System = 4,
     All = 7
 }
 
+/**
+ * Data type of the custom test field
+ */
 export enum CustomTestFieldType {
+    /**
+     * Boolean data type.
+     */
     Bit = 2,
+    /**
+     * Datetime data type.
+     */
     DateTime = 4,
+    /**
+     * Integer data type.
+     */
     Int = 8,
+    /**
+     * Floating integer data type.
+     */
     Float = 6,
+    /**
+     * String data type.
+     */
     String = 12,
+    /**
+     * Unique identifier data type.
+     */
     Guid = 14
 }
 
+/**
+ * Data structure which stores details for the customTestField to be updated.
+ */
 export interface CustomTestFieldUpdateDefinition {
+    /**
+     * Custom test field id which is to be updated.
+     */
     fieldId: number;
+    /**
+     * The name of custom field cannot be longer than 50 characters(spaces, numbers, and special characters are not allowed) and must be unique in the project.CustomTestField name is case insensitive.
+     */
     fieldName: string;
 }
 
@@ -1290,6 +1350,10 @@ export interface Machine {
      * GUID identifier for the environment the machine was configured with
      */
     environmentUid: string;
+    /**
+     * Machine instance id
+     */
+    instanceId: number;
     /**
      * Name of the machine
      */
@@ -2037,7 +2101,7 @@ export interface RunCreateModel {
      */
     controller: string;
     /**
-     * Additional properties of test Run. Value of the CustomField cannot be more than 1KB.
+     * List of custom data for additional categorization of the test run. Value of the CustomTestField cannot be more than 1KB.
      */
     customTestFields: CustomTestField[];
     /**
@@ -2284,7 +2348,7 @@ export interface RunUpdateModel {
      */
     controller: string;
     /**
-     * Additional properties of test Run. Value of the CustomField cannot be more than 1KB.
+     * List of custom data for additional categorization of the test run. Value of the CustomTestField cannot be more than 1KB.
      */
     customTestFields: CustomTestField[];
     /**
@@ -2948,7 +3012,7 @@ export interface TestCaseResult {
      */
     createdDate: Date;
     /**
-     * Additional properties of test result.
+     * Array of custom data for additional categorization of the test result. Value of the CustomTestField cannot be more than 1KB.
      */
     customFields: CustomTestField[];
     /**
@@ -3776,6 +3840,7 @@ export interface TestMessageLogEntry2 {
 export interface TestMethod {
     container: string;
     name: string;
+    testResult: TestCaseResult;
 }
 
 /**
@@ -4325,6 +4390,38 @@ export interface TestResultHistoryForGroup {
      * List of results for GroupByValue
      */
     results: TestCaseResult[];
+}
+
+/**
+ * Class to capture logs associated with a TestResultMachine
+ */
+export interface TestResultLog {
+    /**
+     * FileType of the log being attached to a TestResultMachine Valid values : AutomationLogFile, Screenshot, LogFolder, Other
+     */
+    fileType: string;
+    /**
+     * Path to the log file. Max length: 300 characters
+     */
+    path: string;
+    /**
+     * Type of the path for the log Valid values : AzureBlobStorage, UNC, URI
+     */
+    type: string;
+}
+
+/**
+ * Class to map TestCaseResult to Machine objects the test ran on
+ */
+export interface TestResultMachine {
+    configurationName: string;
+    isReportingMachine: boolean;
+    machineName: string;
+    processorArchitecture: string;
+    properties: { [key: string] : any; };
+    sessionMachineInstanceId: number;
+    testResultId: number;
+    testResultLogs: TestResultLog[];
 }
 
 /**

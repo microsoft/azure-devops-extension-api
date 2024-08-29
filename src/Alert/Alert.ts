@@ -791,6 +791,7 @@ export interface SarifUploadStatus {
 
 export interface SarifValidationError {
     nodePointer: string;
+    ruleId: string;
     validationError: string;
 }
 
@@ -828,9 +829,9 @@ export interface SearchCriteria {
      */
     modifiedSince: Date;
     /**
-     * If true, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. \<br /\>This option is ignored if ref is provided.
+     * If true or not set, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. If false, return alerts from all branches. \<br /\>This option is ignored if ref is provided.
      */
-    onlyDefaultBranchAlerts: boolean;
+    onlyDefaultBranch: boolean;
     /**
      * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases.
      */
