@@ -2532,7 +2532,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.Timeline>({
-            apiVersion: "7.2-preview.2",
+            apiVersion: "7.2-preview.3",
             routeTemplate: "{project}/_apis/build/builds/{buildId}/Timeline/{timelineId}",
             routeValues: {
                 project: project,

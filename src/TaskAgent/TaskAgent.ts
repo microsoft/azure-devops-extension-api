@@ -3655,6 +3655,7 @@ export interface TimelineRecordFeedLinesWrapper {
  * A reference to a timeline record.
  */
 export interface TimelineRecordReference {
+    attempt: number;
     /**
      * The ID of the record.
      */

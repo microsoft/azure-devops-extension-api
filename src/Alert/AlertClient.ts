@@ -242,6 +242,47 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Returns the branches for which analysis results were submitted.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param alertType - The type of alert: Dependency Scanning (1), Secret (2), Code QL (3), etc.
+     * @param continuationToken - A string variable that represents the branch name and is used to fetch branches that follow it in alphabetical order.
+     * @param branchNameContains - A string variable used to fetch branches that contain this string anywhere in the branch name, case insensitive.
+     * @param top - An int variable used to return the top k branches that satisfy the search criteria.
+     * @param includePullRequestBranches - A bool variable indicating whether or not to include pull request branches.
+     */
+    public async getBranches(
+        project: string,
+        repository: string,
+        alertType: Alert.AlertType,
+        continuationToken?: string,
+        branchNameContains?: string,
+        top?: number,
+        includePullRequestBranches?: boolean
+        ): Promise<Alert.Branch[]> {
+
+        const queryValues: any = {
+            alertType: alertType,
+            continuationToken: continuationToken,
+            branchNameContains: branchNameContains,
+            top: top,
+            includePullRequestBranches: includePullRequestBranches
+        };
+
+        return this.beginRequest<Alert.Branch[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                action: "Branches"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param repository - 
      * @param alertType - 
@@ -258,10 +299,11 @@ export class AlertRestClient extends RestClientBase {
 
         return this.beginRequest<Alert.UxFilters>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
             routeValues: {
                 project: project,
-                repository: repository
+                repository: repository,
+                action: "Default"
             },
             queryParams: queryValues
         });
