@@ -864,6 +864,36 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Get a list of deleted test plans
+     * 
+     * @param project - Project ID or project name
+     * @param continuationToken - If the list of plans returned is not complete, a continuation token to query next batch of plans is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test plans.
+     */
+    public async getDeletedTestPlans(
+        project: string,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<TestPlan.TestPlan>> {
+
+        const queryValues: any = {
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testplan/recycleBin/TestPlan/{planId}",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestPlan>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
      * Restores the deleted test plan
      * 
      * @param restoreModel - The model containing the restore information

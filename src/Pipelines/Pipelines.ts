@@ -216,7 +216,7 @@ export interface PipelineResource {
 }
 
 export interface PipelineResourceParameters {
-    branch: string;
+    runId: number;
     version: string;
 }
 

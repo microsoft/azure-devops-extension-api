@@ -1821,6 +1821,10 @@ export interface ServiceEndpoint {
      */
     readersGroup: WebApi.IdentityRef;
     /**
+     * Service Tree ID
+     */
+    serviceManagementReference: string;
+    /**
      * Gets or sets the type of the endpoint.
      */
     type: string;
