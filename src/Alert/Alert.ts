@@ -805,7 +805,7 @@ export interface SearchCriteria {
      */
     alertType: AlertType;
     /**
-     * If provided, only return alerts at these confidence levels. \<br /\>Otherwise, return alerts at any confidence level.
+     * If provided, only return alerts at these confidence levels. \<br /\>Both High and Other need to be specified to fetch alerts of all confidence levels. \<br /\>Otherwise, return alerts with high confidence level.
      */
     confidenceLevels: Confidence[];
     /**

@@ -3881,3 +3881,8 @@ export interface VirtualMachineResource extends EnvironmentResource {
 export interface VirtualMachineResourceCreateParameters {
     virtualMachineResource: VirtualMachineResource;
 }
+
+export interface WorkloadIdentityFederationDetailsData {
+    federationIssuer: string;
+    federationSubject: string;
+}
