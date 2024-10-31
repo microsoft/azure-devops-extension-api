@@ -155,7 +155,7 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Get instances of an alert.
+     * Get instances of an alert on a branch specified with \@ref. If \@ref is not provided, return instances of an alert on default branch(if the alert exist in default branch) or latest affected branch.
      * 
      * @param project - Project ID or project name
      * @param alertId - ID of alert to retrieve

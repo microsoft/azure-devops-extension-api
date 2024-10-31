@@ -203,6 +203,14 @@ export interface InputValidation {
      * Gets or sets the error on pattern mismatch.
      */
     patternMismatchErrorMessage: string;
+    /**
+     * Gets or sets the warning on pattern mismatch.
+     */
+    patternMismatchWarningMessage: string;
+    /**
+     * Gets or sets the pattern to validate.
+     */
+    warningPattern: string;
 }
 
 /**

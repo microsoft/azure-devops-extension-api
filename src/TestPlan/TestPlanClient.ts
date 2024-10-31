@@ -1095,6 +1095,81 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Get Deleted Test Suites for a Test Plan.
+     * 
+     * @param project - Project ID or project name
+     * @param planId - ID of the test plan for which suites are requested.
+     * @param expand - Include the children suites and testers details.
+     * @param continuationToken - If the list of suites returned is not complete, a continuation token to query next batch of suites is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test suites.
+     * @param asTreeView - If the suites returned should be in a tree structure.
+     */
+    public async getDeletedTestSuitesForPlan(
+        project: string,
+        planId: number,
+        expand?: TestPlan.SuiteExpand,
+        continuationToken?: string,
+        asTreeView?: boolean
+        ): Promise<WebApi.PagedList<TestPlan.TestSuite>> {
+
+        const queryValues: any = {
+            expand: expand,
+            continuationToken: continuationToken,
+            asTreeView: asTreeView
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testplan/recycleBin/TestPlan/{planId}/TestSuite/{suiteId}",
+            routeValues: {
+                project: project,
+                planId: planId
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestSuite>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
+     * Get Deleted Test Suites within a Project.
+     * 
+     * @param project - Project ID or project name
+     * @param expand - Include the children suites and testers details.
+     * @param continuationToken - If the list of suites returned is not complete, a continuation token to query next batch of suites is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test suites.
+     * @param asTreeView - If the suites returned should be in a tree structure.
+     */
+    public async getDeletedTestSuitesForProject(
+        project: string,
+        expand?: TestPlan.SuiteExpand,
+        continuationToken?: string,
+        asTreeView?: boolean
+        ): Promise<WebApi.PagedList<TestPlan.TestSuite>> {
+
+        const queryValues: any = {
+            expand: expand,
+            continuationToken: continuationToken,
+            asTreeView: asTreeView
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testplan/recycleBin/TestSuite/{suiteId}",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<TestPlan.TestSuite>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
      * Restores the deleted test suite
      * 
      * @param payload - The model containing the restore information
