@@ -178,15 +178,15 @@ export interface BatchResponse {
     status: string;
 }
 
-export interface BranchCoverage {
+export interface BranchCoverageStatistics {
     /**
      * number of covered branches
      */
-    coveredbranches: number;
+    coveredBranches: number;
     /**
      * total number of branches
      */
-    totalbranches: number;
+    totalBranches: number;
 }
 
 /**
@@ -701,6 +701,8 @@ export enum CoverageQueryFlags {
 export interface CoverageStatistics {
     blocksCovered: number;
     blocksNotCovered: number;
+    branchesCovered: number;
+    branchesNotCovered: number;
     linesCovered: number;
     linesNotCovered: number;
     linesPartiallyCovered: number;
@@ -1571,9 +1573,9 @@ export interface PlanUpdateModel {
      */
     testOutcomeSettings: TestOutcomeSettings;
     /**
-     * The Yaml Build DefinitionId that generates a build associated with this test plan.
+     * The Yaml Release Reference associated with this test plan.
      */
-    yamlBuildDefinitionId: number;
+    yamlReleaseReference: YamlReleaseReference;
 }
 
 /**
@@ -4023,9 +4025,9 @@ export interface TestPlan {
      */
     url: string;
     /**
-     * The Yaml Build DefinitionId that generates a build associated with this test plan.
+     * The Yaml Release Reference associated with this test plan.
      */
-    yamlBuildDefinitionId: number;
+    yamlReleaseReference: YamlReleaseReference;
 }
 
 export interface TestPlanCloneRequest {
@@ -5392,6 +5394,16 @@ export enum TestSessionState {
     Declined = 5
 }
 
+/**
+ * Notifications for the Test Session Test Run
+ */
+export interface TestSessionTestRun {
+    /**
+     * Set of testRunIds for a test Session
+     */
+    testRuns: number[];
+}
+
 export interface TestSessionWorkItemReference {
     /**
      * Id of the workitem
@@ -5824,4 +5836,18 @@ export interface WorkItemToTestLinks {
     executedIn: Service;
     tests: TestMethod[];
     workItem: WorkItemReference;
+}
+
+/**
+ * Reference to yaml release resource.
+ */
+export interface YamlReleaseReference {
+    /**
+     * ID of the yaml release definition
+     */
+    definitionId: number;
+    /**
+     * Stages to skip while queuing yaml release.
+     */
+    stagesToSkip: string;
 }

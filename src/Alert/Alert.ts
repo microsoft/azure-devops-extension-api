@@ -805,11 +805,11 @@ export interface SearchCriteria {
      */
     alertType: AlertType;
     /**
-     * If provided, only return alerts at these confidence levels. \<br /\>Both High and Other need to be specified to fetch alerts of all confidence levels. \<br /\>Otherwise, return alerts with high confidence level.
+     * If provided, only return alerts at these confidence levels. \<br /\>Both High and Other need to be specified to fetch alerts of all confidence levels. \<br /\>Otherwise, return alerts with high confidence level. \<br /\>Only applicable for secret alerts.
      */
     confidenceLevels: Confidence[];
     /**
-     * If provided, only alerts for this dependency are returned. \<br /\>Otherwise, return alerts for all dependencies. \<br /\>In a sarif submission, a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation.
+     * If provided, only alerts for this dependency are returned. \<br /\>Otherwise, return alerts for all dependencies. \<br /\>In a sarif submission, a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation. \<br /\>Not applicable for secret alerts.
      */
     dependencyName: string;
     /**
@@ -821,7 +821,7 @@ export interface SearchCriteria {
      */
     keywords: string;
     /**
-     * If provided, only alerts created for dependency with this license are returned. \<br /\>Otherwise, return alerts for all licenses. \<br /\>In a sarif submission, license for a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation.properties.license.
+     * If provided, only alerts created for dependency with this license are returned. \<br /\>Otherwise, return alerts for all licenses. \<br /\>In a sarif submission, license for a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation.properties.license. \<br /\>Not applicable for secret alerts.
      */
     licenseName: string;
     /**
@@ -829,23 +829,23 @@ export interface SearchCriteria {
      */
     modifiedSince: Date;
     /**
-     * If true or not set, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. If false, return alerts from all branches. \<br /\>This option is ignored if ref is provided.
+     * If true or not set, only return alerts found on the default branch of the repository. \<br /\>If there have been no runs completed on the default branch, the last run is used instead regardless of the branch used for that run. If false, return alerts from all branches. \<br /\>This option is ignored if ref is provided. \<br /\>Not applicable for secret alerts.
      */
     onlyDefaultBranch: boolean;
     /**
-     * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases.
+     * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases. \<br /\>Not applicable for secret alerts.
      */
     phaseId: string;
     /**
-     * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases.
+     * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases. \<br /\>Not applicable for secret alerts.
      */
     phaseName: string;
     /**
-     * If provided, only return alerts detected in this pipeline. \<br /\>Otherwise, return alerts detected in all pipelines.
+     * If provided, only return alerts detected in this pipeline. \<br /\>Otherwise, return alerts detected in all pipelines. \<br /\>Not applicable for secret alerts.
      */
     pipelineName: string;
     /**
-     * If provided, only include alerts for this ref. \<br /\>If not provided and OnlyDefaultBranch is true, only include alerts found on the default branch or last run branch if there is no analysis configuration for the default branch. \<br /\>Otherwise, include alerts from all branches.
+     * If provided, only include alerts for this ref. \<br /\>If not provided and OnlyDefaultBranch is true, only include alerts found on the default branch or last run branch if there is no analysis configuration for the default branch. \<br /\>Otherwise, include alerts from all branches. \<br /\>Not applicable for secret alerts.
      */
     ref: string;
     /**

@@ -74,7 +74,7 @@ export class ContributionsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Contributions.InstalledExtension[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/Contribution/InstalledApps/{extensionId}",
             queryParams: queryValues
         });
@@ -96,7 +96,7 @@ export class ContributionsRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Contributions.InstalledExtension>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "_apis/Contribution/InstalledApps/{publisherName}/{extensionName}",
             routeValues: {
                 publisherName: publisherName,

@@ -246,6 +246,10 @@ export enum ExcludeFlags {
  */
 export interface ExportTestCaseParams {
     /**
+     * Columns needs to be exported
+     */
+    columnOptions: string[];
+    /**
      * Test Case IDs to exported
      */
     testCaseIds: number[];
@@ -891,9 +895,9 @@ export interface TestPlanCreateParams {
      */
     testOutcomeSettings: Test.TestOutcomeSettings;
     /**
-     * The Yaml Build Definition associated with this test plan.
+     * The Yaml Release Reference associated with this test plan.
      */
-    yamlBuildDefinitionId: number;
+    yamlReleaseReference: Test.YamlReleaseReference;
 }
 
 /**
