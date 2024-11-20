@@ -3223,6 +3223,31 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Updates Test runs associated to a session
+     * 
+     * @param testRunIds - 
+     * @param project - Project ID or project name
+     * @param sessionId - Id of TestResults session to update Test Runs for.
+     */
+    public async updateTestRunsBySessionId(
+        testRunIds: Test.TestSessionTestRun,
+        project: string,
+        sessionId: number
+        ): Promise<number[]> {
+
+        return this.beginRequest<number[]>({
+            apiVersion: "7.2-preview.2",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testresults/testsession/{sessionId}/runs",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
+            },
+            body: testRunIds
+        });
+    }
+
+    /**
      * @param testSettings - 
      * @param project - Project ID or project name
      */

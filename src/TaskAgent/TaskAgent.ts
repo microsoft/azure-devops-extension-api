@@ -2711,6 +2711,10 @@ export interface TaskAgentSession {
      */
     agent: TaskAgentReference;
     /**
+     * This will be false in case an old Agent is creating the session.
+     */
+    agentCanHandleOaepSHA256: boolean;
+    /**
      * Gets the key used to encrypt message traffic for this session.
      */
     encryptionKey: TaskAgentSessionKey;
@@ -2733,6 +2737,10 @@ export interface TaskAgentSessionKey {
      * Gets or sets a value indicating whether or not the key value is encrypted. If this value is true, the Value property should be decrypted using the \<c\>RSA\</c\> key exchanged with the server during registration.
      */
     encrypted: boolean;
+    /**
+     * Name of RSAEncryptionPadding that TFS (backend) used. New Agents will check this value. Won't be emitted for old Agents that only support OaepSHA1.
+     */
+    encryptionPadding: string;
     /**
      * Gets or sets the symmetric key value.
      */
