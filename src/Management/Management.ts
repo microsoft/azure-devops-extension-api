@@ -12,6 +12,10 @@ export interface AdvSecEnablementFeatures {
      */
     dependabotEnabled: boolean;
     /**
+     * Dependency Scanning enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If GHAzDO is NOT already enabled, behavior will depend on if GHAzDO is to be enabled/disabled. DependencyScanningEnabled will not affect anything in this scenario. \<br /\> If GHAzDO is to be disabled, the value of DependencyScanningEnabled will have no effect. \<br /\> Setting Dependency Scanning enablement state is only supported for repo enablement and not org or project enablement at this time.
+     */
+    dependencyScanningEnabled: boolean;
+    /**
      * ForceRepoSecretScanning will be set to true when Enabled, false when Disabled, and null when not set. \<br /\> If GHAzDO is NOT already enabled, behavior will depend on if GHAzDO is to be enabled/disabled. ForceRepoSecretScanning will not affect anything in this scenario. \<br /\> If GHAzDO is to be disabled, the value of ForceRepoSecretScan will have no effect. \<br /\> If GHAzDO is to be enabled for the first time on a repo, then ForceRepoSecretScanning will have no effect. \<br /\> If GHAzDO is to be enabled and the repo is already enabled, then ForceRepoSecretScanning will force the secret scanning job to be run if it is set to true. \<br /\> In all cases where ForceRepoSecretScanning is not expected to affect behavior, it will be set to false before being sent to Tfs.
      */
     forceRepoSecretScanning: boolean;

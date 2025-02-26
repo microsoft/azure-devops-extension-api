@@ -1354,6 +1354,7 @@ export class TestResultsRestClient extends RestClientBase {
      * @param phaseName - Name of the phase. Maximum supported length for name is 256 character.
      * @param jobName - Matrixing in YAML generates copies of a job with different inputs in matrix. JobName is the name of those input. Maximum supported length for name is 256 character.
      * @param outcomes - List of outcome of results
+     * @param includeAllBuildRuns - Whether to include Test Runs from from all the build runs or not.
      * @param top - Maximum number of results to return
      * @param continuationToken - Header to pass the continuationToken
      */
@@ -1364,6 +1365,7 @@ export class TestResultsRestClient extends RestClientBase {
         phaseName?: string,
         jobName?: string,
         outcomes?: Test.TestOutcome[],
+        includeAllBuildRuns?: boolean,
         top?: number,
         continuationToken?: String
         ): Promise<WebApi.PagedList<Test.ShallowTestCaseResult>> {
@@ -1374,6 +1376,7 @@ export class TestResultsRestClient extends RestClientBase {
             phaseName: phaseName,
             jobName: jobName,
             outcomes: outcomes && outcomes.join(","),
+            includeAllBuildRuns: includeAllBuildRuns,
             '$top': top
         };
 
@@ -3198,6 +3201,59 @@ export class TestResultsRestClient extends RestClientBase {
                 project: project,
                 runId: runId
             }
+        });
+    }
+
+    /**
+     * Gets full TestCaseResult objects with 1MRX details for the provided pipelineId
+     * 
+     * @param project - Project ID or project name
+     * @param pipelineId - Pipeline Id. This is same as build Id.
+     * @param stageName - Name of the stage. Maximum supported length for name is 256 character.
+     * @param phaseName - Name of the phase. Maximum supported length for name is 256 character.
+     * @param jobName - Matrixing in YAML generates copies of a job with different inputs in matrix. JobName is the name of those input. Maximum supported length for name is 256 character.
+     * @param outcomes - List of outcome of results
+     * @param includeAllBuildRuns - Whether to include Test Runs from from all the build runs or not. Defaults to false.
+     * @param top - Maximum number of results to return. Defaults to 10000.
+     * @param continuationToken - Header to pass the continuationToken
+     */
+    public async getTestResultsByPipelineMRX(
+        project: string,
+        pipelineId: number,
+        stageName?: string,
+        phaseName?: string,
+        jobName?: string,
+        outcomes?: Test.TestOutcome[],
+        includeAllBuildRuns?: boolean,
+        top?: number,
+        continuationToken?: String
+        ): Promise<WebApi.PagedList<Test.TestCaseResult>> {
+
+        const queryValues: any = {
+            pipelineId: pipelineId,
+            stageName: stageName,
+            phaseName: phaseName,
+            jobName: jobName,
+            outcomes: outcomes && outcomes.join(","),
+            includeAllBuildRuns: includeAllBuildRuns,
+            '$top': top
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.2",
+            routeTemplate: "{project}/_apis/testresults/testsession/resultsbypipeline",
+            routeValues: {
+                project: project
+            },
+            customHeaders: {
+                "x-ms-continuationtoken": continuationToken,
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Test.TestCaseResult>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 

@@ -2158,6 +2158,10 @@ export interface GitPullRequestSearchCriteria {
      * If set, search for pull requests into this branch.
      */
     targetRefName: string;
+    /**
+     * If set, filters pull requests that contain the specified text in the title.
+     */
+    title: string;
 }
 
 /**
