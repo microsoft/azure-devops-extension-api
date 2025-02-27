@@ -2873,7 +2873,7 @@ export class TestResultsRestClient extends RestClientBase {
         return this.beginRequest<number>({
             apiVersion: "7.2-preview.2",
             method: "POST",
-            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeTemplate: "{project}/_apis/testresults/testsession/session/{sessionId}",
             routeValues: {
                 project: project
             },
@@ -2898,7 +2898,7 @@ export class TestResultsRestClient extends RestClientBase {
 
         return this.beginRequest<Test.TestResultsSession[]>({
             apiVersion: "7.2-preview.2",
-            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeTemplate: "{project}/_apis/testresults/testsession/session/{sessionId}",
             routeValues: {
                 project: project
             },
@@ -2917,17 +2917,38 @@ export class TestResultsRestClient extends RestClientBase {
         sessionId: string
         ): Promise<any[]> {
 
-        const queryValues: any = {
-            sessionId: sessionId
-        };
-
         return this.beginRequest<any[]>({
             apiVersion: "7.2-preview.2",
-            routeTemplate: "{project}/_apis/testresults/testsession/session",
+            routeTemplate: "{project}/_apis/testresults/testsession/session/{sessionId}",
             routeValues: {
-                project: project
+                project: project,
+                sessionId: sessionId
+            }
+        });
+    }
+
+    /**
+     * Updates Test session object associated to a sessionId
+     * 
+     * @param session - Update Session object
+     * @param project - Project ID or project name
+     * @param sessionId - Id of TestResults session to update Test session object for.
+     */
+    public async updateTestSession(
+        session: Test.TestResultsSession,
+        project: string,
+        sessionId: number
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.2",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/testresults/testsession/session/{sessionId}",
+            routeValues: {
+                project: project,
+                sessionId: sessionId
             },
-            queryParams: queryValues
+            body: session
         });
     }
 

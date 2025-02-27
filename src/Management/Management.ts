@@ -8,6 +8,10 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface AdvSecEnablementFeatures {
     /**
+     * CodeQL enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    codeQLEnabled: boolean;
+    /**
      * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>Setting Dependabot enablement state is only supported for repo enablement and not org or project enablement at this time.
      */
     dependabotEnabled: boolean;
