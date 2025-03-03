@@ -58,6 +58,7 @@ export class AlertRestClient extends RestClientBase {
      * @param top - The maximum number of alerts to return
      * @param orderBy - Must be "id" "firstSeen" "lastSeen" "fixedOn" or "severity"  Defaults to "id"
      * @param criteria - Options to limit the alerts returned
+     * @param expand - 
      * @param continuationToken - If there are more alerts than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header.  Use that token here to get the next page of alerts
      */
     public async getAlerts(
@@ -66,6 +67,7 @@ export class AlertRestClient extends RestClientBase {
         top?: number,
         orderBy?: string,
         criteria?: Alert.SearchCriteria,
+        expand?: Alert.AlertListExpandOption,
         continuationToken?: string
         ): Promise<WebApi.PagedList<Alert.Alert>> {
 
@@ -73,6 +75,7 @@ export class AlertRestClient extends RestClientBase {
             top: top,
             orderBy: orderBy,
             criteria: criteria,
+            expand: expand,
             continuationToken: continuationToken
         };
 
