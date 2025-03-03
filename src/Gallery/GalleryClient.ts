@@ -447,26 +447,6 @@ export class GalleryRestClient extends RestClientBase {
     }
 
     /**
-     * @param publisherName - 
-     * @param extensionName - 
-     */
-    public async getContentVerificationLog(
-        publisherName: string,
-        extensionName: string
-        ): Promise<ArrayBuffer> {
-
-        return this.beginRequest<ArrayBuffer>({
-            apiVersion: "7.2-preview.1",
-            httpResponseType: "application/octet-stream",
-            routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/contentverificationlog",
-            routeValues: {
-                publisherName: publisherName,
-                extensionName: extensionName
-            }
-        });
-    }
-
-    /**
      * @param customerSupportRequest - 
      */
     public async createSupportRequest(
@@ -2222,6 +2202,27 @@ export class GalleryRestClient extends RestClientBase {
                 version: version
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Endpoint to get the latest version(s) of a VS Code extension.
+     * 
+     * @param publisherName - The name of the publisher of the requested VS Code extension.
+     * @param extensionName - The extension name.
+     */
+    public async getVSCodeExtensionLatestVersion(
+        publisherName: string,
+        extensionName: string
+        ): Promise<Gallery.PublishedExtension> {
+
+        return this.beginRequest<Gallery.PublishedExtension>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/public/gallery/vscode/{publisherName}/{extensionName}/latest",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName
+            }
         });
     }
 

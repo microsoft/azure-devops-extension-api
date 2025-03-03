@@ -508,15 +508,18 @@ export class ReleaseRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param definitionId - Id of the release definition.
      * @param propertyFilters - A comma-delimited list of extended properties to be retrieved. If set, the returned Release Definition will contain values for the specified property Ids (if they exist). If not set, properties will not be included.
+     * @param includeDisabled - Boolean flag to include disabled definitions.
      */
     public async getReleaseDefinition(
         project: string,
         definitionId: number,
-        propertyFilters?: string[]
+        propertyFilters?: string[],
+        includeDisabled?: boolean
         ): Promise<Release.ReleaseDefinition> {
 
         const queryValues: any = {
-            propertyFilters: propertyFilters && propertyFilters.join(",")
+            propertyFilters: propertyFilters && propertyFilters.join(","),
+            includeDisabled: includeDisabled
         };
 
         return this.beginRequest<Release.ReleaseDefinition>({
@@ -1749,6 +1752,7 @@ export class ReleaseRestClient extends RestClientBase {
      * @param propertyFilters - A comma-delimited list of extended properties to be retrieved. If set, the returned Release will contain values for the specified property Ids (if they exist). If not set, properties will not be included.
      * @param expand - A property that should be expanded in the release.
      * @param topGateRecords - Number of release gate records to get. Default is 5.
+     * @param includeDisabledDefinitions - Include disabled definitions (if set to 'false' returns error, default is 'true')
      */
     public async getRelease(
         project: string,
@@ -1756,14 +1760,16 @@ export class ReleaseRestClient extends RestClientBase {
         approvalFilters?: Release.ApprovalFilters,
         propertyFilters?: string[],
         expand?: Release.SingleReleaseExpands,
-        topGateRecords?: number
+        topGateRecords?: number,
+        includeDisabledDefinitions?: boolean
         ): Promise<Release.Release> {
 
         const queryValues: any = {
             approvalFilters: approvalFilters,
             propertyFilters: propertyFilters && propertyFilters.join(","),
             '$expand': expand,
-            '$topGateRecords': topGateRecords
+            '$topGateRecords': topGateRecords,
+            includeDisabledDefinitions: includeDisabledDefinitions
         };
 
         return this.beginRequest<Release.Release>({

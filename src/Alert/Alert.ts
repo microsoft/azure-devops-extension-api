@@ -8,7 +8,7 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface Alert {
     /**
-     * Identifier for the alert. It is unqiue within Azure DevOps organization.
+     * Identifier for the alert. It is unique within Azure DevOps organization.
      */
     alertId: number;
     /**
@@ -113,6 +113,17 @@ export interface AlertAnalysisInstance {
      * Result state for a given analysis configuration.
      */
     state: State;
+}
+
+export enum AlertListExpandOption {
+    /**
+     * No Expands.
+     */
+    None = 0,
+    /**
+     * Return a minimal representation of an alert.
+     */
+    Minimal = 1
 }
 
 /**
@@ -857,7 +868,7 @@ export interface SearchCriteria {
      */
     ruleName: string;
     /**
-     * If provided, only return alerts at these severities. \<br /\>Otherwise, return alerts at any serverity.
+     * If provided, only return alerts at these severities. \<br /\>Otherwise, return alerts at any severity.
      */
     severities: Severity[];
     /**

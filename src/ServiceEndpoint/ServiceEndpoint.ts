@@ -909,6 +909,10 @@ export interface ServiceEndpointType {
      */
     inputDescriptors: FormInput.InputDescriptor[];
     /**
+     * Gets or sets visibility parameter for the list of endpoint types.
+     */
+    isHidden: boolean;
+    /**
      * Gets or sets the name of service endpoint type.
      */
     name: string;
