@@ -3062,6 +3062,10 @@ export interface TimelineRecord {
      */
     queueId: number;
     /**
+     * The ref name
+     */
+    refName: string;
+    /**
      * The result.
      */
     result: TaskResult;
