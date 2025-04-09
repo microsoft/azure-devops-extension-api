@@ -29,6 +29,10 @@ export interface AdvSecEnablementStatus {
      */
     dependabotEnabled: boolean;
     /**
+     * True if Dependency Scanning injection is enabled for the repository, false if it is disabled.
+     */
+    dependencyScanningInjectionEnabled: boolean;
+    /**
      * Enabled status 0 disabled, 1 enabled, Null never explicitly set, always whatever project is, ya this should probably be an enum somewhere
      */
     enabled: boolean;
@@ -47,6 +51,10 @@ export interface AdvSecEnablementUpdate {
      * New Dependabot status.
      */
     newDependabotStatus: boolean;
+    /**
+     * New Dependency Scanning injection enablement status.
+     */
+    newDependencyScanningInjectionEnablementStatus: boolean;
     /**
      * New status
      */

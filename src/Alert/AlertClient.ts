@@ -158,6 +158,74 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Returns the branches for which analysis results were submitted.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param alertType - The type of alert: Dependency Scanning (1), Secret (2), Code QL (3), etc.
+     * @param continuationToken - A string variable that represents the branch name and is used to fetch branches that follow it in alphabetical order.
+     * @param branchNameContains - A string variable used to fetch branches that contain this string anywhere in the branch name, case insensitive.
+     * @param top - An int variable used to return the top k branches that satisfy the search criteria.
+     * @param includePullRequestBranches - A bool variable indicating whether or not to include pull request branches.
+     */
+    public async getBranches(
+        project: string,
+        repository: string,
+        alertType: Alert.AlertType,
+        continuationToken?: string,
+        branchNameContains?: string,
+        top?: number,
+        includePullRequestBranches?: boolean
+        ): Promise<Alert.Branch[]> {
+
+        const queryValues: any = {
+            alertType: alertType,
+            continuationToken: continuationToken,
+            branchNameContains: branchNameContains,
+            top: top,
+            includePullRequestBranches: includePullRequestBranches
+        };
+
+        return this.beginRequest<Alert.Branch[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                action: "Branches"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param alertType - 
+     */
+    public async getUxFilters(
+        project: string,
+        repository: string,
+        alertType: Alert.AlertType
+        ): Promise<Alert.UxFilters> {
+
+        const queryValues: any = {
+            alertType: alertType
+        };
+
+        return this.beginRequest<Alert.UxFilters>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                action: "Default"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Get instances of an alert on a branch specified with \@ref. If \@ref is not provided, return instances of an alert on default branch(if the alert exist in default branch) or latest affected branch.
      * 
      * @param project - Project ID or project name
@@ -245,74 +313,6 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Returns the branches for which analysis results were submitted.
-     * 
-     * @param project - Project ID or project name
-     * @param repository - 
-     * @param alertType - The type of alert: Dependency Scanning (1), Secret (2), Code QL (3), etc.
-     * @param continuationToken - A string variable that represents the branch name and is used to fetch branches that follow it in alphabetical order.
-     * @param branchNameContains - A string variable used to fetch branches that contain this string anywhere in the branch name, case insensitive.
-     * @param top - An int variable used to return the top k branches that satisfy the search criteria.
-     * @param includePullRequestBranches - A bool variable indicating whether or not to include pull request branches.
-     */
-    public async getBranches(
-        project: string,
-        repository: string,
-        alertType: Alert.AlertType,
-        continuationToken?: string,
-        branchNameContains?: string,
-        top?: number,
-        includePullRequestBranches?: boolean
-        ): Promise<Alert.Branch[]> {
-
-        const queryValues: any = {
-            alertType: alertType,
-            continuationToken: continuationToken,
-            branchNameContains: branchNameContains,
-            top: top,
-            includePullRequestBranches: includePullRequestBranches
-        };
-
-        return this.beginRequest<Alert.Branch[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                action: "Branches"
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * @param project - Project ID or project name
-     * @param repository - 
-     * @param alertType - 
-     */
-    public async getUxFilters(
-        project: string,
-        repository: string,
-        alertType: Alert.AlertType
-        ): Promise<Alert.UxFilters> {
-
-        const queryValues: any = {
-            alertType: alertType
-        };
-
-        return this.beginRequest<Alert.UxFilters>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/filters/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                action: "Default"
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
      * Get the status of the Sarif processing job
      * 
      * @param sarifId - Sarif ID returned when the Sarif was uploaded
@@ -326,6 +326,31 @@ export class AlertRestClient extends RestClientBase {
             routeTemplate: "_apis/Alert/Sarifs/{sarifId}",
             routeValues: {
                 sarifId: sarifId
+            }
+        });
+    }
+
+    /**
+     * Initiate the validation process for a given alert
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param alertId - The ID of the alert
+     */
+    public async initiateValidation(
+        project: string,
+        repository: string,
+        alertId: number
+        ): Promise<Alert.ValidationStatus> {
+
+        return this.beginRequest<Alert.ValidationStatus>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
             }
         });
     }

@@ -200,6 +200,94 @@ export interface Configuration {
 }
 
 /**
+ * This data model is used in TestRunDataProvider and provides the TestCaseResultsData for a Test run
+ */
+export interface CustomTestCaseResultData {
+    /**
+     * Reference to area path of test.
+     */
+    area: Test.ShallowReference;
+    /**
+     * Reference to test configuration. Type ShallowReference.
+     */
+    configuration: Test.ShallowReference;
+    /**
+     * Array of custom data for additional categorization of the test result. Value of the CustomTestField cannot be more than 1KB.
+     */
+    customFields: Test.CustomTestField[];
+    /**
+     * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
+     */
+    durationInMs: number;
+    /**
+     * ID of a test result.
+     */
+    id: number;
+    /**
+     * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
+     */
+    outcome: string;
+    /**
+     * Reference to test owner.
+     */
+    owner: WebApi.IdentityRef;
+    /**
+     * Priority of test executed.
+     */
+    priority: number;
+    /**
+     * Reference to the test executed.
+     */
+    testCase: Test.ShallowReference;
+    /**
+     * Reference to test suite test case workitem is part of.
+     */
+    testSuite: Test.ShallowReference;
+}
+
+/**
+ * This data model is used in AllTestRunsViewDataProvider and provides Test Run Data
+ */
+export interface CustomTestRunData {
+    /**
+     * Build Number.
+     */
+    buildNumber: string;
+    /**
+     * Completed date time of the run.
+     */
+    completedDate: string;
+    /**
+     * Duration of the run execution in milliseconds
+     */
+    durationInMs: number;
+    /**
+     * No. of tests failed in the run
+     */
+    failedTestsCount: number;
+    /**
+     * ID of the test run.
+     */
+    id: number;
+    /**
+     * Name of the test run.
+     */
+    name: string;
+    /**
+     * Pass rate of the run
+     */
+    passRate: string;
+    /**
+     * Start date time of the run.
+     */
+    startedDate: string;
+    /**
+     * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
+     */
+    state: string;
+}
+
+/**
  * Destination Test Plan create parameters
  */
 export interface DestinationTestPlanCloneParams extends TestPlanCreateParams {

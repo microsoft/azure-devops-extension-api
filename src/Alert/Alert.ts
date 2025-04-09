@@ -8,6 +8,10 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface Alert {
     /**
+     * Additional properties of this alert.
+     */
+    additionalProperties: { [key: string] : any; };
+    /**
      * Identifier for the alert. It is unique within Azure DevOps organization.
      */
     alertId: number;
@@ -83,6 +87,10 @@ export interface Alert {
      * ValidationFingerprints for the secret liveness check. Only returned on demand in Get API with Expand parameter set to be ValidationFingerprint (not returned in List API)
      */
     validationFingerprints: ValidationFingerprint[];
+    /**
+     * Validity details of an alert. Currently, this is only applicable to secret alerts. In case of secret alerts, the validity status and time is computed by looking at the liveness results for validation fingerprints associated to an alert.
+     */
+    validityDetails: AlertValidityInfo;
 }
 
 /**
@@ -181,6 +189,20 @@ export enum AlertType {
      * The code uses a dependency with potential license incompliance.
      */
     License = 4
+}
+
+/**
+ * Validity data for an alert that will be part of Alerts APIs and UI.
+ */
+export interface AlertValidityInfo {
+    validityLastCheckedDate: Date;
+    validityStatus: AlertValidityStatus;
+}
+
+export enum AlertValidityStatus {
+    Unknown = 0,
+    Active = 1,
+    Inactive = 2
 }
 
 /**
@@ -883,6 +905,10 @@ export interface SearchCriteria {
      * If provided with toolName, only return alerts detected by this tool. \<br /\>Otherwise, return alerts detected by all tools.
      */
     toolName: string;
+    /**
+     * If provided, only return alerts with the validity specified here. If the validity status is Unknown, fetch alerts of all validity results. \<br /\>Only applicable for secret alerts.
+     */
+    validity: AlertValidityStatus;
 }
 
 export enum Severity {
@@ -975,11 +1001,36 @@ export interface UxFilters {
      * Display alerts for specified tools. Show alerts for all tools if none are specified.
      */
     tools: Tool[];
+    /**
+     * Display alerts for specified validity. Show alerts for all validities if none are specified.
+     */
+    validity: AlertValidityStatus[];
 }
 
 export interface ValidationFingerprint {
+    /**
+     * The hash associated to the secret.
+     */
     validationFingerprintHash: string;
+    /**
+     * The JSON representation of the secret.
+     */
     validationFingerprintJson: string;
+    /**
+     * The date when the validity was last updated.
+     */
+    validityLastUpdatedDate: Date;
+    /**
+     * The result of the validation.
+     */
+    validityResult: string;
+}
+
+export enum ValidationStatus {
+    None = 0,
+    InProgress = 1,
+    Completed = 2,
+    Failed = 3
 }
 
 /**
