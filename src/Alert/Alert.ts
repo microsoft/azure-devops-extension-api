@@ -8,6 +8,10 @@ import * as WebApi from "../WebApi/WebApi";
 
 export interface Alert {
     /**
+     * Additional properties of this alert.
+     */
+    additionalProperties: { [key: string] : any; };
+    /**
      * Identifier for the alert. It is unique within Azure DevOps organization.
      */
     alertId: number;
@@ -83,6 +87,10 @@ export interface Alert {
      * ValidationFingerprints for the secret liveness check. Only returned on demand in Get API with Expand parameter set to be ValidationFingerprint (not returned in List API)
      */
     validationFingerprints: ValidationFingerprint[];
+    /**
+     * Validity details of an alert. Currently, this is only applicable to secret alerts. In case of secret alerts, the validity status and time is computed by looking at the liveness results for validation fingerprints associated to an alert.
+     */
+    validityDetails: AlertValidityInfo;
 }
 
 /**
@@ -181,6 +189,56 @@ export enum AlertType {
      * The code uses a dependency with potential license incompliance.
      */
     License = 4
+}
+
+export enum AlertValidationRequestStatus {
+    /**
+     * Default, when the request status is not set/applicable.
+     */
+    None = 0,
+    /**
+     * First validation request for the alert's validation fingerprints, created when the sarif is submitted for processing.
+     */
+    Created = 1,
+    /**
+     * The secret validation jobs for the alert's validation fingerprints have been manually queued and at least one is still in progress.
+     */
+    InProgress = 2,
+    /**
+     * All the secret validation jobs for the alert's validation fingerprints have returned Completed or Failed.
+     */
+    Completed = 3,
+    /**
+     * This status is set only when there is an exception in the ValidationService.
+     */
+    Failed = 4
+}
+
+/**
+ * Validity data for an alert that will be part of Alerts APIs and UI.
+ */
+export interface AlertValidityInfo {
+    validityLastCheckedDate: Date;
+    validityStatus: AlertValidityStatus;
+}
+
+export enum AlertValidityStatus {
+    /**
+     * When there are no validation fingerprints attached to the alert.
+     */
+    None = 0,
+    /**
+     * When the validations for validation fingerprints associated to the alert have not been conclusive.
+     */
+    Unknown = 1,
+    /**
+     * When atleast one validation fingerprint associated to the alert is exploitable.
+     */
+    Active = 2,
+    /**
+     * When all validation fingerprints associated to the alert are not exploitable.
+     */
+    Inactive = 3
 }
 
 /**
@@ -495,7 +553,11 @@ export enum DismissalType {
     /**
      * Dismissal indicating user is agreeing to follow license guidance.
      */
-    AgreedToGuidance = 4
+    AgreedToGuidance = 4,
+    /**
+     * Dismissal indicating backend detection tool was upgraded and the alert is not detected by the new version of tool.
+     */
+    ToolUpgrade = 5
 }
 
 export enum ExpandOption {
@@ -507,6 +569,24 @@ export enum ExpandOption {
      * Return validationFingerprints in Alert.
      */
     ValidationFingerprint = 1
+}
+
+/**
+ * Details for a legal review for a given component
+ */
+export interface LegalReview {
+    /**
+     * The review id. This indicates the associated work item id for dev it's witness-dev and for prod it's ossmsft.
+     */
+    id: number;
+    /**
+     * The review state.
+     */
+    state: string;
+    /**
+     * The review web url.
+     */
+    webUrl: string;
 }
 
 /**
@@ -883,6 +963,10 @@ export interface SearchCriteria {
      * If provided with toolName, only return alerts detected by this tool. \<br /\>Otherwise, return alerts detected by all tools.
      */
     toolName: string;
+    /**
+     * If provided, only return alerts with the validity specified here. If the validity status is Unknown, fetch alerts of all validity results. \<br /\>Only applicable for secret alerts. \<br /\>Filtering by validity status may cause less alerts to be returned than requested with TOP parameter. \<br /\>Due to this behavior, the ContinuationToken(\<![CDATA[\<header name\>]]\>) in the response header should be relied on to decide if another batch needs to be fetched.
+     */
+    validity: AlertValidityStatus[];
 }
 
 export enum Severity {
@@ -975,11 +1059,55 @@ export interface UxFilters {
      * Display alerts for specified tools. Show alerts for all tools if none are specified.
      */
     tools: Tool[];
+    /**
+     * Display alerts for specified validity. Show alerts for all validities if none are specified.
+     */
+    validity: AlertValidityStatus[];
 }
 
 export interface ValidationFingerprint {
+    /**
+     * The hash associated to the secret.
+     */
     validationFingerprintHash: string;
+    /**
+     * The JSON representation of the secret.
+     */
     validationFingerprintJson: string;
+    /**
+     * The date when the validity was last updated.
+     */
+    validityLastUpdatedDate: Date;
+    /**
+     * The result of the validation.
+     */
+    validityResult: ValidationResult;
+}
+
+/**
+ * Data associated to a validation request for an alert. Along with the request status, this includes the validity data that is part of Get Alert(s) response.
+ */
+export interface ValidationRequestInfo extends AlertValidityInfo {
+    alertValidationRequestStatus: AlertValidationRequestStatus;
+}
+
+export enum ValidationResult {
+    /**
+     * Default value, no information about the secret can be inferred from this.
+     */
+    None = 0,
+    /**
+     * Represents a secret that can be used to connect to a resource.
+     */
+    Exploitable = 1,
+    /**
+     * Represents a secret that can't be used to connect to a resource.
+     */
+    NotExploitable = 2,
+    /**
+     * Represents a secret where no determination can be made about its exploitability.
+     */
+    Inconclusive = 3
 }
 
 /**

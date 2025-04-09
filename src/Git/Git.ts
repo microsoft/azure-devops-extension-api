@@ -29,6 +29,10 @@ export interface AdvSecEnablementStatus {
      */
     dependabotEnabled: boolean;
     /**
+     * True if Dependency Scanning injection is enabled for the repository, false if it is disabled.
+     */
+    dependencyScanningInjectionEnabled: boolean;
+    /**
      * Enabled status 0 disabled, 1 enabled, Null never explicitly set, always whatever project is, ya this should probably be an enum somewhere
      */
     enabled: boolean;
@@ -47,6 +51,10 @@ export interface AdvSecEnablementUpdate {
      * New Dependabot status.
      */
     newDependabotStatus: boolean;
+    /**
+     * New Dependency Scanning injection enablement status.
+     */
+    newDependencyScanningInjectionEnablementStatus: boolean;
     /**
      * New status
      */
@@ -2062,9 +2070,27 @@ export interface GitPullRequestQuery {
 }
 
 /**
+ * Options for including additional elements in the pull request query response.
+ */
+export enum GitPullRequestQueryIncludeOptions {
+    /**
+     * No additional elements included.
+     */
+    NotSet = 0,
+    /**
+     * Enforces adding associated labels to the response.
+     */
+    Labels = 1
+}
+
+/**
  * Pull request query input parameters.
  */
 export interface GitPullRequestQueryInput {
+    /**
+     * Options for including additional PR properties in the response.
+     */
+    include: GitPullRequestQueryIncludeOptions;
     /**
      * The list of commit IDs to search for.
      */
@@ -2483,6 +2509,10 @@ export enum GitRefUpdateStatus {
 
 export interface GitRepository {
     _links: any;
+    /**
+     * The timestamp when the repository was created.
+     */
+    creationDate: Date;
     defaultBranch: string;
     id: string;
     /**

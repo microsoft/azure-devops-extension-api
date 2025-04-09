@@ -158,93 +158,6 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Get instances of an alert on a branch specified with \@ref. If \@ref is not provided, return instances of an alert on default branch(if the alert exist in default branch) or latest affected branch.
-     * 
-     * @param project - Project ID or project name
-     * @param alertId - ID of alert to retrieve
-     * @param repository - Name or id of a repository that alert is part of
-     * @param ref - 
-     */
-    public async getAlertInstances(
-        project: string,
-        alertId: number,
-        repository: string,
-        ref?: string
-        ): Promise<Alert.AlertAnalysisInstance[]> {
-
-        const queryValues: any = {
-            ref: ref
-        };
-
-        return this.beginRequest<Alert.AlertAnalysisInstance[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Instances",
-            routeValues: {
-                project: project,
-                alertId: alertId,
-                repository: repository
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Update alert metadata associations.
-     * 
-     * @param alertsMetadata - A list of metadata to associate with alerts.
-     * @param project - Project ID or project name
-     * @param repository - The name or ID of the repository.
-     */
-    public async updateAlertsMetadata(
-        alertsMetadata: Alert.AlertMetadata[],
-        project: string,
-        repository: string
-        ): Promise<Alert.AlertMetadataChange[]> {
-
-        return this.beginRequest<Alert.AlertMetadataChange[]>({
-            apiVersion: "7.2-preview.1",
-            method: "PATCH",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/Metadata",
-            routeValues: {
-                project: project,
-                repository: repository
-            },
-            body: alertsMetadata
-        });
-    }
-
-    /**
-     * Upload a Sarif containing security alerts
-     * 
-     * @param content - Content to upload
-     * @param project - Project ID or project name
-     * @param repository - The name or ID of a repository
-     * @param notificationFlag - Header to signal that this is a progress notification
-     */
-    public async uploadSarif(
-        content: string,
-        project: string,
-        repository: string,
-        notificationFlag?: String
-        ): Promise<number> {
-
-        return this.beginRequest<number>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/sarifs",
-            routeValues: {
-                project: project,
-                repository: repository
-            },
-            customHeaders: {
-                "Content-Type": "application/octet-stream",
-                "X-AdvSec-NotificationSarif": notificationFlag,
-            },
-            body: content
-        });
-    }
-
-    /**
      * Returns the branches for which analysis results were submitted.
      * 
      * @param project - Project ID or project name
@@ -313,6 +226,125 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get instances of an alert on a branch specified with \@ref. If \@ref is not provided, return instances of an alert on default branch(if the alert exist in default branch) or latest affected branch.
+     * 
+     * @param project - Project ID or project name
+     * @param alertId - ID of alert to retrieve
+     * @param repository - Name or id of a repository that alert is part of
+     * @param ref - 
+     */
+    public async getAlertInstances(
+        project: string,
+        alertId: number,
+        repository: string,
+        ref?: string
+        ): Promise<Alert.AlertAnalysisInstance[]> {
+
+        const queryValues: any = {
+            ref: ref
+        };
+
+        return this.beginRequest<Alert.AlertAnalysisInstance[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Instances",
+            routeValues: {
+                project: project,
+                alertId: alertId,
+                repository: repository
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Create legal review. This creates the legal review associated with the alert. It include the review work item url.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - Name or id  of a repository for the legal alert
+     * @param alertId - Advance Security alert id of the legal alert to get the legal review
+     * @param ref - 
+     */
+    public async createLegalReview(
+        project: string,
+        repository: string,
+        alertId: number,
+        ref?: string
+        ): Promise<Alert.LegalReview> {
+
+        const queryValues: any = {
+            alertId: alertId,
+            ref: ref
+        };
+
+        return this.beginRequest<Alert.LegalReview>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/Metadata",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Update alert metadata associations.
+     * 
+     * @param alertsMetadata - A list of metadata to associate with alerts.
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async updateAlertsMetadata(
+        alertsMetadata: Alert.AlertMetadata[],
+        project: string,
+        repository: string
+        ): Promise<Alert.AlertMetadataChange[]> {
+
+        return this.beginRequest<Alert.AlertMetadataChange[]>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/Metadata",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: alertsMetadata
+        });
+    }
+
+    /**
+     * Upload a Sarif containing security alerts
+     * 
+     * @param content - Content to upload
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param notificationFlag - Header to signal that this is a progress notification
+     */
+    public async uploadSarif(
+        content: string,
+        project: string,
+        repository: string,
+        notificationFlag?: String
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/sarifs",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            customHeaders: {
+                "Content-Type": "application/octet-stream",
+                "X-AdvSec-NotificationSarif": notificationFlag,
+            },
+            body: content
+        });
+    }
+
+    /**
      * Get the status of the Sarif processing job
      * 
      * @param sarifId - Sarif ID returned when the Sarif was uploaded
@@ -326,6 +358,55 @@ export class AlertRestClient extends RestClientBase {
             routeTemplate: "_apis/Alert/Sarifs/{sarifId}",
             routeValues: {
                 sarifId: sarifId
+            }
+        });
+    }
+
+    /**
+     * Get the validity details for an alert.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param alertId - The ID of the alert
+     */
+    public async getValidityData(
+        project: string,
+        repository: string,
+        alertId: number
+        ): Promise<Alert.ValidationRequestInfo> {
+
+        return this.beginRequest<Alert.ValidationRequestInfo>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
+            }
+        });
+    }
+
+    /**
+     * Initiate the validation process for a given alert
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param alertId - The ID of the alert
+     */
+    public async initiateValidation(
+        project: string,
+        repository: string,
+        alertId: number
+        ): Promise<Alert.AlertValidationRequestStatus> {
+
+        return this.beginRequest<Alert.AlertValidationRequestStatus>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
             }
         });
     }

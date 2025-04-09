@@ -2460,7 +2460,11 @@ export enum SessionResult {
     /**
      * Session result with Failed
      */
-    Failed = 2
+    Failed = 2,
+    /**
+     * Session result still Pending
+     */
+    Pending = 3
 }
 
 /**
@@ -2529,7 +2533,7 @@ export interface SharedStepModel {
  */
 export interface Source {
     /**
-     * Source links Valid values for "type" property = (SessionInfo)
+     * Source links Valid values for "type" property = (SessionInfo, ResubmitSession)
      */
     links: Link[];
     /**
@@ -3070,7 +3074,7 @@ export interface TestCaseResult {
      */
     layoutUid: string;
     /**
-     * Links Valid values for "type" property = (MoreInfo, ResultInvestigation, TestInfo)
+     * Links Valid values for "type" property = (BucketInvestigation, MoreInfo, ResultInvestigation, TestInfo)
      */
     links: Link[];
     /**

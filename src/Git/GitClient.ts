@@ -4185,7 +4185,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "POST",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
@@ -4208,7 +4208,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "DELETE",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
@@ -4240,7 +4240,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository[]>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project
@@ -4261,7 +4261,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRepository> {
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project,
@@ -4288,7 +4288,7 @@ export class GitRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {
                 project: project,
@@ -4312,7 +4312,7 @@ export class GitRestClient extends RestClientBase {
         ): Promise<Git.GitRepository> {
 
         return this.beginRequest<Git.GitRepository>({
-            apiVersion: "7.2-preview.1",
+            apiVersion: "7.2-preview.2",
             method: "PATCH",
             routeTemplate: "{project}/_apis/git/Repositories/{repositoryId}",
             routeValues: {

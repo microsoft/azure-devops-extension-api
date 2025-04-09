@@ -302,7 +302,7 @@ export interface Build {
      */
     templateParameters: { [key: string] : string; };
     /**
-     * The build that triggered this build via a Build completion trigger.
+     * The build that triggered this build via a Build completion trigger. Do not set it when queuing a new pipeline run.
      */
     triggeredByBuild: Build;
     /**
@@ -3061,6 +3061,10 @@ export interface TimelineRecord {
      * The queue ID of the queue that the operation ran on.
      */
     queueId: number;
+    /**
+     * The ref name
+     */
+    refName: string;
     /**
      * The result.
      */

@@ -200,6 +200,138 @@ export interface Configuration {
 }
 
 /**
+ * This data model is used in TestRunDataProvider and provides the TestCaseResultsData for a Test run
+ */
+export interface CustomTestCaseResultData {
+    /**
+     * Reference to area path of test.
+     */
+    area: Test.ShallowReference;
+    /**
+     * Fully qualified name of test executed.
+     */
+    automatedTestName: string;
+    /**
+     * Container to which test belongs.
+     */
+    automatedTestStorage: string;
+    /**
+     * Shallow reference to build associated with test result.
+     */
+    build: Test.ShallowReference;
+    /**
+     * Machine name where test executed.
+     */
+    computerName: string;
+    /**
+     * Reference to test configuration. Type ShallowReference.
+     */
+    configuration: Test.ShallowReference;
+    /**
+     * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
+     */
+    durationInMs: number;
+    /**
+     * Error message in test execution.
+     */
+    errorMessage: string;
+    /**
+     * ID of a test result.
+     */
+    id: number;
+    /**
+     * Iteration path of test.
+     */
+    iterationPath: string;
+    /**
+     * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
+     */
+    outcome: string;
+    /**
+     * Reference to test owner.
+     */
+    owner: WebApi.IdentityRef;
+    /**
+     * Priority of test executed.
+     */
+    priority: number;
+    /**
+     * Reference to identity executed the test.
+     */
+    runBy: WebApi.IdentityRef;
+    /**
+     * Stacktrace with maxSize= 1000 chars.
+     */
+    stackTrace: string;
+    /**
+     * Reference to the test executed.
+     */
+    testCase: Test.ShallowReference;
+    /**
+     * Reference ID of test used by test result. Type TestResultMetaData
+     */
+    testCaseReferenceId: number;
+    /**
+     * Reference to test run.
+     */
+    testRun: Test.ShallowReference;
+    /**
+     * Reference to test suite test case workitem is part of.
+     */
+    testSuite: Test.ShallowReference;
+}
+
+/**
+ * This data model is used in AllTestRunsViewDataProvider and provides Test Run Data
+ */
+export interface CustomTestRunData {
+    /**
+     * Build Number.
+     */
+    buildNumber: string;
+    /**
+     * Completed date time of the run.
+     */
+    completedDate: string;
+    /**
+     * Duration of the run execution in milliseconds
+     */
+    durationInMs: number;
+    /**
+     * No. of tests failed in the run
+     */
+    failedTestsCount: number;
+    /**
+     * ID of the Test run.
+     */
+    id: number;
+    /**
+     * Name of the Test run.
+     */
+    name: string;
+    /**
+     * Pass rate of the run
+     */
+    passRate: string;
+    /**
+     * Start date time of the run.
+     */
+    startedDate: string;
+    /**
+     * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
+     */
+    state: string;
+    /**
+     * Id of the Test plan associated with this Test run.
+     */
+    testPlanId: number;
+    /**
+     * Name of the Test plan associated with this Test run.
+     */
+    testPlanName: string;
+}
+
+/**
  * Destination Test Plan create parameters
  */
 export interface DestinationTestPlanCloneParams extends TestPlanCreateParams {
@@ -673,6 +805,13 @@ export interface TestCaseAssociatedResult {
     tester: WebApi.IdentityRef;
 }
 
+export interface TestCaseAssociatedResultExtended extends TestCaseAssociatedResult {
+    areaPath: string;
+    buildPipeline: Test.ShallowReference;
+    iterationPath: string;
+    owner: WebApi.IdentityRef;
+}
+
 /**
  * Test Case Reference
  */
@@ -707,6 +846,24 @@ export interface TestCaseResultsData {
      * Use to store the results displayed in the table
      */
     results: TestCaseAssociatedResult[];
+    /**
+     * Test Case Name to be displayed in the table header
+     */
+    testCaseName: string;
+}
+
+/**
+ * This data model is used in TestCaseResultsDataProvider for extended data to populates the data required for initial page load
+ */
+export interface TestCaseResultsDataExtended {
+    /**
+     * Point information from where the execution history was viewed. Used to set initial filters.
+     */
+    contextPoint: TestPointDetailedReference;
+    /**
+     * Use to store the results displayed in the table
+     */
+    results: TestCaseAssociatedResultExtended[];
     /**
      * Test Case Name to be displayed in the table header
      */
