@@ -843,6 +843,10 @@ export enum ExtensionQueryFlags {
      */
     IncludeNameConflictInfo = 32768,
     /**
+     * When retrieving versions from a query, return the details with both latest prelease and stable version of the extensions that matched, if not prelease version, only return stable version. This is useful when the caller doesn't need all the published versions. It will save a significant size in the returned payload.
+     */
+    IncludeLatestPrereleaseAndStableVersionOnly = 65536,
+    /**
      * AllAttributes is designed to be a mask that defines all sub-elements of the extension should be returned.  NOTE: This is not actually All flags. This is now locked to the set defined since changing this enum would be a breaking change and would change the behavior of anyone using it. Try not to use this value when making calls to the service, instead be explicit about the options required.
      */
     AllAttributes = 16863
@@ -915,9 +919,13 @@ export enum ExtensionVersionFlags {
      */
     None = 0,
     /**
-     * The Validated flag for a version means the extension version has passed validation and can be used..
+     * The Validated flag for a version means the extension version has passed validation and can be used.
      */
-    Validated = 1
+    Validated = 1,
+    /**
+     * The Prerelease flag for a version means the extension version is prerelease. This flag is runtime only. We need backfill this flag to database in the future, here is a tracking task: https://dev.azure.com/mseng/AzureDevOps/_workitems/edit/2234733
+     */
+    Prerelease = 2
 }
 
 /**

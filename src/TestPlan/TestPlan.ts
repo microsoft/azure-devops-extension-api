@@ -208,6 +208,22 @@ export interface CustomTestCaseResultData {
      */
     area: Test.ShallowReference;
     /**
+     * Fully qualified name of test executed.
+     */
+    automatedTestName: string;
+    /**
+     * Container to which test belongs.
+     */
+    automatedTestStorage: string;
+    /**
+     * Shallow reference to build associated with test result.
+     */
+    build: Test.ShallowReference;
+    /**
+     * Machine name where test executed.
+     */
+    computerName: string;
+    /**
      * Reference to test configuration. Type ShallowReference.
      */
     configuration: Test.ShallowReference;
@@ -219,6 +235,10 @@ export interface CustomTestCaseResultData {
      * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
      */
     durationInMs: number;
+    /**
+     * Error message in test execution.
+     */
+    errorMessage: string;
     /**
      * ID of a test result.
      */
@@ -236,9 +256,21 @@ export interface CustomTestCaseResultData {
      */
     priority: number;
     /**
+     * Stacktrace with maxSize= 1000 chars.
+     */
+    stackTrace: string;
+    /**
      * Reference to the test executed.
      */
     testCase: Test.ShallowReference;
+    /**
+     * Reference ID of test used by test result. Type TestResultMetaData
+     */
+    testCaseReferenceId: number;
+    /**
+     * Reference to test run.
+     */
+    testRun: Test.ShallowReference;
     /**
      * Reference to test suite test case workitem is part of.
      */
@@ -266,11 +298,11 @@ export interface CustomTestRunData {
      */
     failedTestsCount: number;
     /**
-     * ID of the test run.
+     * ID of the Test run.
      */
     id: number;
     /**
-     * Name of the test run.
+     * Name of the Test run.
      */
     name: string;
     /**
@@ -285,6 +317,14 @@ export interface CustomTestRunData {
      * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
      */
     state: string;
+    /**
+     * Id of the Test plan associated with this Test run.
+     */
+    testPlanId: number;
+    /**
+     * Name of the Test plan associated with this Test run.
+     */
+    testPlanName: string;
 }
 
 /**
