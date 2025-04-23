@@ -257,6 +257,38 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Create legal review. This creates the legal review associated with the alert. It include the review work item url.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - Name or id  of a repository for the legal alert
+     * @param alertId - Advance Security alert id of the legal alert to get the legal review
+     * @param ref - 
+     */
+    public async createLegalReview(
+        project: string,
+        repository: string,
+        alertId: number,
+        ref?: string
+        ): Promise<Alert.LegalReview> {
+
+        const queryValues: any = {
+            alertId: alertId,
+            ref: ref
+        };
+
+        return this.beginRequest<Alert.LegalReview>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/Metadata",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Update alert metadata associations.
      * 
      * @param alertsMetadata - A list of metadata to associate with alerts.

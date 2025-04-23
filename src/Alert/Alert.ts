@@ -532,6 +532,24 @@ export enum ExpandOption {
 }
 
 /**
+ * Details for a legal review for a given component
+ */
+export interface LegalReview {
+    /**
+     * The review id. This indicates the associated work item id for dev it's witness-dev and for prod it's ossmsft.
+     */
+    id: number;
+    /**
+     * The review state.
+     */
+    state: string;
+    /**
+     * The review web url.
+     */
+    webUrl: string;
+}
+
+/**
  * License information for dependencies
  */
 export interface License {
