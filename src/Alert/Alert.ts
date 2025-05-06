@@ -517,7 +517,11 @@ export enum DismissalType {
     /**
      * Dismissal indicating user is agreeing to follow license guidance.
      */
-    AgreedToGuidance = 4
+    AgreedToGuidance = 4,
+    /**
+     * Dismissal indicating backend detection tool was upgraded and the alert is not detected by the new version of tool.
+     */
+    ToolUpgrade = 5
 }
 
 export enum ExpandOption {
@@ -1045,10 +1049,26 @@ export interface ValidationFingerprint {
 }
 
 export enum ValidationStatus {
+    /**
+     * Default value, no information about the status of validation can be inferred for the secret.
+     */
     None = 0,
+    /**
+     * The secret validation job(s) for the alert have been manually queued and is in progress.
+     */
     InProgress = 1,
+    /**
+     * The secret validation job(s) for the alert have completed.
+     */
     Completed = 2,
-    Failed = 3
+    /**
+     * The secret validation job(s) for the alert have failed.
+     */
+    Failed = 3,
+    /**
+     * The secret validations job(s) for the alert have been automatically initiated upon sarif submission.
+     */
+    Initiated = 4
 }
 
 /**

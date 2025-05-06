@@ -17,16 +17,23 @@ export class ReportingRestClient extends RestClientBase {
     /**
      * Get Alert summary by severity for the org
      * 
+     * @param criteria - 
      */
     public async getAlertSummaryForOrg(
+        criteria?: Reporting.FilterCriteria
         ): Promise<Reporting.OrgAlertSummary> {
+
+        const queryValues: any = {
+            criteria: criteria
+        };
 
         return this.beginRequest<Reporting.OrgAlertSummary>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Reporting/summary/{action}",
             routeValues: {
                 action: "Alerts"
-            }
+            },
+            queryParams: queryValues
         });
     }
 

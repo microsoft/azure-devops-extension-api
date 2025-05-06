@@ -363,6 +363,30 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get the validity details for an alert.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param alertId - The ID of the alert
+     */
+    public async getValidityData(
+        project: string,
+        repository: string,
+        alertId: number
+        ): Promise<Alert.AlertValidityInfo> {
+
+        return this.beginRequest<Alert.AlertValidityInfo>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
+            }
+        });
+    }
+
+    /**
      * Initiate the validation process for a given alert
      * 
      * @param project - Project ID or project name

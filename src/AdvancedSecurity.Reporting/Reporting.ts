@@ -24,6 +24,28 @@ export interface AlertSummaryBySeverity {
      * Total Medium severity alerts.
      */
     medium: number;
+    /**
+     * Total Note severity alerts.
+     */
+    note: number;
+}
+
+/**
+ * Alert Summary by state.
+ */
+export interface AlertSummaryByState {
+    /**
+     * Total Dismissed state alerts.
+     */
+    dismissed: number;
+    /**
+     * Total Fixed state alerts.
+     */
+    fixed: number;
+    /**
+     * Total New state alerts.
+     */
+    new: number;
 }
 
 export enum AlertType {
@@ -47,6 +69,25 @@ export enum AlertType {
      * The code uses a dependency with potential license incompliance.
      */
     License = 4
+}
+
+export interface FilterCriteria {
+    /**
+     * If provided, only return alerts of this type. Otherwise, return alerts of all types.
+     */
+    alertTypes: AlertType[];
+    /**
+     * If provided, only return repos whose titles match this pattern.
+     */
+    keywords: string;
+    /**
+     * If provided, only return alerts from this time period. Otherwise, return all alerts.
+     */
+    period: TimePeriod;
+    /**
+     * If provided, only return alerts at these severities. \<br /\>Otherwise, return alerts at any severity.
+     */
+    severities: Severity[];
 }
 
 /**
@@ -122,6 +163,14 @@ export interface RepoAlertSummary {
      */
     alertsBySeverity: AlertSummaryBySeverity;
     /**
+     * Total alerts by state.
+     */
+    alertsByState: AlertSummaryByState;
+    /**
+     * Total active alerts in the repo.
+     */
+    openAlerts: number;
+    /**
      * RepoId.
      */
     repoId: string;
@@ -177,4 +226,24 @@ export interface ScanTypeSummaryPropertiesData {
      * Represents the state of the scan type summary property.
      */
     enabled: boolean;
+}
+
+export enum Severity {
+    Low = 0,
+    Medium = 1,
+    High = 2,
+    Critical = 3,
+    Note = 4,
+    Warning = 5,
+    Error = 6,
+    Undefined = 7
+}
+
+export enum TimePeriod {
+    Undefined = 0,
+    Last24Hours = 5,
+    Last7Days = 6,
+    Last14Days = 7,
+    Last30Days = 8,
+    Last90Days = 9
 }
