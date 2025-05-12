@@ -302,7 +302,7 @@ export interface Build {
      */
     templateParameters: { [key: string] : string; };
     /**
-     * The build that triggered this build via a Build completion trigger.
+     * The build that triggered this build via a Build completion trigger. Do not set it when queuing a new pipeline run.
      */
     triggeredByBuild: Build;
     /**
