@@ -191,6 +191,29 @@ export enum AlertType {
     License = 4
 }
 
+export enum AlertValidationRequestStatus {
+    /**
+     * Default, when the request status is not set/applicable.
+     */
+    None = 0,
+    /**
+     * First validation request for the alert's validation fingerprints, created when the sarif is submitted for processing.
+     */
+    Created = 1,
+    /**
+     * The secret validation jobs for the alert's validation fingerprints have been manually queued and at least one is still in progress.
+     */
+    InProgress = 2,
+    /**
+     * All the secret validation jobs for the alert's validation fingerprints have returned Completed or Failed.
+     */
+    Completed = 3,
+    /**
+     * This status is set only when there is an exception in the ValidationService.
+     */
+    Failed = 4
+}
+
 /**
  * Validity data for an alert that will be part of Alerts APIs and UI.
  */
@@ -200,9 +223,22 @@ export interface AlertValidityInfo {
 }
 
 export enum AlertValidityStatus {
-    Unknown = 0,
-    Active = 1,
-    Inactive = 2
+    /**
+     * When there are no validation fingerprints attached to the alert.
+     */
+    None = 0,
+    /**
+     * When the validations for validation fingerprints associated to the alert have not been conclusive.
+     */
+    Unknown = 1,
+    /**
+     * When atleast one validation fingerprint associated to the alert is exploitable.
+     */
+    Active = 2,
+    /**
+     * When all validation fingerprints associated to the alert are not exploitable.
+     */
+    Inactive = 3
 }
 
 /**
@@ -928,9 +964,9 @@ export interface SearchCriteria {
      */
     toolName: string;
     /**
-     * If provided, only return alerts with the validity specified here. If the validity status is Unknown, fetch alerts of all validity results. \<br /\>Only applicable for secret alerts.
+     * If provided, only return alerts with the validity specified here. If the validity status is Unknown, fetch alerts of all validity results. \<br /\>Only applicable for secret alerts. \<br /\>Filtering by validity status may cause less alerts to be returned than requested with TOP parameter. \<br /\>Due to this behavior, the ContinuationToken(\<![CDATA[\<header name\>]]\>) in the response header should be relied on to decide if another batch needs to be fetched.
      */
-    validity: AlertValidityStatus;
+    validity: AlertValidityStatus[];
 }
 
 export enum Severity {
@@ -1045,30 +1081,33 @@ export interface ValidationFingerprint {
     /**
      * The result of the validation.
      */
-    validityResult: string;
+    validityResult: ValidationResult;
 }
 
-export enum ValidationStatus {
+/**
+ * Data associated to a validation request for an alert. Along with the request status, this includes the validity data that is part of Get Alert(s) response.
+ */
+export interface ValidationRequestInfo extends AlertValidityInfo {
+    alertValidationRequestStatus: AlertValidationRequestStatus;
+}
+
+export enum ValidationResult {
     /**
-     * Default value, no information about the status of validation can be inferred for the secret.
+     * Default value, no information about the secret can be inferred from this.
      */
     None = 0,
     /**
-     * The secret validation job(s) for the alert have been manually queued and is in progress.
+     * Represents a secret that can be used to connect to a resource.
      */
-    InProgress = 1,
+    Exploitable = 1,
     /**
-     * The secret validation job(s) for the alert have completed.
+     * Represents a secret that can't be used to connect to a resource.
      */
-    Completed = 2,
+    NotExploitable = 2,
     /**
-     * The secret validation job(s) for the alert have failed.
+     * Represents a secret where no determination can be made about its exploitability.
      */
-    Failed = 3,
-    /**
-     * The secret validations job(s) for the alert have been automatically initiated upon sarif submission.
-     */
-    Initiated = 4
+    Inconclusive = 3
 }
 
 /**

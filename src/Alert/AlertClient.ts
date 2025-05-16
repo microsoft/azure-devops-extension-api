@@ -373,9 +373,9 @@ export class AlertRestClient extends RestClientBase {
         project: string,
         repository: string,
         alertId: number
-        ): Promise<Alert.AlertValidityInfo> {
+        ): Promise<Alert.ValidationRequestInfo> {
 
-        return this.beginRequest<Alert.AlertValidityInfo>({
+        return this.beginRequest<Alert.ValidationRequestInfo>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
             routeValues: {
@@ -397,9 +397,9 @@ export class AlertRestClient extends RestClientBase {
         project: string,
         repository: string,
         alertId: number
-        ): Promise<Alert.ValidationStatus> {
+        ): Promise<Alert.AlertValidationRequestStatus> {
 
-        return this.beginRequest<Alert.ValidationStatus>({
+        return this.beginRequest<Alert.AlertValidationRequestStatus>({
             apiVersion: "7.2-preview.1",
             method: "POST",
             routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Validate",
