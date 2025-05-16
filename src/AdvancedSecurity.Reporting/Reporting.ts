@@ -73,7 +73,7 @@ export enum AlertType {
 
 export interface FilterCriteria {
     /**
-     * If provided, only return alerts of this type. Otherwise, return alerts of all types.
+     * If provided, only return summary data for alerts of this type. Otherwise, return summary data for alerts of all types.
      */
     alertTypes: AlertType[];
     /**
@@ -81,11 +81,15 @@ export interface FilterCriteria {
      */
     keywords: string;
     /**
-     * If provided, only return alerts from this time period. Otherwise, return all alerts.
+     * If provided, summary data will be scoped to this time period.
      */
     period: TimePeriod;
     /**
-     * If provided, only return alerts at these severities. \<br /\>Otherwise, return alerts at any severity.
+     * If provided, only return summary data for these projects Otherwise, return summary data for all projects.
+     */
+    projects: string[];
+    /**
+     * If provided, only return summary data for alerts at these severities. \<br /\>Otherwise, return summary data for alerts at any severity.
      */
     severities: Severity[];
 }
@@ -116,6 +120,11 @@ export interface OrgEnablementSummary {
      * A list of Project Enablement data.
      */
     projects: ProjectEnablementSummary[];
+}
+
+export interface Project {
+    id: string;
+    name: string;
 }
 
 /**
@@ -204,6 +213,13 @@ export interface RepoEnablementSummary {
      * Repo enablement summary for different scan types.
      */
     scanTypeSummary: { [key: number] : ScanTypeSummaryProperties; };
+}
+
+export interface RiskUXComputedFilters {
+    /**
+     * Display alerts for specified projects. Show alerts for all projects if none are specified.
+     */
+    projects: Project[];
 }
 
 export interface ScanTypeSummaryProperties {

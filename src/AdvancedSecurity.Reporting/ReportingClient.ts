@@ -15,6 +15,20 @@ export class ReportingRestClient extends RestClientBase {
     }
 
     /**
+     */
+    public async getRiskUXComputedFilters(
+        ): Promise<Reporting.RiskUXComputedFilters> {
+
+        return this.beginRequest<Reporting.RiskUXComputedFilters>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Reporting/filters/{action}",
+            routeValues: {
+                action: "Alerts"
+            }
+        });
+    }
+
+    /**
      * Get Alert summary by severity for the org
      * 
      * @param criteria - 

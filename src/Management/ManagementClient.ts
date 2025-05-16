@@ -151,10 +151,16 @@ export class ManagementRestClient extends RestClientBase {
      * During multi-org billing computation in primary scale unit(EUS21), this API is used to create billing snapshot for a specific org. Primary scale unit will call this API for each org in different scsle units to create billing snapshot. Data will be stored in the org specific partition DB -\> billing snapshot table. This is needed as customers will fetch billing data from their org specific partition DB.
      * 
      * @param meterUsage - 
+     * @param plan - 
      */
     public async createBillingSnapshot2(
-        meterUsage: Management.MeterUsageSummary
+        meterUsage: Management.MeterUsageForPlan,
+        plan: Management.Plan
         ): Promise<void> {
+
+        const queryValues: any = {
+            plan: plan
+        };
 
         return this.beginRequest<void>({
             apiVersion: "7.2-preview.1",
@@ -163,6 +169,7 @@ export class ManagementRestClient extends RestClientBase {
             routeValues: {
                 action: "Default"
             },
+            queryParams: queryValues,
             body: meterUsage
         });
     }
@@ -170,13 +177,16 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * Get all billable committers details, including those not matched with a VSID.
      * 
+     * @param plan - The plan to query. Plans supported: CodeSecurity and SecretProtection. This is a mandatory parameter.
      * @param billingDate - The date to query, or if not provided, today
      */
     public async getBillableCommitterDetails2(
+        plan: Management.Plan,
         billingDate?: Date
         ): Promise<Management.BillableCommitterDetails[]> {
 
         const queryValues: any = {
+            plan: plan,
             billingDate: billingDate
         };
 
@@ -191,33 +201,43 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * @param plan - 
      */
     public async getLastMeterUsage2(
-        ): Promise<Management.MeterUsageSummary> {
+        plan: Management.Plan
+        ): Promise<Management.MeterUsageForPlan> {
 
-        return this.beginRequest<Management.MeterUsageSummary>({
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageForPlan>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Management/MeterUsage2/{action}",
             routeValues: {
                 action: "Last"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
     /**
      * Get commiters used when calculating billing information.
      * 
+     * @param plan - The plan to query. Plans supported: CodeSecurity and SecretProtection. This is a mandatory parameter.
      * @param billingDate - The date to query, or if not provided, today
      */
     public async getMeterUsage2(
+        plan: Management.Plan,
         billingDate?: Date
-        ): Promise<Management.MeterUsageSummary> {
+        ): Promise<Management.MeterUsageForPlan> {
 
         const queryValues: any = {
+            plan: plan,
             billingDate: billingDate
         };
 
-        return this.beginRequest<Management.MeterUsageSummary>({
+        return this.beginRequest<Management.MeterUsageForPlan>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Management/MeterUsage2/{action}",
             routeValues: {

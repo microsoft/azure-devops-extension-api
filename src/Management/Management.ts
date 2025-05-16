@@ -173,18 +173,42 @@ export interface CodeScanningFeatures {
     dependencyScanningInjectionEnabled: boolean;
 }
 
-/**
- * Information related to Code Scanning meter usage
- */
-export interface CodeScanningMeterUsage {
+export interface EnablementOnCreateSettings {
     /**
-     * The identityRef of committers that contributed to repositories with Code Scanning enabled
+     * Automatically enable Code Scanning on newly created repositories.
      */
-    codeScanningBilledUsers: BilledCommittersList;
+    enableCodeScanningOnCreate: boolean;
     /**
-     * True when Code Scanning plan is enabled in this organization
+     * Automatically enable Secret Scanning on newly created repositories.
      */
-    isCodeScanningEnabled: boolean;
+    enableSecretScanningOnCreate: boolean;
+}
+
+export interface EnablementSettings {
+    /**
+     * Code Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    codeScanningEnabled: boolean;
+    /**
+     * Includes code scanning features that can be enabled.
+     */
+    codeScanningFeatures: CodeScanningFeatures;
+    /**
+     * Auto enablement setting for newly created repositories.
+     */
+    enablementOnCreateSettings: EnablementOnCreateSettings;
+    /**
+     * A list of enablement statuses for repositories within the specified organization or project.
+     */
+    reposEnablementStatus: RepoEnablementSettings[];
+    /**
+     * Secret Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    secretScanningEnabled: boolean;
+    /**
+     * Includes secret scanning features that can be enabled.
+     */
+    secretScanningFeatures: SecretScanningFeatures;
 }
 
 /**
@@ -241,92 +265,47 @@ export interface MeterUsageEstimate {
 }
 
 /**
- * Information related to billing for Advanced Security services
+ * Information related to meter usage for a Scanning plan
  */
-export interface MeterUsageSummary {
+export interface MeterUsageForPlan {
     /**
      * The Azure DevOps account
      */
     accountId: string;
     azureSubscriptionId: string;
     /**
+     * The identityRef of committers that contributed to repositories with Scanning plan enabled
+     */
+    billedUsers: BilledCommittersList;
+    /**
      * The date this billing information pertains to
      */
     billingDate: Date;
     /**
-     * Billing Information of repositories where Code Scanning is enabled
+     * True when the Scanning plan is enabled in this organization
      */
-    codeScanningMeterUsage: CodeScanningMeterUsage;
-    /**
-     * Billing Information of repositories where Secret Scanning is enabled
-     */
-    secretScanningMeterUsage: SecretScanningMeterUsage;
+    isPlanEnabled: boolean;
     /**
      * The Azure subscription
      */
     tenantId: string;
 }
 
-export interface OrgEnablementSettings {
-    /**
-     * Code Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
-     */
-    codeScanningEnabled: boolean;
-    /**
-     * Includes code scanning features that can be enabled.
-     */
-    codeScanningFeatures: CodeScanningFeatures;
-    /**
-     * Automatically enable Code Scanning on newly created repositories.
-     */
-    enableCodeScanningOnCreate: boolean;
-    /**
-     * Automatically enable Secret Scanning on newly created repositories.
-     */
-    enableSecretScanningOnCreate: boolean;
-    /**
-     * A list of enablement statuses for repositories within the specified organization.
-     */
-    reposEnablementStatus: RepoEnablementSettings[];
-    /**
-     * Secret Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
-     */
-    secretScanningEnabled: boolean;
-    /**
-     * Includes secret scanning features that can be enabled.
-     */
-    secretScanningFeatures: SecretScanningFeatures;
+export interface OrgEnablementSettings extends EnablementSettings {
 }
 
-export interface ProjectEnablementSettings {
+export enum Plan {
     /**
-     * Code Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     * The Code Security plan
      */
-    codeScanningEnabled: boolean;
+    CodeSecurity = 0,
     /**
-     * Includes code scanning features that can be enabled.
+     * The Secret Protection plan
      */
-    codeScanningFeatures: CodeScanningFeatures;
-    /**
-     * Automatically enable Code Scanning on newly created repositories.
-     */
-    enableCodeScanningOnCreate: boolean;
-    /**
-     * Automatically enable Secret Scanning on newly created repositories.
-     */
-    enableSecretScanningOnCreate: boolean;
-    /**
-     * A list of enablement statuses for repositories within the specified project.
-     */
-    reposEnablementStatus: RepoEnablementSettings[];
-    /**
-     * Secret Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
-     */
-    secretScanningEnabled: boolean;
-    /**
-     * Includes secret scanning features that can be enabled.
-     */
-    secretScanningFeatures: SecretScanningFeatures;
+    SecretProtection = 1
+}
+
+export interface ProjectEnablementSettings extends EnablementSettings {
 }
 
 export interface RepoEnablementSettings {
@@ -377,18 +356,4 @@ export interface SecretScanningFeatures {
      * ForceRepoSecretScanning will be set to true when Enabled, false when Disabled, and null when not set. \<br /\> If GHAzDO is NOT already enabled, behavior will depend on if GHAzDO is to be enabled/disabled. ForceRepoSecretScanning will not affect anything in this scenario. \<br /\> If GHAzDO is to be disabled, the value of ForceRepoSecretScan will have no effect. \<br /\> If GHAzDO is to be enabled for the first time on a repo, then ForceRepoSecretScanning will have no effect. \<br /\> If GHAzDO is to be enabled and the repo is already enabled, then ForceRepoSecretScanning will force the secret scanning job to be run if it is set to true. \<br /\> In all cases where ForceRepoSecretScanning is not expected to affect behavior, it will be set to false before being sent to Tfs.
      */
     forceRepoSecretScanning: boolean;
-}
-
-/**
- * Information related to Secret Scanning meter usage
- */
-export interface SecretScanningMeterUsage {
-    /**
-     * True when Secret Scanning plan is enabled in this organization
-     */
-    isSecretScanningEnabled: boolean;
-    /**
-     * The identityRef of committers that contributed to repositories with Secret Scanning enabled
-     */
-    secretScanningBilledUsers: BilledCommittersList;
 }
