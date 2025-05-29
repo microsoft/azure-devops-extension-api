@@ -97,6 +97,32 @@ export class LocationsRestClient extends RestClientBase {
     }
 
     /**
+     * @param areaId - 
+     * @param instanceId - 
+     * @param accessMapping - 
+     */
+    public async getResourceAreaByInstanceId(
+        areaId: string,
+        instanceId: string,
+        accessMapping: string
+        ): Promise<Locations.ResourceAreaInfo> {
+
+        const queryValues: any = {
+            instanceId: instanceId,
+            accessMapping: accessMapping
+        };
+
+        return this.beginRequest<Locations.ResourceAreaInfo>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/ResourceAreas/{areaId}",
+            routeValues: {
+                areaId: areaId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param enterpriseName - 
      * @param organizationName - 
      */

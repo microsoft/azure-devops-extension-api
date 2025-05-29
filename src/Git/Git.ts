@@ -2070,9 +2070,27 @@ export interface GitPullRequestQuery {
 }
 
 /**
+ * Options for including additional elements in the pull request query response.
+ */
+export enum GitPullRequestQueryIncludeOptions {
+    /**
+     * No additional elements included.
+     */
+    NotSet = 0,
+    /**
+     * Enforces adding associated labels to the response.
+     */
+    Labels = 1
+}
+
+/**
  * Pull request query input parameters.
  */
 export interface GitPullRequestQueryInput {
+    /**
+     * Options for including additional PR properties in the response.
+     */
+    include: GitPullRequestQueryIncludeOptions;
     /**
      * The list of commit IDs to search for.
      */
@@ -2491,6 +2509,10 @@ export enum GitRefUpdateStatus {
 
 export interface GitRepository {
     _links: any;
+    /**
+     * The timestamp when the repository was created.
+     */
+    creationDate: Date;
     defaultBranch: string;
     id: string;
     /**

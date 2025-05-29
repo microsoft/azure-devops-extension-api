@@ -15,7 +15,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Determine if Advanced Security is enabled for a repository
+     * Determines if Code Security, Secret Protection, and their features are enabled for the repository.
      * 
      * @param project - Project ID or project name
      * @param repository - The name or ID of the repository
@@ -43,7 +43,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Update the enablement of Advanced Security for a repository
+     * Update the enablement status of Code Security and Secret Protection, along with their respective features, for a given repository.
      * 
      * @param savedAdvSecEnablementStatus - new status
      * @param project - Project ID or project name
@@ -307,17 +307,17 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * Update the status of Advanced Security for the organization
      * 
-     * @param savedAdvSecEnablementStatus - The new status
+     * @param orgEnablementSettings - The new status
      */
     public async updateOrgEnablementStatus2(
-        savedAdvSecEnablementStatus: Management.OrgEnablementSettings
+        orgEnablementSettings: Management.OrgEnablementSettings
         ): Promise<void> {
 
         return this.beginRequest<void>({
             apiVersion: "7.2-preview.1",
             method: "PATCH",
             routeTemplate: "_apis/Management/enablement2",
-            body: savedAdvSecEnablementStatus
+            body: orgEnablementSettings
         });
     }
 
@@ -356,32 +356,46 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this organization.
      * 
+     * @param plan - The plan to query.
      */
     public async getEstimatedBillablePushersDetailsForOrg2(
-        ): Promise<Management.MeterUsageEstimate> {
+        plan: Management.Plan
+        ): Promise<Management.MeterUsageEstimateDetails> {
 
-        return this.beginRequest<Management.MeterUsageEstimate>({
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageEstimateDetails>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Management/meterUsageEstimate2/{action}",
             routeValues: {
                 action: "Details"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
     /**
      * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this organization.
      * 
+     * @param plan - The plan to query.
      */
     public async getEstimatedOrgBillablePushers2(
-        ): Promise<string[]> {
+        plan?: Management.Plan
+        ): Promise<Management.MeterUsageEstimate> {
 
-        return this.beginRequest<string[]>({
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageEstimate>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Management/meterUsageEstimate2/{action}",
             routeValues: {
                 action: "Default"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -460,11 +474,11 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * Update the status of Advanced Security for the project
      * 
-     * @param savedAdvSecEnablementStatus - The new status
+     * @param projectEnablementSettings - The new status
      * @param project - Project ID or project name
      */
     public async updateProjectEnablementStatus2(
-        savedAdvSecEnablementStatus: Management.ProjectEnablementSettings,
+        projectEnablementSettings: Management.ProjectEnablementSettings,
         project: string
         ): Promise<void> {
 
@@ -475,7 +489,7 @@ export class ManagementRestClient extends RestClientBase {
             routeValues: {
                 project: project
             },
-            body: savedAdvSecEnablementStatus
+            body: projectEnablementSettings
         });
     }
 
@@ -503,7 +517,7 @@ export class ManagementRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      */
-    public async getEstimatedProjectBillablePushers(
+    public async getEstimatedBillablePushersForProject(
         project: string
         ): Promise<string[]> {
 
@@ -521,18 +535,25 @@ export class ManagementRestClient extends RestClientBase {
      * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this project.
      * 
      * @param project - Project ID or project name
+     * @param plan - 
      */
     public async getEstimatedBillablePushersDetailsForProject2(
-        project: string
-        ): Promise<Management.MeterUsageEstimate> {
+        project: string,
+        plan?: Management.Plan
+        ): Promise<Management.MeterUsageEstimateDetails> {
 
-        return this.beginRequest<Management.MeterUsageEstimate>({
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageEstimateDetails>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/Management/meterUsageEstimate2/{action}",
             routeValues: {
                 project: project,
                 action: "Details"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -540,18 +561,25 @@ export class ManagementRestClient extends RestClientBase {
      * Estimate the number of committers that would be added to the customer's usage if Advanced Security was enabled for this project.
      * 
      * @param project - Project ID or project name
+     * @param plan - The plan to query.
      */
     public async getEstimatedProjectBillablePushers2(
-        project: string
-        ): Promise<string[]> {
+        project: string,
+        plan?: Management.Plan
+        ): Promise<Management.MeterUsageEstimate> {
 
-        return this.beginRequest<string[]>({
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageEstimate>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "{project}/_apis/Management/meterUsageEstimate2/{action}",
             routeValues: {
                 project: project,
                 action: "Default"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -612,31 +640,9 @@ export class ManagementRestClient extends RestClientBase {
      * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this repository.
      * 
      * @param project - Project ID or project name
-     * @param repository - The name or ID of the repository
-     */
-    public async getEstimatedRepoBillableCommitters(
-        project: string,
-        repository: string
-        ): Promise<string[]> {
-
-        return this.beginRequest<string[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                action: "Default"
-            }
-        });
-    }
-
-    /**
-     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
-     * 
-     * @param project - Project ID or project name
      * @param repository - 
      */
-    public async getEstimatedRepoBillablePushersDetails(
+    public async getEstimatedBillableCommitersDetailsForRepo(
         project: string,
         repository: string
         ): Promise<Management.BilledCommitter[]> {
@@ -658,14 +664,14 @@ export class ManagementRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param repository - The name or ID of the repository
      */
-    public async getEstimatedRepoBillableCommitters2(
+    public async getEstimatedBillableCommittersForRepo(
         project: string,
         repository: string
         ): Promise<string[]> {
 
         return this.beginRequest<string[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate2/{action}",
+            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate/{action}",
             routeValues: {
                 project: project,
                 repository: repository,
@@ -675,15 +681,21 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
+     * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this repository.
      * 
      * @param project - Project ID or project name
-     * @param repository - 
+     * @param repository - The name or ID of the repository
+     * @param plan - The plan to query.
      */
-    public async getEstimatedRepoBillableCommittersDetails2(
+    public async getEstimatedRepoBillableCommitters2(
         project: string,
-        repository: string
+        repository: string,
+        plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
+
+        const queryValues: any = {
+            plan: plan
+        };
 
         return this.beginRequest<Management.MeterUsageEstimate>({
             apiVersion: "7.2-preview.1",
@@ -691,8 +703,38 @@ export class ManagementRestClient extends RestClientBase {
             routeValues: {
                 project: project,
                 repository: repository,
+                action: "Default"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param plan - The plan to query.
+     */
+    public async getEstimatedRepoBillableCommittersDetails2(
+        project: string,
+        repository: string,
+        plan?: Management.Plan
+        ): Promise<Management.MeterUsageEstimateDetails> {
+
+        const queryValues: any = {
+            plan: plan
+        };
+
+        return this.beginRequest<Management.MeterUsageEstimateDetails>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate2/{action}",
+            routeValues: {
+                project: project,
+                repository: repository,
                 action: "Details"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
