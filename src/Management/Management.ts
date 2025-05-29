@@ -158,11 +158,23 @@ export interface BilledCommittersList {
     uniqueCommitterCount: number;
 }
 
-export interface CodeScanningFeatures {
+export interface CodeSecurityFeatures {
     /**
      * CodeQL enablement status set to False when disabled and True when enabled; Null is never explicitly set.
      */
     codeQLEnabled: boolean;
+    /**
+     * The VSID of the last user who modified the enablement status of Code Security.
+     */
+    codeSecurityChangedBy: string;
+    /**
+     * Code Security enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    codeSecurityEnabled: boolean;
+    /**
+     * The last time the status of Code Security for this repository was updated
+     */
+    codeSecurityEnablementLastChangedDate: Date;
     /**
      * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>Setting Dependabot enablement state is only supported for repo enablement and not org or project enablement at this time.
      */
@@ -175,40 +187,13 @@ export interface CodeScanningFeatures {
 
 export interface EnablementOnCreateSettings {
     /**
-     * Automatically enable Code Scanning on newly created repositories.
+     * Automatically enable Code Security on newly created repositories.
      */
-    enableCodeScanningOnCreate: boolean;
+    enableCodeSecurityOnCreate: boolean;
     /**
-     * Automatically enable Secret Scanning on newly created repositories.
+     * Automatically enable Secret Protection on newly created repositories.
      */
-    enableSecretScanningOnCreate: boolean;
-}
-
-export interface EnablementSettings {
-    /**
-     * Code Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
-     */
-    codeScanningEnabled: boolean;
-    /**
-     * Includes code scanning features that can be enabled.
-     */
-    codeScanningFeatures: CodeScanningFeatures;
-    /**
-     * Auto enablement setting for newly created repositories.
-     */
-    enablementOnCreateSettings: EnablementOnCreateSettings;
-    /**
-     * A list of enablement statuses for repositories within the specified organization or project.
-     */
-    reposEnablementStatus: RepoEnablementSettings[];
-    /**
-     * Secret Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
-     */
-    secretScanningEnabled: boolean;
-    /**
-     * Includes secret scanning features that can be enabled.
-     */
-    secretScanningFeatures: SecretScanningFeatures;
+    enableSecretProtectionOnCreate: boolean;
 }
 
 /**
@@ -251,17 +236,31 @@ export interface MeterUsage {
 }
 
 /**
- * Information related to meter usage estimate for Code Scanning and Secret Scanning
+ * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
  */
 export interface MeterUsageEstimate {
     /**
-     * Meter usage estimate when enabling Code Scanning
+     * Meter usage estimate when enabling Code Security plan
      */
-    codeScanningMeterUsageEstimate: BilledCommittersList;
+    codeSecurityMeterUsageEstimate: string[];
     /**
-     * Meter usage estimate when enabling Secret Scanning
+     * Meter usage estimate when enabling Secret Protection plan
      */
-    secretScanningMeterUsageEstimate: BilledCommittersList;
+    secretProtectionMeterUsageEstimate: string[];
+}
+
+/**
+ * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
+ */
+export interface MeterUsageEstimateDetails {
+    /**
+     * Meter usage estimate when enabling Code Security plan
+     */
+    codeSecurityMeterUsageEstimate: BilledCommittersList;
+    /**
+     * Meter usage estimate when enabling Secret Protection plan
+     */
+    secretProtectionMeterUsageEstimate: BilledCommittersList;
 }
 
 /**
@@ -291,40 +290,68 @@ export interface MeterUsageForPlan {
     tenantId: string;
 }
 
-export interface OrgEnablementSettings extends EnablementSettings {
+export interface OrgEnablementSettings {
+    /**
+     * Includes code security features that can be enabled.
+     */
+    codeSecurityFeatures: CodeSecurityFeatures;
+    /**
+     * Auto enablement setting for newly created repositories.
+     */
+    enablementOnCreateSettings: EnablementOnCreateSettings;
+    /**
+     * A list of enablement statuses for repositories within the specified organization or project.
+     */
+    reposEnablementStatus: RepoEnablementSettings[];
+    /**
+     * Includes secret protection features that can be enabled.
+     */
+    secretProtectionFeatures: SecretProtectionFeatures;
 }
 
 export enum Plan {
     /**
+     * No plan is indicated
+     */
+    None = 0,
+    /**
      * The Code Security plan
      */
-    CodeSecurity = 0,
+    CodeSecurity = 1,
     /**
      * The Secret Protection plan
      */
-    SecretProtection = 1
+    SecretProtection = 2,
+    /**
+     * Include all plans
+     */
+    All = 3
 }
 
-export interface ProjectEnablementSettings extends EnablementSettings {
+export interface ProjectEnablementSettings {
+    /**
+     * Includes code security features that can be enabled.
+     */
+    codeSecurityFeatures: CodeSecurityFeatures;
+    /**
+     * Auto enablement setting for newly created repositories.
+     */
+    enablementOnCreateSettings: EnablementOnCreateSettings;
+    /**
+     * A list of enablement statuses for repositories within the specified organization or project.
+     */
+    reposEnablementStatus: RepoEnablementSettings[];
+    /**
+     * Includes secret protection features that can be enabled.
+     */
+    secretProtectionFeatures: SecretProtectionFeatures;
 }
 
 export interface RepoEnablementSettings {
     /**
-     * Code Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     * Includes Code Security features that can be enabled.
      */
-    codeScanningEnabled: boolean;
-    /**
-     * The last time the status of Code Scanning for this repository was updated
-     */
-    codeScanningEnablementLastChangedDate: Date;
-    /**
-     * Includes code scanning features that can be enabled.
-     */
-    codeScanningFeatures: CodeScanningFeatures;
-    /**
-     * Indicates whether the repository is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
-     */
-    isBundledSKU: boolean;
+    codeSecurityFeatures: CodeSecurityFeatures;
     /**
      * The project Id
      */
@@ -334,26 +361,26 @@ export interface RepoEnablementSettings {
      */
     repositoryId: string;
     /**
-     * Secret Scan enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     * Includes Secret Protection features that can be enabled.
      */
-    secretScanningEnabled: boolean;
-    /**
-     * The last time the status of Secret Scanning for this repository was updated
-     */
-    secretScanningEnablementLastChangedDate: Date;
-    /**
-     * Includes secret scanning features that can be enabled.
-     */
-    secretScanningFeatures: SecretScanningFeatures;
+    secretProtectionFeatures: SecretProtectionFeatures;
 }
 
-export interface SecretScanningFeatures {
+export interface SecretProtectionFeatures {
     /**
      * When true, pushes containing secrets will be blocked. \<br /\>When false, pushes are scanned for secrets and are not blocked. \<br /\>If includeAllProperties in the request is false, this value will be null.
      */
     blockPushes: boolean;
     /**
-     * ForceRepoSecretScanning will be set to true when Enabled, false when Disabled, and null when not set. \<br /\> If GHAzDO is NOT already enabled, behavior will depend on if GHAzDO is to be enabled/disabled. ForceRepoSecretScanning will not affect anything in this scenario. \<br /\> If GHAzDO is to be disabled, the value of ForceRepoSecretScan will have no effect. \<br /\> If GHAzDO is to be enabled for the first time on a repo, then ForceRepoSecretScanning will have no effect. \<br /\> If GHAzDO is to be enabled and the repo is already enabled, then ForceRepoSecretScanning will force the secret scanning job to be run if it is set to true. \<br /\> In all cases where ForceRepoSecretScanning is not expected to affect behavior, it will be set to false before being sent to Tfs.
+     * The VSID of the last user who modified the enablement status of Secret Protection.
      */
-    forceRepoSecretScanning: boolean;
+    secretProtectionChangedBy: string;
+    /**
+     * Secret Protection enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    secretProtectionEnabled: boolean;
+    /**
+     * The last time the status of Secret Protection for this repository was updated
+     */
+    secretProtectionEnablementLastChangedDate: Date;
 }

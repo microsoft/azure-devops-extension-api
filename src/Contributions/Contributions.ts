@@ -518,6 +518,10 @@ export interface ExtensionManifest {
      */
     manifestVersion: number;
     /**
+     * Marketplace uri used as base for other relative uris defined in extension. Uri might be the same as BaseUri.
+     */
+    marketplaceBaseUri: string;
+    /**
      * Default user claims applied to all contributions (except the ones which have been specified restrictedTo explicitly) to control the visibility of a contribution.
      */
     restrictedTo: string[];

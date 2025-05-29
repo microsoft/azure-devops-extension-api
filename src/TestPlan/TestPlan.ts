@@ -801,6 +801,13 @@ export interface TestCaseAssociatedResult {
     tester: WebApi.IdentityRef;
 }
 
+export interface TestCaseAssociatedResultExtended extends TestCaseAssociatedResult {
+    areaPath: string;
+    buildPipeline: Test.ShallowReference;
+    iterationPath: string;
+    owner: WebApi.IdentityRef;
+}
+
 /**
  * Test Case Reference
  */
@@ -835,6 +842,24 @@ export interface TestCaseResultsData {
      * Use to store the results displayed in the table
      */
     results: TestCaseAssociatedResult[];
+    /**
+     * Test Case Name to be displayed in the table header
+     */
+    testCaseName: string;
+}
+
+/**
+ * This data model is used in TestCaseResultsDataProvider for extended data to populates the data required for initial page load
+ */
+export interface TestCaseResultsDataExtended {
+    /**
+     * Point information from where the execution history was viewed. Used to set initial filters.
+     */
+    contextPoint: TestPointDetailedReference;
+    /**
+     * Use to store the results displayed in the table
+     */
+    results: TestCaseAssociatedResultExtended[];
     /**
      * Test Case Name to be displayed in the table header
      */
