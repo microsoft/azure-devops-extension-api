@@ -34,8 +34,8 @@ for (const folder of folders) {
 
 // Update package.json
 const pkgPath = "package.json";
-const pkg = JSON.parse(await fs.readFile(pkgPath, "utf8"));
+const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
 pkg.exports = exportsField;
-await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2));
+fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
 
 console.log("✅ package.json exports updated from src/");
