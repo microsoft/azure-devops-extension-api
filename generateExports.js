@@ -1,10 +1,10 @@
-import { promises as fs } from "fs";
+const fs = require("fs");
 
 const srcDir = "src";
 const esmDir = "esm";
 
 // Read all subdirectories in src
-const entries = await fs.readdir(srcDir, { withFileTypes: true });
+const entries = fs.readdirSync(srcDir, { withFileTypes: true });
 const folders = entries.filter((e) => e.isDirectory()).map((e) => e.name);
 
 // Base exports
