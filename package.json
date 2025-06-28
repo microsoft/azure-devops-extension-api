@@ -6,7 +6,6 @@
     "type": "git",
     "url": "https://github.com/Microsoft/azure-devops-extension-api.git"
   },
-  "type": "module",
   "scripts": {
     "generate:exports": "node generateExports.js",
     "prepare": "npm run generate:exports && tsc --project tsconfig.esm.json",
