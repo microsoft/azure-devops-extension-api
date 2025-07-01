@@ -577,7 +577,7 @@ export interface ServiceEndpoint {
      */
     modifiedBy: WebApi.IdentityRef;
     /**
-     * Gets or sets the friendly name of the endpoint.
+     * Gets the project-specific friendly name of the endpoint, as defined in the name field of ServiceEndpointProjectReferences.
      */
     name: string;
     /**

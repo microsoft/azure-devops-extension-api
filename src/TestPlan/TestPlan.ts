@@ -228,10 +228,6 @@ export interface CustomTestCaseResultData {
      */
     configuration: Test.ShallowReference;
     /**
-     * Array of custom data for additional categorization of the test result. Value of the CustomTestField cannot be more than 1KB.
-     */
-    customFields: Test.CustomTestField[];
-    /**
      * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
      */
     durationInMs: number;
@@ -244,6 +240,10 @@ export interface CustomTestCaseResultData {
      */
     id: number;
     /**
+     * Iteration path of test.
+     */
+    iterationPath: string;
+    /**
      * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
      */
     outcome: string;
@@ -255,6 +255,10 @@ export interface CustomTestCaseResultData {
      * Priority of test executed.
      */
     priority: number;
+    /**
+     * Reference to identity executed the test.
+     */
+    runBy: WebApi.IdentityRef;
     /**
      * Stacktrace with maxSize= 1000 chars.
      */

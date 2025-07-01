@@ -252,6 +252,7 @@ export enum RepositoryType {
     GitHub = 1,
     AzureReposGit = 2,
     GitHubEnterprise = 3,
+    BitBucket = 4,
     AzureReposGitHyphenated = 2
 }
 

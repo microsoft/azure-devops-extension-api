@@ -360,29 +360,6 @@ export class ManagementRestClient extends RestClientBase {
      */
     public async getEstimatedBillablePushersDetailsForOrg2(
         plan: Management.Plan
-        ): Promise<Management.MeterUsageEstimateDetails> {
-
-        const queryValues: any = {
-            plan: plan
-        };
-
-        return this.beginRequest<Management.MeterUsageEstimateDetails>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "_apis/Management/meterUsageEstimate2/{action}",
-            routeValues: {
-                action: "Details"
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this organization.
-     * 
-     * @param plan - The plan to query.
-     */
-    public async getEstimatedOrgBillablePushers2(
-        plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
 
         const queryValues: any = {
@@ -540,32 +517,6 @@ export class ManagementRestClient extends RestClientBase {
     public async getEstimatedBillablePushersDetailsForProject2(
         project: string,
         plan?: Management.Plan
-        ): Promise<Management.MeterUsageEstimateDetails> {
-
-        const queryValues: any = {
-            plan: plan
-        };
-
-        return this.beginRequest<Management.MeterUsageEstimateDetails>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/meterUsageEstimate2/{action}",
-            routeValues: {
-                project: project,
-                action: "Details"
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Estimate the number of committers that would be added to the customer's usage if Advanced Security was enabled for this project.
-     * 
-     * @param project - Project ID or project name
-     * @param plan - The plan to query.
-     */
-    public async getEstimatedProjectBillablePushers2(
-        project: string,
-        plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
 
         const queryValues: any = {
@@ -681,13 +632,13 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Estimate the committers that would be added to the customer's usage if Advanced Security was enabled for this repository.
+     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
      * 
      * @param project - Project ID or project name
      * @param repository - The name or ID of the repository
      * @param plan - The plan to query.
      */
-    public async getEstimatedRepoBillableCommitters2(
+    public async getEstimatedRepoBillableCommittersDetails2(
         project: string,
         repository: string,
         plan?: Management.Plan
@@ -704,35 +655,6 @@ export class ManagementRestClient extends RestClientBase {
                 project: project,
                 repository: repository,
                 action: "Default"
-            },
-            queryParams: queryValues
-        });
-    }
-
-    /**
-     * Estimate the pushers that would be added to the customer's usage if Advanced Security was enabled for this repository.
-     * 
-     * @param project - Project ID or project name
-     * @param repository - The name or ID of the repository
-     * @param plan - The plan to query.
-     */
-    public async getEstimatedRepoBillableCommittersDetails2(
-        project: string,
-        repository: string,
-        plan?: Management.Plan
-        ): Promise<Management.MeterUsageEstimateDetails> {
-
-        const queryValues: any = {
-            plan: plan
-        };
-
-        return this.beginRequest<Management.MeterUsageEstimateDetails>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Management/repositories/{repository}/meterUsageEstimate2/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                action: "Details"
             },
             queryParams: queryValues
         });
