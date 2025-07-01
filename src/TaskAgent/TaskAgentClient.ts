@@ -3391,6 +3391,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<ArrayBuffer> {
 
         const queryValues: any = {
+            versionString: versionString,
             visibility: visibility,
             scopeLocal: scopeLocal
         };
@@ -3400,8 +3401,7 @@ export class TaskAgentRestClient extends RestClientBase {
             httpResponseType: "application/zip",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
-                taskId: taskId,
-                versionString: versionString
+                taskId: taskId
             },
             queryParams: queryValues
         });
@@ -3421,6 +3421,7 @@ export class TaskAgentRestClient extends RestClientBase {
         ): Promise<TaskAgent.TaskDefinition> {
 
         const queryValues: any = {
+            versionString: versionString,
             visibility: visibility,
             scopeLocal: scopeLocal
         };
@@ -3429,8 +3430,7 @@ export class TaskAgentRestClient extends RestClientBase {
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/distributedtask/tasks/{taskId}/{versionString}",
             routeValues: {
-                taskId: taskId,
-                versionString: versionString
+                taskId: taskId
             },
             queryParams: queryValues
         });
