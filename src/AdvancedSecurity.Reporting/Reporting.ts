@@ -202,6 +202,10 @@ export interface RepoEnablementSummary {
      */
     advSecIsEnabled: boolean;
     /**
+     * Code Security plan is enabled for the repo. Only present for Azure Dev Ops orgs who had enabled Advanced security after billing sku split has went live.
+     */
+    codeSecurityEnabled: boolean;
+    /**
      * RepoId.
      */
     repoId: string;
@@ -213,6 +217,10 @@ export interface RepoEnablementSummary {
      * Repo enablement summary for different scan types.
      */
     scanTypeSummary: { [key: number] : ScanTypeSummaryProperties; };
+    /**
+     * Secret Protection plan is enabled for the repo. Only present for Azure Dev Ops orgs who had enabled Advanced security after billing sku split has went live.
+     */
+    secretProtectionEnabled: boolean;
 }
 
 export interface RiskUXComputedFilters {
