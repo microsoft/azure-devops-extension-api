@@ -218,6 +218,10 @@ export interface MeterUsage {
      */
     billingDate: Date;
     /**
+     * A list of BilledCommitter objects that contain the identityRef of committers that have Code Security Plan enabled. This list is populated only for organizations that can enable or disable the Code Security Plan.
+     */
+    codeSecurityBilledUsers: BilledCommitter[];
+    /**
      * True when a bill is generated for Advanced Security feature usage in this organziation
      */
     isAdvSecBillable: boolean;
@@ -225,6 +229,10 @@ export interface MeterUsage {
      * True when Advanced Security features are enabled in this organization
      */
     isAdvSecEnabled: boolean;
+    /**
+     * A list of BilledCommitter objects that contain the identityRef of committers that have Secret Protection Plan enabled. This list is populated only for organizations that can enable or disable the Secret Protection Plan.
+     */
+    secretProtectionBilledUsers: BilledCommitter[];
     /**
      * The Azure subscription
      */
@@ -239,20 +247,6 @@ export interface MeterUsage {
  * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
  */
 export interface MeterUsageEstimate {
-    /**
-     * Meter usage estimate when enabling Code Security plan
-     */
-    codeSecurityMeterUsageEstimate: string[];
-    /**
-     * Meter usage estimate when enabling Secret Protection plan
-     */
-    secretProtectionMeterUsageEstimate: string[];
-}
-
-/**
- * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
- */
-export interface MeterUsageEstimateDetails {
     /**
      * Meter usage estimate when enabling Code Security plan
      */
@@ -352,6 +346,10 @@ export interface RepoEnablementSettings {
      * Includes Code Security features that can be enabled.
      */
     codeSecurityFeatures: CodeSecurityFeatures;
+    /**
+     * Indicates whether the repository is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
     /**
      * The project Id
      */

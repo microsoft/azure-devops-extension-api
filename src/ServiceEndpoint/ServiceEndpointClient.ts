@@ -142,6 +142,29 @@ export class ServiceEndpointRestClient extends RestClientBase {
     }
 
     /**
+     * Get service endpoints for org by type and owner. Returns only id, name and url and used only internally by licensing service
+     * 
+     * @param type - Type of the service endpoints.
+     * @param owner - Owner for service endpoints.
+     */
+    public async getServiceEndpointsByTypeAndOwner(
+        type: string,
+        owner: string
+        ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
+
+        const queryValues: any = {
+            type: type,
+            owner: owner
+        };
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
+            apiVersion: "7.2-preview.4",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Share service endpoint across projects
      * 
      * @param endpointProjectReferences - Project reference details of the target project

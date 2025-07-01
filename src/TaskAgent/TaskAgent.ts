@@ -2878,6 +2878,7 @@ export interface TaskDefinition {
     postJobExecution: { [key: string] : any; };
     preJobExecution: { [key: string] : any; };
     preview: boolean;
+    release: TaskRelease;
     releaseNotes: string;
     restrictions: TaskRestrictions;
     runsOn: string[];
@@ -3469,6 +3470,17 @@ export interface TaskReference {
     version: string;
 }
 
+export interface TaskRelease {
+    /**
+     * The ordinal number of a release within the selected sprint.
+     */
+    ordinal: number;
+    /**
+     * The Azure DevOps sprint the release belongs to.
+     */
+    sprint: number;
+}
+
 export interface TaskRestrictions {
     commands: TaskCommandRestrictions;
     settableVariables: TaskVariableRestrictions;
@@ -3499,10 +3511,12 @@ export interface TaskVariableRestrictions {
 }
 
 export interface TaskVersion {
+    build: string;
     isTest: boolean;
     major: number;
     minor: number;
     patch: number;
+    preRelease: string;
 }
 
 export interface Timeline extends TimelineReference {
