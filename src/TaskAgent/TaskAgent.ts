@@ -658,7 +658,8 @@ export enum ElasticNodeState {
     AssignedPendingDelete = 18,
     RetryDelete = 19,
     UnhealthyVm = 20,
-    UnhealthyVmPendingDelete = 21
+    UnhealthyVmPendingDelete = 21,
+    PendingReimageCandidate = 22
 }
 
 /**
@@ -2089,6 +2090,7 @@ export interface TaskAgentCloudRequest {
     agentData: any;
     agentSpecification: any;
     pool: TaskAgentPoolReference;
+    poolProvidersTags: { [key: string] : string; };
     provisionedTime: Date;
     provisionRequestTime: Date;
     releaseRequestTime: Date;
