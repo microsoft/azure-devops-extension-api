@@ -208,6 +208,10 @@ export interface CustomTestCaseResultData {
      */
     area: Test.ShallowReference;
     /**
+     * Reference to bugs linked to test result.
+     */
+    associatedBugs: Test.ShallowReference[];
+    /**
      * Fully qualified name of test executed.
      */
     automatedTestName: string;
@@ -286,9 +290,13 @@ export interface CustomTestCaseResultData {
  */
 export interface CustomTestRunData {
     /**
-     * Build Number.
+     * Build Id.
      */
-    buildNumber: string;
+    buildId: number;
+    /**
+     * Build Name.
+     */
+    buildName: string;
     /**
      * Completed date time of the run.
      */
