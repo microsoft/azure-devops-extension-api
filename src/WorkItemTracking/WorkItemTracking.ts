@@ -666,6 +666,20 @@ export interface IdentityReference extends WebApi.IdentityRef {
 }
 
 /**
+ * Format for multiline field selected by the last edit user.
+ */
+export enum LargeTextCustomHtmlFormat {
+    /**
+     * Markdown format for text content.
+     */
+    Markdown = 0,
+    /**
+     * HTML format for text content.
+     */
+    Html = 1
+}
+
+/**
  * Link description.
  */
 export interface Link {
@@ -1216,6 +1230,10 @@ export interface WorkItem extends WorkItemTrackingResource {
      * The work item ID.
      */
     id: number;
+    /**
+     * Dictionary describing the Format for multiline fields selected by the last edit user.
+     */
+    multilineFieldsFormat: { [key: string] : LargeTextCustomHtmlFormat; };
     /**
      * Relations of the work item.
      */

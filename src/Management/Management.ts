@@ -185,6 +185,10 @@ export interface OrgEnablementSettings {
      */
     enablementOnCreateSettings: EnablementOnCreateSettings;
     /**
+     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
+    /**
      * A list of enablement statuses for repositories within the specified organization or project.
      */
     reposEnablementStatus: RepoEnablementSettings[];
@@ -222,6 +226,10 @@ export interface ProjectEnablementSettings {
      * Auto enablement setting for newly created repositories.
      */
     enablementOnCreateSettings: EnablementOnCreateSettings;
+    /**
+     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
     /**
      * A list of enablement statuses for repositories within the specified organization or project.
      */

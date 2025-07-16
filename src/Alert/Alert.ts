@@ -557,7 +557,11 @@ export enum DismissalType {
     /**
      * Dismissal indicating backend detection tool was upgraded and the alert is not detected by the new version of tool.
      */
-    ToolUpgrade = 5
+    ToolUpgrade = 5,
+    /**
+     * Dismissal indicating the affected dependencency is not distributed to end users.
+     */
+    NotDistributed = 6
 }
 
 export enum ExpandOption {
@@ -602,6 +606,10 @@ export interface License {
      */
     state: LicenseState;
     /**
+     * License type
+     */
+    type: LicenseType;
+    /**
      * Url for license information
      */
     url: string;
@@ -620,6 +628,40 @@ export enum LicenseState {
      * Information of the license has been harvested by ClearlyDefined
      */
     Harvested = 2
+}
+
+/**
+ * Enumerates types of licenses.
+ */
+export enum LicenseType {
+    /**
+     * The license type is unknown or not specified.
+     */
+    Unknown = 0,
+    /**
+     * A permissive license allows software to be freely used, modified, and distributed with minimal restrictions. Examples: MIT, Apache 2.0.
+     */
+    Permissive = 1,
+    /**
+     * A weak copyleft license requires modifications to the software to be shared under the same license, but does not impose restrictions on larger works that include the software. Examples: LGPL.
+     */
+    WeakCopyleft = 2,
+    /**
+     * A strong copyleft license requires that any derivative works or larger works that include the software must also be distributed under the same license. Examples: GPL.
+     */
+    StrongCopyleft = 3,
+    /**
+     * A network copyleft license extends the copyleft requirement to software that is accessed over a network, requiring the source code to be made available. Examples: AGPL.
+     */
+    NetworkCopyleft = 4,
+    /**
+     * A license that does not fit into the standard categories or is custom-defined. In CG, it indicates a commercial license.
+     */
+    Other = 5,
+    /**
+     * No assertion is made about the license type, leaving it unspecified.
+     */
+    NoAssertion = 6
 }
 
 export interface LogicalLocation {
