@@ -23,7 +23,7 @@ export class AlertRestClient extends RestClientBase {
      * @param alertId - ID of alert to retrieve
      * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
-     * @param expand - Expand alert attributes. Possible options are \{ValidationFingerprint, None\}
+     * @param expand - Expand attributes of a secret alert. Possible values are \`None\` and \`ValidationFingerprint\`. Defaults to \`None\`. Be aware that if \`expand\` is set to \`ValidationFingerprint\`, the response may contain the secret in its unencrypted form. Please exercise caution when using this data.
      */
     public async getAlert(
         project: string,
@@ -102,7 +102,7 @@ export class AlertRestClient extends RestClientBase {
      * @param alertId - ID of alert to retrieve
      * @param repository - Name or id  of a repository that alert is part of
      * @param ref - 
-     * @param expand - Expand alert attributes. Possible options are \{ValidationFingerprint, None\}
+     * @param expand - Expand attributes of a secret alert. Possible values are \`None\` and \`ValidationFingerprint\`. Defaults to \`None\`. Be aware that if \`expand\` is set to \`ValidationFingerprint\`, the response may contain the secret in its unencrypted form. Please exercise caution when using this data.
      */
     public async getAlertSarif(
         project: string,

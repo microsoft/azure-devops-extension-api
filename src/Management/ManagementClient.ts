@@ -157,7 +157,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param plan - The plan to query.
      */
     public async getEstimatedBillablePushersDetailsForOrg3(
-        plan: Management.Plan
+        plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
 
         const queryValues: any = {
