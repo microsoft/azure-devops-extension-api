@@ -2174,6 +2174,28 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Generates manual test plan from a work item using AI
+     * 
+     * @param project - Project ID or project name
+     * @param workItemId - 
+     */
+    public async generateTestPlanFromWorkItem(
+        project: string,
+        workItemId: number
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testai/generatetestplanfromworkitem/{workItemId}",
+            routeValues: {
+                project: project,
+                workItemId: workItemId
+            }
+        });
+    }
+
+    /**
      * Creates an attachment in the LogStore for the specified buildId.
      * 
      * @param attachmentRequestModel - Contains attachment info like stream, filename, comment, attachmentType

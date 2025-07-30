@@ -218,6 +218,7 @@ export enum AlertValidationRequestStatus {
  * Validity data for an alert that will be part of Alerts APIs and UI.
  */
 export interface AlertValidityInfo {
+    isDynamicAnalysisSupported: boolean;
     validityLastCheckedDate: Date;
     validityStatus: AlertValidityStatus;
 }
@@ -1113,7 +1114,7 @@ export interface ValidationFingerprint {
      */
     validationFingerprintHash: string;
     /**
-     * The JSON representation of the secret.
+     * The JSON representation of the secret. Be aware that this field may contain the secret in its unencrypted form. Please exercise caution when using this field.
      */
     validationFingerprintJson: string;
     /**
