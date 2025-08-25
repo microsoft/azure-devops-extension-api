@@ -969,6 +969,28 @@ export class TestPlanRestClient extends RestClientBase {
     }
 
     /**
+     * Create a test plan with test cases by queueing a job.
+     * 
+     * @param creationParams - Parameters for creating the test plan and test cases.
+     * @param project - Project ID or project name
+     */
+    public async createTestPlanWithTestCases(
+        creationParams: TestPlan.TestPlanWithTestCasesCreateParams,
+        project: string
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testplan/TestPlanWithTestCases",
+            routeValues: {
+                project: project
+            },
+            body: creationParams
+        });
+    }
+
+    /**
      * Get a particular Test Point from a suite.
      * 
      * @param project - Project ID or project name
