@@ -1862,7 +1862,7 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
-     * Post for retrieving a creating a batch out of a set of items in a repo / project given a list of paths or a long path
+     * Retrieves a batch of items in a repo / project for a given list of paths or a long path
      * 
      * @param requestData - Request data attributes: ItemDescriptors, IncludeContentMetadata, LatestProcessedChange, IncludeLinks. ItemDescriptors: Collection of items to fetch, including path, version, and recursion level. IncludeContentMetadata: Whether to include metadata for all items LatestProcessedChange: Whether to include shallow ref to commit that last changed each item. IncludeLinks: Whether to include the _links field on the shallow references.
      * @param repositoryId - The name or ID of the repository

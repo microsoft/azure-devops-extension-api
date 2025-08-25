@@ -3910,3 +3910,27 @@ export interface WorkloadIdentityFederationDetailsData {
     federationIssuer: string;
     federationSubject: string;
 }
+
+/**
+ * Represents a reference to a check configuration defined in pipeline YAML. Persisted stage is the resource that contains the check configuration reference.
+ */
+export interface YamlCheckReference {
+    /**
+     * Gets or sets the type of the check configuration reference.
+     */
+    type: YamlCheckType;
+}
+
+/**
+ * Enumeration of check types for configuration references.
+ */
+export enum YamlCheckType {
+    /**
+     * Unsupported YAML type
+     */
+    None = 0,
+    /**
+     * Production Readiness Check
+     */
+    ProductionReadiness = 1
+}

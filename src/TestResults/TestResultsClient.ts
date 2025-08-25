@@ -2176,10 +2176,12 @@ export class TestResultsRestClient extends RestClientBase {
     /**
      * Generates manual test plan from a work item using AI
      * 
+     * @param generateTestPlanFromWorkItemModel - 
      * @param project - Project ID or project name
      * @param workItemId - 
      */
     public async generateTestPlanFromWorkItem(
+        generateTestPlanFromWorkItemModel: Test.GenerateTestPlanFromWorkItemModel,
         project: string,
         workItemId: number
         ): Promise<boolean> {
@@ -2191,7 +2193,8 @@ export class TestResultsRestClient extends RestClientBase {
             routeValues: {
                 project: project,
                 workItemId: workItemId
-            }
+            },
+            body: generateTestPlanFromWorkItemModel
         });
     }
 

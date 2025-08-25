@@ -1150,7 +1150,11 @@ export enum ValidationResult {
     /**
      * Represents a secret where no determination can be made about its exploitability.
      */
-    Inconclusive = 3
+    Inconclusive = 3,
+    /**
+     * Represents a secret where we are unable to validate, e.g. dynamic validator missing.
+     */
+    ValidationNotSupported = 4
 }
 
 /**
