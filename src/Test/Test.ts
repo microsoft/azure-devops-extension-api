@@ -1052,6 +1052,10 @@ export interface FunctionCoverage2 {
     sourceFile: string;
 }
 
+export interface GenerateTestPlanFromWorkItemModel {
+    userInstructions: string;
+}
+
 export interface HttpPostedTcmAttachment {
     attachmentContent: string;
     contentLength: number;

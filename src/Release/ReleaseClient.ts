@@ -661,11 +661,17 @@ export class ReleaseRestClient extends RestClientBase {
      * 
      * @param releaseDefinition - Release definition object to update.
      * @param project - Project ID or project name
+     * @param skipTasksValidation - Skip task validation boolean flag
      */
     public async updateReleaseDefinition(
         releaseDefinition: Release.ReleaseDefinition,
-        project: string
+        project: string,
+        skipTasksValidation?: boolean
         ): Promise<Release.ReleaseDefinition> {
+
+        const queryValues: any = {
+            skipTasksValidation: skipTasksValidation
+        };
 
         return this.beginRequest<Release.ReleaseDefinition>({
             apiVersion: "7.2-preview.4",
@@ -674,6 +680,7 @@ export class ReleaseRestClient extends RestClientBase {
             routeValues: {
                 project: project
             },
+            queryParams: queryValues,
             body: releaseDefinition
         });
     }

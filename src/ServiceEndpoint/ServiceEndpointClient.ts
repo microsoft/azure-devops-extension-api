@@ -142,6 +142,29 @@ export class ServiceEndpointRestClient extends RestClientBase {
     }
 
     /**
+     * Get service endpoints for org by type and owner. Returns only id, name and url and used only internally by licensing service
+     * 
+     * @param type - Type of the service endpoints.
+     * @param owner - Owner for service endpoints.
+     */
+    public async getServiceEndpointsByTypeAndOwner(
+        type: string,
+        owner: string
+        ): Promise<ServiceEndpoint.ServiceEndpoint[]> {
+
+        const queryValues: any = {
+            type: type,
+            owner: owner
+        };
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpoint[]>({
+            apiVersion: "7.2-preview.4",
+            routeTemplate: "_apis/serviceendpoint/endpoints/{endpointId}",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Share service endpoint across projects
      * 
      * @param endpointProjectReferences - Project reference details of the target project
@@ -215,20 +238,17 @@ export class ServiceEndpointRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param endpointId - Id of the service endpoint.
      * @param actionFilter - Action filter for the service connection. It specifies the action which can be performed on the service connection.
-     * @param loadConfidetantialData - Flag to include confidential details of service endpoint. This is for internal use only. [Obsolete] This parameter is obsolete and will be removed. Use loadConfidentialData instead.
      * @param loadConfidentialData - Flag to include confidential details of service endpoint. This is for internal use only.
      */
     public async getServiceEndpointDetails(
         project: string,
         endpointId: string,
         actionFilter?: ServiceEndpoint.ServiceEndpointActionFilter,
-        loadConfidetantialData?: boolean,
         loadConfidentialData?: boolean
         ): Promise<ServiceEndpoint.ServiceEndpoint> {
 
         const queryValues: any = {
             actionFilter: actionFilter,
-            loadConfidetantialData: loadConfidetantialData,
             loadConfidentialData: loadConfidentialData
         };
 

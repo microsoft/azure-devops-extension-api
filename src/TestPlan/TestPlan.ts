@@ -208,6 +208,10 @@ export interface CustomTestCaseResultData {
      */
     area: Test.ShallowReference;
     /**
+     * Reference to bugs linked to test result.
+     */
+    associatedBugs: Test.ShallowReference[];
+    /**
      * Fully qualified name of test executed.
      */
     automatedTestName: string;
@@ -228,10 +232,6 @@ export interface CustomTestCaseResultData {
      */
     configuration: Test.ShallowReference;
     /**
-     * Array of custom data for additional categorization of the test result. Value of the CustomTestField cannot be more than 1KB.
-     */
-    customFields: Test.CustomTestField[];
-    /**
      * Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
      */
     durationInMs: number;
@@ -244,6 +244,10 @@ export interface CustomTestCaseResultData {
      */
     id: number;
     /**
+     * Iteration path of test.
+     */
+    iterationPath: string;
+    /**
      * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
      */
     outcome: string;
@@ -255,6 +259,10 @@ export interface CustomTestCaseResultData {
      * Priority of test executed.
      */
     priority: number;
+    /**
+     * Reference to identity executed the test.
+     */
+    runBy: WebApi.IdentityRef;
     /**
      * Stacktrace with maxSize= 1000 chars.
      */
@@ -282,9 +290,13 @@ export interface CustomTestCaseResultData {
  */
 export interface CustomTestRunData {
     /**
-     * Build Number.
+     * Build Id.
      */
-    buildNumber: string;
+    buildId: number;
+    /**
+     * Build Name.
+     */
+    buildName: string;
     /**
      * Completed date time of the run.
      */
@@ -309,6 +321,22 @@ export interface CustomTestRunData {
      * Pass rate of the run
      */
     passRate: string;
+    /**
+     * Pipeline run Id where test run is executed. It can either be a build or a release.
+     */
+    pipelineRunId: string;
+    /**
+     * Pipeline run name where test run is executed. It can either be a build or a release.
+     */
+    pipelineRunName: string;
+    /**
+     * Release Id where test run is executed.
+     */
+    releaseId: number;
+    /**
+     * Release Name where test run is executed.
+     */
+    releaseUri: string;
     /**
      * Start date time of the run.
      */
@@ -632,6 +660,40 @@ export enum ResultState {
 }
 
 /**
+ * This data model is used in SkinnyTestCaseResultDataProvider and provides the skinny TestCaseResultsData for a Test run
+ */
+export interface SkinnyTestCaseResultData {
+    /**
+     * Container to which test belongs.
+     */
+    automatedTestStorage: string;
+    /**
+     * Reference to test configuration. Type ShallowReference.
+     */
+    configuration: Test.ShallowReference;
+    /**
+     * ID of a test result.
+     */
+    id: number;
+    /**
+     * Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
+     */
+    outcome: string;
+    /**
+     * Owner of the test case result.
+     */
+    owner: WebApi.IdentityRef;
+    /**
+     * Priority of the test case result.
+     */
+    priority: number;
+    /**
+     * Reference to the test executed.
+     */
+    testCase: Test.ShallowReference;
+}
+
+/**
  * Source Test Plan information for Test Plan clone operation
  */
 export interface SourceTestPlanInfo {
@@ -806,6 +868,20 @@ export interface TestCaseAssociatedResultExtended extends TestCaseAssociatedResu
     buildPipeline: Test.ShallowReference;
     iterationPath: string;
     owner: WebApi.IdentityRef;
+}
+
+/**
+ * Data for a test case.
+ */
+export interface TestCaseData {
+    /**
+     * Steps for the test case.
+     */
+    steps: string;
+    /**
+     * Title of the test case.
+     */
+    title: string;
 }
 
 /**
@@ -1166,6 +1242,32 @@ export interface TestPlanUpdateParams extends TestPlanCreateParams {
      * Revision of the test plan.
      */
     revision: number;
+}
+
+/**
+ * Parameters for creating a test plan with test cases.
+ */
+export interface TestPlanWithTestCasesCreateParams {
+    /**
+     * Area path for the test plan.
+     */
+    areaPath: string;
+    /**
+     * Feature work item ID associated with the test plan.
+     */
+    featureWorkItemId: number;
+    /**
+     * List of test case data.
+     */
+    testCaseData: TestCaseData[];
+    /**
+     * Description of the test plan.
+     */
+    testPlanDescription: string;
+    /**
+     * Name of the test plan.
+     */
+    testPlanName: string;
 }
 
 /**

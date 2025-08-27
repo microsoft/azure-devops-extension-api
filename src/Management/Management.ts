@@ -23,10 +23,6 @@ export interface AdvSecEnablementFeatures {
      * Dependency Scanning Injection enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If Advanced Security is NOT already enabled, behavior will depend on if Advanced Security is to be enabled/disabled. DependencyScanningInjectionEnabled will not affect anything in this scenario. \<br /\> If Advanced Security is to be disabled, the value of DependencyScanningInjectionEnabled will have no effect. \<br /\> Setting Dependency Scanning enablement state is only supported for repo enablement and not org or project enablement at this time.
      */
     dependencyScanningInjectionEnabled: boolean;
-    /**
-     * ForceRepoSecretScanning will be set to true when Enabled, false when Disabled, and null when not set. \<br /\> If GHAzDO is NOT already enabled, behavior will depend on if GHAzDO is to be enabled/disabled. ForceRepoSecretScanning will not affect anything in this scenario. \<br /\> If GHAzDO is to be disabled, the value of ForceRepoSecretScan will have no effect. \<br /\> If GHAzDO is to be enabled for the first time on a repo, then ForceRepoSecretScanning will have no effect. \<br /\> If GHAzDO is to be enabled and the repo is already enabled, then ForceRepoSecretScanning will force the secret scanning job to be run if it is set to true. \<br /\> In all cases where ForceRepoSecretScanning is not expected to affect behavior, it will be set to false before being sent to Tfs.
-     */
-    forceRepoSecretScanning: boolean;
 }
 
 export interface AdvSecEnablementSettings {
@@ -218,6 +214,10 @@ export interface MeterUsage {
      */
     billingDate: Date;
     /**
+     * A list of BilledCommitter objects that contain the identityRef of committers that have Code Security Plan enabled. This list is populated only for organizations that can enable or disable the Code Security Plan.
+     */
+    codeSecurityBilledUsers: BilledCommitter[];
+    /**
      * True when a bill is generated for Advanced Security feature usage in this organziation
      */
     isAdvSecBillable: boolean;
@@ -225,6 +225,10 @@ export interface MeterUsage {
      * True when Advanced Security features are enabled in this organization
      */
     isAdvSecEnabled: boolean;
+    /**
+     * A list of BilledCommitter objects that contain the identityRef of committers that have Secret Protection Plan enabled. This list is populated only for organizations that can enable or disable the Secret Protection Plan.
+     */
+    secretProtectionBilledUsers: BilledCommitter[];
     /**
      * The Azure subscription
      */
@@ -239,20 +243,6 @@ export interface MeterUsage {
  * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
  */
 export interface MeterUsageEstimate {
-    /**
-     * Meter usage estimate when enabling Code Security plan
-     */
-    codeSecurityMeterUsageEstimate: string[];
-    /**
-     * Meter usage estimate when enabling Secret Protection plan
-     */
-    secretProtectionMeterUsageEstimate: string[];
-}
-
-/**
- * Information related to meter usage estimate for Code Security plan and/or Secret Protection plan
- */
-export interface MeterUsageEstimateDetails {
     /**
      * Meter usage estimate when enabling Code Security plan
      */
@@ -300,6 +290,10 @@ export interface OrgEnablementSettings {
      */
     enablementOnCreateSettings: EnablementOnCreateSettings;
     /**
+     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
+    /**
      * A list of enablement statuses for repositories within the specified organization or project.
      */
     reposEnablementStatus: RepoEnablementSettings[];
@@ -338,6 +332,10 @@ export interface ProjectEnablementSettings {
      */
     enablementOnCreateSettings: EnablementOnCreateSettings;
     /**
+     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
+    /**
      * A list of enablement statuses for repositories within the specified organization or project.
      */
     reposEnablementStatus: RepoEnablementSettings[];
@@ -352,6 +350,10 @@ export interface RepoEnablementSettings {
      * Includes Code Security features that can be enabled.
      */
     codeSecurityFeatures: CodeSecurityFeatures;
+    /**
+     * Indicates whether the repository is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
     /**
      * The project Id
      */

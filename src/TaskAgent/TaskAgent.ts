@@ -658,7 +658,8 @@ export enum ElasticNodeState {
     AssignedPendingDelete = 18,
     RetryDelete = 19,
     UnhealthyVm = 20,
-    UnhealthyVmPendingDelete = 21
+    UnhealthyVmPendingDelete = 21,
+    PendingReimageCandidate = 22
 }
 
 /**
@@ -2089,6 +2090,7 @@ export interface TaskAgentCloudRequest {
     agentData: any;
     agentSpecification: any;
     pool: TaskAgentPoolReference;
+    poolProvidersTags: { [key: string] : string; };
     provisionedTime: Date;
     provisionRequestTime: Date;
     releaseRequestTime: Date;
@@ -2878,6 +2880,7 @@ export interface TaskDefinition {
     postJobExecution: { [key: string] : any; };
     preJobExecution: { [key: string] : any; };
     preview: boolean;
+    release: TaskRelease;
     releaseNotes: string;
     restrictions: TaskRestrictions;
     runsOn: string[];
@@ -3469,6 +3472,17 @@ export interface TaskReference {
     version: string;
 }
 
+export interface TaskRelease {
+    /**
+     * The ordinal number of a release within the selected sprint.
+     */
+    ordinal: number;
+    /**
+     * The Azure DevOps sprint the release belongs to.
+     */
+    sprint: number;
+}
+
 export interface TaskRestrictions {
     commands: TaskCommandRestrictions;
     settableVariables: TaskVariableRestrictions;
@@ -3499,10 +3513,12 @@ export interface TaskVariableRestrictions {
 }
 
 export interface TaskVersion {
+    build: string;
     isTest: boolean;
     major: number;
     minor: number;
     patch: number;
+    preRelease: string;
 }
 
 export interface Timeline extends TimelineReference {
@@ -3893,4 +3909,28 @@ export interface VirtualMachineResourceCreateParameters {
 export interface WorkloadIdentityFederationDetailsData {
     federationIssuer: string;
     federationSubject: string;
+}
+
+/**
+ * Represents a reference to a check configuration defined in pipeline YAML. Persisted stage is the resource that contains the check configuration reference.
+ */
+export interface YamlCheckReference {
+    /**
+     * Gets or sets the type of the check configuration reference.
+     */
+    type: YamlCheckType;
+}
+
+/**
+ * Enumeration of check types for configuration references.
+ */
+export enum YamlCheckType {
+    /**
+     * Unsupported YAML type
+     */
+    None = 0,
+    /**
+     * Production Readiness Check
+     */
+    ProductionReadiness = 1
 }
