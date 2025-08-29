@@ -2416,6 +2416,10 @@ export enum RepositoryCleanOptions {
  */
 export interface RepositoryWebhook {
     /**
+     * The status of last delivery attempt for the webhook.
+     */
+    lastDeliveryStatus: number;
+    /**
      * The friendly name of the repository.
      */
     name: string;

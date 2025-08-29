@@ -19,6 +19,24 @@ export class TestResultsRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "c83eaf52-edf3-4034-ae11-17d38f25404c";
 
     /**
+     * @param key - 
+     */
+    public async getAfdTcmEndpoint(
+        key: string
+        ): Promise<string> {
+
+        const queryValues: any = {
+            key: key
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/afdtcmendpointlookup",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param attachmentRequestModel - 
      * @param project - Project ID or project name
      * @param runId - 
@@ -3411,6 +3429,35 @@ export class TestResultsRestClient extends RestClientBase {
             routeTemplate: "{project}/_apis/testresults/testsettings",
             routeValues: {
                 project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param buildId - 
+     * @param includeAllOutcomes - 
+     * @param onlyFlakyResults - 
+     */
+    public async getTestWeightedScoreByBuild(
+        project: string,
+        buildId: number,
+        includeAllOutcomes?: boolean,
+        onlyFlakyResults?: boolean
+        ): Promise<Test.TestCaseResult[]> {
+
+        const queryValues: any = {
+            includeAllOutcomes: includeAllOutcomes,
+            onlyFlakyResults: onlyFlakyResults
+        };
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.7",
+            routeTemplate: "{project}/_apis/testresults/testweightedscore/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
             },
             queryParams: queryValues
         });

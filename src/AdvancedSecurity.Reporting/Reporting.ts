@@ -71,6 +71,13 @@ export enum AlertType {
     License = 4
 }
 
+export interface EnablementFilterCriteria {
+    /**
+     * If provided, only return repos whose titles match this pattern.
+     */
+    keywords: string;
+}
+
 export interface FilterCriteria {
     /**
      * If provided, only return summary data for alerts of this type. Otherwise, return summary data for alerts of all types.
