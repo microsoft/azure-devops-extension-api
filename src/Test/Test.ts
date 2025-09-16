@@ -1000,7 +1000,11 @@ export enum FlakyDetectionType {
     /**
      * Defines System detection type.
      */
-    System = 2
+    System = 2,
+    /**
+     * Defines Advanced System detection type.
+     */
+    AdvanceSystem = 3
 }
 
 export interface FlakySettings {

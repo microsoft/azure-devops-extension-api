@@ -3417,6 +3417,35 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * @param project - Project ID or project name
+     * @param buildId - 
+     * @param includeAllOutcomes - 
+     * @param onlyFlakyResults - 
+     */
+    public async getTestWeightedScoreByBuild(
+        project: string,
+        buildId: number,
+        includeAllOutcomes?: boolean,
+        onlyFlakyResults?: boolean
+        ): Promise<Test.TestCaseResult[]> {
+
+        const queryValues: any = {
+            includeAllOutcomes: includeAllOutcomes,
+            onlyFlakyResults: onlyFlakyResults
+        };
+
+        return this.beginRequest<Test.TestCaseResult[]>({
+            apiVersion: "7.2-preview.7",
+            routeTemplate: "{project}/_apis/testresults/testweightedscore/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param workItemToTestLinks - 
      * @param project - Project ID or project name
      */
