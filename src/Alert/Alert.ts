@@ -56,9 +56,17 @@ export interface Alert {
      */
     physicalLocations: PhysicalLocation[];
     /**
+     * Identifier of the project where the alert was detected.
+     */
+    projectId: string;
+    /**
      * Relations between alerts and other artifacts.
      */
     relations: RelationMetadata[];
+    /**
+     * Identifier of the repository where the alert was detected.
+     */
+    repositoryId: string;
     /**
      * Repository URL where the alert was detected.
      */
