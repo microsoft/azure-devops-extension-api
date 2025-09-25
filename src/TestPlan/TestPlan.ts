@@ -286,7 +286,7 @@ export interface CustomTestCaseResultData {
 }
 
 /**
- * This data model is used in AllTestRunsViewDataProvider and provides Test Run Data
+ * This data model is used in TestRunsListDataProvider and provides Test Run Data
  */
 export interface CustomTestRunData {
     /**
@@ -300,7 +300,7 @@ export interface CustomTestRunData {
     /**
      * Completed date time of the run.
      */
-    completedDate: string;
+    completedDate: Date;
     /**
      * Duration of the run execution in milliseconds
      */
@@ -340,7 +340,7 @@ export interface CustomTestRunData {
     /**
      * Start date time of the run.
      */
-    startedDate: string;
+    startedDate: Date;
     /**
      * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
      */
