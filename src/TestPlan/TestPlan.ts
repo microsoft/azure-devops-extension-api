@@ -302,6 +302,10 @@ export interface CustomTestRunData {
      */
     completedDate: Date;
     /**
+     * Created date time of the run.
+     */
+    createdDate: Date;
+    /**
      * Duration of the run execution in milliseconds
      */
     durationInMs: number;
@@ -337,10 +341,6 @@ export interface CustomTestRunData {
      * Release Name where test run is executed.
      */
     releaseUri: string;
-    /**
-     * Start date time of the run.
-     */
-    startedDate: Date;
     /**
      * The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
      */

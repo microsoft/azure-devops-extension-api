@@ -19,6 +19,24 @@ export class TestResultsRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "c83eaf52-edf3-4034-ae11-17d38f25404c";
 
     /**
+     * @param key - 
+     */
+    public async getAfdTcmEndpoint(
+        key: string
+        ): Promise<string> {
+
+        const queryValues: any = {
+            key: key
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/afdtcmendpointlookup",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param attachmentRequestModel - 
      * @param project - Project ID or project name
      * @param runId - 

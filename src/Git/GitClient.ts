@@ -3942,7 +3942,6 @@ export class GitRestClient extends RestClientBase {
      * @param includeLinks - [optional] Specifies if referenceLinks should be included in the result. default is false.
      * @param includeStatuses - [optional] Includes up to the first 1000 commit statuses for each ref. The default value is false.
      * @param includeMyBranches - [optional] Includes only branches that the user owns, the branches the user favorites, and the default branch. The default value is false. Cannot be combined with the filter parameter.
-     * @param includeTargetBranches - [optional] Includes target branches defined by patterns in pull_request_targets.yml.
      * @param latestStatusesOnly - [optional] True to include only the tip commit status for each ref. This option requires \`includeStatuses\` to be true. The default value is false.
      * @param peelTags - [optional] Annotated tags will populate the PeeledObjectId property. default is false.
      * @param filterContains - [optional] A filter to apply to the refs (contains).
@@ -3954,7 +3953,6 @@ export class GitRestClient extends RestClientBase {
         includeLinks?: boolean,
         includeStatuses?: boolean,
         includeMyBranches?: boolean,
-        includeTargetBranches?: boolean,
         latestStatusesOnly?: boolean,
         peelTags?: boolean,
         filterContains?: string
@@ -3965,7 +3963,6 @@ export class GitRestClient extends RestClientBase {
             includeLinks: includeLinks,
             includeStatuses: includeStatuses,
             includeMyBranches: includeMyBranches,
-            includeTargetBranches: includeTargetBranches,
             latestStatusesOnly: latestStatusesOnly,
             peelTags: peelTags,
             filterContains: filterContains
