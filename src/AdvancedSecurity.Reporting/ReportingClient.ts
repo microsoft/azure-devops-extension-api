@@ -52,16 +52,23 @@ export class ReportingRestClient extends RestClientBase {
     }
 
     /**
+     * @param criteria - 
      */
     public async getEnablementSummaryForOrg(
+        criteria?: Reporting.EnablementFilterCriteria
         ): Promise<Reporting.OrgEnablementSummary> {
+
+        const queryValues: any = {
+            criteria: criteria
+        };
 
         return this.beginRequest<Reporting.OrgEnablementSummary>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Reporting/summary/{action}",
             routeValues: {
                 action: "Enablement"
-            }
+            },
+            queryParams: queryValues
         });
     }
 

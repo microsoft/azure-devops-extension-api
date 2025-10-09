@@ -40,7 +40,7 @@ export class AlertRestClient extends RestClientBase {
 
         return this.beginRequest<Alert.Alert>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/Alerts/{alertId}",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}",
             routeValues: {
                 project: project,
                 alertId: alertId,
@@ -81,7 +81,7 @@ export class AlertRestClient extends RestClientBase {
 
         return this.beginRequest<Response>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/Alerts/{alertId}",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}",
             routeValues: {
                 project: project,
                 repository: repository
@@ -119,7 +119,7 @@ export class AlertRestClient extends RestClientBase {
 
         return this.beginRequest<string>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/Alerts/{alertId}",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}",
             routeValues: {
                 project: project,
                 alertId: alertId,
@@ -147,7 +147,7 @@ export class AlertRestClient extends RestClientBase {
         return this.beginRequest<Alert.Alert>({
             apiVersion: "7.2-preview.1",
             method: "PATCH",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/Alerts/{alertId}",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}",
             routeValues: {
                 project: project,
                 alertId: alertId,
@@ -310,6 +310,26 @@ export class AlertRestClient extends RestClientBase {
                 repository: repository
             },
             body: alertsMetadata
+        });
+    }
+
+    /**
+     * Get alerts by their IDs at the organization level. Only retruns alerts that the user has permission to view. Only returns alerts of sku plans that are enabled.
+     * 
+     * @param alertIds - List of alert IDs to retrieve
+     */
+    public async getOrgLevelAlertsByIds(
+        alertIds: number[]
+        ): Promise<Alert.Alert[]> {
+
+        const queryValues: any = {
+            alertIds: alertIds && alertIds.join(",")
+        };
+
+        return this.beginRequest<Alert.Alert[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Alert/alerts",
+            queryParams: queryValues
         });
     }
 

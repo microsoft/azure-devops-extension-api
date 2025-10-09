@@ -2128,12 +2128,8 @@ export interface TaskAgentJob {
 /**
  * A job request for an agent.
  */
-export interface TaskAgentJobRequest {
+export interface TaskAgentJobRequest extends TaskAgentJobRequestRef {
     agentSpecification: any;
-    /**
-     * The date/time this request was assigned.
-     */
-    assignTime: Date;
     /**
      * Additional data about the request.
      */
@@ -2146,10 +2142,6 @@ export interface TaskAgentJobRequest {
      * A list of demands required to fulfill this request.
      */
     demands: Demand[];
-    /**
-     * The date/time this request was finished.
-     */
-    finishTime: Date;
     /**
      * The host which triggered this request.
      */
@@ -2168,7 +2160,6 @@ export interface TaskAgentJobRequest {
     lockedUntil: Date;
     matchedAgents: TaskAgentReference[];
     matchesAllAgentsInPool: boolean;
-    orchestrationId: string;
     /**
      * The pipeline associated with this request
      */
@@ -2192,18 +2183,6 @@ export interface TaskAgentJobRequest {
      */
     queueId: number;
     /**
-     * The date/time this request was queued.
-     */
-    queueTime: Date;
-    /**
-     * The date/time this request was receieved by an agent.
-     */
-    receiveTime: Date;
-    /**
-     * ID of the request.
-     */
-    requestId: number;
-    /**
      * The agent allocated for this request.
      */
     reservedAgent: TaskAgentReference;
@@ -2221,6 +2200,30 @@ export interface TaskAgentJobRequest {
     serviceOwner: string;
     statusMessage: string;
     userDelayed: boolean;
+}
+
+export interface TaskAgentJobRequestRef {
+    /**
+     * The date/time this request was assigned.
+     */
+    assignTime: Date;
+    /**
+     * The date/time this request was finished.
+     */
+    finishTime: Date;
+    orchestrationId: string;
+    /**
+     * The date/time this request was queued.
+     */
+    queueTime: Date;
+    /**
+     * The date/time this request was receieved by an agent.
+     */
+    receiveTime: Date;
+    /**
+     * ID of the request.
+     */
+    requestId: number;
 }
 
 /**
@@ -2770,6 +2773,17 @@ export enum TaskAgentStatusFilter {
      * All deployment targets.
      */
     All = 3
+}
+
+export interface TaskAgentStatusUpdate {
+    /**
+     * Whether or not the agent is online.
+     */
+    status: TaskAgentStatus;
+    /**
+     * Date on which the last connectivity status change occurred.
+     */
+    statusChangedOn: Date;
 }
 
 /**
