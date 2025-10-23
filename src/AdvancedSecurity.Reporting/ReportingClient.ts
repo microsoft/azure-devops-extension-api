@@ -16,14 +16,14 @@ export class ReportingRestClient extends RestClientBase {
 
     /**
      */
-    public async getRiskUXComputedFilters(
-        ): Promise<Reporting.RiskUXComputedFilters> {
+    public async getUXComputedFilters(
+        ): Promise<Reporting.ReportingUXComputedFilters> {
 
-        return this.beginRequest<Reporting.RiskUXComputedFilters>({
+        return this.beginRequest<Reporting.ReportingUXComputedFilters>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Reporting/filters/{action}",
             routeValues: {
-                action: "Alerts"
+                action: "Default"
             }
         });
     }

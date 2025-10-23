@@ -209,6 +209,11 @@ export interface IdentitySnapshot {
     scopes: IdentityScope[];
 }
 
+export interface IdentityTranslation {
+    localId: string;
+    masterId: string;
+}
+
 export interface IdentityUpdateData {
     id: string;
     index: number;

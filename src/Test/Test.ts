@@ -2967,6 +2967,36 @@ export interface TestCaseFileInfo {
     testCaseId: number;
 }
 
+/**
+ * Represents a Test Case Flakiness Branch Information.
+ */
+export interface TestCaseFlakinessBranchInfo {
+    /**
+     * AutomatedTestName of test result.
+     */
+    automatedTestName: string;
+    /**
+     * AutomatedTestStorage of test result.
+     */
+    automatedTestStorage: string;
+    /**
+     * List of Branches where Test Case Reference Id has flaked.
+     */
+    flakyBranches: string[];
+    /**
+     * Time when the test was last run.
+     */
+    lastRefTestRunDate: Date;
+    /**
+     * ID of TestCaseReference.
+     */
+    testCaseReferenceId: number;
+    /**
+     * TestCaseTitle of test result.
+     */
+    testCaseTitle: string;
+}
+
 export interface TestCaseMetadata2 {
     container: string;
     name: string;

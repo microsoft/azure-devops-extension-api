@@ -172,11 +172,11 @@ export interface CodeSecurityFeatures {
      */
     codeSecurityEnablementLastChangedDate: Date;
     /**
-     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies. \<br /\>Setting Dependabot enablement state is only supported for repo enablement and not org or project enablement at this time.
+     * Dependabot enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, Dependabot will open PRs to support security updates for outdated dependencies.
      */
     dependabotEnabled: boolean;
     /**
-     * Dependency Scanning Injection enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If Advanced Security is NOT already enabled, behavior will depend on if Advanced Security is to be enabled/disabled. DependencyScanningInjectionEnabled will not affect anything in this scenario. \<br /\> If Advanced Security is to be disabled, the value of DependencyScanningInjectionEnabled will have no effect. \<br /\> Setting Dependency Scanning enablement state is only supported for repo enablement and not org or project enablement at this time.
+     * Dependency Scanning Injection enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If Advanced Security is NOT already enabled, behavior will depend on if Advanced Security is to be enabled/disabled. DependencyScanningInjectionEnabled will not affect anything in this scenario. \<br /\> If Advanced Security is to be disabled, the value of DependencyScanningInjectionEnabled will have no effect.
      */
     dependencyScanningInjectionEnabled: boolean;
 }
