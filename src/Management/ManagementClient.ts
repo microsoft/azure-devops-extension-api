@@ -20,7 +20,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param meterUsage - 
      * @param plan - 
      */
-    public async createBillingSnapshot3(
+    public async createBillingSnapshot2(
         meterUsage: Management.MeterUsageForPlan,
         plan: Management.Plan
         ): Promise<void> {
@@ -47,7 +47,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param plan - The plan to query. Plans supported: CodeSecurity and SecretProtection. This is a mandatory parameter.
      * @param billingDate - The date to query, or if not provided, today
      */
-    public async getBillableCommitterDetails3(
+    public async getBillableCommitterDetails2(
         plan: Management.Plan,
         billingDate?: Date
         ): Promise<Management.BillableCommitterDetails[]> {
@@ -70,7 +70,7 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * @param plan - 
      */
-    public async getLastMeterUsage3(
+    public async getLastMeterUsage2(
         plan: Management.Plan
         ): Promise<Management.MeterUsageForPlan> {
 
@@ -94,7 +94,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param plan - The plan to query. Plans supported: CodeSecurity and SecretProtection. This is a mandatory parameter.
      * @param billingDate - The date to query, or if not provided, today
      */
-    public async getMeterUsage3(
+    public async getMeterUsage2(
         plan: Management.Plan,
         billingDate?: Date
         ): Promise<Management.MeterUsageForPlan> {
@@ -119,7 +119,7 @@ export class ManagementRestClient extends RestClientBase {
      * 
      * @param includeAllProperties - When true, also determine if pushes are blocked if they contain secrets
      */
-    public async getOrgEnablementStatus3(
+    public async getOrgEnablementStatus2(
         includeAllProperties?: boolean
         ): Promise<Management.OrgEnablementSettings> {
 
@@ -139,7 +139,7 @@ export class ManagementRestClient extends RestClientBase {
      * 
      * @param orgEnablementSettings - The new status
      */
-    public async updateOrgEnablementStatus3(
+    public async updateOrgEnablementStatus2(
         orgEnablementSettings: Management.OrgEnablementSettings
         ): Promise<void> {
 
@@ -156,7 +156,7 @@ export class ManagementRestClient extends RestClientBase {
      * 
      * @param plan - The plan to query.
      */
-    public async getEstimatedBillablePushersDetailsForOrg3(
+    public async getEstimatedBillablePushersDetailsForOrg2(
         plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
 
@@ -180,7 +180,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param includeAllProperties - When true, also determine if pushes are blocked if they contain secrets
      */
-    public async getProjectEnablementStatus3(
+    public async getProjectEnablementStatus2(
         project: string,
         includeAllProperties?: boolean
         ): Promise<Management.ProjectEnablementSettings> {
@@ -205,7 +205,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param projectEnablementSettings - The new status
      * @param project - Project ID or project name
      */
-    public async updateProjectEnablementStatus3(
+    public async updateProjectEnablementStatus2(
         projectEnablementSettings: Management.ProjectEnablementSettings,
         project: string
         ): Promise<void> {
@@ -227,7 +227,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param plan - 
      */
-    public async getEstimatedBillablePushersDetailsForProject3(
+    public async getEstimatedBillablePushersDetailsForProject2(
         project: string,
         plan?: Management.Plan
         ): Promise<Management.MeterUsageEstimate> {
@@ -254,7 +254,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param repository - The name or ID of the repository
      * @param includeAllProperties - When true, will also determine if pushes are blocked when secrets are detected
      */
-    public async getRepoEnablementStatus3(
+    public async getRepoEnablementStatus2(
         project: string,
         repository: string,
         includeAllProperties?: boolean
@@ -282,7 +282,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param repository - Name or ID of the repository
      */
-    public async updateRepoAdvSecEnablementStatus3(
+    public async updateRepoAdvSecEnablementStatus2(
         savedAdvSecEnablementStatus: Management.RepoEnablementSettings,
         project: string,
         repository: string
@@ -307,7 +307,7 @@ export class ManagementRestClient extends RestClientBase {
      * @param repository - The name or ID of the repository
      * @param plan - The plan to query.
      */
-    public async getEstimatedBillableCommittersDetailsForRepo3(
+    public async getEstimatedBillableCommittersDetailsForRepo2(
         project: string,
         repository: string,
         plan?: Management.Plan

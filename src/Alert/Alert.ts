@@ -139,7 +139,11 @@ export enum AlertListExpandOption {
     /**
      * Return a minimal representation of an alert.
      */
-    Minimal = 1
+    Minimal = 1,
+    /**
+     * Only Return AlertId of an alert.
+     */
+    IdOnly = 2
 }
 
 /**
@@ -241,7 +245,7 @@ export enum AlertValidityStatus {
      */
     Unknown = 1,
     /**
-     * When atleast one validation fingerprint associated to the alert is exploitable.
+     * When at least one validation fingerprint associated to the alert is exploitable.
      */
     Active = 2,
     /**

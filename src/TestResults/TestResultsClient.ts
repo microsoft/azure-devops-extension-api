@@ -835,6 +835,27 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get list of branches where a test case reference id has flaked
+     * 
+     * @param project - Project ID or project name
+     * @param testCaseReferenceId - Reference ID of test used by test result
+     */
+    public async getBranchesByFlakyTestCaseRefId(
+        project: string,
+        testCaseReferenceId: number
+        ): Promise<Test.TestCaseFlakinessBranchInfo> {
+
+        return this.beginRequest<Test.TestCaseFlakinessBranchInfo>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/testcasereference/{testCaseReferenceId}",
+            routeValues: {
+                project: project,
+                testCaseReferenceId: testCaseReferenceId
+            }
+        });
+    }
+
+    /**
      * @param filter - 
      * @param project - Project ID or project name
      */
