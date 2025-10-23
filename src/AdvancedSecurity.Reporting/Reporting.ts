@@ -76,6 +76,45 @@ export interface EnablementFilterCriteria {
      * If provided, only return repos whose titles match this pattern.
      */
     keywords: string;
+    /**
+     * If provided, only return summary data for these projects. Otherwise, return summary data for all projects.
+     */
+    projects: string[];
+    /**
+     * If provided, only return summary data for these enablement states. Otherwise, return summary data at any state.
+     */
+    states: EnablementStateTypes;
+}
+
+export interface EnablementStateTypes {
+    /**
+     * True if any tool is enabled for the repository, false if any tool is disabled.
+     */
+    anyTool: boolean;
+    /**
+     * True if code scanning alerts are enabled for the repository, false if disabled.
+     */
+    codeAlerts: boolean;
+    /**
+     * True if code scanning pull request alerts are enabled for the repository, false if disabled.
+     */
+    codePRAlerts: boolean;
+    /**
+     * True if dependency alerts are enabled for the repository, false if disabled.
+     */
+    dependencyAlerts: boolean;
+    /**
+     * True if dependency pull request alerts are enabled for the repository, false if disabled.
+     */
+    dependencyPRAlerts: boolean;
+    /**
+     * True if pushes containing secrets will be blocked, false if they will not.
+     */
+    pushProtection: boolean;
+    /**
+     * True if secret scanning is enabled for the repository, false if disabled.
+     */
+    secretAlerts: boolean;
 }
 
 export interface FilterCriteria {
@@ -230,9 +269,9 @@ export interface RepoEnablementSummary {
     secretProtectionEnabled: boolean;
 }
 
-export interface RiskUXComputedFilters {
+export interface ReportingUXComputedFilters {
     /**
-     * Display alerts for specified projects. Show alerts for all projects if none are specified.
+     * Display reporting for specified projects. Show reporting for all projects if none are specified.
      */
     projects: Project[];
 }

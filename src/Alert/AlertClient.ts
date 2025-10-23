@@ -383,6 +383,26 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Upload a Sarif file at the organization level
+     * 
+     * @param content - Content to upload
+     */
+    public async uploadOrgSarif(
+        content: string
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.2",
+            method: "POST",
+            routeTemplate: "_apis/Alert/Sarifs/{sarifId}",
+            customHeaders: {
+                "Content-Type": "application/octet-stream",
+            },
+            body: content
+        });
+    }
+
+    /**
      * Get the validity details for an alert.
      * 
      * @param project - Project ID or project name

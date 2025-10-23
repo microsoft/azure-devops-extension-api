@@ -1059,14 +1059,12 @@ export interface EnvironmentReference {
     name: string;
 }
 
-export interface EnvironmentResource {
+export interface EnvironmentResource extends EnvironmentReference {
     createdBy: WebApi.IdentityRef;
     createdOn: Date;
     environmentReference: EnvironmentReference;
-    id: number;
     lastModifiedBy: WebApi.IdentityRef;
     lastModifiedOn: Date;
-    name: string;
     /**
      * Tags of the Environment Resource.
      */
@@ -3918,6 +3916,10 @@ export interface VirtualMachineResource extends EnvironmentResource {
 
 export interface VirtualMachineResourceCreateParameters {
     virtualMachineResource: VirtualMachineResource;
+}
+
+export interface VirtualMachineResourceMinReference extends EnvironmentReference {
+    agent: TaskAgentReference;
 }
 
 export interface WorkloadIdentityFederationDetailsData {
