@@ -16,14 +16,14 @@ export class ReportingRestClient extends RestClientBase {
 
     /**
      */
-    public async getRiskUXComputedFilters(
-        ): Promise<Reporting.RiskUXComputedFilters> {
+    public async getUXComputedFilters(
+        ): Promise<Reporting.ReportingUXComputedFilters> {
 
-        return this.beginRequest<Reporting.RiskUXComputedFilters>({
+        return this.beginRequest<Reporting.ReportingUXComputedFilters>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Reporting/filters/{action}",
             routeValues: {
-                action: "Alerts"
+                action: "Default"
             }
         });
     }
@@ -52,16 +52,23 @@ export class ReportingRestClient extends RestClientBase {
     }
 
     /**
+     * @param criteria - 
      */
     public async getEnablementSummaryForOrg(
+        criteria?: Reporting.EnablementFilterCriteria
         ): Promise<Reporting.OrgEnablementSummary> {
+
+        const queryValues: any = {
+            criteria: criteria
+        };
 
         return this.beginRequest<Reporting.OrgEnablementSummary>({
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Reporting/summary/{action}",
             routeValues: {
                 action: "Enablement"
-            }
+            },
+            queryParams: queryValues
         });
     }
 

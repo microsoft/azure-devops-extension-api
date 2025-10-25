@@ -20,6 +20,31 @@ export class TestRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "c2aa639c-3ccc-4740-b3b6-ce2a1e1d984e";
 
     /**
+     * Processes a collection of test suites and returns a response model containing suite and test case details.
+     * 
+     * @param request - The request model containing the test suites to be processed. Cannot be null.
+     * @param project - Project ID or project name
+     * @param workItemId - 
+     */
+    public async processSuitesForStaging(
+        request: Test.StagedSuitesRequestModel,
+        project: string,
+        workItemId: number
+        ): Promise<Test.StagedSuitesResponseModel> {
+
+        return this.beginRequest<Test.StagedSuitesResponseModel>({
+            apiVersion: "7.2-preview.7",
+            method: "POST",
+            routeTemplate: "{project}/_apis/test/ai/workitem/testsuitedata/{workItemId}",
+            routeValues: {
+                project: project,
+                workItemId: workItemId
+            },
+            body: request
+        });
+    }
+
+    /**
      * Attach a file to test step result
      * 
      * @param attachmentRequestModel - Attachment details TestAttachmentRequestModel

@@ -843,9 +843,13 @@ export enum ExtensionQueryFlags {
      */
     IncludeNameConflictInfo = 32768,
     /**
-     * When retrieving versions from a query, return the details with both latest prelease and stable version of the extensions that matched, if not prelease version, only return stable version. This is useful when the caller doesn't need all the published versions. It will save a significant size in the returned payload.
+     * When retrieving versions from a query, return the details with both latest prerelease and stable version of the extensions that matched, if not prerelease version, only return stable version. This is useful when the caller doesn't need all the published versions. It will save a significant size in the returned payload.
      */
     IncludeLatestPrereleaseAndStableVersionOnly = 65536,
+    /**
+     * Include deleted extensions in the result set, and usage is only internal.
+     */
+    IncludeDeleted = 131072,
     /**
      * AllAttributes is designed to be a mask that defines all sub-elements of the extension should be returned.  NOTE: This is not actually All flags. This is now locked to the set defined since changing this enum would be a breaking change and would change the behavior of anyone using it. Try not to use this value when making calls to the service, instead be explicit about the options required.
      */
@@ -925,7 +929,11 @@ export enum ExtensionVersionFlags {
     /**
      * The Prerelease flag for a version means the extension version is prerelease. This flag is runtime only. We need backfill this flag to database in the future, here is a tracking task: https://dev.azure.com/mseng/AzureDevOps/_workitems/edit/2234733
      */
-    Prerelease = 2
+    Prerelease = 2,
+    /**
+     * This version has been deleted.
+     */
+    Deleted = 4
 }
 
 /**
@@ -1133,7 +1141,11 @@ export enum PublishedExtensionFlags {
     /**
      * This flag is set for extensions we want to hide from Marketplace home and search pages. This will be used to override the exposure of builtIn flags.
      */
-    Hidden = 32768
+    Hidden = 32768,
+    /**
+     * This flag is set for extensions that are marked as deleted. The deleted flag is managed by the service and can't be supplied by the Extension Developers.
+     */
+    Deleted = 65536
 }
 
 export interface Publisher extends PublisherBase {

@@ -145,6 +145,11 @@ export interface AnalysisFailureGroupReturn {
     failureGroupUid: string;
 }
 
+export interface AttachmentReference {
+    fileName: string;
+    url: string;
+}
+
 /**
  * The types of test attachments.
  */
@@ -1374,6 +1379,11 @@ export interface Machine {
     timeline: Timeline[];
 }
 
+export interface MetadataFile {
+    metadataId: string;
+    suites: SuiteMetadata[];
+}
+
 /**
  * Test summary metrics.
  */
@@ -2573,6 +2583,33 @@ export interface SourceViewBuildCoverage {
     folderCoverageData: FolderCoverageData;
 }
 
+export interface StagedSuiteResponse {
+    suiteId: number;
+    suiteName: string;
+    testCaseMetadata: StagedTestCaseMetadataResponse[];
+}
+
+export interface StagedSuitesRequestModel {
+    suites: StagingSuiteRequest[];
+}
+
+export interface StagedSuitesResponseModel {
+    metadataId: string;
+    success: boolean;
+}
+
+export interface StagedTestCaseMetadataResponse {
+    name: string;
+    testCaseId: number;
+}
+
+export interface StagedTestCaseResponse {
+    name: string;
+    steps: string;
+    suiteId: number;
+    testCaseId: number;
+}
+
 /**
  * Stage in pipeline
  */
@@ -2585,6 +2622,12 @@ export interface StageReference {
      * Name of the stage. Maximum supported length for name is 256 character.
      */
     stageName: string;
+}
+
+export interface StagingSuiteRequest {
+    suiteId: number;
+    suiteName: string;
+    testCaseMetadata: TestCaseStagingMetadataRequest[];
 }
 
 /**
@@ -2661,6 +2704,12 @@ export enum SuiteExpand {
      * Include default testers in response.
      */
     DefaultTesters = 2
+}
+
+export interface SuiteMetadata {
+    suiteId: number;
+    suiteName: string;
+    testCases: TestCaseFileInfo[];
 }
 
 /**
@@ -2910,6 +2959,42 @@ export interface TestAuthoringDetails {
     state: TestPointState;
     suiteId: number;
     testerId: string;
+}
+
+export interface TestCaseFileInfo {
+    fileName: string;
+    name: string;
+    testCaseId: number;
+}
+
+/**
+ * Represents a Test Case Flakiness Branch Information.
+ */
+export interface TestCaseFlakinessBranchInfo {
+    /**
+     * AutomatedTestName of test result.
+     */
+    automatedTestName: string;
+    /**
+     * AutomatedTestStorage of test result.
+     */
+    automatedTestStorage: string;
+    /**
+     * List of Branches where Test Case Reference Id has flaked.
+     */
+    flakyBranches: string[];
+    /**
+     * Time when the test was last run.
+     */
+    lastRefTestRunDate: Date;
+    /**
+     * ID of TestCaseReference.
+     */
+    testCaseReferenceId: number;
+    /**
+     * TestCaseTitle of test result.
+     */
+    testCaseTitle: string;
 }
 
 export interface TestCaseMetadata2 {
@@ -3271,6 +3356,12 @@ export interface TestCaseResultUpdateModel {
     state: string;
     testCasePriority: string;
     testResult: ShallowReference;
+}
+
+export interface TestCaseStagingMetadataRequest {
+    name: string;
+    steps: string[];
+    testCaseId: number;
 }
 
 /**
