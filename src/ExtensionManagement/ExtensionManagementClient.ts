@@ -94,6 +94,28 @@ export class ExtensionManagementRestClient extends RestClientBase {
      * @param extensionName - 
      * @param registrationId - 
      */
+    public async getAuthorization(
+        publisherName: string,
+        extensionName: string,
+        registrationId: string
+        ): Promise<ExtensionManagement.ExtensionAuthorization> {
+
+        return this.beginRequest<ExtensionManagement.ExtensionAuthorization>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/ExtensionManagement/InstalledExtensions/{publisherName}/{extensionName}/Authorizations/{registrationId}",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName,
+                registrationId: registrationId
+            }
+        });
+    }
+
+    /**
+     * @param publisherName - 
+     * @param extensionName - 
+     * @param registrationId - 
+     */
     public async registerAuthorization(
         publisherName: string,
         extensionName: string,
