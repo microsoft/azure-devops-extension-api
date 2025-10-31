@@ -1047,24 +1047,6 @@ export class ReleaseRestClient extends RestClientBase {
     }
 
     /**
-     * @param flightName - 
-     */
-    public async getFlightAssignments(
-        flightName?: string
-        ): Promise<string[]> {
-
-        const queryValues: any = {
-            flightName: flightName
-        };
-
-        return this.beginRequest<string[]>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "_apis/Release/flightAssignments",
-            queryParams: queryValues
-        });
-    }
-
-    /**
      * Creates a new folder.
      * 
      * @param folder - folder.
