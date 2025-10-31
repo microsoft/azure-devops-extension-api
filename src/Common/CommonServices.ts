@@ -654,6 +654,11 @@ export interface IGlobalMessageBanner {
      * Links to supply to the format arguments in `messageFormat`
      */
     messageLinks?: IGlobalMessageLink[];
+
+    /**
+     * The id used to check if the banner has been dismissed, and make dismissal permanent
+     */
+    settingId?: string;
 }
 
 /**
@@ -711,7 +716,7 @@ export interface IGlobalDialog {
     priority?: number;
 
     /**
-     * The id used to check if the dialog has been dismissed.
+     * The id used to check if the dialog has been dismissed, and make dismissal permanent.
      */
     settingId?: string;
 
