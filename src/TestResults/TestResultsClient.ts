@@ -807,7 +807,7 @@ export class TestResultsRestClient extends RestClientBase {
         return this.beginRequest<number>({
             apiVersion: "7.2-preview.1",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/repositories/{repositoryId}",
             routeValues: {
                 project: project
             },
@@ -817,10 +817,12 @@ export class TestResultsRestClient extends RestClientBase {
 
     /**
      * @param project - Project ID or project name
+     * @param repositoryId - 
      * @param branchInfo - 
      */
     public async getFlakyTestCaseRefIdsByBranch(
         project: string,
+        repositoryId: string,
         branchInfo: Test.BranchInfo
         ): Promise<Test.TestCaseFlakinessBranchInfo[]> {
 
@@ -830,9 +832,10 @@ export class TestResultsRestClient extends RestClientBase {
 
         return this.beginRequest<Test.TestCaseFlakinessBranchInfo[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/repositories/{repositoryId}",
             routeValues: {
-                project: project
+                project: project,
+                repositoryId: repositoryId
             },
             queryParams: queryValues
         });

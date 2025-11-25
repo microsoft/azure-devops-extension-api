@@ -3945,6 +3945,7 @@ export class GitRestClient extends RestClientBase {
      * @param latestStatusesOnly - [optional] True to include only the tip commit status for each ref. This option requires \`includeStatuses\` to be true. The default value is false.
      * @param peelTags - [optional] Annotated tags will populate the PeeledObjectId property. default is false.
      * @param filterContains - [optional] A filter to apply to the refs (contains).
+     * @param includeTargetBranches - [optional] Includes target branches defined by patterns in pull_request_targets.yml.
      */
     public async getRefs(
         repositoryId: string,
@@ -3955,7 +3956,8 @@ export class GitRestClient extends RestClientBase {
         includeMyBranches?: boolean,
         latestStatusesOnly?: boolean,
         peelTags?: boolean,
-        filterContains?: string
+        filterContains?: string,
+        includeTargetBranches?: boolean
         ): Promise<WebApi.PagedList<Git.GitRef>> {
 
         const queryValues: any = {
@@ -3965,7 +3967,8 @@ export class GitRestClient extends RestClientBase {
             includeMyBranches: includeMyBranches,
             latestStatusesOnly: latestStatusesOnly,
             peelTags: peelTags,
-            filterContains: filterContains
+            filterContains: filterContains,
+            includeTargetBranches: includeTargetBranches
         };
 
         return this.beginRequest<Response>({
