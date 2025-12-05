@@ -139,11 +139,7 @@ export enum AlertListExpandOption {
     /**
      * Return a minimal representation of an alert.
      */
-    Minimal = 1,
-    /**
-     * Only Return AlertId of an alert.
-     */
-    IdOnly = 2
+    Minimal = 1
 }
 
 /**
@@ -963,6 +959,10 @@ export interface SearchCriteria {
      */
     fromDate: Date;
     /**
+     * If provided, filters alerts based on whether they have linked work items. \<br /\>Set to "true" to return only alerts with linked work items. \<br /\>Set to "false" to return only alerts without linked work items. \<br /\>If not provided, returns all alerts regardless of linked work items. \<br /\>Not applicable for secret and dependency scanning alerts.
+     */
+    hasLinkedWorkItems: boolean;
+    /**
      * If provided, only return alerts whose titles match this pattern.
      */
     keywords: string;
@@ -1122,6 +1122,10 @@ export interface UxFilters {
 
 export interface ValidationFingerprint {
     /**
+     * The key value representation of the asset fingerprint.
+     */
+    assetFingerprint: { [key: string] : string; };
+    /**
      * The hash associated to the secret.
      */
     validationFingerprintHash: string;
@@ -1166,7 +1170,11 @@ export enum ValidationResult {
     /**
      * Represents a secret where we are unable to validate, e.g. dynamic validator missing.
      */
-    ValidationNotSupported = 4
+    ValidationNotSupported = 4,
+    /**
+     * Represents a secret where the validation process failed due to a transient error, e.g. network issue. This result indicates that the validation process should be retried.
+     */
+    TransientError = 5
 }
 
 /**

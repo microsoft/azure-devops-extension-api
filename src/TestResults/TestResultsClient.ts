@@ -790,6 +790,55 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Delete flaky test case reference IDs by branch information
+     * 
+     * @param project - Project ID or project name
+     * @param branchInfo - Branch information containing name and type
+     */
+    public async deleteFlakyTestCaseRefIdsByBranch(
+        project: string,
+        branchInfo: Test.BranchInfo
+        ): Promise<number> {
+
+        const queryValues: any = {
+            branchInfo: branchInfo
+        };
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param branchInfo - 
+     */
+    public async getFlakyTestCaseRefIdsByBranch(
+        project: string,
+        branchInfo: Test.BranchInfo
+        ): Promise<Test.TestCaseFlakinessBranchInfo[]> {
+
+        const queryValues: any = {
+            branchInfo: branchInfo
+        };
+
+        return this.beginRequest<Test.TestCaseFlakinessBranchInfo[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param buildDefinitionId - 
      * @param minBuildCreatedDate - 
@@ -1843,6 +1892,7 @@ export class TestResultsRestClient extends RestClientBase {
      * @param releaseEnvDefIds - Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids.
      * @param runTitle - Run Title of the Runs to be queried.
      * @param top - Number of runs to be queried. Limit is 100
+     * @param sortOrder - Sort order by LastUpdated for the test runs.
      * @param continuationToken - continuationToken received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user.
      */
     public async queryTestRuns(
@@ -1862,6 +1912,7 @@ export class TestResultsRestClient extends RestClientBase {
         releaseEnvDefIds?: number[],
         runTitle?: string,
         top?: number,
+        sortOrder?: Test.TestRunSortOrderType,
         continuationToken?: string
         ): Promise<WebApi.PagedList<Test.TestRun>> {
 
@@ -1881,6 +1932,7 @@ export class TestResultsRestClient extends RestClientBase {
             releaseEnvDefIds: releaseEnvDefIds && releaseEnvDefIds.join(","),
             runTitle: runTitle,
             '$top': top,
+            '$sortOrder': sortOrder,
             continuationToken: continuationToken
         };
 

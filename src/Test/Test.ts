@@ -195,6 +195,42 @@ export interface BranchCoverageStatistics {
 }
 
 /**
+ * Branch information
+ */
+export interface BranchInfo {
+    /**
+     * Branch name - simple name or full Git reference
+     */
+    branchName: string;
+    /**
+     * Branch reference type. Optional, defaults to 'none' if not specified.
+     */
+    branchType: BranchType;
+}
+
+/**
+ * Git branch reference type
+ */
+export enum BranchType {
+    /**
+     * Undefined branch type
+     */
+    None = 0,
+    /**
+     * Branch reference
+     */
+    Heads = 1,
+    /**
+     * Tag reference
+     */
+    Tags = 2,
+    /**
+     * Pull request reference
+     */
+    Pull = 3
+}
+
+/**
  * BuildConfiguration Details.
  */
 export interface BuildConfiguration {
@@ -5189,6 +5225,17 @@ export enum TestRunPublishContext {
      * Run is published for any Context.
      */
     All = 3
+}
+
+export enum TestRunSortOrderType {
+    /**
+     * Sort in ascending order.
+     */
+    Asc = 0,
+    /**
+     * Sort in descending order.
+     */
+    Desc = 1
 }
 
 export interface TestRunStartedEvent extends TestRunEvent {
