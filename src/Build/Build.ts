@@ -1406,13 +1406,17 @@ export enum BuildStatus {
      */
     Postponed = 8,
     /**
+     * The build has been abandoned.
+     */
+    Abandoned = 16,
+    /**
      * The build has not yet started.
      */
     NotStarted = 32,
     /**
      * All status.
      */
-    All = 47
+    All = 63
 }
 
 export interface BuildSummary {

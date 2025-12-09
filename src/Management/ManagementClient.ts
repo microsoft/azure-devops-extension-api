@@ -278,12 +278,12 @@ export class ManagementRestClient extends RestClientBase {
     /**
      * Update the enablement status of Code Security and Secret Protection, along with their respective features, for a given repository.
      * 
-     * @param savedAdvSecEnablementStatus - new status
+     * @param repoEnablementSettings - new status
      * @param project - Project ID or project name
      * @param repository - Name or ID of the repository
      */
     public async updateRepoAdvSecEnablementStatus2(
-        savedAdvSecEnablementStatus: Management.RepoEnablementSettings,
+        repoEnablementSettings: Management.RepoEnablementSettings,
         project: string,
         repository: string
         ): Promise<void> {
@@ -296,7 +296,7 @@ export class ManagementRestClient extends RestClientBase {
                 project: project,
                 repository: repository
             },
-            body: savedAdvSecEnablementStatus
+            body: repoEnablementSettings
         });
     }
 
