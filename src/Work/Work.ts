@@ -625,6 +625,7 @@ export interface Member {
 export interface ParentChildWIMap {
     childWorkItemIds: number[];
     id: number;
+    teamProject: string;
     title: string;
     workItemTypeName: string;
 }

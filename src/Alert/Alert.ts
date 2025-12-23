@@ -40,6 +40,10 @@ export interface Alert {
      */
     gitRef: string;
     /**
+     * Value indicates whether the alert comes from a SARIF uploaded by a trusted source.
+     */
+    hasTrustedSourceOrigin: boolean;
+    /**
      * This value is computed and returned by the service. This value represents the first time the vulnerability was introduced.
      */
     introducedDate: Date;
@@ -157,6 +161,20 @@ export interface AlertMetadata {
 }
 
 /**
+ * Alert metadata.
+ */
+export interface AlertMetadataBatchRequest {
+    /**
+     * List of alert IDs.
+     */
+    alertIds: number[];
+    /**
+     * The flag to control error policy in a bulk get work items request. Possible options are \{Fail, Omit\}.
+     */
+    errorPolicy: AlertMetadataErrorPolicy;
+}
+
+/**
  * Used to represent an update in a relationship between an alert and an artifact.
  */
 export interface AlertMetadataChange {
@@ -168,6 +186,20 @@ export interface AlertMetadataChange {
      * The change that occurred to the metadata.
      */
     metadataChange: MetadataChange;
+}
+
+/**
+ * Enum to control error policy in a bulk get alert metadata items request.
+ */
+export enum AlertMetadataErrorPolicy {
+    /**
+     * Fail error policy: if an alert id is not found, the whole request fails.
+     */
+    Fail = 1,
+    /**
+     * Omit error policy: if an alert id is not found, it will be omitted from the results.
+     */
+    Omit = 2
 }
 
 export interface AlertStateUpdate {
