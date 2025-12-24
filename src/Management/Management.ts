@@ -27,6 +27,22 @@ export interface AdvSecEnablementFeatures {
 
 export interface AdvSecEnablementSettings {
     /**
+     * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableBlockPushesOnCreate: boolean;
+    /**
+     * Automatically enable CodeQL. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableCodeQLOnCreate: boolean;
+    /**
+     * Automatically enable Dependabot. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependabotOnCreate: boolean;
+    /**
+     * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependencyScanningInjectionOnCreate: boolean;
+    /**
      * Automatically enable Advanced Security on newly created repositories.
      */
     enableOnCreate: boolean;
@@ -34,6 +50,22 @@ export interface AdvSecEnablementSettings {
 }
 
 export interface AdvSecEnablementSettingsUpdate extends AdvSecEnablementStatusUpdate {
+    /**
+     * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableBlockPushesOnCreate: boolean;
+    /**
+     * Automatically enable CodeQL. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableCodeQLOnCreate: boolean;
+    /**
+     * Automatically enable Dependabot. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependabotOnCreate: boolean;
+    /**
+     * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependencyScanningInjectionOnCreate: boolean;
     /**
      * Automatically enable Advanced Security on newly created repositories.
      */

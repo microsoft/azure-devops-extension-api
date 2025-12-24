@@ -314,6 +314,55 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get an alert metadata.
+     * 
+     * @param project - Project ID or project name
+     * @param alertId - ID of alert to retrieve
+     * @param repository - Name or id  of a repository that alert is part of
+     */
+    public async getAlertMetadata(
+        project: string,
+        alertId: number,
+        repository: string
+        ): Promise<Alert.AlertMetadata> {
+
+        return this.beginRequest<Alert.AlertMetadata>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/metadata",
+            routeValues: {
+                project: project,
+                alertId: alertId,
+                repository: repository
+            }
+        });
+    }
+
+    /**
+     * Get alerts metadata.
+     * 
+     * @param alertMetadataBatchRequest - 
+     * @param project - Project ID or project name
+     * @param repository - Name or id  of a repository that alert is part of
+     */
+    public async getAlertMetadataBatch(
+        alertMetadataBatchRequest: Alert.AlertMetadataBatchRequest,
+        project: string,
+        repository: string
+        ): Promise<Alert.AlertMetadata[]> {
+
+        return this.beginRequest<Alert.AlertMetadata[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/MetadataBatch",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: alertMetadataBatchRequest
+        });
+    }
+
+    /**
      * Get alerts by their IDs at the organization level. Only retruns alerts that the user has permission to view. Only returns alerts of sku plans that are enabled.
      * 
      * @param alertIds - List of alert IDs to retrieve
