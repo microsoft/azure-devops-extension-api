@@ -790,13 +790,15 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Delete flaky test case reference IDs by branch information
+     * Delete flaky test case reference IDs by branch and repository information
      * 
      * @param project - Project ID or project name
-     * @param branchInfo - Branch information containing name and type
+     * @param repositoryId - Guid of the repository
+     * @param branchInfo - Branch information containing name and type Note: Operations on protected branches such as 'master' or 'main' are not supported.
      */
     public async deleteFlakyTestCaseRefIdsByBranch(
         project: string,
+        repositoryId: string,
         branchInfo: Test.BranchInfo
         ): Promise<number> {
 
@@ -807,9 +809,10 @@ export class TestResultsRestClient extends RestClientBase {
         return this.beginRequest<number>({
             apiVersion: "7.2-preview.1",
             method: "DELETE",
-            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/repositories/{repositoryId}",
             routeValues: {
-                project: project
+                project: project,
+                repositoryId: repositoryId
             },
             queryParams: queryValues
         });
@@ -817,10 +820,12 @@ export class TestResultsRestClient extends RestClientBase {
 
     /**
      * @param project - Project ID or project name
+     * @param repositoryId - 
      * @param branchInfo - 
      */
     public async getFlakyTestCaseRefIdsByBranch(
         project: string,
+        repositoryId: string,
         branchInfo: Test.BranchInfo
         ): Promise<Test.TestCaseFlakinessBranchInfo[]> {
 
@@ -830,9 +835,10 @@ export class TestResultsRestClient extends RestClientBase {
 
         return this.beginRequest<Test.TestCaseFlakinessBranchInfo[]>({
             apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/flakytestresults",
+            routeTemplate: "{project}/_apis/testresults/flakytestresults/repositories/{repositoryId}",
             routeValues: {
-                project: project
+                project: project,
+                repositoryId: repositoryId
             },
             queryParams: queryValues
         });
@@ -3508,14 +3514,16 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Calculate Test Weighted Score for given comman separated list of Test Runs Ids.
+     * 
      * @param project - Project ID or project name
-     * @param buildId - 
-     * @param includeAllOutcomes - 
-     * @param onlyFlakyResults - 
+     * @param runIds - Comman Separated Test Run Ids. Maximum 100 supported.
+     * @param includeAllOutcomes - Include all test results outcome for TWS Calculation. By default, false is considered
+     * @param onlyFlakyResults - Option to return only flaky test results identified as flaky. By default, true is passed
      */
-    public async getTestWeightedScoreByBuild(
+    public async getTestWeightedScoreByTestRun(
         project: string,
-        buildId: number,
+        runIds: string,
         includeAllOutcomes?: boolean,
         onlyFlakyResults?: boolean
         ): Promise<Test.TestCaseResult[]> {
@@ -3527,10 +3535,10 @@ export class TestResultsRestClient extends RestClientBase {
 
         return this.beginRequest<Test.TestCaseResult[]>({
             apiVersion: "7.2-preview.7",
-            routeTemplate: "{project}/_apis/testresults/testweightedscore/{buildId}",
+            routeTemplate: "{project}/_apis/testresults/testweightedscore/{runIds}",
             routeValues: {
                 project: project,
-                buildId: buildId
+                runIds: runIds
             },
             queryParams: queryValues
         });

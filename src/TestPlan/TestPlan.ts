@@ -885,6 +885,48 @@ export interface TestCaseData {
 }
 
 /**
+ * This data model is used in TestCaseLatestOutcomeDataProvider and provides latest outcome data for test case
+ */
+export interface TestCaseLatestOutcomeData {
+    /**
+     * Date when the test result was completed.
+     */
+    completedDate: Date;
+    /**
+     * Reference to test configuration.
+     */
+    configurationId: number;
+    /**
+     * Date when the test result was last updated.
+     */
+    lastUpdatedDate: Date;
+    /**
+     * Outcome of the test case. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
+     */
+    outcome: string;
+    /**
+     * Test Point ID whose outcome is represented by this object.
+     */
+    pointId: number;
+    /**
+     * Test Case ID whose outcome is represented by this object.
+     */
+    testCaseId: number;
+    /**
+     * Reference ID of test used by test result.
+     */
+    testCaseReferenceId: number;
+    /**
+     * Test Result ID whose outcome is represented by this object.
+     */
+    testResultId: number;
+    /**
+     * Test Run ID whose outcome is represented by this object.
+     */
+    testRunId: number;
+}
+
+/**
  * Test Case Reference
  */
 export interface TestCaseReference {

@@ -27,6 +27,22 @@ export interface AdvSecEnablementFeatures {
 
 export interface AdvSecEnablementSettings {
     /**
+     * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableBlockPushesOnCreate: boolean;
+    /**
+     * Automatically enable CodeQL. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableCodeQLOnCreate: boolean;
+    /**
+     * Automatically enable Dependabot. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependabotOnCreate: boolean;
+    /**
+     * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependencyScanningInjectionOnCreate: boolean;
+    /**
      * Automatically enable Advanced Security on newly created repositories.
      */
     enableOnCreate: boolean;
@@ -34,6 +50,22 @@ export interface AdvSecEnablementSettings {
 }
 
 export interface AdvSecEnablementSettingsUpdate extends AdvSecEnablementStatusUpdate {
+    /**
+     * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableBlockPushesOnCreate: boolean;
+    /**
+     * Automatically enable CodeQL. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableCodeQLOnCreate: boolean;
+    /**
+     * Automatically enable Dependabot. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependabotOnCreate: boolean;
+    /**
+     * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableDependencyScanningInjectionOnCreate: boolean;
     /**
      * Automatically enable Advanced Security on newly created repositories.
      */
@@ -154,6 +186,29 @@ export interface BilledCommittersList {
     uniqueCommitterCount: number;
 }
 
+export interface BulkEnablementSettingsBase {
+    /**
+     * Includes code security features that can be enabled.
+     */
+    codeSecurityFeatures: CodeSecurityFeatures;
+    /**
+     * Auto enablement setting for newly created repositories.
+     */
+    enablementOnCreateSettings: EnablementOnCreateSettings;
+    /**
+     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
+     */
+    isBundledSKU: boolean;
+    /**
+     * A list of enablement statuses for repositories within the specified organization or project.
+     */
+    reposEnablementStatus: RepoEnablementSettings[];
+    /**
+     * Includes secret protection features that can be enabled.
+     */
+    secretProtectionFeatures: SecretProtectionFeatures;
+}
+
 export interface CodeSecurityFeatures {
     /**
      * CodeQL enablement status set to False when disabled and True when enabled; Null is never explicitly set.
@@ -183,9 +238,25 @@ export interface CodeSecurityFeatures {
 
 export interface EnablementOnCreateSettings {
     /**
+     * Automatically enable blocking of pushes that contain secrets when Secret Protection is auto-enabled. If EnableSecretProtectionOnCreate is not true this flag is ignored.
+     */
+    enableBlockPushesOnCreate: boolean;
+    /**
+     * Automatically enable CodeQL when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
+     */
+    enableCodeQLOnCreate: boolean;
+    /**
      * Automatically enable Code Security on newly created repositories.
      */
     enableCodeSecurityOnCreate: boolean;
+    /**
+     * Automatically enable Dependabot when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
+     */
+    enableDependabotOnCreate: boolean;
+    /**
+     * Automatically enable Dependency Scanning Injection when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
+     */
+    enableDependencyScanningInjectionOnCreate: boolean;
     /**
      * Automatically enable Secret Protection on newly created repositories.
      */
@@ -280,27 +351,7 @@ export interface MeterUsageForPlan {
     tenantId: string;
 }
 
-export interface OrgEnablementSettings {
-    /**
-     * Includes code security features that can be enabled.
-     */
-    codeSecurityFeatures: CodeSecurityFeatures;
-    /**
-     * Auto enablement setting for newly created repositories.
-     */
-    enablementOnCreateSettings: EnablementOnCreateSettings;
-    /**
-     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
-     */
-    isBundledSKU: boolean;
-    /**
-     * A list of enablement statuses for repositories within the specified organization or project.
-     */
-    reposEnablementStatus: RepoEnablementSettings[];
-    /**
-     * Includes secret protection features that can be enabled.
-     */
-    secretProtectionFeatures: SecretProtectionFeatures;
+export interface OrgEnablementSettings extends BulkEnablementSettingsBase {
 }
 
 export enum Plan {
@@ -322,27 +373,7 @@ export enum Plan {
     All = 3
 }
 
-export interface ProjectEnablementSettings {
-    /**
-     * Includes code security features that can be enabled.
-     */
-    codeSecurityFeatures: CodeSecurityFeatures;
-    /**
-     * Auto enablement setting for newly created repositories.
-     */
-    enablementOnCreateSettings: EnablementOnCreateSettings;
-    /**
-     * Indicates whether the organization is part of the bundled SKU (old billing plan) or unbundled SKUs (new billing plan).
-     */
-    isBundledSKU: boolean;
-    /**
-     * A list of enablement statuses for repositories within the specified organization or project.
-     */
-    reposEnablementStatus: RepoEnablementSettings[];
-    /**
-     * Includes secret protection features that can be enabled.
-     */
-    secretProtectionFeatures: SecretProtectionFeatures;
+export interface ProjectEnablementSettings extends BulkEnablementSettingsBase {
 }
 
 export interface RepoEnablementSettings {
