@@ -13,13 +13,16 @@ const UglifyES = require("uglify-es");
 (async function() {
 
     // Clean bin directory
-    console.log("# Cleaning bin. Running shelljs rm -rf ./bin");
-    shell.rm("-rf", "./bin");
+    console.log("# Cleaning bin/ and esm/. Running shelljs rm -rf ./bin ./esm");
+    shell.rm("-rf", "./bin", "./esm");
 
-    // Compile typescript
-    console.log("# Compiling TypeScript. Executing `node_modules\\.bin\\tsc -p ./tsconfig.json`.");
+    // On Windows, we need `\`, on Unix we need `/`.
+    const tsc = path.join("node_modules", ".bin", "tsc");
+
+    // Compile typescript ./bin folder
+    console.log(`# Compiling TypeScript. Executing \`${tsc} -p ./tsconfig.json\`.`);
     try {
-        execSync("node_modules\\.bin\\tsc -p ./tsconfig.json", {
+        execSync(`${tsc} -p ./tsconfig.json`, {
             stdio: [0, 1, 2],
             shell: true,
             cwd: __dirname,
@@ -29,18 +32,24 @@ const UglifyES = require("uglify-es");
         process.exit(1);
     }
 
-    // Copy ts files to bin
-    console.log("# Copy declare files to bin.");
+    // Compile typescript ./esm folder
+    console.log(`# Compiling TypeScript to ESM. Executing \`${tsc} -p ./tsconfig.esm.json\`.`);
     try {
-        await copy(path.join(__dirname, "src"), path.join(__dirname, "bin"), {
-            filter: f => {
-                return f.endsWith(".d.ts");
-            },
+        execSync(`${tsc} -p ./tsconfig.esm.json`, {
+            stdio: [0, 1, 2],
+            shell: true,
+            cwd: __dirname,
         });
-    } catch (e) {
-        console.log("Copy failed. " + error);
+    } catch (error) {
+        console.log("ERROR: Failed to build TypeScript ESM.");
+        process.exit(1);
     }
-
+    console.log("# Creating ./esm/package.json to show files in ./esm are ESM");
+    fs.writeFileSync("./esm/package.json", '{"type": "module"}\n');
+    // Move ./esm folder into ./bin/esm
+    console.log("# Moving ./esm folder to ./bin/esm");
+    fs.renameSync("./esm", "./bin/esm");
+    
     // Uglify JavaScript
     console.log("# Minifying JS using the UglifyES API, replacing un-minified files.");
     let count = 0;
@@ -56,7 +65,7 @@ const UglifyES = require("uglify-es");
     });
 
     for (const file of files) {
-        if (file.includes("node_modules/")) {
+        if (file.includes("node_modules/") || file.includes("esm/")) {
             continue;
         }
         fs.writeFileSync(
