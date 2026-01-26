@@ -135,6 +135,20 @@ export interface AlertAnalysisInstance {
     state: State;
 }
 
+/**
+ * Request model for getting alerts by IDs with optional alert type filter.
+ */
+export interface AlertBatchRequest {
+    /**
+     * List of alert IDs to retrieve.
+     */
+    alertIds: number[];
+    /**
+     * Alert type of the alert IDs.
+     */
+    alertType: AlertType;
+}
+
 export enum AlertListExpandOption {
     /**
      * No Expands.
@@ -1157,6 +1171,10 @@ export interface ValidationFingerprint {
      * The key value representation of the asset fingerprint.
      */
     assetFingerprint: { [key: string] : string; };
+    /**
+     * Represents the CrossCompanyCorrelatingId for the secret in the ValidationFingerprintJson.
+     */
+    c3Id: string;
     /**
      * The hash associated to the secret.
      */

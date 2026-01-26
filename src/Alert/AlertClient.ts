@@ -158,6 +158,31 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get alerts by alert IDs Currently supports fetching secret alerts only.
+     * 
+     * @param request - Request containing alert IDs and optional alert type filter
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     */
+    public async getAlertsByIds(
+        request: Alert.AlertBatchRequest,
+        project: string,
+        repository: string
+        ): Promise<Alert.Alert[]> {
+
+        return this.beginRequest<Alert.Alert[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/AlertsBatch",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: request
+        });
+    }
+
+    /**
      * Returns the branches for which analysis results were submitted.
      * 
      * @param project - Project ID or project name

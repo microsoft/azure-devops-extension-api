@@ -2271,6 +2271,46 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * @param request - 
+     * @param project - Project ID or project name
+     */
+    public async callbackTestAgent(
+        request: Test.TestAgentCallbackRequest,
+        project: string
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testagent/callback",
+            routeValues: {
+                project: project
+            },
+            body: request
+        });
+    }
+
+    /**
+     * @param request - 
+     * @param project - Project ID or project name
+     */
+    public async triggerTestAgent(
+        request: Test.TestAgentTriggerRequest,
+        project: string
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/testagent/trigger",
+            routeValues: {
+                project: project
+            },
+            body: request
+        });
+    }
+
+    /**
      * Generates manual test plan from a work item using AI
      * 
      * @param generateTestPlanFromWorkItemModel - 

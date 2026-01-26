@@ -71,6 +71,112 @@ export enum AlertType {
     License = 4
 }
 
+export enum AlertValidityStatus {
+    /**
+     * When there are no validation fingerprints attached to the alert.
+     */
+    None = 0,
+    /**
+     * When the validations for validation fingerprints associated to the alert have not been conclusive.
+     */
+    Unknown = 1,
+    /**
+     * When at least one validation fingerprint associated to the alert is exploitable.
+     */
+    Active = 2,
+    /**
+     * When all validation fingerprints associated to the alert are not exploitable.
+     */
+    Inactive = 3
+}
+
+export interface CombinedAlertFilterCriteria {
+    /**
+     * If provided, only return alerts whose titles match this pattern.
+     */
+    keywords: string;
+    /**
+     * If provided, return alerts that are active or inactive based on this value. \<br /\>Otherwise, return alerts in any state.
+     */
+    state: DashboardAlertState;
+}
+
+/**
+ * An alert entity used in the dashboard for combined alerts.
+ */
+export interface DashboardAlert {
+    /**
+     * Identifier for the alert. It is unique within Azure DevOps organization.
+     */
+    alertId: number;
+    /**
+     * Type of the alert. E.g. secret, code, etc.
+     */
+    alertType: AlertType;
+    /**
+     * This value is computed and returned by the service. This value represents the first time the vulnerability was introduced.
+     */
+    introducedDate: Date;
+    /**
+     * This value is computed and returned by the service. It is a value based on the results from all analysis configurations. An example of a physical location is a file location.
+     */
+    locations: DashboardAlertPhysicalLocation[];
+    /**
+     * Name of the project where the alert was detected.
+     */
+    projectName: string;
+    /**
+     * Name of the repository where the alert was detected.
+     */
+    repositoryName: string;
+    /**
+     * Severity of the alert.
+     */
+    severity: Severity;
+    /**
+     * This value is computed and returned by the service. It is a value based on the results from all analysis configurations.
+     */
+    state: State;
+    /**
+     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 256.
+     */
+    title: string;
+    /**
+     * A truncated/obfuscated version of the secret pertaining to the alert (if applicable).
+     */
+    truncatedSecret: string;
+    /**
+     * Validity status of an alert. Currently, this is only applicable to secret alerts. In case of secret alerts, the validity status is computed by looking at the liveness results for validation fingerprints associated to an alert.
+     */
+    validityStatus: AlertValidityStatus;
+}
+
+/**
+ * Location in the source control system where the issue was found
+ */
+export interface DashboardAlertPhysicalLocation {
+    alertId: number;
+    /**
+     * Path of the file where the issue was found
+     */
+    filePath: string;
+    /**
+     * Details about the location where the issue was found including a snippet
+     */
+    region: Region;
+}
+
+export enum DashboardAlertState {
+    /**
+     * Alert has been detected in the code and corresponds to 'Active' state.
+     */
+    Open = 0,
+    /**
+     * Alert corresponds to 'Unknown', 'Dismissed', 'Fixed' or 'AutoDismissed' states.
+     */
+    Closed = 1
+}
+
 export interface EnablementFilterCriteria {
     /**
      * If provided, only return repos whose titles match this pattern.
@@ -209,6 +315,25 @@ export interface ProjectEnablementSummary {
     repos: RepoEnablementSummary[];
 }
 
+export interface Region {
+    /**
+     * The column where the code snippet ends
+     */
+    columnEnd: number;
+    /**
+     * The column where the code snippet starts
+     */
+    columnStart: number;
+    /**
+     * The line number where the code snippet ends
+     */
+    lineEnd: number;
+    /**
+     * The line number where the code snippet starts
+     */
+    lineStart: number;
+}
+
 /**
  * Repo Alert Summary.
  */
@@ -260,6 +385,10 @@ export interface RepoEnablementSummary {
      */
     repoName: string;
     /**
+     * Repo scan type metadata for different scan types.
+     */
+    scanTypeMetadata: { [key: number] : ScanTypeSummaryMetadata; };
+    /**
      * Repo enablement summary for different scan types.
      */
     scanTypeSummary: { [key: number] : ScanTypeSummaryProperties; };
@@ -274,6 +403,16 @@ export interface ReportingUXComputedFilters {
      * Display reporting for specified projects. Show reporting for all projects if none are specified.
      */
     projects: Project[];
+}
+
+/**
+ * Metadata for a scan type.
+ */
+export interface ScanTypeSummaryMetadata {
+    /**
+     * The date and time of the last scan for the associated alert type/repo combination. Null if no scan has been performed.
+     */
+    lastScanDate: Date;
 }
 
 export interface ScanTypeSummaryProperties {
@@ -307,6 +446,29 @@ export enum Severity {
     Warning = 5,
     Error = 6,
     Undefined = 7
+}
+
+export enum State {
+    /**
+     * Alert is in an indeterminate state
+     */
+    Unknown = 0,
+    /**
+     * Alert has been detected in the code
+     */
+    Active = 1,
+    /**
+     * Alert was dismissed by a user
+     */
+    Dismissed = 2,
+    /**
+     * The issue is no longer detected in the code
+     */
+    Fixed = 4,
+    /**
+     * The tool has determined that the issue is no longer a risk
+     */
+    AutoDismissed = 8
 }
 
 export enum TimePeriod {
