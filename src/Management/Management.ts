@@ -12,7 +12,7 @@ export interface AdvSecEnablementFeatures {
      */
     autoEnableNewProjectOrRepos: boolean;
     /**
-     * CodeQL enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     * CodeQL default setup enablement status set to False when not using default setup and True when using default setup; Null is never explicitly set.
      */
     codeQLEnabled: boolean;
     /**
@@ -211,7 +211,7 @@ export interface BulkEnablementSettingsBase {
 
 export interface CodeSecurityFeatures {
     /**
-     * CodeQL enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     * CodeQL default setup enablement status set to False when not using default setup and True when using default setup; Null is never explicitly set.
      */
     codeQLEnabled: boolean;
     /**

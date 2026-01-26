@@ -16,6 +16,74 @@ export interface AbortTestRunRequest {
     testRunId: number;
 }
 
+export enum AdvancedFlakyDetectionMode {
+    /**
+     * Advanced Flaky Detection is Disabled Mode
+     */
+    Disabled = 0,
+    /**
+     * Advanced Flaky Detection is Preview Mode
+     */
+    Preview = 1,
+    /**
+     * Advanced Flaky Detection is Enabled Mode
+     */
+    Enabled = 2
+}
+
+export interface AdvancedFlakyDetectionParameter {
+    /**
+     * Lookback period for the parameter in multiple of 24 hours
+     */
+    lookbackPeriod: number;
+    /**
+     * Type of the parameter.
+     */
+    parameterType: AdvancedFlakyDetectionParameterType;
+    /**
+     * Weight for the parameter. Values between 0-100
+     */
+    weight: number;
+}
+
+export enum AdvancedFlakyDetectionParameterType {
+    /**
+     * Failure rate parameter for flaky detection
+     */
+    FailureRate = 0,
+    /**
+     * Pass rate parameter for flaky detection
+     */
+    PassRate = 1,
+    /**
+     * Timing variability parameter for flaky detection
+     */
+    TimingVariability = 2,
+    /**
+     * Rerun count parameter for flaky detection
+     */
+    RerunCount = 3
+}
+
+export interface AdvancedFlakyDetectionSettings {
+    /**
+     * Threshold for filing a bug for a flaky test.
+     */
+    filingBugThreshold: number;
+    /**
+     * Configuration for flaky test bug
+     */
+    flakyTestBugConfig: FlakyTestBugConfig;
+    /**
+     * Threshold for marking a test as flaky.
+     */
+    markingFlakyThreshold: number;
+    /**
+     * List of parameters with their weights for advanced flaky detection.
+     */
+    weightedScores: AdvancedFlakyDetectionParameter[];
+}
+
 export interface AfnStrip {
     /**
      * Auxiliary Url to be consumed by MTM
@@ -1041,14 +1109,14 @@ export enum FlakyDetectionType {
     /**
      * Defines System detection type.
      */
-    System = 2,
-    /**
-     * Defines Advanced System detection type.
-     */
-    AdvanceSystem = 3
+    System = 2
 }
 
 export interface FlakySettings {
+    /**
+     * Advanced flaky detection Mode
+     */
+    advancedSystemDetectionMode: AdvancedFlakyDetectionMode;
     /**
      * FlakyDetection defines types of detection.
      */
@@ -1065,6 +1133,44 @@ export interface FlakySettings {
      * ManualMarkUnmarkFlaky defines manual marking unmarking of flaky testcase.
      */
     manualMarkUnmarkFlaky: boolean;
+}
+
+export interface FlakyTestBugConfig {
+    /**
+     * Metadata properties for flaky test bug.
+     */
+    bugMetadata: FlakyTestBugMetadata[];
+    /**
+     * Bug Priority for flaky test bug.
+     */
+    bugPriority: number;
+    /**
+     * Bug Template Id for flaky test bug.
+     */
+    bugTemplateId: string;
+    /**
+     * Team Id for the bug template
+     */
+    teamId: string;
+}
+
+export enum FlakyTestBugMetadata {
+    /**
+     * Error Message of the Test Result
+     */
+    ErrorMessage = 1,
+    /**
+     * Stack Trace of the Test Result
+     */
+    StackTrace = 2,
+    /**
+     * Test Name
+     */
+    TestName = 3,
+    /**
+     * Machine Name
+     */
+    Machine = 4
 }
 
 export interface FolderCoverageData {
@@ -2886,6 +2992,17 @@ export interface TestActionResultModel extends TestResultModelBase {
      * Url of test action result. Deprecated in hosted environment.
      */
     url: string;
+}
+
+export interface TestAgentCallbackRequest {
+    success: boolean;
+    task: string;
+    workItemId: number;
+}
+
+export interface TestAgentTriggerRequest {
+    task: string;
+    workItemId: number;
 }
 
 /**
@@ -4851,6 +4968,10 @@ export enum TestResultsSessionState {
 
 export interface TestResultsSettings {
     /**
+     * Advanced system flaky detection settings Contains parameter configurations for failure rate, pass rate, timing variability, and rerun count
+     */
+    advancedFlakyDetectionSettings: AdvancedFlakyDetectionSettings;
+    /**
      * IsRequired and EmitDefaultValue are passed as false as if users doesn't pass anything, should not come for serialisation and deserialisation.
      */
     flakySettings: FlakySettings;
@@ -4869,7 +4990,11 @@ export enum TestResultsSettingsType {
     /**
      * Returns whether to log new tests or not
      */
-    NewTestLogging = 3
+    NewTestLogging = 3,
+    /**
+     * Returns Advanced Flaky Test Detection Settings.
+     */
+    AdvancedFlakyDetection = 4
 }
 
 export interface TestResultSummary {
@@ -4882,6 +5007,10 @@ export interface TestResultSummary {
 }
 
 export interface TestResultsUpdateSettings {
+    /**
+     * Advanced system flaky detection settings Contains parameter configurations for failure rate, pass rate, timing variability, and rerun count
+     */
+    advancedFlakyDetectionSettings: AdvancedFlakyDetectionSettings;
     /**
      * FlakySettings defines Flaky Settings Data.
      */

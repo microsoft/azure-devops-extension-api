@@ -318,9 +318,17 @@ export interface CustomTestRunData {
      */
     id: number;
     /**
+     * Last updated date time of the run.
+     */
+    lastUpdatedDate: Date;
+    /**
      * Name of the Test run.
      */
     name: string;
+    /**
+     * Owner of the Test run.
+     */
+    owner: WebApi.IdentityRef;
     /**
      * Pass rate of the run
      */
