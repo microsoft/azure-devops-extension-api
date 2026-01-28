@@ -9,6 +9,353 @@
   "scripts": {
     "build": "node buildpackage.js"
   },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "default": "./index.js"
+    },
+    "./*": {
+      "import": "./esm/*/index.js",
+      "default": "./*/index.js"
+    },
+    "./Accounts/*": {
+      "import": "./esm/Accounts/*.js",
+      "default": "./Accounts/*.js"
+    },
+    "./Accounts/*.js": {
+      "import": "./esm/Accounts/*.js",
+      "default": "./Accounts/*.js"
+    },
+    "./Alert/*": {
+      "import": "./esm/Alert/*.js",
+      "default": "./Alert/*.js"
+    },
+    "./Alert/*.js": {
+      "import": "./esm/Alert/*.js",
+      "default": "./Alert/*.js"
+    },
+    "./Boards/*": {
+      "import": "./esm/Boards/*.js",
+      "default": "./Boards/*.js"
+    },
+    "./Boards/*.js": {
+      "import": "./esm/Boards/*.js",
+      "default": "./Boards/*.js"
+    },
+    "./Build/*": {
+      "import": "./esm/Build/*.js",
+      "default": "./Build/*.js"
+    },
+    "./Build/*.js": {
+      "import": "./esm/Build/*.js",
+      "default": "./Build/*.js"
+    },
+    "./Comments/*": {
+      "import": "./esm/Comments/*.js",
+      "default": "./Comments/*.js"
+    },
+    "./Comments/*.js": {
+      "import": "./esm/Comments/*.js",
+      "default": "./Comments/*.js"
+    },
+    "./Common/*": {
+      "import": "./esm/Common/*.js",
+      "default": "./Common/*.js"
+    },
+    "./Common/*.js": {
+      "import": "./esm/Common/*.js",
+      "default": "./Common/*.js"
+    },
+    "./Contributions/*": {
+      "import": "./esm/Contributions/*.js",
+      "default": "./Contributions/*.js"
+    },
+    "./Contributions/*.js": {
+      "import": "./esm/Contributions/*.js",
+      "default": "./Contributions/*.js"
+    },
+    "./Core/*": {
+      "import": "./esm/Core/*.js",
+      "default": "./Core/*.js"
+    },
+    "./Core/*.js": {
+      "import": "./esm/Core/*.js",
+      "default": "./Core/*.js"
+    },
+    "./Dashboard/*": {
+      "import": "./esm/Dashboard/*.js",
+      "default": "./Dashboard/*.js"
+    },
+    "./Dashboard/*.js": {
+      "import": "./esm/Dashboard/*.js",
+      "default": "./Dashboard/*.js"
+    },
+    "./DistributedTaskCommon/*": {
+      "import": "./esm/DistributedTaskCommon/*.js",
+      "default": "./DistributedTaskCommon/*.js"
+    },
+    "./DistributedTaskCommon/*.js": {
+      "import": "./esm/DistributedTaskCommon/*.js",
+      "default": "./DistributedTaskCommon/*.js"
+    },
+    "./ExtensionManagement/*": {
+      "import": "./esm/ExtensionManagement/*.js",
+      "default": "./ExtensionManagement/*.js"
+    },
+    "./ExtensionManagement/*.js": {
+      "import": "./esm/ExtensionManagement/*.js",
+      "default": "./ExtensionManagement/*.js"
+    },
+    "./Favorite/*": {
+      "import": "./esm/Favorite/*.js",
+      "default": "./Favorite/*.js"
+    },
+    "./Favorite/*.js": {
+      "import": "./esm/Favorite/*.js",
+      "default": "./Favorite/*.js"
+    },
+    "./FeatureAvailability/*": {
+      "import": "./esm/FeatureAvailability/*.js",
+      "default": "./FeatureAvailability/*.js"
+    },
+    "./FeatureAvailability/*.js": {
+      "import": "./esm/FeatureAvailability/*.js",
+      "default": "./FeatureAvailability/*.js"
+    },
+    "./FeatureManagement/*": {
+      "import": "./esm/FeatureManagement/*.js",
+      "default": "./FeatureManagement/*.js"
+    },
+    "./FeatureManagement/*.js": {
+      "import": "./esm/FeatureManagement/*.js",
+      "default": "./FeatureManagement/*.js"
+    },
+    "./FileContainer/*": {
+      "import": "./esm/FileContainer/*.js",
+      "default": "./FileContainer/*.js"
+    },
+    "./FileContainer/*.js": {
+      "import": "./esm/FileContainer/*.js",
+      "default": "./FileContainer/*.js"
+    },
+    "./FormInput/*": {
+      "import": "./esm/FormInput/*.js",
+      "default": "./FormInput/*.js"
+    },
+    "./FormInput/*.js": {
+      "import": "./esm/FormInput/*.js",
+      "default": "./FormInput/*.js"
+    },
+    "./Gallery/*": {
+      "import": "./esm/Gallery/*.js",
+      "default": "./Gallery/*.js"
+    },
+    "./Gallery/*.js": {
+      "import": "./esm/Gallery/*.js",
+      "default": "./Gallery/*.js"
+    },
+    "./Git/*": {
+      "import": "./esm/Git/*.js",
+      "default": "./Git/*.js"
+    },
+    "./Git/*.js": {
+      "import": "./esm/Git/*.js",
+      "default": "./Git/*.js"
+    },
+    "./Graph/*": {
+      "import": "./esm/Graph/*.js",
+      "default": "./Graph/*.js"
+    },
+    "./Graph/*.js": {
+      "import": "./esm/Graph/*.js",
+      "default": "./Graph/*.js"
+    },
+    "./Identities/*": {
+      "import": "./esm/Identities/*.js",
+      "default": "./Identities/*.js"
+    },
+    "./Identities/*.js": {
+      "import": "./esm/Identities/*.js",
+      "default": "./Identities/*.js"
+    },
+    "./Locations/*": {
+      "import": "./esm/Locations/*.js",
+      "default": "./Locations/*.js"
+    },
+    "./Locations/*.js": {
+      "import": "./esm/Locations/*.js",
+      "default": "./Locations/*.js"
+    },
+    "./Management/*": {
+      "import": "./esm/Management/*.js",
+      "default": "./Management/*.js"
+    },
+    "./Management/*.js": {
+      "import": "./esm/Management/*.js",
+      "default": "./Management/*.js"
+    },
+    "./Notification/*": {
+      "import": "./esm/Notification/*.js",
+      "default": "./Notification/*.js"
+    },
+    "./Notification/*.js": {
+      "import": "./esm/Notification/*.js",
+      "default": "./Notification/*.js"
+    },
+    "./Operations/*": {
+      "import": "./esm/Operations/*.js",
+      "default": "./Operations/*.js"
+    },
+    "./Operations/*.js": {
+      "import": "./esm/Operations/*.js",
+      "default": "./Operations/*.js"
+    },
+    "./Pipelines/*": {
+      "import": "./esm/Pipelines/*.js",
+      "default": "./Pipelines/*.js"
+    },
+    "./Pipelines/*.js": {
+      "import": "./esm/Pipelines/*.js",
+      "default": "./Pipelines/*.js"
+    },
+    "./Policy/*": {
+      "import": "./esm/Policy/*.js",
+      "default": "./Policy/*.js"
+    },
+    "./Policy/*.js": {
+      "import": "./esm/Policy/*.js",
+      "default": "./Policy/*.js"
+    },
+    "./Profile/*": {
+      "import": "./esm/Profile/*.js",
+      "default": "./Profile/*.js"
+    },
+    "./Profile/*.js": {
+      "import": "./esm/Profile/*.js",
+      "default": "./Profile/*.js"
+    },
+    "./ProjectAnalysis/*": {
+      "import": "./esm/ProjectAnalysis/*.js",
+      "default": "./ProjectAnalysis/*.js"
+    },
+    "./ProjectAnalysis/*.js": {
+      "import": "./esm/ProjectAnalysis/*.js",
+      "default": "./ProjectAnalysis/*.js"
+    },
+    "./Release/*": {
+      "import": "./esm/Release/*.js",
+      "default": "./Release/*.js"
+    },
+    "./Release/*.js": {
+      "import": "./esm/Release/*.js",
+      "default": "./Release/*.js"
+    },
+    "./ServiceEndpoint/*": {
+      "import": "./esm/ServiceEndpoint/*.js",
+      "default": "./ServiceEndpoint/*.js"
+    },
+    "./ServiceEndpoint/*.js": {
+      "import": "./esm/ServiceEndpoint/*.js",
+      "default": "./ServiceEndpoint/*.js"
+    },
+    "./ServiceHooks/*": {
+      "import": "./esm/ServiceHooks/*.js",
+      "default": "./ServiceHooks/*.js"
+    },
+    "./ServiceHooks/*.js": {
+      "import": "./esm/ServiceHooks/*.js",
+      "default": "./ServiceHooks/*.js"
+    },
+    "./TaskAgent/*": {
+      "import": "./esm/TaskAgent/*.js",
+      "default": "./TaskAgent/*.js"
+    },
+    "./TaskAgent/*.js": {
+      "import": "./esm/TaskAgent/*.js",
+      "default": "./TaskAgent/*.js"
+    },
+    "./Test/*": {
+      "import": "./esm/Test/*.js",
+      "default": "./Test/*.js"
+    },
+    "./Test/*.js": {
+      "import": "./esm/Test/*.js",
+      "default": "./Test/*.js"
+    },
+    "./TestPlan/*": {
+      "import": "./esm/TestPlan/*.js",
+      "default": "./TestPlan/*.js"
+    },
+    "./TestPlan/*.js": {
+      "import": "./esm/TestPlan/*.js",
+      "default": "./TestPlan/*.js"
+    },
+    "./TestResults/*": {
+      "import": "./esm/TestResults/*.js",
+      "default": "./TestResults/*.js"
+    },
+    "./TestResults/*.js": {
+      "import": "./esm/TestResults/*.js",
+      "default": "./TestResults/*.js"
+    },
+    "./Tfvc/*": {
+      "import": "./esm/Tfvc/*.js",
+      "default": "./Tfvc/*.js"
+    },
+    "./Tfvc/*.js": {
+      "import": "./esm/Tfvc/*.js",
+      "default": "./Tfvc/*.js"
+    },
+    "./WebApi/*": {
+      "import": "./esm/WebApi/*.js",
+      "default": "./WebApi/*.js"
+    },
+    "./WebApi/*.js": {
+      "import": "./esm/WebApi/*.js",
+      "default": "./WebApi/*.js"
+    },
+    "./Wiki/*": {
+      "import": "./esm/Wiki/*.js",
+      "default": "./Wiki/*.js"
+    },
+    "./Wiki/*.js": {
+      "import": "./esm/Wiki/*.js",
+      "default": "./Wiki/*.js"
+    },
+    "./Work/*": {
+      "import": "./esm/Work/*.js",
+      "default": "./Work/*.js"
+    },
+    "./Work/*.js": {
+      "import": "./esm/Work/*.js",
+      "default": "./Work/*.js"
+    },
+    "./WorkItemTracking/*": {
+      "import": "./esm/WorkItemTracking/*.js",
+      "default": "./WorkItemTracking/*.js"
+    },
+    "./WorkItemTracking/*.js": {
+      "import": "./esm/WorkItemTracking/*.js",
+      "default": "./WorkItemTracking/*.js"
+    },
+    "./WorkItemTrackingProcess/*": {
+      "import": "./esm/WorkItemTrackingProcess/*.js",
+      "default": "./WorkItemTrackingProcess/*.js"
+    },
+    "./WorkItemTrackingProcess/*.js": {
+      "import": "./esm/WorkItemTrackingProcess/*.js",
+      "default": "./WorkItemTrackingProcess/*.js"
+    },
+    "./WorkItemTrackingProcessDefinitions/*": {
+      "import": "./esm/WorkItemTrackingProcessDefinitions/*.js",
+      "default": "./WorkItemTrackingProcessDefinitions/*.js"
+    },
+    "./WorkItemTrackingProcessDefinitions/*.js": {
+      "import": "./esm/WorkItemTrackingProcessDefinitions/*.js",
+      "default": "./WorkItemTrackingProcessDefinitions/*.js"
+    },
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "extensions",
     "Azure DevOps",
