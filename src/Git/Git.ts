@@ -670,6 +670,30 @@ export interface FileDiffsCriteria {
 }
 
 /**
+ * Request to get accessible repositories based on permission.
+ */
+export interface GetAccessibleRepositoriesRequest {
+    /**
+     * Permission being requested, must be "viewAlert" "dismissAlert" "manage" "viewEnablement" "repoRead" or "repoContribute"
+     */
+    permission: string;
+    /**
+     * List of repository IDs to check permissions for
+     */
+    repositoryIds: string[];
+}
+
+/**
+ * Response containing accessible repository IDs.
+ */
+export interface GetAccessibleRepositoriesResponse {
+    /**
+     * List of repository IDs where the user has the requested permission
+     */
+    accessibleRepositoryIds: string[];
+}
+
+/**
  * A Git annotated tag.
  */
 export interface GitAnnotatedTag {
@@ -1910,11 +1934,11 @@ export interface GitPullRequestCompletionOptions {
      */
     mergeCommitMessage: string;
     /**
-     * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squashed if SquashMerge == true. The SquashMerge property is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge property will be ignored.
+     * Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, the service selects the first merge strategy not prohibited by the target branch’s policy. If the limit merge type policy is not configured, the default is noFastForward unless the deprecated SquashMerge is true, in which case the default is squash. If an explicit value is provided for MergeStrategy, the SquashMerge property will be ignored.
      */
     mergeStrategy: GitPullRequestMergeStrategy;
     /**
-     * SquashMerge is deprecated. You should explicitly set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
+     * SquashMerge is deprecated. You should explicitly set the value of MergeStrategy. This flag is only used when MergeStrategy is not specified and the target branch has no merge-strategy policy configured. In all other cases it is ignored.
      */
     squashMerge: boolean;
     /**

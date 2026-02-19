@@ -15,6 +15,38 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Base URL for getting All Available Agent Pools + Currently Selected Agent Pool
+     * 
+     */
+    public async getAdvancedSecurityAgentPoolSelection(
+        ): Promise<Management.AgentPoolDetails> {
+
+        return this.beginRequest<Management.AgentPoolDetails>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/pools/{agentPoolName}"
+        });
+    }
+
+    /**
+     * Updates Agent Pool Registry Value For the Selected Agent Pool This automatically uses the underlying http client for agent pools to validate that the user has permissions to use that pool
+     * 
+     * @param agentPoolName - 
+     */
+    public async updateAdvancedSecurityAgentPoolSelection(
+        agentPoolName: string
+        ): Promise<Management.AgentPoolDetails> {
+
+        return this.beginRequest<Management.AgentPoolDetails>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Management/pools/{agentPoolName}",
+            routeValues: {
+                agentPoolName: agentPoolName
+            }
+        });
+    }
+
+    /**
      * During multi-org billing computation in primary scale unit(EUS21), this API is used to create billing snapshot for a specific org. Primary scale unit will call this API for each org in different scsle units to create billing snapshot. Data will be stored in the org specific partition DB -\> billing snapshot table. This is needed as customers will fetch billing data from their org specific partition DB.
      * 
      * @param meterUsage - 

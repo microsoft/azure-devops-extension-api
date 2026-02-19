@@ -796,6 +796,10 @@ export interface PhysicalLocation {
      */
     filePath: string;
     /**
+     * Indicates whether the path is a valid Git path that exists in the git repository associated with the alert.
+     */
+    isValidGitPath: boolean;
+    /**
      * Details about the location where the issue was found including a snippet
      */
     region: Region;

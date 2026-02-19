@@ -97,6 +97,20 @@ export interface AdvSecEnablementStatusUpdate {
 }
 
 /**
+ * This Data Contract contains the Advanced Security CodeQL One Click Details Panel Information
+ */
+export interface AgentPoolDetails {
+    /**
+     * List of All Available agent pools in the org
+     */
+    allAvailableAgentPools: string[];
+    /**
+     * Currently selected pool Advanced Security is Using
+     */
+    currentAgentPool: string;
+}
+
+/**
  * Billable Committers Details for Advanced Security Services
  */
 export interface BillableCommitterDetails {

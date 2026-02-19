@@ -596,6 +596,23 @@ export class ServiceEndpointRestClient extends RestClientBase {
     }
 
     /**
+     * Get service endpoint types with passed types filter.
+     * 
+     * @param typesFilter - Filter to limit returned types
+     */
+    public async getFilteredServiceEndpointTypes(
+        typesFilter: string[]
+        ): Promise<ServiceEndpoint.ServiceEndpointType[]> {
+
+        return this.beginRequest<ServiceEndpoint.ServiceEndpointType[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/serviceendpoint/types",
+            body: typesFilter
+        });
+    }
+
+    /**
      * @param tenantId - 
      * @param redirectUri - 
      * @param promptOption - 

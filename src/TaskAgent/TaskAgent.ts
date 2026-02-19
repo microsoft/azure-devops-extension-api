@@ -1615,6 +1615,7 @@ export interface ResourceLimit {
     isHosted: boolean;
     isPremium: boolean;
     parallelismTag: string;
+    quotaId: string;
     resourceLimitsData: { [key: string] : string; };
     totalCount: number;
     totalMinutes: number;
@@ -2550,7 +2551,11 @@ export enum TaskAgentPoolOptions {
     /**
      * Set to true if agents are held for investigation after a TaskAgentJobRequest failure
      */
-    PreserveAgentOnJobFailure = 4
+    PreserveAgentOnJobFailure = 4,
+    /**
+     * Whether this pool is billed per actual usage or not. This is a system-managed property that cannot be controlled by the user. This is a temporary option that will be removed in one of the future releases. **You should never take dependency on this option.**
+     */
+    BilledPerUsage = 8
 }
 
 export interface TaskAgentPoolReference {

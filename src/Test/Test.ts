@@ -2977,6 +2977,10 @@ export interface TestActionResultModel extends TestResultModelBase {
      */
     actionPath: string;
     /**
+     * Actual result message of test action result.
+     */
+    actualResultMessage: string;
+    /**
      * Iteration ID of test action result.
      */
     iterationId: number;
