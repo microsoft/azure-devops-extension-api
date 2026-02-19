@@ -5,6 +5,68 @@
  */
 
 /**
+ * Represents an advanced filter configuration for the Reporting dashboard.
+ */
+export interface AdvancedFilter extends AdvancedFilterCreate {
+    /**
+     * Link references to related REST resources.
+     */
+    _links: any;
+    /**
+     * The identity of the user who last changed the advanced filter.
+     */
+    changedBy: string;
+    /**
+     * The date and time when the advanced filter was last changed.
+     */
+    changedDate: Date;
+    /**
+     * The identity of the user who created the advanced filter.
+     */
+    createdBy: string;
+    /**
+     * The date and time when the advanced filter was created.
+     */
+    createdDate: Date;
+    /**
+     * Unique identifier for the advanced filter.
+     */
+    id: string;
+    /**
+     * Indicates whether the advanced filter has been soft-deleted.
+     */
+    isDeleted: boolean;
+    /**
+     * The URL of the advanced filter.
+     */
+    url: string;
+}
+
+/**
+ * Represents the data required to create an advanced filter configuration for the Reporting dashboard. Also serves as the base class for AdvancedFilter.
+ */
+export interface AdvancedFilterCreate {
+    /**
+     * The filter criteria to be applied when this advanced filter is selected.
+     */
+    filterCriteria: CombinedAlertFilterCriteria;
+    /**
+     * User-provided name for the advanced filter.
+     */
+    name: string;
+}
+
+/**
+ * Represents the data required to update an advanced filter configuration. Only the name can be updated.
+ */
+export interface AdvancedFilterUpdate {
+    /**
+     * The new name for the advanced filter.
+     */
+    name: string;
+}
+
+/**
  * Alert Summary by severity.
  */
 export interface AlertSummaryBySeverity {
@@ -92,13 +154,141 @@ export enum AlertValidityStatus {
 
 export interface CombinedAlertFilterCriteria {
     /**
+     * If provided, only return alerts of the specified alert type.
+     */
+    alertType: AlertType;
+    /**
+     * If provided, only return alerts with the specified validity status.
+     */
+    alertValidityStatus: AlertValidityStatus;
+    /**
+     * If provided, only return dependency alerts for the specified package name.
+     */
+    componentName: string;
+    /**
+     * If provided, only return dependency alerts for the specified ecosystem (e.g., NuGet, Npm, Maven).
+     */
+    componentType: ComponentType;
+    /**
+     * If provided, only return alerts with the specified dismissal type (closure reason). Applicable only when filtering for closed/dismissed alerts.
+     */
+    dismissalTypes: DismissalType[];
+    /**
+     * If provided, only return alerts fixed on or before this date.
+     */
+    fixedDateEnd: Date;
+    /**
+     * If provided, only return alerts fixed on or after this date.
+     */
+    fixedDateStart: Date;
+    /**
+     * If provided, only return alerts introduced on or before this date.
+     */
+    introducedDateEnd: Date;
+    /**
+     * If provided, only return alerts introduced on or after this date.
+     */
+    introducedDateStart: Date;
+    /**
      * If provided, only return alerts whose titles match this pattern.
      */
     keywords: string;
     /**
+     * If provided, only return alerts for projects whose names are in this list.
+     */
+    projects: string[];
+    /**
+     * If provided, only return alerts for repositories whose names are in this list.
+     */
+    repositories: string[];
+    /**
+     * If provided, only return code scanning alerts or secret alerts matching the specified rule name.
+     */
+    ruleName: string;
+    /**
+     * If provided, only return secret alerts matching the specified secret type (rule friendly name or opaque ID).
+     */
+    secretType: string;
+    /**
+     * If provided, only return alerts with the specified severities. Otherwise, return alerts at any severity.
+     */
+    severities: Severity[];
+    /**
      * If provided, return alerts that are active or inactive based on this value. \<br /\>Otherwise, return alerts in any state.
      */
     state: DashboardAlertState;
+    /**
+     * If provided, only return code scanning alerts detected by the specified tool.
+     */
+    toolName: string;
+}
+
+/**
+ * This enum defines the dependency components.
+ */
+export enum ComponentType {
+    Unknown = 0,
+    NuGet = 1,
+    /**
+     * Indicates the component is an Npm package.
+     */
+    Npm = 2,
+    /**
+     * Indicates the component is a Maven artifact.
+     */
+    Maven = 3,
+    /**
+     * Indicates the component is a Git repository.
+     */
+    Git = 4,
+    /**
+     * Indicates the component is not any of the supported component types by Governance.
+     */
+    Other = 5,
+    /**
+     * Indicates the component is a Ruby gem.
+     */
+    RubyGems = 6,
+    /**
+     * Indicates the component is a Cargo package.
+     */
+    Cargo = 7,
+    /**
+     * Indicates the component is a Pip package.
+     */
+    Pip = 8,
+    /**
+     * Indicates the component is a loose file. Not a package as understood by different package managers.
+     */
+    File = 9,
+    /**
+     * Indicates the component is a Go package.
+     */
+    Go = 10,
+    /**
+     * Indicates the component is a Docker Image
+     */
+    DockerImage = 11,
+    /**
+     * Indicates the component is a CocoaPods pod.
+     */
+    Pod = 12,
+    /**
+     * Indicates the component is found in a linux environment. A package understood by linux based package managers like apt and rpm.
+     */
+    Linux = 13,
+    /**
+     * Indicates the component is a Conda package.
+     */
+    Conda = 14,
+    /**
+     * Indicates the component is a Docker Reference.
+     */
+    DockerReference = 15,
+    /**
+     * Indicates the component is a Vcpkg Package.
+     */
+    Vcpkg = 16
 }
 
 /**
@@ -175,6 +365,37 @@ export enum DashboardAlertState {
      * Alert corresponds to 'Unknown', 'Dismissed', 'Fixed' or 'AutoDismissed' states.
      */
     Closed = 1
+}
+
+export enum DismissalType {
+    /**
+     * Dismissal type unknown
+     */
+    Unknown = 0,
+    /**
+     * Dismissal indicating alert has been fixed
+     */
+    Fixed = 1,
+    /**
+     * Dismissal indicating user is accepting a risk for the alert
+     */
+    AcceptedRisk = 2,
+    /**
+     * Dismissal indicating alert is a false positive and will likely not be fixed.
+     */
+    FalsePositive = 3,
+    /**
+     * Dismissal indicating user is agreeing to follow license guidance.
+     */
+    AgreedToGuidance = 4,
+    /**
+     * Dismissal indicating backend detection tool was upgraded and the alert is not detected by the new version of tool.
+     */
+    ToolUpgrade = 5,
+    /**
+     * Dismissal indicating the affected dependencency is not distributed to end users.
+     */
+    NotDistributed = 6
 }
 
 export interface EnablementFilterCriteria {

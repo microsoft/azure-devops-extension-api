@@ -249,6 +249,23 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * POST request to get accessible repositories based on permission (batch operation).
+     * 
+     * @param request - Request containing permission and repository IDs to check
+     */
+    public async getAccessibleRepositories(
+        request: Git.GetAccessibleRepositoriesRequest
+        ): Promise<Git.GetAccessibleRepositoriesResponse> {
+
+        return this.beginRequest<Git.GetAccessibleRepositoriesResponse>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/git/advsecPermissions/RepositoriesBatch",
+            body: request
+        });
+    }
+
+    /**
      * Create an annotated tag.
      * 
      * @param tagObject - Object containing details of tag to be created.
