@@ -4,6 +4,8 @@
  * ---------------------------------------------------------
  */
 
+import * as WebApi from "../WebApi/WebApi";
+
 /**
  * Represents an advanced filter configuration for the Reporting dashboard.
  */
@@ -24,6 +26,10 @@ export interface AdvancedFilter extends AdvancedFilterCreate {
      * The identity of the user who created the advanced filter.
      */
     createdBy: string;
+    /**
+     * The resolved identity of the user who created the advanced filter.
+     */
+    createdByIdentity: WebApi.IdentityRef;
     /**
      * The date and time when the advanced filter was created.
      */
@@ -152,6 +158,24 @@ export enum AlertValidityStatus {
     Inactive = 3
 }
 
+/**
+ * Represents code scanning rule information for filtering purposes.
+ */
+export interface CodeScanningRuleInfo {
+    /**
+     * The human-readable name of the rule.
+     */
+    friendlyName: string;
+    /**
+     * The opaque identifier of the rule (e.g., SARIF rule ID).
+     */
+    opaqueId: string;
+    /**
+     * The name of the tool that defines this rule.
+     */
+    toolName: string;
+}
+
 export interface CombinedAlertFilterCriteria {
     /**
      * If provided, only return alerts of the specified alert type.
@@ -162,15 +186,15 @@ export interface CombinedAlertFilterCriteria {
      */
     alertValidityStatus: AlertValidityStatus;
     /**
-     * If provided, only return dependency alerts for the specified package name.
+     * If provided, only return dependency alerts for the specified package names.
      */
-    componentName: string;
+    componentNames: string[];
     /**
-     * If provided, only return dependency alerts for the specified ecosystem (e.g., NuGet, Npm, Maven).
+     * If provided, only return dependency alerts for the specified ecosystems (e.g., NuGet, Npm, Maven).
      */
-    componentType: ComponentType;
+    componentTypes: ComponentType[];
     /**
-     * If provided, only return alerts with the specified dismissal type (closure reason). Applicable only when filtering for closed/dismissed alerts.
+     * If provided, only return alerts with one of the specified dismissal types (closure reasons). Applicable only when filtering for closed/dismissed alerts.
      */
     dismissalTypes: DismissalType[];
     /**
@@ -202,13 +226,17 @@ export interface CombinedAlertFilterCriteria {
      */
     repositories: string[];
     /**
-     * If provided, only return code scanning alerts or secret alerts matching the specified rule name.
+     * If provided, only return alerts for repositories whose IDs (GitRepositoryId) are in this list.
      */
-    ruleName: string;
+    repositoryIds: string[];
     /**
-     * If provided, only return secret alerts matching the specified secret type (rule friendly name or opaque ID).
+     * If provided, only return code scanning alerts or secret alerts matching the specified rule names.
      */
-    secretType: string;
+    ruleNames: string[];
+    /**
+     * If provided, only return secret alerts matching the specified secret types (rule friendly name or opaque ID).
+     */
+    secretTypes: string[];
     /**
      * If provided, only return alerts with the specified severities. Otherwise, return alerts at any severity.
      */
@@ -218,9 +246,9 @@ export interface CombinedAlertFilterCriteria {
      */
     state: DashboardAlertState;
     /**
-     * If provided, only return code scanning alerts detected by the specified tool.
+     * If provided, only return code scanning alerts detected by the specified tools.
      */
-    toolName: string;
+    toolNames: string[];
 }
 
 /**
@@ -516,6 +544,28 @@ export interface ProjectAlertSummary {
      * A list of RepoAlertSummary data.
      */
     repos: RepoAlertSummary[];
+}
+
+/**
+ * Represents project and repository information for filtering purposes.
+ */
+export interface ProjectAndRepoInfo {
+    /**
+     * The unique identifier of the project.
+     */
+    projectId: string;
+    /**
+     * The name of the project.
+     */
+    projectName: string;
+    /**
+     * The unique identifier of the repository.
+     */
+    repositoryId: string;
+    /**
+     * The name of the repository.
+     */
+    repositoryName: string;
 }
 
 /**
