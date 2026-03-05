@@ -320,6 +320,10 @@ export interface NotificationDetails {
      */
     eventType: string;
     /**
+     * Gets or sets the next delivery retry time for this notification
+     */
+    nextRetryTime: Date;
+    /**
      * Gets or sets the time that this notification was finished processing (just before the request is sent to the consumer)
      */
     processedDate: Date;
@@ -351,6 +355,10 @@ export interface NotificationDetails {
      * Gets or sets this notification detail's response.
      */
     response: string;
+    /**
+     * Number of delivery retries attempted for this notification
+     */
+    retryCount: number;
 }
 
 /**
@@ -459,6 +467,10 @@ export enum NotificationStatus {
      * The consumer action has processed the notification. The request is in progress.
      */
     RequestInProgress = 30,
+    /**
+     * The notification failed and is queued for retry.
+     */
+    QueuedForRetry = 40,
     /**
      * The request completed
      */
