@@ -15,7 +15,7 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
-     * Base URL for getting All Available Agent Pools + Currently Selected Agent Pool
+     * Base URL for getting All Available Agent Pools + Currently Selected Agent Pool This is a read-only operation that does not require manage permissions.
      * 
      */
     public async getAdvancedSecurityAgentPoolSelection(

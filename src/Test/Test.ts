@@ -16,6 +16,20 @@ export interface AbortTestRunRequest {
     testRunId: number;
 }
 
+/**
+ * Actual Test Result Settings for a Test Plan
+ */
+export interface ActualTestResultSettings {
+    /**
+     * Enable actual results field usage for test step result in the test plan during test execution
+     */
+    isActualTestResultEnabled: boolean;
+    /**
+     * Mandate actual results field usage for test step result in the test plan during test execution
+     */
+    isActualTestResultMandatory: boolean;
+}
+
 export enum AdvancedFlakyDetectionMode {
     /**
      * Advanced Flaky Detection is Disabled Mode
@@ -1675,6 +1689,10 @@ export interface PipelineTestMetrics {
  * A model class used for creating and updating test plans.
  */
 export interface PlanUpdateModel {
+    /**
+     * Actual Test Result Settings for the test plan.
+     */
+    actualTestResultSettings: ActualTestResultSettings;
     /**
      * Area path to which the test plan belongs. This should be set to area path of the team that works on this test plan.
      */
@@ -4208,6 +4226,10 @@ export interface TestParameter2 {
  * The test plan resource.
  */
 export interface TestPlan {
+    /**
+     * Actual Test Result Settings for the test plan.
+     */
+    actualTestResultSettings: ActualTestResultSettings;
     /**
      * Area of the test plan.
      */
