@@ -1122,6 +1122,10 @@ export interface TestPlanAndSuiteRestoreModel {
  */
 export interface TestPlanCreateParams {
     /**
+     * Actual Test Result Settings for the test plan.
+     */
+    actualTestResultSettings: Test.ActualTestResultSettings;
+    /**
      * Area of the test plan.
      */
     areaPath: string;

@@ -79,13 +79,16 @@ export class ReportingRestClient extends RestClientBase {
      * Gets all advanced filters for the organization.
      * 
      * @param includeDeleted - Whether to include soft-deleted filters.
+     * @param keywords - Optional filter to search filters by name (case-insensitive, partial match).
      */
     public async listAdvancedFilters(
-        includeDeleted?: boolean
+        includeDeleted?: boolean,
+        keywords?: string
         ): Promise<Reporting.AdvancedFilter[]> {
 
         const queryValues: any = {
-            includeDeleted: includeDeleted
+            includeDeleted: includeDeleted,
+            keywords: keywords
         };
 
         return this.beginRequest<Reporting.AdvancedFilter[]>({
@@ -118,6 +121,77 @@ export class ReportingRestClient extends RestClientBase {
                 action: "AlertsBatch"
             },
             body: filter
+        });
+    }
+
+    /**
+     * Get all distinct dependency component names for the org (used for UX filtering)
+     * 
+     */
+    public async getDependencyComponentNamesForOrg(
+        ): Promise<string[]> {
+
+        return this.beginRequest<string[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Reporting/filters/{action}",
+            routeValues: {
+                action: "ComponentNames"
+            }
+        });
+    }
+
+    /**
+     * Get all projects and repositories for the org (used for UX filtering)
+     * 
+     */
+    public async getProjectsAndReposForOrg(
+        ): Promise<Reporting.ProjectAndRepoInfo[]> {
+
+        return this.beginRequest<Reporting.ProjectAndRepoInfo[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Reporting/filters/{action}",
+            routeValues: {
+                action: "ProjectsAndRepos"
+            }
+        });
+    }
+
+    /**
+     * Get all distinct code scanning rule names for the org (used for UX filtering)
+     * 
+     * @param toolName - Optional tool name to filter rules by
+     */
+    public async getRuleNamesForOrg(
+        toolName?: string
+        ): Promise<Reporting.CodeScanningRuleInfo[]> {
+
+        const queryValues: any = {
+            toolName: toolName
+        };
+
+        return this.beginRequest<Reporting.CodeScanningRuleInfo[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Reporting/filters/{action}",
+            routeValues: {
+                action: "RuleNames"
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Get all distinct secret types for the org (used for UX filtering)
+     * 
+     */
+    public async getSecretTypesForOrg(
+        ): Promise<string[]> {
+
+        return this.beginRequest<string[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Reporting/filters/{action}",
+            routeValues: {
+                action: "SecretTypes"
+            }
         });
     }
 
