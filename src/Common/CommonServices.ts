@@ -259,6 +259,45 @@ export const enum PanelSize {
 }
 
 /**
+ * Options for controlling the horizontal width and resizing behavior of the panel.
+ *
+ * Note: Resizing is automatically disabled on small screens (xsmall breakpoint)
+ * where the panel renders in fullscreen mode. The resize handle is not shown
+ * and any user-set width is ignored in that layout.
+ */
+export interface IPanelResizeOptions {
+    /**
+     * Whether the user can interactively resize the panel width by dragging the
+     * resize handle or using keyboard arrow keys. When false, the panel width
+     * is locked to the size determined by the size prop.
+     *
+     * The resize handle is not rendered on small screens where the panel is
+     * displayed fullscreen.
+     *
+     * @default false
+     */
+    userResizable?: boolean;
+
+    /**
+     * The minimum width in pixels the panel can be resized to.
+     * Only applies when userResizable is true.
+     * @default 340
+     */
+    minWidth?: number;
+
+    /**
+     * The maximum width in pixels the panel can be resized to.
+     * Only applies when userResizable is true.
+     */
+    maxWidth?: number;
+
+    /**
+     * Callback fired when the panel width changes due to user interaction.
+     */
+    onWidthChanged?: (width: number) => void;
+}
+
+/**
  * Options for showing panels
  */
 export interface IPanelOptions<TResult> {
@@ -293,6 +332,11 @@ export interface IPanelOptions<TResult> {
      * @default true
      */
     lightDismiss?: boolean;
+
+    /**
+     * Options for controlling the horizontal width and resizing behavior of the panel.
+     */
+    resizeOptions?: IPanelResizeOptions;
 }
 
 /**
