@@ -1173,6 +1173,18 @@ export enum ExclusiveLockType {
 export interface ExpressionValidationItem extends ValidationItem {
 }
 
+export interface ExternalRepositoryResource {
+    displayName: string;
+    externalId: string;
+    externalRepositoryId: string;
+    hostName: string;
+}
+
+export interface FilterDropDownItem {
+    displayName: string;
+    id: string;
+}
+
 export interface HelpLink {
     text: string;
     url: string;
@@ -1557,12 +1569,15 @@ export interface PublishTaskGroupMetadata {
 }
 
 export interface ResourceFilterOptions {
+    endpointSchemes: FilterDropDownItem[];
+    endpointTypes: FilterDropDownItem[];
     identities: WebApi.IdentityRef[];
     resourceTypes: string[];
 }
 
 export interface ResourceFilters {
     createdBy: string[];
+    resourceAuthScheme: string[];
     resourceType: string[];
     searchText: string;
 }

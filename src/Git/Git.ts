@@ -604,6 +604,28 @@ export interface CompletionErrorsEvent extends RealTimePullRequestEvent {
 }
 
 /**
+ * Request to create an Enterprise Live Migration.
+ */
+export interface CreateMigrationRequest {
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * The ID of the user that will end up owning the migrated repository.
+     */
+    targetOwnerUserId: string;
+    /**
+     * URL identifying the destination respository of migration.
+     */
+    targetRepository: string;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
+}
+
+/**
  * Real time event (SignalR) for a discussions update on a pull request
  */
 export interface DiscussionsUpdatedEvent extends RealTimePullRequestEvent {
@@ -627,6 +649,24 @@ export interface FileDiff {
      * The collection of line diff blocks
      */
     lineDiffBlocks: LineDiffBlock[];
+    /**
+     * Original path of item if different from current path.
+     */
+    originalPath: string;
+    /**
+     * Current path of item
+     */
+    path: string;
+}
+
+/**
+ * Provides properties that describe detailed file differences including line content
+ */
+export interface FileDiffDetail {
+    /**
+     * The collection of detailed line diff blocks
+     */
+    lineDiffBlocks: LineDiffBlockDetail[];
     /**
      * Original path of item if different from current path.
      */
@@ -1952,6 +1992,24 @@ export interface GitPullRequestCompletionOptions {
 }
 
 /**
+ * Collection of file diffs for a pull request.
+ */
+export interface GitPullRequestFilesDiff {
+    /**
+     * File diffs for all changed files in the pull request.
+     */
+    fileDiffs: FileDiffDetail[];
+    /**
+     * Description of the pull request.
+     */
+    pullRequestDescription: string;
+    /**
+     * Title of the pull request.
+     */
+    pullRequestTitle: string;
+}
+
+/**
  * Provides properties that describe a Git pull request iteration. Iterations are created as a result of creating and pushing updates to a pull request.
  */
 export interface GitPullRequestIteration {
@@ -3186,9 +3244,123 @@ export enum LineDiffBlockChangeType {
 }
 
 /**
+ * The class to represent a detailed line diff block with line content
+ */
+export interface LineDiffBlockDetail {
+    /**
+     * Type of change that was made to the block.
+     */
+    changeType: LineDiffBlockChangeType;
+    /**
+     * Line number where this block starts in modified file.
+     */
+    modifiedLineNumberStart: number;
+    /**
+     * Modified lines of content in this block.
+     */
+    modifiedLines: string[];
+    /**
+     * Count of lines in this block in modified file.
+     */
+    modifiedLinesCount: number;
+    /**
+     * Line number where this block starts in original file.
+     */
+    originalLineNumberStart: number;
+    /**
+     * Original lines of content in this block.
+     */
+    originalLines: string[];
+    /**
+     * Count of lines in this block in original file.
+     */
+    originalLinesCount: number;
+}
+
+/**
  * Real time event (SignalR) for a merge completed on a pull request
  */
 export interface MergeCompletedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * An Enterprise Live Migration
+ */
+export interface Migration {
+    /**
+     * The identity that last changed this migration.
+     */
+    changedBy: WebApi.IdentityRef;
+    /**
+     * The UTC date/time this migration was last changed.
+     */
+    changedDate: Date;
+    /**
+     * The identity that created this migration.
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * The UTC date/time this migration was created.
+     */
+    createdDate: Date;
+    /**
+     * The error that caused this migration to fail.
+     */
+    errorMessage: string;
+    /**
+     * RepositoryId
+     */
+    repositoryId: string;
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * If the migration is 'active', 'complete', or 'failed'.
+     */
+    status: MigrationStatus;
+    /**
+     * The ID of the user that will end up owning the migrated repository.
+     */
+    targetOwnerUserId: string;
+    /**
+     * URL identifying the destination respository of migration.
+     */
+    targetRepository: string;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
+    /**
+     * A list of any issues found during pre-migration checks.
+     */
+    validationIssues: string[];
+    /**
+     * A list of any warnings found during pre-migration checks.
+     */
+    validationWarnings: string[];
+}
+
+/**
+ * The status of an Enterprise Live Migration.
+ */
+export enum MigrationStatus {
+    /**
+     * The migration is active.
+     */
+    Active = 0,
+    /**
+     * The migration has completed successfully.
+     */
+    Succeeded = 1,
+    /**
+     * The migration has completed with a failure. The error details can be found in the Migration.Error property.
+     */
+    Failed = 2,
+    /**
+     * The migration was suspended.
+     */
+    Suspended = 3
 }
 
 /**
@@ -4064,6 +4236,24 @@ export enum TfvcVersionType {
  * Real time event (SignalR) for a title/description update on a pull request
  */
 export interface TitleDescriptionUpdatedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * Request to update an Enterprise Live Migration.
+ */
+export interface UpdateMigrationRequest {
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * The status requested for the migration. Allowed values are "Active" and "Suspended".
+     */
+    statusRequested: MigrationStatus;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
 }
 
 export interface UpdateRefsRequest {

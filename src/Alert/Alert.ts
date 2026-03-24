@@ -792,6 +792,10 @@ export enum MetadataOperation {
  */
 export interface PhysicalLocation {
     /**
+     * Additional properties for where the issue was found
+     */
+    additionalProperties: { [key: string] : any; };
+    /**
      * Path of the file where the issue was found
      */
     filePath: string;
@@ -844,6 +848,10 @@ export interface RelationMetadata {
      * Any additional attributes of the metadata.
      */
     attributes: { [key: string] : any; };
+    /**
+     * The properties of the metadata.
+     */
+    properties: { [key: string] : any; };
     /**
      * The type of the metadata.
      */
@@ -1013,6 +1021,10 @@ export interface SearchCriteria {
      */
     hasLinkedWorkItems: boolean;
     /**
+     * If provided with isTriaged, only return alerts that have been triaged. \<br /\>Otherwise, return alerts regardless of triage status.
+     */
+    isTriaged: boolean;
+    /**
      * If provided, only return alerts whose titles match this pattern.
      */
     keywords: string;
@@ -1036,6 +1048,10 @@ export interface SearchCriteria {
      * If provided with pipelineName, only return alerts detected in this pipeline phase \<br /\>Otherwise, return alerts detected in all phases. \<br /\>Not applicable for secret alerts.
      */
     phaseName: string;
+    /**
+     * If provided with pipelineId, only return alerts detected in this pipeline \<br /\>Otherwise, return alerts detected in all pipelines.
+     */
+    pipelineId: number;
     /**
      * If provided, only return alerts detected in this pipeline. \<br /\>Otherwise, return alerts detected in all pipelines. \<br /\>Not applicable for secret alerts.
      */
