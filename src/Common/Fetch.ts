@@ -174,17 +174,17 @@ export async function issueRequest(requestUrl: string, options?: RequestInit, vs
     options.credentials = "same-origin";
 
     let refreshToken = false;
+    let retried = false;
 
-    do {
+    while (true) {
         
         // Ensure we have an authorization token available from the auth manager.
         if (vssRequestOptions && vssRequestOptions.authTokenProvider) {
             const authHeader = await vssRequestOptions.authTokenProvider.getAuthorizationHeader(refreshToken);
             if (authHeader) {
-                headers.append("Authorization", authHeader);
-                refreshToken = true;
+                headers.set("Authorization", authHeader);
             }
-            headers.append("X-TFS-FedAuthRedirect", "Suppress");
+            headers.set("X-TFS-FedAuthRedirect", "Suppress");
         }
 
         // Execute the http request defined by the caller.
@@ -198,13 +198,15 @@ export async function issueRequest(requestUrl: string, options?: RequestInit, vs
             throw error;
         }
 
-        // If we recieved a 401 and have a token manager, we will refresh our token and try again.
-        if (response.status === 401 && !refreshToken && vssRequestOptions && vssRequestOptions.authTokenProvider) {
+        // If we received a 401 and have a token manager, refresh the token and retry once.
+        if (response.status === 401 && !retried && vssRequestOptions && vssRequestOptions.authTokenProvider) {
+            retried = true;
             refreshToken = true;
             continue;
         }
 
-    } while (false);
+        break;
+    }
 
     // Parse error details from requests that returned non 200-299 status codes.
     if (!response.ok) {
