@@ -6,7 +6,10 @@
     "type": "git",
     "url": "https://github.com/Microsoft/azure-devops-extension-api.git"
   },
+  "type": "module",
   "scripts": {
+    "generate:exports": "node generateExports.js",
+    "prepare": "npm run generate:exports && tsc --project tsconfig.esm.json",
     "build": "node buildpackage.js"
   },
   "keywords": [
@@ -21,7 +24,8 @@
   },
   "homepage": "https://docs.microsoft.com/en-us/azure/devops/integrate",
   "dependencies": {
-    "whatwg-fetch": "~3.0.0"
+    "whatwg-fetch": "~3.0.0",
+    "azure-devops-extension-sdk": "^4.0.2"
   },
   "peerDependencies": {
     "azure-devops-extension-sdk": "^2 || ^3 || ^4"
