@@ -2434,6 +2434,46 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * Retrieve the file diffs for all changes in a pull request.
+     * 
+     * @param repositoryId - The repository ID of the pull request's target branch.
+     * @param pullRequestId - ID of the pull request.
+     * @param project - Project ID or project name
+     * @param iteration - If specified, file diffs will be retrieved for this iteration. If not specified, uses the latest iteration.
+     * @param baseIteration - If specified, file diffs will be compared against this iteration. The default value is zero which indicates the comparison is made against the common commit between the source and target branches.
+     * @param top - Optional. The number of file diffs to retrieve. The default value is 100 and the maximum value is 300.
+     * @param skip - Optional. The number of file diffs to ignore. For example, to retrieve file diffs 101-150, set top to 50 and skip to 100.
+     */
+    public async getPullRequestFilesDiff(
+        repositoryId: string,
+        pullRequestId: number,
+        project?: string,
+        iteration?: number,
+        baseIteration?: number,
+        top?: number,
+        skip?: number
+        ): Promise<Git.GitPullRequestFilesDiff> {
+
+        const queryValues: any = {
+            iteration: iteration,
+            baseIteration: baseIteration,
+            '$top': top,
+            '$skip': skip
+        };
+
+        return this.beginRequest<Git.GitPullRequestFilesDiff>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/filesdiff",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId,
+                pullRequestId: pullRequestId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Retrieve the changes made in a pull request between two iterations.
      * 
      * @param repositoryId - The repository ID of the pull request's target branch.

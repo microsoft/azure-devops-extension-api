@@ -57,6 +57,7 @@ export interface FrameworkIdentityInfo {
     displayName: string;
     identifier: string;
     identityType: FrameworkIdentityType;
+    isActive: boolean;
     role: string;
 }
 
