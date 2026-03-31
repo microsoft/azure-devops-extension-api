@@ -4,6 +4,8 @@
  * ---------------------------------------------------------
  */
 
+import * as WebApi from "../WebApi/WebApi";
+
 /**
  * Represents an advanced filter configuration for the Reporting dashboard.
  */
@@ -24,6 +26,10 @@ export interface AdvancedFilter extends AdvancedFilterCreate {
      * The identity of the user who created the advanced filter.
      */
     createdBy: string;
+    /**
+     * The resolved identity of the user who created the advanced filter.
+     */
+    createdByIdentity: WebApi.IdentityRef;
     /**
      * The date and time when the advanced filter was created.
      */

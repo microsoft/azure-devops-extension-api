@@ -598,6 +598,42 @@ export enum GetFieldsExpand {
 }
 
 /**
+ * Request model for creating a new GitHub connection. Requires a pre-existing ServiceEndpoint (use the ServiceEndpoint API to create one first).
+ */
+export interface GitHubConnectionCreateRequest {
+    /**
+     * List of GitHub repository URLs to include in the connection. Example: ["https://github.com/owner/repo1", "https://github.com/owner/repo2"]
+     */
+    gitHubRepositoryUrls: GitHubConnectionRepoModel[];
+    /**
+     * A fine-grained GH User Token with write access to repositories being added to the connection.
+     */
+    gitHubUserToken: string;
+    /**
+     * The ID of an existing service endpoint to use for authentication. Create the ServiceEndpoint first using the ServiceEndpoint API with InstallationToken scheme for Boards connections.
+     */
+    serviceEndpointId: string;
+}
+
+/**
+ * Response model for GitHub connection creation
+ */
+export interface GitHubConnectionCreateResponse {
+    /**
+     * The created GitHub connection
+     */
+    connection: GitHubConnectionModel;
+    /**
+     * Results for each repository that was attempted to be added to the connection. Includes repository URL and any error messages.
+     */
+    repositoryResults: GitHubConnectionRepoModel[];
+    /**
+     * The ID of the ServiceEndpoint that was used for this connection
+     */
+    serviceEndpointId: string;
+}
+
+/**
  * Describes Github connection.
  */
 export interface GitHubConnectionModel {
