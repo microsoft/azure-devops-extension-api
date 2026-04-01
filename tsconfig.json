@@ -1,18 +1,17 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "declaration": true,
         "rootDir": "src/",
         "outDir": "bin/",
         "experimentalDecorators": true,
-        "module": "amd",
+        "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "preserveConstEnums": true,
         "strict": true,
         "lib": [
-            "es5",
             "es6",
             "dom",
             "es2015.promise"
