@@ -81,6 +81,34 @@ const UglifyES = require("uglify-es");
     }
     console.log(`-- Minified ${cjsCount} CJS files.`);
 
+    // Emit empty .js stubs for type-only .d.ts source files (e.g. Context.d.ts).
+    // These have no runtime code, but index files re-export from them.
+    console.log("# Emitting stubs for type-only modules.");
+    let stubCount = 0;
+    const dtsSourceFiles = await new Promise((resolve, reject) => {
+        glob("./src/**/*.d.ts", (err, files) => {
+            err ? reject(err) : resolve(files);
+        });
+    });
+    const cjsStub = '"use strict";\nObject.defineProperty(exports, "__esModule", { value: true });\n';
+    const esmStub = "export {};\n";
+    for (const dtsFile of dtsSourceFiles) {
+        const relative = dtsFile.replace(/^\.\/src\//, "").replace(/\.d\.ts$/, ".js");
+        const cjsTarget = path.join(__dirname, "bin", relative);
+        const esmTarget = path.join(__dirname, "bin", "esm", relative);
+        if (!fs.existsSync(cjsTarget)) {
+            fs.mkdirSync(path.dirname(cjsTarget), { recursive: true });
+            fs.writeFileSync(cjsTarget, cjsStub, "utf-8");
+            stubCount++;
+        }
+        if (!fs.existsSync(esmTarget)) {
+            fs.mkdirSync(path.dirname(esmTarget), { recursive: true });
+            fs.writeFileSync(esmTarget, esmStub, "utf-8");
+            stubCount++;
+        }
+    }
+    console.log(`-- Emitted ${stubCount} stub(s).`);
+
     // Uglify JavaScript (ESM)
     console.log("# Minifying ESM JS using the UglifyES API, replacing un-minified files.");
     let esmCount = 0;
