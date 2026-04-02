@@ -83,6 +83,8 @@ const UglifyES = require("uglify-es");
 
     // Emit empty .js stubs for type-only .d.ts source files (e.g. Context.d.ts).
     // These have no runtime code, but index files re-export from them.
+    // Only emits a stub when no .js was produced by tsc — if a .d.ts has a
+    // corresponding .ts file, tsc already emits the .js and this is a no-op.
     console.log("# Emitting stubs for type-only modules.");
     let stubCount = 0;
     const dtsSourceFiles = await new Promise((resolve, reject) => {
@@ -140,17 +142,14 @@ const UglifyES = require("uglify-es");
     console.log("# Generating package.json with conditional exports map.");
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
 
-    // Discover subpath exports by scanning src/ for directories with index.ts
+    // Discover subpath exports by scanning src/ for directories with index.ts.
+    // Each API area gets an explicit entry — no wildcard pattern, which has
+    // inconsistent support across Node versions and bundlers.
     const exports = {
         ".": {
             "import": "./esm/index.js",
             "require": "./index.js",
             "types": "./index.d.ts"
-        },
-        "./*": {
-            "import": "./esm/*/index.js",
-            "require": "./*/index.js",
-            "types": "./*/index.d.ts"
         }
     };
 
@@ -167,6 +166,8 @@ const UglifyES = require("uglify-es");
         }
     }
 
+    // "main" and "module" are fallbacks for older bundlers that don't support
+    // the "exports" map (e.g. Webpack 4). Modern bundlers use "exports" exclusively.
     pkg.main = "./index.js";
     pkg.module = "./esm/index.js";
     pkg.types = "./index.d.ts";
