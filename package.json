@@ -31,10 +31,10 @@
   },
   "devDependencies": {
     "glob": "~7.1.2",
-    "node": "^11.0.0",
+    "node": "^22.0.0",
     "recursive-copy": "~2.0.7",
     "shelljs": "~0.8.5",
-    "typescript": "^2.9.2",
+    "typescript": "5.7",
     "uglify-es": "~3.1.3"
   }
 }
