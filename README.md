@@ -16,6 +16,7 @@ https://developercommunity.visualstudio.com/AzureDevOps
 
 - **ES Module Support**: The package now ships both CommonJS and ESM builds. Bundlers and modern runtimes automatically resolve the correct format via [conditional exports](https://nodejs.org/api/packages.html#conditional-exports).
 - **Backward Compatibility**: Existing CommonJS consumers require no changes.
+- **AMD Removed**: The v4 package used AMD module format. v5 replaces it with CommonJS + ESM. If you depend on AMD loading, pin to v4.
 
 ## Usage
 
