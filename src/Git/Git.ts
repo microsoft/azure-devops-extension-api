@@ -603,14 +603,30 @@ export interface CompletionErrorsEvent extends RealTimePullRequestEvent {
     errorMessage: string;
 }
 
+export enum CopilotReviewStatus {
+    Requested = 0,
+    InProgress = 1,
+    Completed = 2,
+    Failed = 3,
+    Canceled = 4
+}
+
 /**
  * Request to create an Enterprise Live Migration.
  */
 export interface CreateMigrationRequest {
     /**
+     * Optional name of the agent pool to run the migration pipeline. When not specified, the pool is determined by region.
+     */
+    agentPoolName: string;
+    /**
      * The UTC date/time representing when the cutover is to occur.
      */
     scheduledCutoverDate: Date;
+    /**
+     * Optional. The set of pre-migration validation policies to skip.
+     */
+    skipValidation: SkipValidationPolicy;
     /**
      * The ID of the user that will end up owning the migrated repository.
      */
@@ -1991,6 +2007,13 @@ export interface GitPullRequestCompletionOptions {
     triggeredByAutoComplete: boolean;
 }
 
+export interface GitPullRequestCopilotReview {
+    completedAt: Date;
+    pullRequestId: number;
+    requestedAt: Date;
+    status: CopilotReviewStatus;
+}
+
 /**
  * Collection of file diffs for a pull request.
  */
@@ -2231,6 +2254,10 @@ export interface GitPullRequestSearchCriteria {
      */
     includeLinks: boolean;
     /**
+     * If set, filters pull requests that have labels matching the specified label names.
+     */
+    labels: string[];
+    /**
      * If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified.
      */
     maxTime: Date;
@@ -2262,6 +2289,10 @@ export interface GitPullRequestSearchCriteria {
      * If set, search for pull requests that are in this state. Defaults to Active if unset.
      */
     status: PullRequestStatus;
+    /**
+     * The operator used for filtering by labels. Defaults to And if unset. When And is used, pull requests must have all specified labels. When Or is used, pull requests must have at least one of the specified labels.
+     */
+    tagsFilterOperator: TagsFilterOperator;
     /**
      * If set, search for pull requests into this branch.
      */
@@ -3288,6 +3319,10 @@ export interface MergeCompletedEvent extends RealTimePullRequestEvent {
  */
 export interface Migration {
     /**
+     * The name of the agent pool used to run the migration pipeline.
+     */
+    agentPoolName: string;
+    /**
      * The identity that last changed this migration.
      */
     changedBy: WebApi.IdentityRef;
@@ -3295,6 +3330,10 @@ export interface Migration {
      * The UTC date/time this migration was last changed.
      */
     changedDate: Date;
+    /**
+     * The UTC date/time of the last successful code synchronization pass.
+     */
+    codeSyncDate: Date;
     /**
      * The identity that created this migration.
      */
@@ -3308,6 +3347,10 @@ export interface Migration {
      */
     errorMessage: string;
     /**
+     * The UTC date/time of the last successful pull request synchronization pass.
+     */
+    pullRequestSyncDate: Date;
+    /**
      * RepositoryId
      */
     repositoryId: string;
@@ -3315,6 +3358,14 @@ export interface Migration {
      * The UTC date/time representing when the cutover is to occur.
      */
     scheduledCutoverDate: Date;
+    /**
+     * The pre-migration validation policies that are being skipped.
+     */
+    skipValidation: SkipValidationPolicy;
+    /**
+     * The current stage of the migration (Queued, Validation, Synchronization, Cutover, Migrated).
+     */
+    stage: MigrationStage;
     /**
      * If the migration is 'active', 'complete', or 'failed'.
      */
@@ -3339,6 +3390,32 @@ export interface Migration {
      * A list of any warnings found during pre-migration checks.
      */
     validationWarnings: string[];
+}
+
+/**
+ * The current stage of an Enterprise Live Migration.
+ */
+export enum MigrationStage {
+    /**
+     * The migration has been created but pre-check validation has not started yet.
+     */
+    Queued = 0,
+    /**
+     * Pre-check validation is in progress.
+     */
+    Validation = 1,
+    /**
+     * Code and PR synchronization is in progress.
+     */
+    Synchronization = 2,
+    /**
+     * The migration is in the cutover phase.
+     */
+    Cutover = 3,
+    /**
+     * The migration has been fully migrated.
+     */
+    Migrated = 4
 }
 
 /**
@@ -3533,6 +3610,32 @@ export interface ShareNotificationContext {
     receivers: WebApi.IdentityRef[];
 }
 
+/**
+ * Flags that identify which pre-migration validation policies to skip.
+ */
+export enum SkipValidationPolicy {
+    /**
+     * Do not skip any validation policies.
+     */
+    None = 0,
+    /**
+     * Skip the active pull request count policy.
+     */
+    ActivePullRequestCount = 1,
+    /**
+     * Skip the pull request delta size policy.
+     */
+    PullRequestDeltaSize = 2,
+    /**
+     * Skip the target repository migration policy.
+     */
+    TargetRepoMigration = 4,
+    /**
+     * Skip all validation policies.
+     */
+    All = 2147483647
+}
+
 export interface SourceToTargetRef {
     /**
      * The source ref to copy. For example, refs/heads/master.
@@ -3607,6 +3710,20 @@ export enum SupportedIdeType {
     VisualStudio = 11,
     VSCode = 14,
     WebStorm = 12
+}
+
+/**
+ * Operator used for filtering pull requests by tags/labels.
+ */
+export enum TagsFilterOperator {
+    /**
+     * Pull request must have ALL specified tags.
+     */
+    And = 0,
+    /**
+     * Pull request must have AT LEAST ONE of the specified tags.
+     */
+    Or = 1
 }
 
 /**
@@ -4236,6 +4353,40 @@ export enum TfvcVersionType {
  * Real time event (SignalR) for a title/description update on a pull request
  */
 export interface TitleDescriptionUpdatedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * Request for internal (agent/pipeline) updates to an Enterprise Live Migration. Used by the migration pipeline to report progress back to AzDO.
+ */
+export interface UpdateMigrationInternalRequest {
+    /**
+     * The UTC date/time of the last successful code synchronization pass.
+     */
+    codeSyncDate: Date;
+    /**
+     * The GitHub migration ID returned by the GitHub ELM API.
+     */
+    gitHubMigrationId: string;
+    /**
+     * When set to \<c\>true\</c\>, signals that the pipeline run is complete and all pipeline plans for this migration should be deactivated.  Pipelines may send this alongside a terminal status transition \<em\>or\</em\> on its own when no status change is required.
+     */
+    pipelineCompleted: boolean;
+    /**
+     * The UTC date/time of the last successful pull request synchronization pass.
+     */
+    pullRequestSyncDate: Date;
+    /**
+     * A result or error message describing the outcome of a pipeline stage. When the pipeline reaches a terminal state (Failed or Succeeded), this message is persisted as a migration history entry.
+     */
+    resultMessage: string;
+    /**
+     * The current migration stage (e.g. Validate, Sync, Cutover, Migrated).
+     */
+    stage: MigrationStage;
+    /**
+     * The migration status. Unlike the user-facing endpoint, the agent can set any status including Failed and Succeeded.
+     */
+    status: MigrationStatus;
 }
 
 /**

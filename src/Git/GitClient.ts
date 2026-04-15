@@ -2434,6 +2434,29 @@ export class GitRestClient extends RestClientBase {
     }
 
     /**
+     * @param repositoryId - 
+     * @param pullRequestId - 
+     * @param project - Project ID or project name
+     */
+    public async createCopilotReview(
+        repositoryId: string,
+        pullRequestId: number,
+        project?: string
+        ): Promise<Git.GitPullRequestCopilotReview> {
+
+        return this.beginRequest<Git.GitPullRequestCopilotReview>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/git/repositories/{repositoryId}/pullRequests/{pullRequestId}/copilotreview",
+            routeValues: {
+                project: project,
+                repositoryId: repositoryId,
+                pullRequestId: pullRequestId
+            }
+        });
+    }
+
+    /**
      * Retrieve the file diffs for all changes in a pull request.
      * 
      * @param repositoryId - The repository ID of the pull request's target branch.
