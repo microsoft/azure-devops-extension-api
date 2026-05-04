@@ -223,6 +223,24 @@ export interface BulkEnablementSettingsBase {
     secretProtectionFeatures: SecretProtectionFeatures;
 }
 
+/**
+ * Contains the CodeQL default setup schedule configuration for an organization.
+ */
+export interface CodeQLScheduleDetails {
+    /**
+     * The date and time (UTC) when the CodeQL default setup job last ran for this organization. Null if the job has never successfully run.
+     */
+    lastRunDate: Date;
+    /**
+     * The result code of the last job execution. 0=Succeeded, 1=PartiallySucceeded, 2=Failed, etc. Null if the job has never run.
+     */
+    lastRunResult: number;
+    /**
+     * The day of the week (0=Sunday through 6=Saturday) when the CodeQL default setup scan should run. A value of -1 means no custom schedule is configured and the job runs on its default cadence.
+     */
+    scheduleDayOfWeek: number;
+}
+
 export interface CodeSecurityFeatures {
     /**
      * CodeQL default setup enablement status set to False when not using default setup and True when using default setup; Null is never explicitly set.

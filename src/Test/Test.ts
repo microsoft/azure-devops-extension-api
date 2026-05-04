@@ -1634,6 +1634,53 @@ export interface PhaseReference {
 }
 
 /**
+ * Lightweight output for pipeline debugger AI analysis.
+ */
+export interface PipelineDebuggerAnalysisOutput {
+    /**
+     * Failure category (e.g., "Infrastructure", "Code", "Configuration").
+     */
+    category: string;
+    /**
+     * Prevention strategies suggested by AI.
+     */
+    prevention: string;
+    /**
+     * Recommended fix provided by AI.
+     */
+    recommendedFix: string;
+    /**
+     * Root cause identified by AI.
+     */
+    rootCause: string;
+}
+
+export interface PipelineDebuggerJobState {
+    /**
+     * The analysis result. Populated when state is "Completed".
+     */
+    result: PipelineDebuggerAnalysisOutput;
+    /**
+     * Job state: Queued or Completed.
+     */
+    state: string;
+}
+
+/**
+ * Response DTO returned by the pipeline debugger POST endpoint.
+ */
+export interface PipelineDebuggerResponse {
+    /**
+     * When the analysis has already completed for this build, contains the cached result so the caller does not need a separate GET request. Null when the job is newly queued or still in progress.
+     */
+    analysisResult: PipelineDebuggerAnalysisOutput;
+    /**
+     * Human-readable status message (e.g. "queued successfully", "already running", or "Analysis already completed").
+     */
+    message: string;
+}
+
+/**
  * Pipeline reference
  */
 export interface PipelineReference {

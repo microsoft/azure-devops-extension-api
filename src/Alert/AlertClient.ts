@@ -251,6 +251,40 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Upload a SARIF to GitHub Code Scanning via a GitOps app.
+     * 
+     * @param content - Content to upload
+     * @param project - Project ID or project name
+     * @param hostname - The GitHub hostname (e.g., github.com or microsoft.ghe.com)
+     * @param owner - The GitHub repository owner (organization or user)
+     * @param repo - The GitHub repository name
+     */
+    public async uploadSarifToGitHub(
+        content: string,
+        project: string,
+        hostname: string,
+        owner: string,
+        repo: string
+        ): Promise<string> {
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/github/{hostname}/{owner}/{repo}/sarifs",
+            routeValues: {
+                project: project,
+                hostname: hostname,
+                owner: owner,
+                repo: repo
+            },
+            customHeaders: {
+                "Content-Type": "application/octet-stream",
+            },
+            body: content
+        });
+    }
+
+    /**
      * Get instances of an alert on a branch specified with \@ref. If \@ref is not provided, return instances of an alert on default branch(if the alert exist in default branch) or latest affected branch.
      * 
      * @param project - Project ID or project name
@@ -404,6 +438,53 @@ export class AlertRestClient extends RestClientBase {
             apiVersion: "7.2-preview.1",
             routeTemplate: "_apis/Alert/alerts",
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Soft-deletes analysis data for all pipelines in a repository, cleaning up the associated Advanced Security alerts.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async deleteAllPipelineAnalyses(
+        project: string,
+        repository: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/pipelineAnalyses",
+            routeValues: {
+                project: project,
+                repository: repository
+            }
+        });
+    }
+
+    /**
+     * Soft-deletes analysis data for a specific pipeline, cleaning up the associated Advanced Security alerts.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     * @param adoPipelineId - The ID of the ADO pipeline whose analysis data should be cleaned up.
+     */
+    public async deletePipelineAnalysis(
+        project: string,
+        repository: string,
+        adoPipelineId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/pipelineAnalysis/{adoPipelineId}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                adoPipelineId: adoPipelineId
+            }
         });
     }
 

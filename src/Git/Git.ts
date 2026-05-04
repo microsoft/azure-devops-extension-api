@@ -604,28 +604,6 @@ export interface CompletionErrorsEvent extends RealTimePullRequestEvent {
 }
 
 /**
- * Request to create an Enterprise Live Migration.
- */
-export interface CreateMigrationRequest {
-    /**
-     * The UTC date/time representing when the cutover is to occur.
-     */
-    scheduledCutoverDate: Date;
-    /**
-     * The ID of the user that will end up owning the migrated repository.
-     */
-    targetOwnerUserId: string;
-    /**
-     * URL identifying the destination respository of migration.
-     */
-    targetRepository: string;
-    /**
-     * True if the migration should only perform pre-migration validation.
-     */
-    validateOnly: boolean;
-}
-
-/**
  * Real time event (SignalR) for a discussions update on a pull request
  */
 export interface DiscussionsUpdatedEvent extends RealTimePullRequestEvent {
@@ -2231,6 +2209,10 @@ export interface GitPullRequestSearchCriteria {
      */
     includeLinks: boolean;
     /**
+     * If set, filters pull requests that have labels matching the specified label names.
+     */
+    labels: string[];
+    /**
      * If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified.
      */
     maxTime: Date;
@@ -2262,6 +2244,10 @@ export interface GitPullRequestSearchCriteria {
      * If set, search for pull requests that are in this state. Defaults to Active if unset.
      */
     status: PullRequestStatus;
+    /**
+     * The operator used for filtering by labels. Defaults to And if unset. When And is used, pull requests must have all specified labels. When Or is used, pull requests must have at least one of the specified labels.
+     */
+    tagsFilterOperator: TagsFilterOperator;
     /**
      * If set, search for pull requests into this branch.
      */
@@ -3284,86 +3270,6 @@ export interface MergeCompletedEvent extends RealTimePullRequestEvent {
 }
 
 /**
- * An Enterprise Live Migration
- */
-export interface Migration {
-    /**
-     * The identity that last changed this migration.
-     */
-    changedBy: WebApi.IdentityRef;
-    /**
-     * The UTC date/time this migration was last changed.
-     */
-    changedDate: Date;
-    /**
-     * The identity that created this migration.
-     */
-    createdBy: WebApi.IdentityRef;
-    /**
-     * The UTC date/time this migration was created.
-     */
-    createdDate: Date;
-    /**
-     * The error that caused this migration to fail.
-     */
-    errorMessage: string;
-    /**
-     * RepositoryId
-     */
-    repositoryId: string;
-    /**
-     * The UTC date/time representing when the cutover is to occur.
-     */
-    scheduledCutoverDate: Date;
-    /**
-     * If the migration is 'active', 'complete', or 'failed'.
-     */
-    status: MigrationStatus;
-    /**
-     * The ID of the user that will end up owning the migrated repository.
-     */
-    targetOwnerUserId: string;
-    /**
-     * URL identifying the destination respository of migration.
-     */
-    targetRepository: string;
-    /**
-     * True if the migration should only perform pre-migration validation.
-     */
-    validateOnly: boolean;
-    /**
-     * A list of any issues found during pre-migration checks.
-     */
-    validationIssues: string[];
-    /**
-     * A list of any warnings found during pre-migration checks.
-     */
-    validationWarnings: string[];
-}
-
-/**
- * The status of an Enterprise Live Migration.
- */
-export enum MigrationStatus {
-    /**
-     * The migration is active.
-     */
-    Active = 0,
-    /**
-     * The migration has completed successfully.
-     */
-    Succeeded = 1,
-    /**
-     * The migration has completed with a failure. The error details can be found in the Migration.Error property.
-     */
-    Failed = 2,
-    /**
-     * The migration was suspended.
-     */
-    Suspended = 3
-}
-
-/**
  * Real time event (SignalR) for a policy evaluation update on a pull request
  */
 export interface PolicyEvaluationUpdatedEvent extends RealTimePullRequestEvent {
@@ -3607,6 +3513,20 @@ export enum SupportedIdeType {
     VisualStudio = 11,
     VSCode = 14,
     WebStorm = 12
+}
+
+/**
+ * Operator used for filtering pull requests by tags/labels.
+ */
+export enum TagsFilterOperator {
+    /**
+     * Pull request must have ALL specified tags.
+     */
+    And = 0,
+    /**
+     * Pull request must have AT LEAST ONE of the specified tags.
+     */
+    Or = 1
 }
 
 /**
@@ -4236,24 +4156,6 @@ export enum TfvcVersionType {
  * Real time event (SignalR) for a title/description update on a pull request
  */
 export interface TitleDescriptionUpdatedEvent extends RealTimePullRequestEvent {
-}
-
-/**
- * Request to update an Enterprise Live Migration.
- */
-export interface UpdateMigrationRequest {
-    /**
-     * The UTC date/time representing when the cutover is to occur.
-     */
-    scheduledCutoverDate: Date;
-    /**
-     * The status requested for the migration. Allowed values are "Active" and "Suspended".
-     */
-    statusRequested: MigrationStatus;
-    /**
-     * True if the migration should only perform pre-migration validation.
-     */
-    validateOnly: boolean;
 }
 
 export interface UpdateRefsRequest {
