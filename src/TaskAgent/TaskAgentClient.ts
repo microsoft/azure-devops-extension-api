@@ -3361,6 +3361,35 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Get task groups by their IDs and version specs.
+     * 
+     * @param groupsVersionsMap - Group ID to versions map.
+     * @param project - Project ID or project name
+     * @param expand - The properties that should be expanded. example $expand=Tasks will expand nested task groups.
+     */
+    public async getTaskGroupsByIds(
+        groupsVersionsMap: { [key: string] : string[]; },
+        project: string,
+        expand?: boolean
+        ): Promise<{ [key: string] : TaskAgent.TaskGroup[]; }> {
+
+        const queryValues: any = {
+            '$expand': expand
+        };
+
+        return this.beginRequest<{ [key: string] : TaskAgent.TaskGroup[]; }>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/distributedtask/taskgroupsquery",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues,
+            body: groupsVersionsMap
+        });
+    }
+
+    /**
      * @param taskId - 
      */
     public async deleteTaskDefinition(
