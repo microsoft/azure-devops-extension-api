@@ -2249,4 +2249,38 @@ export class GalleryRestClient extends RestClientBase {
         });
     }
 
+    /**
+     * Query a single VS extension by its VSIX ID, with optional filtering by architecture, version range, and SKU.
+     * 
+     * @param vsixId - The VSIX ID of the extension to query.
+     * @param arch - Architecture filter (e.g., "amd64", "arm64", "x86").
+     * @param versionRange - Installation target version range formatted as "\{min\}-\{max\}". Either bound may be omitted (e.g., "17.0-" or "-18.4").
+     * @param sku - VS SKU filter (e.g., "VisualStudio"). Defaults to broad match.
+     * @param flags - Bitwise response flags controlling the shape of the response data.
+     */
+    public async queryExtensionByVsixId(
+        vsixId: string,
+        arch?: string,
+        versionRange?: string,
+        sku?: string,
+        flags?: Gallery.ExtensionQueryFlags
+        ): Promise<Gallery.ExtensionQueryResult> {
+
+        const queryValues: any = {
+            arch: arch,
+            versionRange: versionRange,
+            sku: sku,
+            flags: flags
+        };
+
+        return this.beginRequest<Gallery.ExtensionQueryResult>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/public/gallery/vs/extensions/vsixId/{vsixId}",
+            routeValues: {
+                vsixId: vsixId
+            },
+            queryParams: queryValues
+        });
+    }
+
 }

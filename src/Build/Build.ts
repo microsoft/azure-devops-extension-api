@@ -1498,6 +1498,13 @@ export interface Change {
     type: string;
 }
 
+export enum CommentTriggerOption {
+    None = 0,
+    NonTeamMembersNonContributor = 1,
+    NonTeamMembers = 2,
+    All = 3
+}
+
 export interface ConsoleLogEvent extends RealtimeBuildEvent {
     lines: string[];
     stepRecordId: string;
@@ -2217,19 +2224,35 @@ export interface PipelineTriggerSettings {
      */
     enforceNoAccessToSecretsFromForks: boolean;
     /**
+     * The comment trigger option for pull requests from forks.
+     */
+    forkCommentOption: CommentTriggerOption;
+    /**
+     * Make comments required to have builds in pull requests from forks.
+     */
+    forkIsCommentRequiredForPullRequest: boolean;
+    /**
      * Enable settings that enforce certain levels of protection for building pull requests from forks globally.
      */
     forkProtectionEnabled: boolean;
     /**
-     * Make comments required to have builds in all pull requests.
+     * The comment trigger option for repository-internal pull requests.
+     */
+    internalRepoCommentOption: CommentTriggerOption;
+    /**
+     * Make comments required to have builds in repository-internal pull requests.
+     */
+    internalRepoIsCommentRequiredForPullRequest: boolean;
+    /**
+     * [Deprecated] Make comments required to have builds in all pull requests.
      */
     isCommentRequiredForPullRequest: boolean;
     /**
-     * Make comments required to have builds in pull requests from non-team members and non-contributors.
+     * [Deprecated] Make comments required to have builds in pull requests from non-team members and non-contributors.
      */
     requireCommentsForNonTeamMemberAndNonContributors: boolean;
     /**
-     * Make comments required to have builds in pull requests from non-team members.
+     * [Deprecated] Make comments required to have builds in pull requests from non-team members.
      */
     requireCommentsForNonTeamMembersOnly: boolean;
 }
@@ -2334,7 +2357,11 @@ export interface PullRequestTrigger extends BuildTrigger {
      */
     autoCancel: boolean;
     branchFilters: string[];
+    forkCommentOption: CommentTriggerOption;
+    forkIsCommentRequiredForPullRequest: boolean;
     forks: Forks;
+    internalRepoCommentOption: CommentTriggerOption;
+    internalRepoIsCommentRequiredForPullRequest: boolean;
     isCommentRequiredForPullRequest: boolean;
     pathFilters: string[];
     pipelineTriggerSettings: PipelineTriggerSettings;

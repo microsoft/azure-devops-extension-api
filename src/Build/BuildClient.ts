@@ -763,7 +763,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             method: "POST",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -786,7 +786,7 @@ export class BuildRestClient extends RestClientBase {
         ): Promise<void> {
 
         return this.beginRequest<void>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             method: "DELETE",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -823,7 +823,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
                 project: project,
@@ -894,7 +894,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Response>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
                 project: project
@@ -926,7 +926,7 @@ export class BuildRestClient extends RestClientBase {
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             method: "PATCH",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -943,24 +943,27 @@ export class BuildRestClient extends RestClientBase {
      * @param definition - The new version of the definition. Its "Revision" property must match the existing definition for the update to be accepted.
      * @param project - Project ID or project name
      * @param definitionId - The ID of the definition.
-     * @param secretsSourceDefinitionId - 
-     * @param secretsSourceDefinitionRevision - 
+     * @param secretsSourceDefinitionId - Optional ID of the definition to use as the source for secrets.
+     * @param secretsSourceDefinitionRevision - Optional revision of the secrets source definition.
+     * @param cancelPausedBuilds - If true, cancels paused builds when the pipeline is being enabled from a paused or disabled state.
      */
     public async updateDefinition(
         definition: Build.BuildDefinition,
         project: string,
         definitionId: number,
         secretsSourceDefinitionId?: number,
-        secretsSourceDefinitionRevision?: number
+        secretsSourceDefinitionRevision?: number,
+        cancelPausedBuilds?: boolean
         ): Promise<Build.BuildDefinition> {
 
         const queryValues: any = {
             secretsSourceDefinitionId: secretsSourceDefinitionId,
-            secretsSourceDefinitionRevision: secretsSourceDefinitionRevision
+            secretsSourceDefinitionRevision: secretsSourceDefinitionRevision,
+            cancelPausedBuilds: cancelPausedBuilds
         };
 
         return this.beginRequest<Build.BuildDefinition>({
-            apiVersion: "7.2-preview.7",
+            apiVersion: "7.2-preview.8",
             method: "PUT",
             routeTemplate: "{project}/_apis/build/definitions/{definitionId}",
             routeValues: {
@@ -2091,6 +2094,77 @@ export class BuildRestClient extends RestClientBase {
                 stageRefName: stageRefName
             },
             body: updateParameters
+        });
+    }
+
+    /**
+     * Gets the latest timeline for a build filtered to a specific stage.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - The ID of the build.
+     * @param stageName - The name of the stage to filter by.
+     * @param changeId - The change ID to filter by.
+     * @param planId - The ID of the plan.
+     */
+    public async getBuildStageLatestTimeline(
+        project: string,
+        buildId: number,
+        stageName: string,
+        changeId?: number,
+        planId?: string
+        ): Promise<Build.Timeline> {
+
+        const queryValues: any = {
+            changeId: changeId,
+            planId: planId
+        };
+
+        return this.beginRequest<Build.Timeline>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/build/builds/{buildId}/Timeline/stages/{stageName}",
+            routeValues: {
+                project: project,
+                buildId: buildId,
+                stageName: stageName
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Gets the timeline for a build filtered to a specific stage.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - The ID of the build.
+     * @param timelineId - The ID of the timeline.
+     * @param stageName - The name of the stage to filter by.
+     * @param changeId - The change ID to filter by.
+     * @param planId - The ID of the plan.
+     */
+    public async getBuildStageTimeline(
+        project: string,
+        buildId: number,
+        timelineId: string,
+        stageName: string,
+        changeId?: number,
+        planId?: string
+        ): Promise<Build.Timeline> {
+
+        const queryValues: any = {
+            changeId: changeId,
+            planId: planId
+        };
+
+        return this.beginRequest<Build.Timeline>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/build/builds/{buildId}/Timeline/{timelineId}/stages/{stageName}",
+            routeValues: {
+                project: project,
+                buildId: buildId,
+                timelineId: timelineId,
+                stageName: stageName
+            },
+            queryParams: queryValues
         });
     }
 

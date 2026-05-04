@@ -964,15 +964,21 @@ export class GitRestClient extends RestClientBase {
      * @param repositoryId - The id or friendly name of the repository. To use the friendly name, projectId must also be specified.
      * @param searchCriteria - 
      * @param project - Project ID or project name
+     * @param skip - 
+     * @param top - 
      */
     public async getCommits(
         repositoryId: string,
         searchCriteria: Git.GitQueryCommitsCriteria,
-        project?: string
+        project?: string,
+        skip?: number,
+        top?: number
         ): Promise<Git.GitCommitRef[]> {
 
         const queryValues: any = {
-            searchCriteria: searchCriteria
+            searchCriteria: searchCriteria,
+            '$skip': skip,
+            '$top': top
         };
 
         return this.beginRequest<Git.GitCommitRef[]>({

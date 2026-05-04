@@ -992,6 +992,49 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Retrieves the AI analysis result for a given build. Downloads the analysis JSON from the TCM Log Store (Azure Blob Storage) where it was uploaded by PipelineDebuggerJob upon completion.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - Build ID that was analyzed
+     */
+    public async getAnalysisResult(
+        project: string,
+        buildId: number
+        ): Promise<Test.PipelineDebuggerResponse> {
+
+        return this.beginRequest<Test.PipelineDebuggerResponse>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/analysisresult/build/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            }
+        });
+    }
+
+    /**
+     * Queues a pipeline analysis job to analyze failed pipeline jobs using AI.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - Build ID to analyze
+     */
+    public async queueAnalysisJob(
+        project: string,
+        buildId: number
+        ): Promise<Test.PipelineDebuggerResponse> {
+
+        return this.beginRequest<Test.PipelineDebuggerResponse>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/build/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            }
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param buildId - 
      * @param publishContext - 
@@ -2311,7 +2354,32 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Generates manual test plan from a work item using AI
+     * OAuth callback endpoint. GitHub redirects here after user authorizes. Exchanges the authorization code for tokens and stores them in TCM StrongBox. Requires the callback URL to be registered in the GitHub OAuth App settings.
+     * 
+     * @param project - Project ID or project name
+     * @param code - The authorization code returned by GitHub after user consent
+     */
+    public async completeGitHubAuth(
+        project: string,
+        code: string
+        ): Promise<string> {
+
+        const queryValues: any = {
+            code: code
+        };
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testai/completegithubauth",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Generates manual test plan from a work item using AI. If the user has no valid Copilot token, returns needsAuth=true with an authUrl instead of queuing the job.
      * 
      * @param generateTestPlanFromWorkItemModel - 
      * @param project - Project ID or project name

@@ -47,6 +47,38 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Gets the current CodeQL default setup schedule configuration for the organization.
+     * 
+     */
+    public async getCodeQLSchedule(
+        ): Promise<Management.CodeQLScheduleDetails> {
+
+        return this.beginRequest<Management.CodeQLScheduleDetails>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/codeQLSchedule/{scheduleDayOfWeek}"
+        });
+    }
+
+    /**
+     * Sets the day of the week when the CodeQL default setup scan should run for the organization.
+     * 
+     * @param scheduleDayOfWeek - Day of week as an integer: 0=Sunday, 1=Monday, ..., 6=Saturday.
+     */
+    public async updateCodeQLSchedule(
+        scheduleDayOfWeek: number
+        ): Promise<Management.CodeQLScheduleDetails> {
+
+        return this.beginRequest<Management.CodeQLScheduleDetails>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Management/codeQLSchedule/{scheduleDayOfWeek}",
+            routeValues: {
+                scheduleDayOfWeek: scheduleDayOfWeek
+            }
+        });
+    }
+
+    /**
      * During multi-org billing computation in primary scale unit(EUS21), this API is used to create billing snapshot for a specific org. Primary scale unit will call this API for each org in different scsle units to create billing snapshot. Data will be stored in the org specific partition DB -\> billing snapshot table. This is needed as customers will fetch billing data from their org specific partition DB.
      * 
      * @param meterUsage - 
