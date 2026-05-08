@@ -139,6 +139,40 @@ const UglifyES = require("uglify-es");
     }
     console.log(`-- Emitted ${stubCount} stub(s).`);
 
+    // Discover API-area subdirectories (those with an index.ts under src/).
+    // Shared by the docs-pipeline roll-up step below and the package.json
+    // exports-map generation further down — single source of truth for
+    // "what is an API area."
+    const srcDir = path.join(__dirname, "src");
+    const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+    const areaSubpaths = entries
+        .filter(e => e.isDirectory() && fs.existsSync(path.join(srcDir, e.name, "index.ts")))
+        .map(e => e.name)
+        .sort();
+
+    // Append namespace-typed re-exports for each API-area subdirectory so a
+    // single types entry (./index.d.ts) advertises every module. Required by
+    // docs tooling (type2docfx / ApiDrop) which follows package.json#exports
+    // and reads only the "." root entry's types path. Without this, the docs
+    // pipeline sees only what src/index.ts re-exports (currently just Common),
+    // and proposes deleting all other area docs. Uses `export type *` so this
+    // is purely a type-space construct — zero runtime cost, no impact on
+    // tree-shaking or cold-start of `import "azure-devops-extension-api"`.
+    // Skips Common because src/index.ts already wildcard-re-exports it at the
+    // root for backward compat; emitting a namespace for it would
+    // double-document the same symbols.
+    console.log("# Appending docs-pipeline namespace re-exports to root .d.ts files.");
+    const rollupAreas = areaSubpaths.filter(n => n !== "Common");
+    const rollupBlock =
+        rollupAreas.map(n => `export type * as ${n} from "./${n}";`).join("\n") +
+        "\n";
+    for (const target of ["./bin/index.d.ts", "./bin/esm/index.d.ts"]) {
+        if (fs.existsSync(target)) {
+            fs.appendFileSync(target, rollupBlock, "utf-8");
+        }
+    }
+    console.log(`-- Appended ${rollupAreas.length} namespace re-exports.`);
+
     // Generate package.json with conditional exports
     console.log("# Generating package.json with conditional exports map.");
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
@@ -154,17 +188,13 @@ const UglifyES = require("uglify-es");
         }
     };
 
-    const srcDir = path.join(__dirname, "src");
-    const entries = fs.readdirSync(srcDir, { withFileTypes: true });
-    for (const entry of entries) {
-        if (entry.isDirectory() && fs.existsSync(path.join(srcDir, entry.name, "index.ts"))) {
-            const subpath = "./" + entry.name;
-            exports[subpath] = {
-                "import": "./esm/" + entry.name + "/index.js",
-                "require": "./" + entry.name + "/index.js",
-                "types": "./" + entry.name + "/index.d.ts"
-            };
-        }
+    for (const name of areaSubpaths) {
+        const subpath = "./" + name;
+        exports[subpath] = {
+            "import": "./esm/" + name + "/index.js",
+            "require": "./" + name + "/index.js",
+            "types": "./" + name + "/index.d.ts"
+        };
     }
 
     // "main" and "module" are fallbacks for older bundlers that don't support
