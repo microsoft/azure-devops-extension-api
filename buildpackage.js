@@ -161,17 +161,16 @@ const UglifyES = require("uglify-es");
     // Skips Common because src/index.ts already wildcard-re-exports it at the
     // root for backward compat; emitting a namespace for it would
     // double-document the same symbols.
-    console.log("# Appending docs-pipeline namespace re-exports to root .d.ts files.");
+    console.log("# Appending docs-pipeline namespace re-exports to ./bin/index.d.ts.");
     const rollupAreas = areaSubpaths.filter(n => n !== "Common");
     const rollupBlock =
         rollupAreas.map(n => `export type * as ${n} from "./${n}";`).join("\n") +
         "\n";
-    for (const target of ["./bin/index.d.ts", "./bin/esm/index.d.ts"]) {
-        if (fs.existsSync(target)) {
-            fs.appendFileSync(target, rollupBlock, "utf-8");
-        }
+    const rootTypesTarget = "./bin/index.d.ts";
+    if (fs.existsSync(rootTypesTarget)) {
+        fs.appendFileSync(rootTypesTarget, rollupBlock, "utf-8");
     }
-    console.log(`-- Appended ${rollupAreas.length} namespace re-exports.`);
+    console.log(`-- Appended ${rollupAreas.length} namespace re-exports to ${rootTypesTarget}.`);
 
     // Generate package.json with conditional exports
     console.log("# Generating package.json with conditional exports map.");
