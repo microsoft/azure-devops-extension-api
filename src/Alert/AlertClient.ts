@@ -251,6 +251,31 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Create an autofix request for the specified alert.
+     * 
+     * @param project - Project ID or project name
+     * @param alertId - The ID of the alert to create an autofix for.
+     * @param repository - The name or ID of the repository.
+     */
+    public async createAutofixRequest(
+        project: string,
+        alertId: number,
+        repository: string
+        ): Promise<Alert.AutofixRequest> {
+
+        return this.beginRequest<Alert.AutofixRequest>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Autofix",
+            routeValues: {
+                project: project,
+                alertId: alertId,
+                repository: repository
+            }
+        });
+    }
+
+    /**
      * Upload a SARIF to GitHub Code Scanning via a GitOps app.
      * 
      * @param content - Content to upload
@@ -485,6 +510,37 @@ export class AlertRestClient extends RestClientBase {
                 repository: repository,
                 adoPipelineId: adoPipelineId
             }
+        });
+    }
+
+    /**
+     * Export alerts as a single SARIF file
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of a repository
+     * @param alertIds - List of alert IDs to export
+     * @param branchName - The branch name of the target alerts. If not specified, the default branch will be used.
+     */
+    public async exportSarif(
+        project: string,
+        repository: string,
+        alertIds: number[],
+        branchName?: string
+        ): Promise<any> {
+
+        const queryValues: any = {
+            alertIds: alertIds,
+            branchName: branchName
+        };
+
+        return this.beginRequest<any>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/sarifs",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues
         });
     }
 

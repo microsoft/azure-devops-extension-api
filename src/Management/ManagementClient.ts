@@ -47,10 +47,79 @@ export class ManagementRestClient extends RestClientBase {
     }
 
     /**
+     * Cancels all running and queued CodeQL jobs and in-flight Dynamic Pipeline runs for the organization.
+     * 
+     */
+    public async cancelCodeQLJobs(
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Management/codeQLJobs/{action}/{scheduleDayOfWeek}",
+            routeValues: {
+                action: "Cancel"
+            }
+        });
+    }
+
+    /**
+     * Gets the count of running and queued CodeQL jobs and in-flight Dynamic Pipeline runs for the organization.
+     * 
+     */
+    public async getCodeQLJobCount(
+        ): Promise<number> {
+
+        return this.beginRequest<number>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/codeQLJobs/{action}/{scheduleDayOfWeek}",
+            routeValues: {
+                action: "Count"
+            }
+        });
+    }
+
+    /**
      * Gets the current CodeQL default setup schedule configuration for the organization.
      * 
      */
     public async getCodeQLSchedule(
+        ): Promise<Management.CodeQLScheduleDetails> {
+
+        return this.beginRequest<Management.CodeQLScheduleDetails>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Management/codeQLJobs/{action}/{scheduleDayOfWeek}",
+            routeValues: {
+                action: "Schedule"
+            }
+        });
+    }
+
+    /**
+     * Sets the day of the week when the CodeQL default setup scan should run for the organization.
+     * 
+     * @param scheduleDayOfWeek - Day of week as an integer: 0=Sunday, 1=Monday, ..., 6=Saturday.
+     */
+    public async updateCodeQLSchedule(
+        scheduleDayOfWeek: number
+        ): Promise<Management.CodeQLScheduleDetails> {
+
+        return this.beginRequest<Management.CodeQLScheduleDetails>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/Management/codeQLJobs/{action}/{scheduleDayOfWeek}",
+            routeValues: {
+                scheduleDayOfWeek: scheduleDayOfWeek,
+                action: "Schedule"
+            }
+        });
+    }
+
+    /**
+     * Gets the current CodeQL default setup schedule configuration for the organization.
+     * 
+     */
+    public async getCodeQLScheduleLegacy(
         ): Promise<Management.CodeQLScheduleDetails> {
 
         return this.beginRequest<Management.CodeQLScheduleDetails>({
@@ -64,7 +133,7 @@ export class ManagementRestClient extends RestClientBase {
      * 
      * @param scheduleDayOfWeek - Day of week as an integer: 0=Sunday, 1=Monday, ..., 6=Saturday.
      */
-    public async updateCodeQLSchedule(
+    public async updateCodeQLScheduleLegacy(
         scheduleDayOfWeek: number
         ): Promise<Management.CodeQLScheduleDetails> {
 
