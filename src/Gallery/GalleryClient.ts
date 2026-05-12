@@ -2256,21 +2256,18 @@ export class GalleryRestClient extends RestClientBase {
      * @param arch - Architecture filter (e.g., "amd64", "arm64", "x86").
      * @param versionRange - Installation target version range formatted as "\{min\}-\{max\}". Either bound may be omitted (e.g., "17.0-" or "-18.4").
      * @param sku - VS SKU filter (e.g., "VisualStudio"). Defaults to broad match.
-     * @param flags - Bitwise response flags controlling the shape of the response data.
      */
     public async queryExtensionByVsixId(
         vsixId: string,
         arch?: string,
         versionRange?: string,
-        sku?: string,
-        flags?: Gallery.ExtensionQueryFlags
+        sku?: string
         ): Promise<Gallery.ExtensionQueryResult> {
 
         const queryValues: any = {
             arch: arch,
             versionRange: versionRange,
-            sku: sku,
-            flags: flags
+            sku: sku
         };
 
         return this.beginRequest<Gallery.ExtensionQueryResult>({

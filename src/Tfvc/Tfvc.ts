@@ -61,6 +61,17 @@ export interface FileContentMetadata {
     vsLink: string;
 }
 
+export enum GitObjectType {
+    Bad = 0,
+    Commit = 1,
+    Tree = 2,
+    Blob = 3,
+    Tag = 4,
+    Ext2 = 5,
+    OfsDelta = 6,
+    RefDelta = 7
+}
+
 export interface GitRepository {
     _links: any;
     /**
@@ -110,6 +121,40 @@ export interface GitRepositoryRef {
     remoteUrl: string;
     sshUrl: string;
     url: string;
+}
+
+/**
+ * State of the status.
+ */
+export enum GitStatusState {
+    /**
+     * Status state not set. Default state.
+     */
+    NotSet = 0,
+    /**
+     * Status pending.
+     */
+    Pending = 1,
+    /**
+     * Status succeeded.
+     */
+    Succeeded = 2,
+    /**
+     * Status failed.
+     */
+    Failed = 3,
+    /**
+     * Status with an error.
+     */
+    Error = 4,
+    /**
+     * Status is not applicable to the target object.
+     */
+    NotApplicable = 5,
+    /**
+     * Status Partially Succeeded, build finished with warnings.
+     */
+    PartiallySucceeded = 6
 }
 
 export interface ItemContent {
