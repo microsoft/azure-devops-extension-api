@@ -408,6 +408,14 @@ export interface AnalysisResult {
     state: State;
 }
 
+/**
+ * Represents an autofix request resource.
+ */
+export interface AutofixRequest {
+    createdDate: Date;
+    requestId: number;
+}
+
 export interface Branch {
     branchId: number;
     deletedDate: Date;

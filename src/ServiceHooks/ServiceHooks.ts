@@ -642,6 +642,10 @@ export interface Subscription {
     eventType: string;
     id: string;
     lastProbationRetryDate: Date;
+    /**
+     * Date of the last successful notification delivery attempt.
+     */
+    lastSuccessfulAttemptDate: Date;
     modifiedBy: WebApi.IdentityRef;
     modifiedDate: Date;
     probationRetries: number;

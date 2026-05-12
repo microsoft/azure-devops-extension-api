@@ -265,6 +265,7 @@ export interface Run extends RunReference {
     resources: RunResources;
     result: RunResult;
     state: RunState;
+    tags: string[];
     templateParameters: { [key: string] : any; };
     url: string;
     variables: { [key: string] : Variable; };
