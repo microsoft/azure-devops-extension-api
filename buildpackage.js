@@ -150,6 +150,7 @@ const UglifyES = require("uglify-es");
         .map(e => e.name)
         .sort();
 
+<<<<<<< HEAD
     // Append namespace-typed re-exports for each API-area subdirectory so a
     // single types entry (./index.d.ts) advertises every module. Required by
     // docs tooling (type2docfx / ApiDrop) which follows package.json#exports
@@ -175,6 +176,37 @@ const UglifyES = require("uglify-es");
         fs.appendFileSync(rootTypesTarget, rollupBlock, "utf-8");
     }
     console.log(`-- Appended ${rollupAreas.length} namespace re-exports to ${rootTypesTarget}.`);
+=======
+    // Append triple-slash reference directives for each API-area subdirectory
+    // to ./bin/index.d.ts so a single types entry advertises every module.
+    // Required by the docs pipeline (type2docfx / ApiDrop), which follows
+    // package.json#exports and reads only the "." root entry's types path —
+    // without these references it sees only what src/index.ts re-exports
+    // (just Common), and proposes deleting all other area docs.
+    //
+    // Triple-slash references (vs. `import * as X / export { X }`) are used
+    // intentionally: they pull each area's declarations into the same TS
+    // program without wrapping them in a namespace, so docs uids stay flat
+    // (`azure-devops-extension-api.Account`) instead of being shifted under
+    // an extra segment (`azure-devops-extension-api.Accounts.Account`).
+    // The directive itself is part of the TS 1.0-era preamble syntax, so
+    // it is compatible with the TS 3.7.7 compiler used by type2docfx.
+    // Skips Common because src/index.ts already wildcard-re-exports it at
+    // the root for backward compat.
+    console.log("# Appending docs-pipeline reference directives to ./bin/index.d.ts.");
+    const rollupAreas = areaSubpaths.filter(n => n !== "Common");
+    const rollupBlock =
+        rollupAreas.map(n => `/// <reference path="./${n}/index.d.ts" />`).join("\n") +
+        "\n";
+    const rootTypesTarget = "./bin/index.d.ts";
+    if (fs.existsSync(rootTypesTarget)) {
+        // Reference directives must precede any other content per the TS
+        // spec, so prepend rather than append.
+        const existing = fs.readFileSync(rootTypesTarget, "utf-8");
+        fs.writeFileSync(rootTypesTarget, rollupBlock + existing, "utf-8");
+    }
+    console.log(`-- Prepended ${rollupAreas.length} reference directives to ${rootTypesTarget}.`);
+>>>>>>> 52d83e9 (Adds TS ///references to .d.ts for docs pipeline)
 
     // Generate package.json with conditional exports
     console.log("# Generating package.json with conditional exports map.");
@@ -182,7 +214,15 @@ const UglifyES = require("uglify-es");
 
     // Discover subpath exports by scanning src/ for directories with index.ts.
     // Each API area gets an explicit entry — no wildcard pattern, which has
-    // inconsistent support across Node versions and bundlers.
+    // inconsistent support across Node versions and bundlers. The presence of
+    // an `index.ts` is the single source of truth for "what is an API area":
+    // areas advertised here are flat-re-exported (e.g. `export * from "./Build"`)
+    // so the docs pipeline (type2docfx / ApiDrop), which walks subpath exports,
+    // emits uids of the form `azure-devops-extension-api.<Symbol>` — not
+    // `azure-devops-extension-api.<Area>.<Symbol>`. Wrapping any area in a TS
+    // namespace (e.g. `import * as Build from "./Build"; export { Build };`)
+    // would shift its symbols under an extra uid segment and silently rename
+    // every uid downstream tools depend on.
     const exports = {
         ".": {
             "import": "./esm/index.js",
