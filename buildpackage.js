@@ -152,7 +152,7 @@ const UglifyES = require("uglify-es");
 
     // Append triple-slash reference directives for each API-area subdirectory
     // to ./bin/index.d.ts so a single types entry advertises every module.
-    // Required by the docs pipeline (type2docfx / ApiDrop), which follows
+    // Required by the docs pipeline, which follows
     // package.json#exports and reads only the "." root entry's types path —
     // without these references it sees only what src/index.ts re-exports
     // (just Common), and proposes deleting all other area docs.
@@ -189,7 +189,7 @@ const UglifyES = require("uglify-es");
     // inconsistent support across Node versions and bundlers. The presence of
     // an `index.ts` is the single source of truth for "what is an API area":
     // areas advertised here are flat-re-exported (e.g. `export * from "./Build"`)
-    // so the docs pipeline (type2docfx / ApiDrop), which walks subpath exports,
+    // so the docs pipeline, which walks subpath exports,
     // emits uids of the form `azure-devops-extension-api.<Symbol>` — not
     // `azure-devops-extension-api.<Area>.<Symbol>`. Wrapping any area in a TS
     // namespace (e.g. `import * as Build from "./Build"; export { Build };`)
