@@ -2682,6 +2682,16 @@ export enum TaskAgentQueueActionFilter {
 }
 
 /**
+ * Restrictions applied to an agent queue
+ */
+export interface TaskAgentQueueRestrictions {
+    /**
+     * The restricted image labels.
+     */
+    restrictedImageLabels: string[];
+}
+
+/**
  * A reference to an agent.
  */
 export interface TaskAgentReference {
@@ -2768,6 +2778,153 @@ export interface TaskAgentSessionKey {
      * Gets or sets the symmetric key value.
      */
     value: number[];
+}
+
+export interface TaskAgentSkuUsage {
+    meterId: string;
+    skuName: string;
+    value: number;
+}
+
+/**
+ * Billing dimensions available for grouping SKU usage results. Values are ordered by scope: project \> queue \> pipeline.
+ */
+export enum TaskAgentSkuUsageDimension {
+    /**
+     * Group by project (scope identifier GUID).
+     */
+    ScopeIdentifier = 1,
+    /**
+     * Group by agent queue.
+     */
+    QueueId = 2,
+    /**
+     * Group by pipeline definition.
+     */
+    DefinitionId = 3
+}
+
+/**
+ * A single ranked usage entry for one dimension value within one SKU.
+ */
+export interface TaskAgentSkuUsageRow {
+    /**
+     * The value of the grouped dimension for this row (e.g. a project GUID string, a definition ID string).
+     */
+    dimensionValue: string;
+    /**
+     * Rank within its SKU (1 = highest usage).
+     */
+    rank: number;
+    /**
+     * The usage data: MeterId, SkuName, unit, and total value.
+     */
+    usage: TaskAgentSkuUsage;
+}
+
+/**
+ * Query for SKU usage statistics on an agent cloud pool. Groups billing data by a specified dimension and returns the top N consumers per SKU, ranked by total billed minutes.
+ */
+export interface TaskAgentSkuUsageSummaryQuery {
+    /**
+     * End of the time range (exclusive).
+     */
+    endTimeExclusive: Date;
+    /**
+     * The billing dimension to group and rank results by.
+     */
+    groupBy: TaskAgentSkuUsageDimension;
+    /**
+     * Optional: restrict to specific SKUs. Null or empty means all SKUs. When multiple MeterIds are provided, results are ranked independently per SKU.
+     */
+    meterIds: string[];
+    /**
+     * The pool to query usage for.
+     */
+    poolId: number;
+    /**
+     * Optional: narrow results to a specific queue before grouping. Only valid when GroupBy is DefinitionId. The queue implicitly identifies the project.
+     */
+    queueId: number;
+    /**
+     * Optional: narrow results to a specific project before grouping. Typically used when drilling down from pool → project, with GroupBy set to DefinitionId to see pipelines within that project.
+     */
+    scopeIdentifier: string;
+    /**
+     * Start of the time range (inclusive).
+     */
+    startTimeInclusive: Date;
+    /**
+     * Maximum results per SKU. Defaults to 5 server-side.
+     */
+    topN: number;
+}
+
+/**
+ * Result of a SKU usage query. Contains the original query and the ranked usage rows.
+ */
+export interface TaskAgentSkuUsageSummaryResult {
+    /**
+     * The query that produced this result.
+     */
+    query: TaskAgentSkuUsageSummaryQuery;
+    /**
+     * Ranked usage rows, ordered by MeterId then rank. Each SKU has its own independent top-N ranking.
+     */
+    usages: TaskAgentSkuUsageRow[];
+}
+
+/**
+ * A single time bucket's total billed minutes for a SKU.
+ */
+export interface TaskAgentSkuUsageTrendPoint {
+    meterId: string;
+    totalMinutes: number;
+    usageDate: Date;
+}
+
+/**
+ * Query for daily SKU usage trend data on an agent cloud pool. Returns one row per day per meter with total billed minutes.
+ */
+export interface TaskAgentSkuUsageTrendQuery {
+    /**
+     * End of the time range (exclusive).
+     */
+    endTimeExclusive: Date;
+    /**
+     * Optional list of SKU meter IDs to get trend data for. When empty, all meters are returned.
+     */
+    meterIds: string[];
+    /**
+     * The pool to query usage for.
+     */
+    poolId: number;
+    /**
+     * Optional: restrict to a specific queue.
+     */
+    queueId: number;
+    /**
+     * Time bucket size in minutes. 60=hourly, 360=6h, 720=12h, 1440=daily. Defaults to 1440 (daily).
+     */
+    resolutionMinutes: number;
+    /**
+     * Start of the time range (inclusive).
+     */
+    startTimeInclusive: Date;
+}
+
+/**
+ * Result of a SKU usage trend query. Contains the original query and the daily usage data points.
+ */
+export interface TaskAgentSkuUsageTrendResult {
+    /**
+     * Usage data points, ordered by date ascending. Buckets with no usage are not included.
+     */
+    points: TaskAgentSkuUsageTrendPoint[];
+    /**
+     * The query that produced this result.
+     */
+    query: TaskAgentSkuUsageTrendQuery;
 }
 
 export enum TaskAgentStatus {
@@ -3269,6 +3426,10 @@ export interface TaskGroupUpdatePropertiesBase {
      * Comment for this update request
      */
     comment: string;
+}
+
+export interface TaskHubAccessToken {
+    accessToken: string;
 }
 
 export interface TaskHubLicenseDetails {

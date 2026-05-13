@@ -12,6 +12,10 @@ export interface AdvSecEnablementFeatures {
      */
     autoEnableNewProjectOrRepos: boolean;
     /**
+     * Copilot Autofix enablement status set to False when disabled and True when enabled; Null is never explicitly set. Setting Autofix enablement state is only supported for repo enablement and not org or project enablement at this time.
+     */
+    autofixEnabled: boolean;
+    /**
      * CodeQL default setup enablement status set to False when not using default setup and True when using default setup; Null is never explicitly set.
      */
     codeQLEnabled: boolean;
@@ -242,6 +246,10 @@ export interface CodeQLScheduleDetails {
 }
 
 export interface CodeSecurityFeatures {
+    /**
+     * Copilot Autofix enablement status set to False when disabled and True when enabled; Null is never explicitly set. Setting Autofix enablement state is only supported for repo enablement and not org or project enablement at this time.
+     */
+    autofixEnabled: boolean;
     /**
      * CodeQL default setup enablement status set to False when not using default setup and True when using default setup; Null is never explicitly set.
      */

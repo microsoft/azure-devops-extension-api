@@ -48,6 +48,10 @@ export interface Alert {
      */
     introducedDate: Date;
     /**
+     * Value indicates whether the alert can be auto-fixed by Copilot Autofix. True when the alert is a code scanning alert detected by CodeQL with a supported rule. Null when the value has not been computed for this code path.
+     */
+    isAutoFixable: boolean;
+    /**
      * This value is computed and returned by the service. This value represents the last time the service has seen this issue reported in an analysis instance.
      */
     lastSeenDate: Date;
@@ -157,7 +161,11 @@ export enum AlertListExpandOption {
     /**
      * Return a minimal representation of an alert.
      */
-    Minimal = 1
+    Minimal = 1,
+    /**
+     * Return only the count of active alerts grouped by alert type.
+     */
+    Count = 2
 }
 
 /**
@@ -409,11 +417,61 @@ export interface AnalysisResult {
 }
 
 /**
+ * Payload sent by the autofix pipeline to report the outcome of a run.
+ */
+export interface AutofixCallbackRequest {
+    pullRequestId: number;
+    requestId: number;
+    /**
+     * Terminal status reported by the pipeline.
+     */
+    status: AutofixCallbackStatus;
+}
+
+export enum AutofixCallbackStatus {
+    /**
+     * The pipeline completed successfully and a pull request was created.
+     */
+    Done = 0,
+    /**
+     * The pipeline or post-processing failed.
+     */
+    Failed = 1
+}
+
+/**
  * Represents an autofix request resource.
  */
 export interface AutofixRequest {
     createdDate: Date;
     requestId: number;
+    status: AutofixRequestStatus;
+}
+
+/**
+ * Indicates the lifecycle status of an autofix request. Maps to TINYINT in the database.
+ */
+export enum AutofixRequestStatus {
+    /**
+     * Default sentinel value; not a valid operational status.
+     */
+    None = 0,
+    /**
+     * The request has been created and is waiting for a pipeline to be triggered.
+     */
+    Pending = 1,
+    /**
+     * The pipeline has been triggered and is currently running.
+     */
+    PipelineRunning = 2,
+    /**
+     * The pipeline completed successfully and a pull request was created.
+     */
+    Done = 3,
+    /**
+     * The pipeline or post-processing failed.
+     */
+    Failed = 4
 }
 
 export interface Branch {
@@ -1144,6 +1202,10 @@ export interface Tool {
      * The rules that the tool defines
      */
     rules: Rule[];
+    /**
+     * String representation of the tool version
+     */
+    toolVersion: string;
 }
 
 export interface UxFilters {
@@ -1203,6 +1265,10 @@ export interface ValidationFingerprint {
      * Represents the CrossCompanyCorrelatingId for the secret in the ValidationFingerprintJson.
      */
     c3Id: string;
+    /**
+     * A normalized string representation of the validation tool version.
+     */
+    normalizedValidationToolVersion: number;
     /**
      * The hash associated to the secret.
      */
