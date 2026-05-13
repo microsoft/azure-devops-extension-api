@@ -150,33 +150,6 @@ const UglifyES = require("uglify-es");
         .map(e => e.name)
         .sort();
 
-<<<<<<< HEAD
-    // Append namespace-typed re-exports for each API-area subdirectory so a
-    // single types entry (./index.d.ts) advertises every module. Required by
-    // docs tooling (type2docfx / ApiDrop) which follows package.json#exports
-    // and reads only the "." root entry's types path. Without this, the docs
-    // pipeline sees only what src/index.ts re-exports (currently just Common),
-    // and proposes deleting all other area docs. Uses `export type *` so this
-    // is purely a type-space construct — zero runtime cost, no impact on
-    // tree-shaking or cold-start of `import "azure-devops-extension-api"`.
-    // Skips Common because src/index.ts already wildcard-re-exports it at the
-    // root for backward compat; emitting a namespace for it would
-    // double-document the same symbols.
-    console.log("# Appending docs-pipeline namespace re-exports to ./bin/index.d.ts.");
-    const rollupAreas = areaSubpaths.filter(n => n !== "Common");
-    // Use `import … / export { … }` syntax instead of `export type * as X`
-    // so the declaration file remains compatible with TypeScript 3.x, which
-    // is used by the docs tooling (type2docfx). `export * as X` requires
-    // TS 3.8+ and `export type * as X` requires TS 5.0+.
-    const rollupBlock =
-        rollupAreas.map(n => `import * as ${n} from "./${n}";\nexport { ${n} };`).join("\n") +
-        "\n";
-    const rootTypesTarget = "./bin/index.d.ts";
-    if (fs.existsSync(rootTypesTarget)) {
-        fs.appendFileSync(rootTypesTarget, rollupBlock, "utf-8");
-    }
-    console.log(`-- Appended ${rollupAreas.length} namespace re-exports to ${rootTypesTarget}.`);
-=======
     // Append triple-slash reference directives for each API-area subdirectory
     // to ./bin/index.d.ts so a single types entry advertises every module.
     // Required by the docs pipeline (type2docfx / ApiDrop), which follows
@@ -206,7 +179,6 @@ const UglifyES = require("uglify-es");
         fs.writeFileSync(rootTypesTarget, rollupBlock + existing, "utf-8");
     }
     console.log(`-- Prepended ${rollupAreas.length} reference directives to ${rootTypesTarget}.`);
->>>>>>> 52d83e9 (Adds TS ///references to .d.ts for docs pipeline)
 
     // Generate package.json with conditional exports
     console.log("# Generating package.json with conditional exports map.");
