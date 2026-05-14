@@ -150,36 +150,6 @@ const UglifyES = require("uglify-es");
         .map(e => e.name)
         .sort();
 
-    // Append triple-slash reference directives for each API-area subdirectory
-    // to ./bin/index.d.ts so a single types entry advertises every module.
-    // Required by the docs pipeline, which follows
-    // package.json#exports and reads only the "." root entry's types path —
-    // without these references it sees only what src/index.ts re-exports
-    // (just Common), and proposes deleting all other area docs.
-    //
-    // Triple-slash references (vs. `import * as X / export { X }`) are used
-    // intentionally: they pull each area's declarations into the same TS
-    // program without wrapping them in a namespace, so docs uids stay flat
-    // (`azure-devops-extension-api.Account`) instead of being shifted under
-    // an extra segment (`azure-devops-extension-api.Accounts.Account`).
-    // The directive itself is part of the TS 1.0-era preamble syntax, so
-    // it is compatible with the TS 3.7.7 compiler used by type2docfx.
-    // Skips Common because src/index.ts already wildcard-re-exports it at
-    // the root for backward compat.
-    console.log("# Appending docs-pipeline reference directives to ./bin/index.d.ts.");
-    const rollupAreas = areaSubpaths.filter(n => n !== "Common");
-    const rollupBlock =
-        rollupAreas.map(n => `/// <reference path="./${n}/index.d.ts" />`).join("\n") +
-        "\n";
-    const rootTypesTarget = "./bin/index.d.ts";
-    if (fs.existsSync(rootTypesTarget)) {
-        // Reference directives must precede any other content per the TS
-        // spec, so prepend rather than append.
-        const existing = fs.readFileSync(rootTypesTarget, "utf-8");
-        fs.writeFileSync(rootTypesTarget, rollupBlock + existing, "utf-8");
-    }
-    console.log(`-- Prepended ${rollupAreas.length} reference directives to ${rootTypesTarget}.`);
-
     // Generate package.json with conditional exports
     console.log("# Generating package.json with conditional exports map.");
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf-8"));
@@ -216,9 +186,14 @@ const UglifyES = require("uglify-es");
 
     // "main" and "module" are fallbacks for older bundlers that don't support
     // the "exports" map (e.g. Webpack 4). Modern bundlers use "exports" exclusively.
+    // Note: top-level "types" is intentionally omitted. Modern TypeScript (4.7+)
+    // resolves types via exports["."].types. Omitting top-level "types" is also
+    // required for the docs pipeline (type2docfx): when it sees a top-level
+    // "types" field it only processes that single root file, but when "types" is
+    // absent it scans ALL .d.ts files in the package — which is how every
+    // submodule's types get documented.
     pkg.main = "./index.js";
     pkg.module = "./esm/index.js";
-    pkg.types = "./index.d.ts";
     pkg.exports = exports;
 
     fs.writeFileSync(
