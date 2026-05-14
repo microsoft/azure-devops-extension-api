@@ -9,9 +9,6 @@
   "scripts": {
     "build": "node buildpackage.js"
   },
-  "main": "./index.js",
-  "module": "./esm/index.js",
-  "types": "./index.d.ts",
   "keywords": [
     "extensions",
     "Azure DevOps",
