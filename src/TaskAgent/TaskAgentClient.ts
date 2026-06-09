@@ -2536,6 +2536,31 @@ export class TaskAgentRestClient extends RestClientBase {
     }
 
     /**
+     * Update the restricted image labels for an agent queue.
+     * 
+     * @param restriction - The restricted image labels wrapper
+     * @param project - Project ID or project name
+     * @param queueId - The agent queue to update
+     */
+    public async updateQueueRestrictedImageLabels(
+        restriction: TaskAgent.TaskAgentQueueRestrictions,
+        project: string,
+        queueId: number
+        ): Promise<TaskAgent.TaskAgentQueueRestrictions> {
+
+        return this.beginRequest<TaskAgent.TaskAgentQueueRestrictions>({
+            apiVersion: "7.2-preview.1",
+            method: "PUT",
+            routeTemplate: "{project}/_apis/distributedtask/queues/{queueId}/restrictions",
+            routeValues: {
+                project: project,
+                queueId: queueId
+            },
+            body: restriction
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param taskGroupId - 
      */

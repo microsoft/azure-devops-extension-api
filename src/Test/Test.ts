@@ -1657,11 +1657,15 @@ export interface PipelineDebuggerAnalysisOutput {
 
 export interface PipelineDebuggerJobState {
     /**
+     * Error message. Populated when state is "Failed".
+     */
+    error: string;
+    /**
      * The analysis result. Populated when state is "Completed".
      */
     result: PipelineDebuggerAnalysisOutput;
     /**
-     * Job state: Queued or Completed.
+     * Job state: Queued, Completed, or Failed.
      */
     state: string;
 }
