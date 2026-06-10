@@ -21,6 +21,27 @@ export class GitRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
 
     /**
+     * POST Creates (if needed) the AdvSec Autofix framework identity and grants it permissions. If projectId is provided, grants scoped to that project only. Otherwise initializes the identity for every project in the organization.
+     * 
+     * @param projectId - Optional project GUID. When omitted, all projects in the organization are initialized.
+     */
+    public async initializeAutofixIdentity(
+        projectId?: string
+        ): Promise<void> {
+
+        const queryValues: any = {
+            '$projectId': projectId
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/git/advsecCopilot/author",
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * DELETE Deletes Enablement status and BillableCommitters data from DB. Deleting the enablement data will effectively disable it for the repositories affected.
      * 
      * @param allProjects - 
