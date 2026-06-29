@@ -851,6 +851,10 @@ export enum ExtensionQueryFlags {
      */
     IncludeDeleted = 131072,
     /**
+     * VS extensions define an "API Version" as the min version of VS that the extension supports. This is relevant for multiple payloads per entry with VS extensions, where the VS IDE wants to prioritize matching the closest VS API version over the latest extension version. With this flag set, newest extension version is the second dimension used for sorting.
+     */
+    PreferLatestVsApiVersion = 262144,
+    /**
      * AllAttributes is designed to be a mask that defines all sub-elements of the extension should be returned.  NOTE: This is not actually All flags. This is now locked to the set defined since changing this enum would be a breaking change and would change the behavior of anyone using it. Try not to use this value when making calls to the service, instead be explicit about the options required.
      */
     AllAttributes = 16863

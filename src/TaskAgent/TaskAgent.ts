@@ -549,6 +549,55 @@ export interface DiagnosticLogMetadata {
     poolId: number;
 }
 
+/**
+ * Per-Job projection on a DynamicPipelinePlanStatus. The LogId is the join key for the per-log endpoint and matches the addressing pattern Build uses for its run logs. Issues are not surfaced here — fetch the per-log endpoint to get task-level errors for a specific log.
+ */
+export interface DynamicPipelineJob {
+    /**
+     * ID of the log stored against this record. \<c\>null\</c\> when the agent hasn't started writing a log yet. Pass to \<c\>dynamicpipelines/\{planId\}/logs/\{logId\}\</c\> to fetch the lines and task-level issues.
+     */
+    logId: number;
+    name: string;
+    /**
+     * Timeline record ID for the Job record. Stable across the run; useful for keying UI state per job and for future SignalR integration that emits per-record events.
+     */
+    recordId: string;
+    result: TaskResult;
+    state: TimelineRecordState;
+}
+
+/**
+ * Response for \<c\>dynamicpipelines/\{planId\}/logs/\{logId\}\</c\>. Carries the log content plus the task-level Issues the agent raised while running tasks that wrote to this log. Job-level (orchestration) issues are intentionally not included here — consumers care about what the tasks themselves reported, not the surrounding plan plumbing.
+ */
+export interface DynamicPipelineLog {
+    /**
+     * Task-level issues for this log. Populated from \<c\>TimelineRecord.Issues\</c\> on records whose \<c\>RecordType\</c\> is \<c\>Task\</c\>: \<list type="bullet"\>\<item\>When the \<c\>logId\</c\> belongs to a Task record, this is that record's \<c\>Issues\</c\> directly.\</item\>\<item\>When the \<c\>logId\</c\> belongs to a Job (or other parent) record, this aggregates \<c\>Issues\</c\> from child Task records (\<c\>ParentId == ownerRecord.Id\</c\>).\</item\>\</list\>
+     */
+    issues: Issue[];
+    lines: string[];
+    logId: number;
+}
+
+/**
+ * Structured projection of a dynamic-pipeline plan returned by \<c\>dynamicpipelines/\{planId\}/status\</c\>. Carries plan-level state plus a per-job breakdown (Jobs) so consumers can read structured issues / per-job logId without scraping log lines or making extra calls.
+ */
+export interface DynamicPipelinePlanStatus {
+    finishTime: Date;
+    /**
+     * Per-Job timeline record summary. One entry per \<c\>Job\</c\>-typed record across all timelines for the plan. \<c\>LogId\</c\> is used with the per-log endpoint (\<c\>dynamicpipelines/\{planId\}/logs/\{logId\}\</c\>), matching Build's log addressing pattern.
+     */
+    jobs: DynamicPipelineJob[];
+    planId: string;
+    /**
+     * ID of the repository the plan was queued against (parsed from the plan's artifact URI). The repository name is intentionally not on this payload — consumers look it up via the Git client to avoid pulling a Git server reference into DistributedTask.Sdk.Server.
+     */
+    repositoryId: string;
+    result: TaskResult;
+    resultCode: string;
+    startTime: Date;
+    state: TaskOrchestrationPlanState;
+}
+
 export interface ElasticAgentPoolResizedEvent {
     newSize: number;
     poolId: number;

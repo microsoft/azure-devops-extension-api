@@ -1601,11 +1601,11 @@ export class ReleaseRestClient extends RestClientBase {
      * 
      * @param project - Project ID or project name
      * @param definitionId - Releases from this release definition Id.
-     * @param definitionEnvironmentId - 
+     * @param definitionEnvironmentId - Id of the definition environment. Required when using environmentStatusFilter.
      * @param searchText - Releases with names containing searchText.
      * @param createdBy - Releases created by this user.
      * @param statusFilter - Releases that have this status.
-     * @param environmentStatusFilter - 
+     * @param environmentStatusFilter - Filters releases by environment status. Must be used with definitionEnvironmentId. Values: Undefined (0), NotStarted (1), InProgress (2), Succeeded (4), Canceled (8), Rejected (16), Queued (32), Scheduled (64), PartiallySucceeded (128). These are [Flags] values and can be combined (e.g. 4|16 = 20 for Succeeded or Rejected). Cannot be used with sourceBranchFilter.
      * @param minCreatedTime - Releases that were created after this time.
      * @param maxCreatedTime - Releases that were created before this time.
      * @param queryOrder - Gets the results in the defined order of created date for releases. Default is descending.

@@ -253,6 +253,20 @@ export enum AlertType {
     License = 4
 }
 
+/**
+ * Represents the count of alerts for a specific alert type.
+ */
+export interface AlertTypeCount {
+    /**
+     * The type of alert.
+     */
+    alertType: AlertType;
+    /**
+     * The number of alerts of this type. Null when scanning is not configured for this alert type.
+     */
+    count: number;
+}
+
 export enum AlertValidationRequestStatus {
     /**
      * Default, when the request status is not set/applicable.
@@ -1047,7 +1061,11 @@ export enum SarifJobStatus {
     /**
      * The job type when it is queued on exception
      */
-    Requeued = 4
+    Requeued = 4,
+    /**
+     * The job is currently being processed in the concurrent processing workflow exclusive for no autofix flows
+     */
+    ConcurrentProcessing = 5
 }
 
 export interface SarifUploadStatus {

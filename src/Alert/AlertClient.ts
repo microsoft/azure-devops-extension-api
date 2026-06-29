@@ -130,6 +130,46 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get alerts for a repository
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param top - The maximum number of alerts to return
+     * @param orderBy - Must be "id" "firstSeen" "lastSeen" "fixedOn" or "severity"  Defaults to "id"
+     * @param criteria - Options to limit the alerts returned
+     * @param expand - 
+     * @param continuationToken - If there are more alerts than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header.  Use that token here to get the next page of alerts
+     */
+    public async getAlertsCount(
+        project: string,
+        repository: string,
+        top?: number,
+        orderBy?: string,
+        criteria?: Alert.SearchCriteria,
+        expand?: Alert.AlertListExpandOption,
+        continuationToken?: string
+        ): Promise<Alert.AlertTypeCount[]> {
+
+        const queryValues: any = {
+            top: top,
+            orderBy: orderBy,
+            criteria: criteria,
+            expand: expand,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Alert.AlertTypeCount[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Update the status of an alert
      * 
      * @param stateUpdate - The new status of the alert
