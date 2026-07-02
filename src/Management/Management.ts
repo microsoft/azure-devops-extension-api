@@ -114,6 +114,29 @@ export interface AgentPoolDetails {
     currentAgentPool: string;
 }
 
+export enum AlertType {
+    /**
+     * The code has an unspecified vulnerability type
+     */
+    Unknown = 0,
+    /**
+     * The code uses a dependency with a known vulnerability.
+     */
+    Dependency = 1,
+    /**
+     * The code contains a secret that has now been compromised and must be revoked.
+     */
+    Secret = 2,
+    /**
+     * The code contains a weakness determined by static analysis.
+     */
+    Code = 3,
+    /**
+     * The code uses a dependency with potential license incompliance.
+     */
+    License = 4
+}
+
 /**
  * Billable Committers Details for Advanced Security Services
  */

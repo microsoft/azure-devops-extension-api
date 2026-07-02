@@ -1047,7 +1047,11 @@ export enum SarifJobStatus {
     /**
      * The job type when it is queued on exception
      */
-    Requeued = 4
+    Requeued = 4,
+    /**
+     * The job is currently being processed in the concurrent processing workflow exclusive for no autofix flows
+     */
+    ConcurrentProcessing = 5
 }
 
 export interface SarifUploadStatus {

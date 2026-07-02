@@ -2174,6 +2174,10 @@ export interface PipelineGeneralSettings {
      */
     enforceNoAccessToSecretsFromForks: boolean;
     /**
+     * Restricts the scope of GitHub access for all pipelines to only GitHub repositories explicitly referenced by the pipeline.
+     */
+    enforceReferencedGitHubRepoScopedToken: boolean;
+    /**
      * Restricts the scope of access for all pipelines to only repositories explicitly referenced by the pipeline.
      */
     enforceReferencedRepoScopedToken: boolean;
