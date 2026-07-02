@@ -604,9 +604,148 @@ export interface CompletionErrorsEvent extends RealTimePullRequestEvent {
 }
 
 /**
+ * Request to create an Enterprise Live Migration.
+ */
+export interface CreateMigrationRequest {
+    /**
+     * Optional name of the agent pool to run the migration pipeline. When not specified, the pool is determined by region.
+     */
+    agentPoolName: string;
+    /**
+     * Optional configuration options for the migration. See ElmConfigOptions.
+     */
+    configOptions: ElmConfigOptions;
+    /**
+     * GitHub token (Device Flow or PAT with read:org scope) proving the identity of the migration owner.
+     */
+    gitHubUserToken: string;
+    /**
+     * Optional. The ID of a GitHub Enterprise service connection to use for pipeline rewiring. May be supplied at create time or attached later via PUT /pipelines. When EnableAutoDiscoverPipelines is opted in but no connection is attached, auto-discovery and clone-definition creation no-op during sync, and cutover is blocked by the cutover-readiness check until a connection is attached.
+     */
+    pipelineServiceConnectionId: string;
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * Optional. ID of a GitHub Enterprise Server-typed service connection whose PAT has ELM API access on the target GHES instance.
+     */
+    serviceEndpointId: string;
+    /**
+     * Optional. The set of pre-migration validation policies to skip.
+     */
+    skipValidation: SkipValidationPolicy;
+    /**
+     * The GitHub login of the migration owner. Set by the server when GitHubUserToken is provided.
+     */
+    targetOwnerUserId: string;
+    /**
+     * URL identifying the destination respository of migration.
+     */
+    targetRepository: string;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
+}
+
+/**
+ * A failed or blocked resource from the GitHub migration, mapped back to ADO context.
+ */
+export interface CutoverReviewItem {
+    /**
+     * The error message from GitHub for this failed resource, if any.
+     */
+    error: string;
+    /**
+     * The full URL to the ADO pull request.
+     */
+    pullRequestUrl: string;
+    /**
+     * The node state: failed, blocked, or pending.
+     */
+    state: string;
+    /**
+     * The resource type (e.g. pull_request, pull_request_comment).
+     */
+    type: string;
+}
+
+/**
+ * Response from the GetCutoverReview API containing failed and blocked resource details.
+ */
+export interface CutoverReviewResponse {
+    blockedCount: number;
+    failedCount: number;
+    pendingCount: number;
+    requiresPipelineVerificationAcknowledgment: boolean;
+    totalUnprocessedCount: number;
+    unprocessedItems: CutoverReviewItem[];
+}
+
+/**
  * Real time event (SignalR) for a discussions update on a pull request
  */
 export interface DiscussionsUpdatedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * Strongly-typed configuration options for an Enterprise Live Migration. Sent on \<c\>CreateMigrationRequest.ConfigOptions\</c\> and echoed back on \<c\>Migration.ConfigOptions\</c\>. All members are optional so the contract can grow additively.
+ */
+export interface ElmConfigOptions {
+    /**
+     * Enable auto-discovery of pipelines for the repository. When unset (default), pipelines must be submitted manually via the POST /pipelines API.
+     */
+    enableAutoDiscoverPipelines: boolean;
+    /**
+     * Opt in to automatic Azure Boards GitHub connection provisioning on cutover. Disabled by default.
+     */
+    enableBoardsGitHubConnection: boolean;
+    /**
+     * When \<c\>true\</c\>, branch policies will not be migrated to GitHub rulesets during cutover.
+     */
+    skipBranchPolicyMigration: boolean;
+    /**
+     * When \<c\>true\</c\>, the source ADO repository will not be set to read-only (maintenance mode) during cutover.
+     */
+    skipSourceRepoLockdown: boolean;
+    /**
+     * Pre-migration validation policies to skip. Only honored when the \<c\>Git.EnterpriseLiveMigration.EnableConfigOptionsSkipValidation\</c\> feature flag is on; when honored, overwrites the legacy top-level \<c\>CreateMigrationRequest.SkipValidation\</c\> bitmask.
+     */
+    skipValidation: ElmSkipValidationOptions;
+}
+
+/**
+ * Configuration flags for an Enterprise Live Migration. Bits 16-30, allocated downward from 30. Bits 0-15 are reserved for SkipValidationPolicy -- both share the same DB column.
+ */
+export enum ElmMigrationOption {
+    /**
+     * Default configuration.
+     */
+    None = 0,
+    /**
+     * When set, the sync job auto-discovers pipelines for the repository. When unset (default), the user must manually submit pipelines via the POST /pipelines API. Pipelines already in the config file are processed normally regardless.
+     */
+    EnableAutoDiscoverPipelines = 1073741824
+}
+
+/**
+ * Named-boolean form of \<c\>SkipValidationPolicy\</c\>. Setting a property to \<c\>true\</c\> tells the server to skip that pre-migration validation.
+ */
+export interface ElmSkipValidationOptions {
+    activePullRequestCount: boolean;
+    agentPoolExists: boolean;
+    /**
+     * When \<c\>true\</c\>, all validation policies are skipped. Equivalent to setting every other property to \<c\>true\</c\>. Never echoed back on responses — only the individual policy properties are populated.
+     */
+    all: boolean;
+    maxFileSize: boolean;
+    maxPullRequestSize: boolean;
+    maxPushPackSize: boolean;
+    maxReferenceNameLength: boolean;
+    pullRequestDeltaSize: boolean;
+    sourceRepositoryContainsLfsObjects: boolean;
+    targetRepositoryDoesNotExist: boolean;
 }
 
 export interface FileContentMetadata {
@@ -1755,6 +1894,18 @@ export interface GitPullRequest {
      * If set, auto-complete is enabled for this pull request and this is the identity that enabled it.
      */
     autoCompleteSetBy: WebApi.IdentityRef;
+    /**
+     * The commit of the base branch at the time it was recorded. Used for merge base override and movement detection.
+     */
+    baseBranchCommit: GitCommitRef;
+    /**
+     * The name of the base branch for stacked pull requests. The diff is computed as base..source.
+     */
+    baseBranchName: string;
+    /**
+     * The ID of the base pull request in a stack. When set, this PR is stacked on top of the specified PR.
+     */
+    basePullRequestId: number;
     /**
      * The user who closed the pull request.
      */
@@ -3270,6 +3421,322 @@ export interface MergeCompletedEvent extends RealTimePullRequestEvent {
 }
 
 /**
+ * An Enterprise Live Migration
+ */
+export interface Migration {
+    /**
+     * The name of the agent pool used to run the migration pipeline.
+     */
+    agentPoolName: string;
+    /**
+     * The identity that last changed this migration.
+     */
+    changedBy: WebApi.IdentityRef;
+    /**
+     * The UTC date/time this migration was last changed.
+     */
+    changedDate: Date;
+    /**
+     * The UTC date/time of the last successful code synchronization pass.
+     */
+    codeSyncDate: Date;
+    /**
+     * Configuration options for the migration.
+     */
+    configOptions: ElmConfigOptions;
+    /**
+     * The identity that created this migration.
+     */
+    createdBy: WebApi.IdentityRef;
+    /**
+     * The UTC date/time this migration was created.
+     */
+    createdDate: Date;
+    /**
+     * The error that caused this migration to fail.
+     */
+    errorMessage: string;
+    /**
+     * The UTC date/time of the last successful pull request synchronization pass.
+     */
+    pullRequestSyncDate: Date;
+    /**
+     * RepositoryId
+     */
+    repositoryId: string;
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * The ID of the GitHub Enterprise Server service connection that holds the PAT used to authenticate against the target GitHub Enterprise Server.
+     */
+    serviceEndpointId: string;
+    /**
+     * The pre-migration validation policies that are being skipped.
+     */
+    skipValidation: SkipValidationPolicy;
+    /**
+     * The current stage of the migration (Queued, Validation, Synchronization, Cutover, Migrated).
+     */
+    stage: MigrationStage;
+    /**
+     * If the migration is 'active', 'complete', or 'failed'.
+     */
+    status: MigrationStatus;
+    /**
+     * The ID of the user that will end up owning the migrated repository.
+     */
+    targetOwnerUserId: string;
+    /**
+     * URL identifying the destination respository of migration.
+     */
+    targetRepository: string;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
+    /**
+     * A list of any issues found during pre-migration checks.
+     */
+    validationIssues: string[];
+}
+
+/**
+ * The current stage of an Enterprise Live Migration.
+ */
+export enum MigrationStage {
+    /**
+     * The migration has been created but pre-check validation has not started yet.
+     */
+    Queued = 0,
+    /**
+     * Pre-check validation is in progress.
+     */
+    Validation = 1,
+    /**
+     * Code and PR synchronization is in progress.
+     */
+    Synchronization = 2,
+    /**
+     * The migration is in the cutover phase.
+     */
+    Cutover = 3,
+    /**
+     * The migration has been fully migrated.
+     */
+    Migrated = 4,
+    /**
+     * Initial backfill is complete. Delta synchronization continues until cutover is scheduled.
+     */
+    ReadyForCutover = 5,
+    /**
+     * GitHub migration provisioning failed; the migration will retry synchronization on the next job run without re-running validation.
+     */
+    Degraded = 6,
+    /**
+     * Cutover is blocked because failed or blocked resources were detected. The user must review failures and approve before cutover can proceed.
+     */
+    ReviewForCutover = 7
+}
+
+/**
+ * The status of an Enterprise Live Migration.
+ */
+export enum MigrationStatus {
+    /**
+     * The migration is active.
+     */
+    Active = 0,
+    /**
+     * The migration has completed successfully.
+     */
+    Completed = 1,
+    /**
+     * The migration has completed with a failure. The error details can be found in the Migration.Error property.
+     */
+    Failed = 2,
+    /**
+     * The migration was paused.
+     */
+    Paused = 3
+}
+
+/**
+ * Classification of a pipeline being rewired.
+ */
+export enum PipelineClassification {
+    /**
+     * Classification has not been determined yet.
+     */
+    Unknown = 0,
+    /**
+     * Pipeline is in the same project, uses only self repo, no cross-repo templates.
+     */
+    Simple = 1,
+    /**
+     * Pipeline uses extends/template from the same repo (resolves via self).
+     */
+    SameRepoTemplates = 2,
+    /**
+     * Pipeline references templates from another repo via resources.repositories.
+     */
+    CrossRepoTemplates = 3,
+    /**
+     * Pipeline checks out multiple repos including the migrated one.
+     */
+    MultiRepoCheckout = 4,
+    /**
+     * Pipeline YAML lives in a different repo; the migrated repo is referenced in resources.
+     */
+    SeparatePipelineRepo = 5,
+    /**
+     * Pipeline is in a different AzDO project than the migrated repo.
+     */
+    CrossProject = 6
+}
+
+/**
+ * A classification finding for a pipeline. Each finding represents a characteristic that makes the pipeline complex (e.g., cross-repo references, multi-checkout). A pipeline with zero findings is Simple.
+ */
+export interface PipelineClassificationFinding {
+    /**
+     * External repositories involved in the finding, if any.
+     */
+    affectedRepositories: string[];
+    /**
+     * User-facing description of the issue.
+     */
+    description: string;
+    /**
+     * Short stable identifier for the rule that produced this finding.
+     */
+    ruleName: string;
+}
+
+/**
+ * Represents the rewiring state of a single pipeline within a migration.
+ */
+export interface PipelineRewireEntry {
+    /**
+     * True if the user has acknowledged this pipeline (e.g., confirmed a complex pipeline has been manually fixed). Acknowledged pipelines do not block cutover.
+     */
+    acknowledged: boolean;
+    /**
+     * The classification of the pipeline.
+     */
+    classification: PipelineClassification;
+    /**
+     * The build definition ID of the clone pipeline, if one has been created.
+     */
+    cloneDefinitionId: number;
+    /**
+     * The YAML filename of the clone on the elm/migrations branch (for complex cases only).
+     */
+    cloneYamlFile: string;
+    /**
+     * The build definition ID of the pipeline.
+     */
+    definitionId: number;
+    /**
+     * Error message if the pipeline rewiring failed.
+     */
+    errorMessage: string;
+    /**
+     * Classification findings that describe why this pipeline is complex. Empty for Simple pipelines.
+     */
+    findings: PipelineClassificationFinding[];
+    /**
+     * The name of the pipeline definition.
+     */
+    name: string;
+    /**
+     * The folder path of the pipeline definition.
+     */
+    path: string;
+    /**
+     * The project ID containing this pipeline.
+     */
+    projectId: string;
+    /**
+     * The project name containing this pipeline.
+     */
+    projectName: string;
+    /**
+     * List of repositories referenced by this pipeline that need mappings. Populated when Status is "needsMappings".
+     */
+    requiredMappings: RepositoryReference[];
+    /**
+     * The current rewiring status.
+     */
+    status: PipelineRewireStatus;
+    /**
+     * The YAML filename used by the pipeline definition.
+     */
+    yamlFilename: string;
+}
+
+/**
+ * Response containing the pipeline rewiring configuration and status for a migration.
+ */
+export interface PipelineRewireResponse {
+    /**
+     * The list of pipelines and their rewiring status.
+     */
+    pipelines: PipelineRewireEntry[];
+    /**
+     * The GitHub Enterprise service connection ID used for pipeline clones.
+     */
+    serviceConnectionId: string;
+}
+
+/**
+ * The rewiring status of a pipeline.
+ */
+export enum PipelineRewireStatus {
+    /**
+     * Pipeline has been submitted but classification has not started.
+     */
+    Pending = 0,
+    /**
+     * Pipeline is being classified.
+     */
+    Classifying = 1,
+    /**
+     * Pre-checks passed. Ready for rewiring.
+     */
+    PreCheckPassed = 2,
+    /**
+     * Pre-checks failed.
+     */
+    PreCheckFailed = 3,
+    /**
+     * Pipeline has cross-repo references that require repository mappings from the user.
+     */
+    NeedsMappings = 4,
+    /**
+     * A clone definition has been created for testing.
+     */
+    CloneCreated = 5,
+    /**
+     * Rewiring is complete — clone created and ready or original swapped at cutover.
+     */
+    Rewired = 8,
+    /**
+     * The original pipeline has been swapped to point at GitHub. Cutover complete.
+     */
+    SwapComplete = 9,
+    /**
+     * Rewiring failed.
+     */
+    Failed = 10,
+    /**
+     * Clone YAML has been written to the AzDO source repo's \<c\>elm/migrations\</c\> branch and is waiting for ELM code sync to mirror it to GitHub before the clone BuildDefinition can be created. Each sync cycle re-checks GitHub for the snapshotted commit; once visible the entry advances to CloneCreated.
+     */
+    AwaitingCodeSync = 11
+}
+
+/**
  * Real time event (SignalR) for a policy evaluation update on a pull request
  */
 export interface PolicyEvaluationUpdatedEvent extends RealTimePullRequestEvent {
@@ -3402,6 +3869,38 @@ export enum RefFavoriteType {
 }
 
 /**
+ * Maps an AzDO repository to its GitHub counterpart for cross-repo pipeline rewiring. Used when a pipeline references templates or resources from another AzDO repo that has been (or will be) migrated to GitHub.
+ */
+export interface RepositoryMapping {
+    /**
+     * The AzDO repository GUID of the source repository.
+     */
+    sourceRepositoryId: string;
+    /**
+     * The GitHub target repository in "owner/repo" format.
+     */
+    targetRepository: string;
+}
+
+/**
+ * Describes a repository referenced by a pipeline that may need a mapping for cross-repo rewiring. Surfaced in RequiredMappings when the pipeline status is NeedsMappings.
+ */
+export interface RepositoryReference {
+    /**
+     * The AzDO repository GUID, if resolvable.
+     */
+    repositoryId: string;
+    /**
+     * The repository name as referenced in the YAML (e.g. "MyProject/TemplatesRepo").
+     */
+    repositoryName: string;
+    /**
+     * The repository type as declared in the YAML (e.g. "git", "github").
+     */
+    repositoryType: string;
+}
+
+/**
  * Real time event (SignalR) for when the target branch of a pull request is changed
  */
 export interface RetargetEvent extends RealTimePullRequestEvent {
@@ -3439,6 +3938,64 @@ export interface ShareNotificationContext {
     receivers: WebApi.IdentityRef[];
 }
 
+/**
+ * Flags that identify which pre-migration validation policies to skip.
+ */
+export enum SkipValidationPolicy {
+    /**
+     * Do not skip any validation policies.
+     */
+    None = 0,
+    /**
+     * Skip the active pull request count policy.
+     */
+    ActivePullRequestCount = 1,
+    /**
+     * Skip the pull request delta size policy.
+     */
+    PullRequestDeltaSize = 2,
+    /**
+     * Skip the agent pool exists policy.
+     */
+    AgentPoolExists = 4,
+    /**
+     * Skip the max file size policy.
+     */
+    MaxFileSize = 8,
+    /**
+     * Skip the max pull request size policy.
+     */
+    MaxPullRequestSize = 16,
+    /**
+     * Skip the max push pack size policy.
+     */
+    MaxPushPackSize = 32,
+    /**
+     * Skip the max reference name length policy.
+     */
+    MaxReferenceNameLength = 64,
+    /**
+     * Skip the target repository does not exist policy.
+     */
+    TargetRepositoryDoesNotExist = 256,
+    /**
+     * Skip the source repository contains LFS objects policy.
+     */
+    SourceRepositoryContainsLfsObjects = 512,
+    /**
+     * Skip the source repository read-only (maintenance) check policy.
+     */
+    SourceRepositoryNotReadOnly = 1024,
+    /**
+     * Skip provisioning of Boards GitHub connection.
+     */
+    BoardsGitHubConnectionProvisioning = 2048,
+    /**
+     * Skip all validation policies.
+     */
+    All = 2147483647
+}
+
 export interface SourceToTargetRef {
     /**
      * The source ref to copy. For example, refs/heads/master.
@@ -3466,6 +4023,24 @@ export interface StatusesDeletedEvent extends RealTimePullRequestEvent {
  * Real time event (SignalR) for a status update on a pull request
  */
 export interface StatusUpdatedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * Request to submit pipelines for rewiring as part of an Enterprise Live Migration.
+ */
+export interface SubmitPipelinesRequest {
+    /**
+     * The build definition IDs of the pipelines to rewire.
+     */
+    pipelineIds: number[];
+    /**
+     * Optional mappings for cross-repo references. When a pipeline's YAML references another AzDO repository (via resources.repositories), this mapping tells us which GitHub repository it corresponds to. Not required for simple pipelines.
+     */
+    repositoryMappings: RepositoryMapping[];
+    /**
+     * The ID of the GitHub service connection to use for the rewired pipelines. This must be a project-scoped service connection with access to the target GitHub org. This is separate from the migration-level ServiceEndpointId.
+     */
+    serviceConnectionId: string;
 }
 
 /**
@@ -4156,6 +4731,62 @@ export enum TfvcVersionType {
  * Real time event (SignalR) for a title/description update on a pull request
  */
 export interface TitleDescriptionUpdatedEvent extends RealTimePullRequestEvent {
+}
+
+/**
+ * Request to update an Enterprise Live Migration.
+ */
+export interface UpdateMigrationRequest {
+    /**
+     * The number of failed and blocked resources the user has reviewed and accepted. Required when approving cutover for a migration in the ReviewForCutover stage. Must match the current total failure count; rejected if the count has changed. Set to int.MaxValue to accept all failures (requires AllowBlanketCutoverApproval feature flag).
+     */
+    cutoverFailureAcceptedCount: number;
+    /**
+     * Set to true to acknowledge that all rewired pipelines have been verified. Required for cutover when RequiresPipelineVerificationAcknowledgment is true. Independent of CutoverFailureAcceptedCount.
+     */
+    pipelinesVerified: boolean;
+    /**
+     * The UTC date/time representing when the cutover is to occur.
+     */
+    scheduledCutoverDate: Date;
+    /**
+     * The status requested for the migration. Allowed values are "Active" and "Paused".
+     */
+    statusRequested: MigrationStatus;
+    /**
+     * True if the migration should only perform pre-migration validation.
+     */
+    validateOnly: boolean;
+}
+
+/**
+ * Request to update the pipeline rewiring configuration for a migration. All fields are optional — only provided fields are applied.
+ */
+export interface UpdatePipelinesRequest {
+    /**
+     * Pipeline definition IDs to acknowledge. Acknowledged pipelines (including complex or failed ones) do not block cutover.
+     */
+    acknowledgePipelineIds: number[];
+    /**
+     * Pipeline definition IDs to add to the rewiring selection.
+     */
+    addPipelineIds: number[];
+    /**
+     * Pipeline definition IDs to remove from the rewiring selection. If a clone exists for a removed pipeline, it will be deleted.
+     */
+    removePipelineIds: number[];
+    /**
+     * Repository mappings to add or update. Merged by SourceRepositoryId — if a mapping for the same source repo already exists, it is replaced.
+     */
+    repositoryMappings: RepositoryMapping[];
+    /**
+     * Pipeline definition IDs to retry. Matching entries in Failed status are reset so the next sync cycle retries them. One-shot: the reset happens immediately and the IDs are not persisted.
+     */
+    retryFailedPipelineIds: number[];
+    /**
+     * Updated GitHub service connection ID.
+     */
+    serviceConnectionId: string;
 }
 
 export interface UpdateRefsRequest {

@@ -2334,6 +2334,19 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Returns the current user's GitHub OAuth token with permission to access Copilot APIs, gated behind a feature flag.
+     * 
+     */
+    public async getTestAgentToken(
+        ): Promise<string> {
+
+        return this.beginRequest<string>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/testresults/testagent/token"
+        });
+    }
+
+    /**
      * @param request - 
      * @param project - Project ID or project name
      */
