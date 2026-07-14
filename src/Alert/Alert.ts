@@ -153,6 +153,20 @@ export interface AlertBatchRequest {
     alertType: AlertType;
 }
 
+/**
+ * Request model for batch-updating alert states.
+ */
+export interface AlertBatchStateUpdateRequest {
+    /**
+     * The list of individual alert state changes to apply. Max 100 items per request.
+     */
+    alertStateUpdateList: AlertStateUpdateForAlert[];
+    /**
+     * The alert type of the alerts being updated. Defaults to AICode if not specified.
+     */
+    alertType: AlertType;
+}
+
 export enum AlertListExpandOption {
     /**
      * No Expands.
@@ -230,6 +244,28 @@ export interface AlertStateUpdate {
     state: State;
 }
 
+/**
+ * Represents a state update for a single alert within a batch request.
+ */
+export interface AlertStateUpdateForAlert {
+    /**
+     * The ID of the alert to update.
+     */
+    alertId: number;
+    /**
+     * Comment for dismissal (e.g., "Dismissed by AI scan validation").
+     */
+    dismissedComment: string;
+    /**
+     * Reason for dismissal. Required when State == Dismissed.
+     */
+    dismissedReason: DismissalType;
+    /**
+     * The state to transition the alert to (Active, Dismissed, or Draft). Draft means the alert is indeterminate and should remain in its current state.
+     */
+    state: State;
+}
+
 export enum AlertType {
     /**
      * The code has an unspecified vulnerability type
@@ -250,7 +286,11 @@ export enum AlertType {
     /**
      * The code uses a dependency with potential license incompliance.
      */
-    License = 4
+    License = 4,
+    /**
+     * The code contains a weakness determined by AI-powered analysis.
+     */
+    AICode = 5
 }
 
 export enum AlertValidationRequestStatus {
@@ -420,12 +460,24 @@ export interface AnalysisResult {
  * Payload sent by the autofix pipeline to report the outcome of a run.
  */
 export interface AutofixCallbackRequest {
+    /**
+     * Optional diagnostic detail captured by the pipeline when the run fails — the tail of the pipeline run log (where the failing step's output is), bounded by the pipeline to fit the trace message size limit. Null or empty for successful runs or when no output was captured.
+     */
+    errorDetails: string;
+    /**
+     * Orchestration plan id (System.PlanId) of the pipeline run reporting this callback.
+     */
+    pipelinePlanId: string;
     pullRequestId: number;
     requestId: number;
     /**
      * Terminal status reported by the pipeline.
      */
     status: AutofixCallbackStatus;
+    /**
+     * Total nanoAIU consumed by the autofix binary.
+     */
+    tokenUsage: number;
 }
 
 export enum AutofixCallbackStatus {
@@ -444,6 +496,7 @@ export enum AutofixCallbackStatus {
  */
 export interface AutofixRequest {
     createdDate: Date;
+    pipelinePlanId: string;
     requestId: number;
     status: AutofixRequestStatus;
 }
@@ -1191,7 +1244,11 @@ export enum State {
     /**
      * The tool has determined that the issue is no longer a risk
      */
-    AutoDismissed = 8
+    AutoDismissed = 8,
+    /**
+     * Alert is in a draft state and is only visible to identities in the Advanced Security draft-alert privileged identity list. Filtered out of all Get alert responses (results and counts) for non-privileged callers.
+     */
+    Draft = 16
 }
 
 /**

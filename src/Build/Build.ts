@@ -2220,6 +2220,14 @@ export interface PipelineTriggerSettings {
      */
     buildsEnabledForForks: boolean;
     /**
+     * The comment trigger option for pull requests from forks.
+     */
+    commentOptionForks: CommentTriggerOption;
+    /**
+     * The comment trigger option for repository-internal pull requests.
+     */
+    commentOptionInternalRepos: CommentTriggerOption;
+    /**
      * Enforce job auth scope for builds of forked repositories.
      */
     enforceJobAuthScopeForForks: boolean;
@@ -2228,25 +2236,17 @@ export interface PipelineTriggerSettings {
      */
     enforceNoAccessToSecretsFromForks: boolean;
     /**
-     * The comment trigger option for pull requests from forks.
-     */
-    forkCommentOption: CommentTriggerOption;
-    /**
-     * Make comments required to have builds in pull requests from forks.
-     */
-    forkIsCommentRequiredForPullRequest: boolean;
-    /**
      * Enable settings that enforce certain levels of protection for building pull requests from forks globally.
      */
     forkProtectionEnabled: boolean;
     /**
-     * The comment trigger option for repository-internal pull requests.
+     * Make comments required to have builds in pull requests from forks.
      */
-    internalRepoCommentOption: CommentTriggerOption;
+    isCommentRequiredForForkedPullRequests: boolean;
     /**
      * Make comments required to have builds in repository-internal pull requests.
      */
-    internalRepoIsCommentRequiredForPullRequest: boolean;
+    isCommentRequiredForInternalRepoPRs: boolean;
     /**
      * [Deprecated] Make comments required to have builds in all pull requests.
      */
@@ -2361,11 +2361,11 @@ export interface PullRequestTrigger extends BuildTrigger {
      */
     autoCancel: boolean;
     branchFilters: string[];
-    forkCommentOption: CommentTriggerOption;
-    forkIsCommentRequiredForPullRequest: boolean;
+    commentOptionForks: CommentTriggerOption;
+    commentOptionInternalRepos: CommentTriggerOption;
     forks: Forks;
-    internalRepoCommentOption: CommentTriggerOption;
-    internalRepoIsCommentRequiredForPullRequest: boolean;
+    isCommentRequiredForForkedPullRequests: boolean;
+    isCommentRequiredForInternalRepoPRs: boolean;
     isCommentRequiredForPullRequest: boolean;
     pathFilters: string[];
     pipelineTriggerSettings: PipelineTriggerSettings;
@@ -3027,6 +3027,10 @@ export interface TimelineAttempt {
      * Gets or sets the record identifier located within the specified timeline.
      */
     recordId: string;
+    /**
+     * Gets or sets the identity that requested this attempt. For the initial attempt this is typically the build orchestration service identity; for re-run attempts this is the user that initiated the retry.
+     */
+    requestedBy: WebApi.IdentityRef;
     /**
      * Gets or sets the timeline identifier which owns the record representing this attempt.
      */

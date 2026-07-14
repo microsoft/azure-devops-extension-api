@@ -17,6 +17,22 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * @param submissionId - 
+     */
+    public async getSarifContent(
+        submissionId: number
+        ): Promise<any> {
+
+        return this.beginRequest<any>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/Alert/sarifs/download/{submissionId}",
+            routeValues: {
+                submissionId: submissionId
+            }
+        });
+    }
+
+    /**
      * Get an alert.
      * 
      * @param project - Project ID or project name
@@ -163,16 +179,48 @@ export class AlertRestClient extends RestClientBase {
      * @param request - Request containing alert IDs and optional alert type filter
      * @param project - Project ID or project name
      * @param repository - The name or ID of the repository
+     * @param includeSensitiveInformation - Applies to secret alerts only. When false (the default), the 'ValidationFingerprintJson' of each secret alert's validation fingerprints is omitted from the response. Set to true to include it; be aware that the validation fingerprint JSON may contain the unencrypted secret and other sensitive data, so exercise caution when requesting it.
      */
     public async getAlertsByIds(
         request: Alert.AlertBatchRequest,
+        project: string,
+        repository: string,
+        includeSensitiveInformation?: boolean
+        ): Promise<Alert.Alert[]> {
+
+        const queryValues: any = {
+            includeSensitiveInformation: includeSensitiveInformation
+        };
+
+        return this.beginRequest<Alert.Alert[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/AlertsBatch",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues,
+            body: request
+        });
+    }
+
+    /**
+     * Batch update alert states. Internal use only — used by proof scanners to transition AI-generated draft alerts to Active or Dismissed. Alerts marked as Draft (indeterminate) are left unchanged.
+     * 
+     * @param request - Request containing alert state updates
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     */
+    public async updateAlertsBatch(
+        request: Alert.AlertBatchStateUpdateRequest,
         project: string,
         repository: string
         ): Promise<Alert.Alert[]> {
 
         return this.beginRequest<Alert.Alert[]>({
             apiVersion: "7.2-preview.1",
-            method: "POST",
+            method: "PATCH",
             routeTemplate: "{project}/_apis/Alert/repositories/{repository}/AlertsBatch",
             routeValues: {
                 project: project,
@@ -285,12 +333,18 @@ export class AlertRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert to create an autofix for.
      * @param repository - The name or ID of the repository.
+     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
      */
     public async createAutofixRequest(
         project: string,
         alertId: number,
-        repository: string
+        repository: string,
+        ref?: string
         ): Promise<Alert.AutofixRequest> {
+
+        const queryValues: any = {
+            ref: ref
+        };
 
         return this.beginRequest<Alert.AutofixRequest>({
             apiVersion: "7.2-preview.1",
@@ -301,7 +355,8 @@ export class AlertRestClient extends RestClientBase {
                 alertId: alertId,
                 repository: repository,
                 action: "Default"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
@@ -311,12 +366,18 @@ export class AlertRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert.
      * @param repository - The name or ID of the repository.
+     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
      */
     public async getAutofixRequestsByAlertId(
         project: string,
         alertId: number,
-        repository: string
+        repository: string,
+        ref?: string
         ): Promise<Alert.AutofixRequest[]> {
+
+        const queryValues: any = {
+            ref: ref
+        };
 
         return this.beginRequest<Alert.AutofixRequest[]>({
             apiVersion: "7.2-preview.1",
@@ -326,7 +387,8 @@ export class AlertRestClient extends RestClientBase {
                 alertId: alertId,
                 repository: repository,
                 action: "Default"
-            }
+            },
+            queryParams: queryValues
         });
     }
 
