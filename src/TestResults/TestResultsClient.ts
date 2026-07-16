@@ -992,6 +992,28 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Callback endpoint invoked by ADOTestAgent when pipeline debug analysis completes. Writes the result to blob storage and fires a SignalR notification to the UI.
+     * 
+     * @param request - 
+     * @param project - Project ID or project name
+     */
+    public async completeAnalysisJob(
+        request: Test.TestAgentCallbackRequest,
+        project: string
+        ): Promise<boolean> {
+
+        return this.beginRequest<boolean>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/completeanalysisjob",
+            routeValues: {
+                project: project
+            },
+            body: request
+        });
+    }
+
+    /**
      * Retrieves the AI analysis result for a given build. Downloads the analysis JSON from the TCM Log Store (Azure Blob Storage) where it was uploaded by PipelineDebuggerJob upon completion.
      * 
      * @param project - Project ID or project name

@@ -134,7 +134,11 @@ export enum AlertType {
     /**
      * The code uses a dependency with potential license incompliance.
      */
-    License = 4
+    License = 4,
+    /**
+     * The code contains a weakness determined by AI-powered analysis.
+     */
+    AICode = 5
 }
 
 /**
