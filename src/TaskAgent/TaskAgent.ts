@@ -2847,7 +2847,7 @@ export interface TaskAgentSkuUsageSummaryQuery {
      */
     queueId: number;
     /**
-     * Optional: narrow results to a specific project before grouping. Typically used when drilling down from pool → project, with GroupBy set to DefinitionId to see pipelines within that project.
+     * Optional: narrow results to a specific project before grouping. Typically used when drilling down from pool to project, with GroupBy set to DefinitionId to see pipelines within that project.
      */
     scopeIdentifier: string;
     /**
@@ -2864,6 +2864,10 @@ export interface TaskAgentSkuUsageSummaryQuery {
  * Result of a SKU usage query. Contains the original query and the ranked usage rows.
  */
 export interface TaskAgentSkuUsageSummaryResult {
+    /**
+     * Freshness marker on the result: jobs that finished after this moment are not yet reflected in Usages.
+     */
+    lastBilledAt: Date;
     /**
      * The query that produced this result.
      */
@@ -2917,6 +2921,10 @@ export interface TaskAgentSkuUsageTrendQuery {
  * Result of a SKU usage trend query. Contains the original query and the daily usage data points.
  */
 export interface TaskAgentSkuUsageTrendResult {
+    /**
+     * Freshness marker on the result: jobs that finished after this moment are not yet reflected in Points.
+     */
+    lastBilledAt: Date;
     /**
      * Usage data points, ordered by date ascending. Buckets with no usage are not included.
      */

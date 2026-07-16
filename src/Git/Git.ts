@@ -620,7 +620,7 @@ export interface CreateMigrationRequest {
      */
     gitHubUserToken: string;
     /**
-     * Optional. The ID of a GitHub Enterprise service connection to use for pipeline rewiring. May be supplied at create time or attached later via PUT /pipelines. When EnableAutoDiscoverPipelines is opted in but no connection is attached, auto-discovery and clone-definition creation no-op during sync, and cutover is blocked by the cutover-readiness check until a connection is attached.
+     * Optional. The ID of a GitHub Enterprise service connection to use for pipeline rewiring. May be supplied at create time or attached later via PUT /pipelines. Required at create time when EnableAutoDiscoverPipelines is opted in: a create request that enables auto-discovery without a pipeline service connection is rejected with HTTP 400.
      */
     pipelineServiceConnectionId: string;
     /**
@@ -780,6 +780,22 @@ export interface FileDiff {
  * Provides properties that describe detailed file differences including line content
  */
 export interface FileDiffDetail {
+    /**
+     * The type of change (add, delete, rename, edit, etc.)
+     */
+    changeType: VersionControlChangeType;
+    /**
+     * Whether the item is a folder.
+     */
+    isFolder: boolean;
+    /**
+     * Whether the item has the Linux executable bit set.
+     */
+    isLinuxExecutable: boolean;
+    /**
+     * Whether the item is a symbolic link.
+     */
+    isSymbolicLink: boolean;
     /**
      * The collection of detailed line diff blocks
      */

@@ -136,7 +136,11 @@ export enum AlertType {
     /**
      * The code uses a dependency with potential license incompliance.
      */
-    License = 4
+    License = 4,
+    /**
+     * The code contains a weakness determined by AI-powered analysis.
+     */
+    AICode = 5
 }
 
 export enum AlertValidityStatus {
@@ -739,7 +743,11 @@ export enum State {
     /**
      * The tool has determined that the issue is no longer a risk
      */
-    AutoDismissed = 8
+    AutoDismissed = 8,
+    /**
+     * Alert is in a draft state and is only visible to identities in the Advanced Security draft-alert privileged identity list. Filtered out of all Get alert responses (results and counts) for non-privileged callers.
+     */
+    Draft = 16
 }
 
 export enum TimePeriod {

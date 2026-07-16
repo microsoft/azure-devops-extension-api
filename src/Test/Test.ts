@@ -1679,9 +1679,17 @@ export interface PipelineDebuggerResponse {
      */
     analysisResult: PipelineDebuggerAnalysisOutput;
     /**
+     * GitHub OAuth authorization URL. Present only when NeedsAuth is true.
+     */
+    authUrl: string;
+    /**
      * Human-readable status message (e.g. "queued successfully", "already running", or "Analysis already completed").
      */
     message: string;
+    /**
+     * True when the user needs to authorize the GitHub Copilot app before analysis can proceed. The client should open a popup to AuthUrl and retry after authorization completes.
+     */
+    needsAuth: boolean;
 }
 
 /**
@@ -3068,12 +3076,18 @@ export interface TestActionResultModel extends TestResultModelBase {
 }
 
 export interface TestAgentCallbackRequest {
+    buildId: number;
+    resultPayload: string;
     success: boolean;
     task: string;
     workItemId: number;
 }
 
 export interface TestAgentTriggerRequest {
+    branchName: string;
+    configJsonPath: string;
+    repoName: string;
+    scriptFolderName: string;
     task: string;
     workItemId: number;
 }
