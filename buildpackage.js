@@ -184,6 +184,18 @@ const UglifyES = require("uglify-es");
         }
     }
 
+    // RestClientBase is the base class extensions must extend to implement
+    // custom REST clients, but it is not re-exported by any index — the deep
+    // import "azure-devops-extension-api/Common/RestClientBase" was the only
+    // way to reach it, and it worked until the exports map (which restricts
+    // subpath resolution to listed entries) was introduced. Keep that path
+    // working with an explicit entry.
+    exports["./Common/RestClientBase"] = {
+        "import": "./esm/Common/RestClientBase.js",
+        "require": "./Common/RestClientBase.js",
+        "types": "./Common/RestClientBase.d.ts"
+    };
+
     // "main" and "module" are fallbacks for older bundlers that don't support
     // the "exports" map (e.g. Webpack 4). Modern bundlers use "exports" exclusively.
     // Note: top-level "types" is intentionally omitted. Modern TypeScript (4.7+)
