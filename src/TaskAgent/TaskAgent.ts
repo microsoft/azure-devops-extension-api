@@ -3056,6 +3056,7 @@ export interface TaskDefinition {
     definitionType: string;
     demands: Demand[];
     deprecated: boolean;
+    deprecationMessage: string;
     description: string;
     disabled: boolean;
     ecosystem: string;
@@ -3080,6 +3081,7 @@ export interface TaskDefinition {
     release: TaskRelease;
     releaseNotes: string;
     restrictions: TaskRestrictions;
+    retiredDate: Date;
     runsOn: string[];
     satisfies: string[];
     serverOwned: boolean;

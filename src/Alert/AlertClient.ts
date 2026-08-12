@@ -17,6 +17,30 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Download the full AI metadata blob for an AI code alert.
+     * 
+     * @param project - Project ID or project name
+     * @param alertId - ID of the alert whose AI metadata blob should be downloaded.
+     * @param repository - Name or id of the repository that the alert is part of.
+     */
+    public async getAiMetadataContent(
+        project: string,
+        alertId: number,
+        repository: string
+        ): Promise<any> {
+
+        return this.beginRequest<any>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/aimetadata",
+            routeValues: {
+                project: project,
+                alertId: alertId,
+                repository: repository
+            }
+        });
+    }
+
+    /**
      * @param submissionId - 
      */
     public async getSarifContent(

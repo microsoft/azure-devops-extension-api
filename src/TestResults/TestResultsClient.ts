@@ -522,6 +522,94 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Registers metadata for a result-level test attachment whose content has already been uploaded to dedup storage by the caller. The request carries only the attachment metadata (dedup id, size, file name, type etc) and no file bytes.
+     * 
+     * @param attachmentMetadataRequestModel - 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     */
+    public async createTestResultAttachmentMetadata(
+        attachmentMetadataRequestModel: Test.TestAttachmentMetadataRequestModel,
+        project: string,
+        runId: number,
+        testCaseResultId: number
+        ): Promise<Test.TestAttachmentReference> {
+
+        return this.beginRequest<Test.TestAttachmentReference>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId
+            },
+            body: attachmentMetadataRequestModel
+        });
+    }
+
+    /**
+     * Registers metadata for a sub-result-level test attachment whose content has already been uploaded to dedup storage by the caller. The request carries only the attachment metadata (dedup id, size, file name, type etc) and no file bytes.
+     * 
+     * @param attachmentMetadataRequestModel - 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     * @param testSubResultId - 
+     */
+    public async createTestSubResultAttachmentMetadata(
+        attachmentMetadataRequestModel: Test.TestAttachmentMetadataRequestModel,
+        project: string,
+        runId: number,
+        testCaseResultId: number,
+        testSubResultId: number
+        ): Promise<Test.TestAttachmentReference> {
+
+        const queryValues: any = {
+            testSubResultId: testSubResultId
+        };
+
+        return this.beginRequest<Test.TestAttachmentReference>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId
+            },
+            queryParams: queryValues,
+            body: attachmentMetadataRequestModel
+        });
+    }
+
+    /**
+     * Registers metadata for a run-level test attachment whose content has already been uploaded to dedup storage by the caller. The request carries only the attachment metadata (dedup id, size, file name, type etc) and no file bytes.
+     * 
+     * @param attachmentMetadataRequestModel - 
+     * @param project - Project ID or project name
+     * @param runId - 
+     */
+    public async createTestRunAttachmentMetadata(
+        attachmentMetadataRequestModel: Test.TestAttachmentMetadataRequestModel,
+        project: string,
+        runId: number
+        ): Promise<Test.TestAttachmentReference> {
+
+        return this.beginRequest<Test.TestAttachmentReference>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            body: attachmentMetadataRequestModel
+        });
+    }
+
+    /**
      * @param project - Project ID or project name
      * @param runId - 
      * @param testCaseResultId - 
@@ -1057,6 +1145,8 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get a summary of test results for a build. To fetch the full TestCaseResult, call Results - Get.
+     * 
      * @param project - Project ID or project name
      * @param buildId - 
      * @param publishContext - 
@@ -2352,6 +2442,34 @@ export class TestResultsRestClient extends RestClientBase {
                 project: project
             },
             body: request
+        });
+    }
+
+    /**
+     * Browser-clickable entry point for the "Enhance diff coverage" link rendered in PR coverage comments. Dispatches a coverage_test_generation task to ADOTestAgent for the given pull request and redirects the user back to the pull request page.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param pullRequestId - 
+     */
+    public async enhanceCoverage(
+        project: string,
+        repository: string,
+        pullRequestId: number
+        ): Promise<void> {
+
+        const queryValues: any = {
+            repository: repository,
+            pullRequestId: pullRequestId
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/testagent/enhancecoverage",
+            routeValues: {
+                project: project
+            },
+            queryParams: queryValues
         });
     }
 

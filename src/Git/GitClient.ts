@@ -21,16 +21,40 @@ export class GitRestClient extends RestClientBase {
     public static readonly RESOURCE_AREA_ID = "4e080c62-fa21-4fbc-8fef-2a10a2b38049";
 
     /**
-     * POST Creates (if needed) the AdvSec Autofix framework identity and grants it permissions. If projectId is provided, grants scoped to that project only. Otherwise initializes the identity for every project in the organization.
+     * POST Creates (if needed) the AdvSec Consolidation framework identity and grants it permissions. If projectId is provided, grants scoped to that project only. Otherwise initializes the identity for every project in the organization.
      * 
      * @param projectId - Optional project GUID. When omitted, all projects in the organization are initialized.
      */
-    public async initializeAutofixIdentity(
+    public async initializeConsolidationIdentity(
         projectId?: string
         ): Promise<void> {
 
         const queryValues: any = {
             '$projectId': projectId
+        };
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/git/advsecConsolidation/author",
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * POST Creates (if needed) the AdvSec Autofix framework identity and grants it permissions. If repositoryId is provided, the Git repository permissions are granted scoped to that repository (so they apply even when the repository has permissions inheritance disabled), and projectId is required. If only projectId is provided, grants scoped to that project. Otherwise initializes the identity for every project in the organization.
+     * 
+     * @param projectId - Optional project GUID. Required when repositoryId is provided. When both are omitted, all projects in the organization are initialized.
+     * @param repositoryId - Optional repository GUID. When provided, Git permissions are granted at the repository scope.
+     */
+    public async initializeAutofixIdentity(
+        projectId?: string,
+        repositoryId?: string
+        ): Promise<void> {
+
+        const queryValues: any = {
+            '$projectId': projectId,
+            '$repositoryId': repositoryId
         };
 
         return this.beginRequest<void>({
@@ -1970,7 +1994,7 @@ export class GitRestClient extends RestClientBase {
     /**
      * Request a git merge operation. Currently we support merging only 2 commits.
      * 
-     * @param mergeParameters - Parents commitIds and merge commit messsage.
+     * @param mergeParameters - Parents commitIds and merge commit message.
      * @param project - Project ID or project name
      * @param repositoryNameOrId - The name or ID of the repository.
      * @param includeLinks - True to include links
