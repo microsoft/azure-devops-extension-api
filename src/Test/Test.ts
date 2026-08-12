@@ -3086,6 +3086,7 @@ export interface TestAgentCallbackRequest {
 export interface TestAgentTriggerRequest {
     branchName: string;
     configJsonPath: string;
+    pullRequestId: number;
     repoName: string;
     scriptFolderName: string;
     task: string;
@@ -3151,6 +3152,36 @@ export interface TestAttachment {
      * Attachment Url.
      */
     url: string;
+}
+
+/**
+ * Request model used by the pipeline agent to register a test attachment whose content has already been uploaded by the caller. Unlike TestAttachmentRequestModel this model carries no file bytes -- only the metadata required to persist a \<c\>tbl_LogStoreAttachmentMapper\</c\> row.
+ */
+export interface TestAttachmentMetadataRequestModel {
+    /**
+     * Attachment type. Defaults to GeneralAttachment.
+     */
+    attachmentType: string;
+    /**
+     * Comment associated with the attachment.
+     */
+    comment: string;
+    /**
+     * VsoHash BlobIdentifier value (\<c\>BlobIdentifier.ValueString\</c\>) of the content already published to BlobStore dedup storage by the agent. Required -- the server rejects the request when it is null or empty.
+     */
+    dedupId: string;
+    /**
+     * Optional id of the BlobStore dedup domain (ShardSet / ContainerSet) the content was published to. Reserved for the read path to resolve the correct dedup domain; not persisted yet, so it may be omitted.
+     */
+    domainId: string;
+    /**
+     * Attachment filename.
+     */
+    fileName: string;
+    /**
+     * Size in bytes of the stored content, as reported by the BlobStore publish result.
+     */
+    length: number;
 }
 
 /**

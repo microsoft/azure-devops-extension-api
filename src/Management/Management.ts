@@ -31,6 +31,10 @@ export interface AdvSecEnablementFeatures {
 
 export interface AdvSecEnablementSettings {
     /**
+     * Automatically enable Copilot Autofix. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableAutofixOnCreate: boolean;
+    /**
      * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
      */
     enableBlockPushesOnCreate: boolean;
@@ -54,6 +58,10 @@ export interface AdvSecEnablementSettings {
 }
 
 export interface AdvSecEnablementSettingsUpdate extends AdvSecEnablementStatusUpdate {
+    /**
+     * Automatically enable Copilot Autofix. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableAutofixOnCreate: boolean;
     /**
      * Automatically enable blocking of pushes that contain secrets. If EnableOnCreate is not enabled this feature cannot be enabled.
      */
@@ -274,7 +282,7 @@ export interface CodeQLScheduleDetails {
 
 export interface CodeSecurityFeatures {
     /**
-     * Copilot Autofix enablement status set to False when disabled and True when enabled; Null is never explicitly set. Setting Autofix enablement state is only supported for repo enablement and not org or project enablement at this time.
+     * Copilot Autofix enablement status set to False when disabled and True when enabled; Null is never explicitly set.
      */
     autofixEnabled: boolean;
     /**
@@ -304,6 +312,10 @@ export interface CodeSecurityFeatures {
 }
 
 export interface EnablementOnCreateSettings {
+    /**
+     * Automatically enable Copilot Autofix when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
+     */
+    enableAutofixOnCreate: boolean;
     /**
      * Automatically enable blocking of pushes that contain secrets when Secret Protection is auto-enabled. If EnableSecretProtectionOnCreate is not true this flag is ignored.
      */

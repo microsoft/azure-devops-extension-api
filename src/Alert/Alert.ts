@@ -6,11 +6,29 @@
 
 import * as WebApi from "../WebApi/WebApi";
 
+/**
+ * Reference to the AI metadata blob associated with an AI code alert. Allows a consumer to download the full metadata blob. No querying over the blob contents is supported.
+ */
+export interface AIMetadataBlobReference {
+    /**
+     * URL to download the full AI metadata blob.
+     */
+    downloadUrl: string;
+}
+
 export interface Alert {
+    /**
+     * Additional information message to display for this alert. For ASAN tools, contains crash details formatted in code blocks. For AI code scanning tools, contains markdown content from result.message.markdown.
+     */
+    additionalInformationMessage: string;
     /**
      * Additional properties of this alert.
      */
     additionalProperties: { [key: string] : any; };
+    /**
+     * Reference to the AI metadata blob associated with the alert (AI code alerts only). Only returned on demand in Get API with Expand parameter set to be AIMetadataBlobReference (not returned in List API).
+     */
+    aiMetadataBlobReference: AIMetadataBlobReference;
     /**
      * Identifier for the alert. It is unique within Azure DevOps organization.
      */
@@ -51,6 +69,10 @@ export interface Alert {
      * Value indicates whether the alert can be auto-fixed by Copilot Autofix. True when the alert is a code scanning alert detected by CodeQL with a supported rule. Null when the value has not been computed for this code path.
      */
     isAutoFixable: boolean;
+    /**
+     * Value indicates whether the alert was generated for a development dependency. True indicates development dependency, false indicates runtime dependency, and null indicates unknown or not applicable.
+     */
+    isDevDependency: boolean;
     /**
      * This value is computed and returned by the service. This value represents the last time the service has seen this issue reported in an analysis instance.
      */
@@ -488,7 +510,11 @@ export enum AutofixCallbackStatus {
     /**
      * The pipeline or post-processing failed.
      */
-    Failed = 1
+    Failed = 1,
+    /**
+     * The pipeline completed successfully but the autofix binary produced no changes, so no pull request was created.
+     */
+    NoChangesProduced = 2
 }
 
 /**
@@ -496,9 +522,40 @@ export enum AutofixCallbackStatus {
  */
 export interface AutofixRequest {
     createdDate: Date;
+    failedReason: AutofixRequestFailedReason;
     pipelinePlanId: string;
     requestId: number;
     status: AutofixRequestStatus;
+}
+
+/**
+ * Indicates the reason an autofix request failed. Maps to TINYINT (nullable) in the database.
+ */
+export enum AutofixRequestFailedReason {
+    /**
+     * Default sentinel value; not a valid failure reason.
+     */
+    None = 0,
+    /**
+     * The autofix pipeline run completed with a failure status.
+     */
+    PipelineFailed = 1,
+    /**
+     * The autofix pipeline did not complete within the allowed time window.
+     */
+    PipelineTimedOut = 2,
+    /**
+     * The expected callback from the pipeline was never received.
+     */
+    CallbackNotReceived = 3,
+    /**
+     * The processor job encountered an error.
+     */
+    ProcessorJobFailed = 4,
+    /**
+     * The pipeline completed successfully but produced no changes, so no pull request was created. A valid terminal outcome surfaced as a failure with this distinct reason.
+     */
+    NoChanges = 5
 }
 
 /**
@@ -680,6 +737,11 @@ export interface DependencyResult {
     versionControlFilePath: VersionControlFilePath;
 }
 
+export enum DependencyScope {
+    Runtime = 0,
+    Development = 1
+}
+
 /**
  * Information about an alert dismissal
  */
@@ -746,7 +808,11 @@ export enum ExpandOption {
     /**
      * Return validationFingerprints in Alert.
      */
-    ValidationFingerprint = 1
+    ValidationFingerprint = 1,
+    /**
+     * Return the AI metadata blob reference in Alert.
+     */
+    AIMetadataBlobReference = 2
 }
 
 /**
@@ -1104,7 +1170,15 @@ export enum SarifJobStatus {
     /**
      * The job is currently being processed in the concurrent processing workflow exclusive for no autofix flows
      */
-    ConcurrentProcessing = 5
+    ConcurrentProcessing = 5,
+    /**
+     * The original AI SARIF has been superseded by a consolidated SARIF (AI alert consolidation experiment). Terminal status: the original is never processed for alerts and is never re-consolidated.
+     */
+    Consolidated = 6,
+    /**
+     * An original AI SARIF awaiting consolidation (AI alert consolidation experiment). Excluded from normal alert processing; selected by the consolidation job, which moves it to Consolidated once it has launched the consolidation pipeline.
+     */
+    WaitingConsolidation = 7
 }
 
 export interface SarifUploadStatus {
@@ -1135,6 +1209,10 @@ export interface SearchCriteria {
      * If provided, only alerts for this dependency are returned. \<br /\>Otherwise, return alerts for all dependencies. \<br /\>In a sarif submission, a dependency (or a component) is specified in result.RelatedLocations[].logicalLocation. \<br /\>Not applicable for secret alerts.
      */
     dependencyName: string;
+    /**
+     * If provided, only alerts for dependencies in this scope are returned. \<br /\>Otherwise, return alerts regardless of scope. \<br /\>Only applicable for dependency alerts.
+     */
+    dependencyScope: DependencyScope;
     /**
      * If provided, only return alerts last seen after this date. \<br /\>Otherwise return all alerts.
      */
@@ -1208,6 +1286,10 @@ export interface SearchCriteria {
      */
     toolName: string;
     /**
+     * If provided, only return alerts detected by these tools. \<br /\>Takes precedence over ToolName when populated. \<br /\>Requires the EnableMultiToolSelection feature flag.
+     */
+    toolNames: string[];
+    /**
      * If provided, only return alerts with the validity specified here. If the validity status is Unknown, fetch alerts of all validity results. \<br /\>Only applicable for secret alerts. \<br /\>Filtering by validity status may cause less alerts to be returned than requested with TOP parameter. \<br /\>Due to this behavior, the ContinuationToken(\<![CDATA[\<header name\>]]\>) in the response header should be relied on to decide if another batch needs to be fetched.
      */
     validity: AlertValidityStatus[];
@@ -1255,6 +1337,10 @@ export enum State {
  * An Analysis tool that can generate security alerts
  */
 export interface Tool {
+    /**
+     * Whether the tool produces deterministic results. Used to group tools in the alerts filter UI.
+     */
+    isDeterministic: boolean;
     /**
      * Name of the tool
      */
