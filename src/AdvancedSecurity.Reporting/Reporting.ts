@@ -360,7 +360,7 @@ export interface DashboardAlert {
      */
     state: State;
     /**
-     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 256.
+     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 512.
      */
     title: string;
     /**

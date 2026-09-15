@@ -2426,6 +2426,70 @@ export interface GitPullRequestSearchCriteria {
 }
 
 /**
+ * A stack of related pull requests. Pull requests are stacked when one targets the source branch of another (linked via BasePullRequestId). The entries are ordered from the root of the stack (targets the mainline directly) to the tip.
+ */
+export interface GitPullRequestStack {
+    /**
+     * The entries in the stack, ordered from the root (StackOrder = 1) to the tip.
+     */
+    entries: GitPullRequestStackEntry[];
+    /**
+     * Optional display name of the stack. May be null.
+     */
+    name: string;
+    /**
+     * The unique identifier of the stack within the repository.
+     */
+    stackId: number;
+}
+
+/**
+ * A single pull request within a GitPullRequestStack, with the minimal set of fields needed to render the stack without fetching each pull request individually.
+ */
+export interface GitPullRequestStackEntry {
+    /**
+     * The ID of the pull request one position closer to the root in the stack, whose source branch this pull request targets. Null for the root entry.
+     */
+    basePullRequestId: number;
+    /**
+     * Whether auto-complete is currently set on the pull request.
+     */
+    hasAutoComplete: boolean;
+    /**
+     * Whether the pull request is a draft.
+     */
+    isDraft: boolean;
+    /**
+     * The current merge status of the pull request. Used to surface merge conflicts on the entry.
+     */
+    mergeStatus: PullRequestAsyncStatus;
+    /**
+     * The ID of the pull request represented by this entry.
+     */
+    pullRequestId: number;
+    /**
+     * The full source branch ref name of the pull request (e.g. refs/heads/feature).
+     */
+    sourceRefName: string;
+    /**
+     * 1-based position in the stack. The entry with StackOrder = 1 is the root of the stack and targets the mainline branch directly.
+     */
+    stackOrder: number;
+    /**
+     * The status of the pull request (active, abandoned, completed).
+     */
+    status: PullRequestStatus;
+    /**
+     * The full target branch ref name of the pull request (e.g. refs/heads/main).
+     */
+    targetRefName: string;
+    /**
+     * The pull request title.
+     */
+    title: string;
+}
+
+/**
  * This class contains the metadata of a service/extension posting pull request status. Status can be associated with a pull request or an iteration.
  */
 export interface GitPullRequestStatus extends GitStatus {

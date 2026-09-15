@@ -1080,7 +1080,7 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Callback endpoint invoked by ADOTestAgent when pipeline debug analysis completes. Writes the result to blob storage and fires a SignalR notification to the UI.
+     * Callback endpoint invoked by ADOAgenticService when pipeline debug analysis completes. Writes the result to blob storage and fires a SignalR notification to the UI.
      * 
      * @param request - 
      * @param project - Project ID or project name
@@ -2446,7 +2446,7 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Browser-clickable entry point for the "Enhance diff coverage" link rendered in PR coverage comments. Dispatches a coverage_test_generation task to ADOTestAgent for the given pull request and redirects the user back to the pull request page.
+     * Browser-clickable entry point for the "Enhance diff coverage" link rendered in PR coverage comments. Dispatches a coverage_test_generation task to ADOAgenticService for the given pull request and redirects the user back to the pull request page.
      * 
      * @param project - Project ID or project name
      * @param repository - 

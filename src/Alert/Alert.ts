@@ -110,7 +110,7 @@ export interface Alert {
      */
     state: State;
     /**
-     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 256.
+     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 512.
      */
     title: string;
     /**
@@ -514,7 +514,15 @@ export enum AutofixCallbackStatus {
     /**
      * The pipeline completed successfully but the autofix binary produced no changes, so no pull request was created.
      */
-    NoChangesProduced = 2
+    NoChangesProduced = 2,
+    /**
+     * The pipeline completed successfully and determined that the alert is a false positive, so no pull request was created.
+     */
+    FalsePositive = 3,
+    /**
+     * The target file referenced by the analysis could not be found.
+     */
+    TargetFileNotFound = 4
 }
 
 /**
@@ -524,6 +532,7 @@ export interface AutofixRequest {
     createdDate: Date;
     failedReason: AutofixRequestFailedReason;
     pipelinePlanId: string;
+    pullRequestId: number;
     requestId: number;
     status: AutofixRequestStatus;
 }
@@ -555,7 +564,23 @@ export enum AutofixRequestFailedReason {
     /**
      * The pipeline completed successfully but produced no changes, so no pull request was created. A valid terminal outcome surfaced as a failure with this distinct reason.
      */
-    NoChanges = 5
+    NoChanges = 5,
+    /**
+     * The target project's agent pool could not be found or has not been authorized for use, so the validation pipeline could not be queued. This is a user/configuration error.
+     */
+    AgentPoolUnavailable = 6,
+    /**
+     * The alert ref cannot be resolved to an existing branch because the pull request or merge ref, source branch, or normal branch no longer exists.
+     */
+    BranchNotResolvable = 7,
+    /**
+     * The pipeline completed successfully and determined that the alert is a false positive, so no pull request was created. This is a terminal non-PR result, not an operational pipeline failure.
+     */
+    FalsePositive = 8,
+    /**
+     * The target file referenced by the analysis could not be found.
+     */
+    TargetFileNotFound = 9
 }
 
 /**

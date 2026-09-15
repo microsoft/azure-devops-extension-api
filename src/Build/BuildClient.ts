@@ -1653,6 +1653,49 @@ export class BuildRestClient extends RestClientBase {
     }
 
     /**
+     * Queues a pipeline analysis job for the specified build.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - Build ID to analyze.
+     */
+    public async queueAnalysisJob(
+        project: string,
+        buildId: number
+        ): Promise<Build.PipelineAnalyzerResponse> {
+
+        return this.beginRequest<Build.PipelineAnalyzerResponse>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/build/pipelineAnalyzer/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            }
+        });
+    }
+
+    /**
+     * Retrieves the analysis result for the specified build.
+     * 
+     * @param project - Project ID or project name
+     * @param buildId - Build ID that was analyzed.
+     */
+    public async getAnalysisResult(
+        project: string,
+        buildId: number
+        ): Promise<Build.PipelineAnalyzerResponse> {
+
+        return this.beginRequest<Build.PipelineAnalyzerResponse>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/build/pipelineAnalyzer/analysisresult/{buildId}",
+            routeValues: {
+                project: project,
+                buildId: buildId
+            }
+        });
+    }
+
+    /**
      * Gets properties for a build.
      * 
      * @param project - Project ID or project name

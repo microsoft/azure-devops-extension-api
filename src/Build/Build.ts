@@ -2122,6 +2122,50 @@ export interface PhaseTarget {
 }
 
 /**
+ * Lightweight output for pipeline analyzer AI analysis.
+ */
+export interface PipelineAnalyzerOutput {
+    /**
+     * Failure category (e.g., "Infrastructure", "Code", "Configuration").
+     */
+    category: string;
+    /**
+     * Prevention strategies suggested by AI.
+     */
+    prevention: string;
+    /**
+     * Recommended fix provided by AI.
+     */
+    recommendedFix: string;
+    /**
+     * Root cause identified by AI.
+     */
+    rootCause: string;
+}
+
+/**
+ * Response DTO returned by the Pipeline Analyzer endpoints. This is the Build-area (Pipelines) contract; the front-door controller forwards to TCM and returns this shape so the Build client does not take a compile-time dependency on TCM contracts.
+ */
+export interface PipelineAnalyzerResponse {
+    /**
+     * When the analysis has already completed for this build, contains the cached result so the caller does not need a separate GET request. Null when the job is newly queued or still in progress.
+     */
+    analysisResult: PipelineAnalyzerOutput;
+    /**
+     * GitHub OAuth authorization URL. Present only when NeedsAuth is true.
+     */
+    authUrl: string;
+    /**
+     * Human-readable status message (e.g. "queued successfully", "already running", or "Analysis already completed").
+     */
+    message: string;
+    /**
+     * True when the user needs to authorize the GitHub Copilot app before analysis can proceed. The client should open a popup to AuthUrl and retry after authorization completes.
+     */
+    needsAuth: boolean;
+}
+
+/**
  * Contains pipeline general settings.
  */
 export interface PipelineGeneralSettings {
@@ -2157,6 +2201,10 @@ export interface PipelineGeneralSettings {
      * Enable shell tasks args sanitizing preview.
      */
     enableShellTasksArgsSanitizingAudit: boolean;
+    /**
+     * When enabled, the System.AccessToken will not be allowed to execute various cross-run operations.
+     */
+    enforceEvenStricterJobAuthScopeInRunRelatedApis: boolean;
     /**
      * If enabled, scope of access for all non-release pipelines reduces to the current project.
      */

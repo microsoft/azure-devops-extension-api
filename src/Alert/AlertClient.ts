@@ -323,47 +323,18 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Receives a callback from the autofix pipeline with the outcome of the run. Idempotent: repeated calls for a request already in a terminal state return 200 without changes.
-     * 
-     * @param callbackRequest - The callback payload containing requestId, status, and optional pullRequestId.
-     * @param project - Project ID or project name
-     * @param repository - The name or ID of the repository.
-     * @param alertId - The ID of the alert to create an autofix for.
-     */
-    public async autofixCallback(
-        callbackRequest: Alert.AutofixCallbackRequest,
-        project: string,
-        repository: string,
-        alertId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Autofix/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                alertId: alertId,
-                action: "Callback"
-            },
-            body: callbackRequest
-        });
-    }
-
-    /**
      * Create an autofix request for the specified alert.
      * 
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert to create an autofix for.
      * @param repository - The name or ID of the repository.
-     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
+     * @param ref - The Git ref (e.g. refs/heads/feature/x) the autofix should target.
      */
     public async createAutofixRequest(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref: string
         ): Promise<Alert.AutofixRequest> {
 
         const queryValues: any = {
@@ -390,13 +361,13 @@ export class AlertRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert.
      * @param repository - The name or ID of the repository.
-     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
+     * @param ref - The Git ref (e.g. refs/heads/feature/x) the autofix should target.
      */
     public async getAutofixRequestsByAlertId(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref: string
         ): Promise<Alert.AutofixRequest[]> {
 
         const queryValues: any = {
@@ -413,6 +384,31 @@ export class AlertRestClient extends RestClientBase {
                 action: "Default"
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Receives a callback from the autofix pipeline with the outcome of the run. Idempotent: repeated calls for a request already in a terminal state return 200 without changes.
+     * 
+     * @param callbackRequest - The callback payload containing requestId, status, and optional pullRequestId.
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async autofixCallback(
+        callbackRequest: Alert.AutofixCallbackRequest,
+        project: string,
+        repository: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/autofix/callback",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: callbackRequest
         });
     }
 
