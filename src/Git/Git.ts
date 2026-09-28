@@ -628,10 +628,6 @@ export interface CreateMigrationRequest {
      */
     scheduledCutoverDate: Date;
     /**
-     * Optional. ID of a GitHub Enterprise Server-typed service connection whose PAT has ELM API access on the target GHES instance.
-     */
-    serviceEndpointId: string;
-    /**
      * Optional. The set of pre-migration validation policies to skip.
      */
     skipValidation: SkipValidationPolicy;
@@ -1919,7 +1915,7 @@ export interface GitPullRequest {
      */
     baseBranchName: string;
     /**
-     * The ID of the base pull request in a stack. When set, this PR is stacked on top of the specified PR.
+     * The ID of the base pull request in a stack. When set, this PR is stacked on top of the specified PR. A stack can contain at most 10 pull requests, including completed and abandoned pull requests.
      */
     basePullRequestId: number;
     /**
@@ -2421,6 +2417,70 @@ export interface GitPullRequestSearchCriteria {
     targetRefName: string;
     /**
      * If set, filters pull requests that contain the specified text in the title.
+     */
+    title: string;
+}
+
+/**
+ * A stack of related pull requests. Pull requests are stacked when one targets the source branch of another (linked via BasePullRequestId). The entries are ordered from the root of the stack (targets the mainline directly) to the tip.
+ */
+export interface GitPullRequestStack {
+    /**
+     * The entries in the stack, ordered from the root (StackOrder = 1) to the tip.
+     */
+    entries: GitPullRequestStackEntry[];
+    /**
+     * Optional display name of the stack. May be null.
+     */
+    name: string;
+    /**
+     * The unique identifier of the stack within the repository.
+     */
+    stackId: number;
+}
+
+/**
+ * A single pull request within a GitPullRequestStack, with the minimal set of fields needed to render the stack without fetching each pull request individually.
+ */
+export interface GitPullRequestStackEntry {
+    /**
+     * The ID of the pull request one position closer to the root in the stack, whose source branch this pull request targets. Null for the root entry.
+     */
+    basePullRequestId: number;
+    /**
+     * Whether auto-complete is currently set on the pull request.
+     */
+    hasAutoComplete: boolean;
+    /**
+     * Whether the pull request is a draft.
+     */
+    isDraft: boolean;
+    /**
+     * The current merge status of the pull request. Used to surface merge conflicts on the entry.
+     */
+    mergeStatus: PullRequestAsyncStatus;
+    /**
+     * The ID of the pull request represented by this entry.
+     */
+    pullRequestId: number;
+    /**
+     * The full source branch ref name of the pull request (e.g. refs/heads/feature).
+     */
+    sourceRefName: string;
+    /**
+     * 1-based position in the stack. The entry with StackOrder = 1 is the root of the stack and targets the mainline branch directly.
+     */
+    stackOrder: number;
+    /**
+     * The status of the pull request (active, abandoned, completed).
+     */
+    status: PullRequestStatus;
+    /**
+     * The full target branch ref name of the pull request (e.g. refs/heads/main).
+     */
+    targetRefName: string;
+    /**
+     * The pull request title.
      */
     title: string;
 }
@@ -3266,7 +3326,7 @@ export interface IdentityRefWithVote extends WebApi.IdentityRef {
      */
     reviewerUrl: string;
     /**
-     * Vote on a pull request:\<br /\> 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
+     * Vote on a pull request:\<br /\> 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected 15 - bypassed / not applicable; satisfies required reviewer requirements without counting as a generic approval
      */
     vote: number;
     /**
@@ -3484,10 +3544,6 @@ export interface Migration {
      * The UTC date/time representing when the cutover is to occur.
      */
     scheduledCutoverDate: Date;
-    /**
-     * The ID of the GitHub Enterprise Server service connection that holds the PAT used to authenticate against the target GitHub Enterprise Server.
-     */
-    serviceEndpointId: string;
     /**
      * The pre-migration validation policies that are being skipped.
      */
@@ -3813,7 +3869,11 @@ export enum PullRequestMergeFailureType {
     /**
      * Pull request merge failed due to an object being too large.
      */
-    ObjectTooLarge = 3
+    ObjectTooLarge = 3,
+    /**
+     * Pull request merge was rejected because its stacked pull request relationship is invalid.
+     */
+    StackedPullRequestInvalid = 4
 }
 
 /**
@@ -4054,7 +4114,7 @@ export interface SubmitPipelinesRequest {
      */
     repositoryMappings: RepositoryMapping[];
     /**
-     * The ID of the GitHub service connection to use for the rewired pipelines. This must be a project-scoped service connection with access to the target GitHub org. This is separate from the migration-level ServiceEndpointId.
+     * The ID of the GitHub service connection to use for the rewired pipelines. This must be a project-scoped service connection with access to the target GitHub org.
      */
     serviceConnectionId: string;
 }

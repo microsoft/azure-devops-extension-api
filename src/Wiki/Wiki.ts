@@ -215,6 +215,24 @@ export interface WikiPageMoveResponse {
 }
 
 /**
+ * A lightweight reference to a wiki page (or a folder node derived from page paths) used by the SQL-backed page-paths listing that powers filter-by-title and page-move scenarios.
+ */
+export interface WikiPageRef {
+    /**
+     * Permanent page id, or \<c\>null\</c\> for a folder-only node derived from page paths (a folder that has no backing .md page of its own).
+     */
+    id: number;
+    /**
+     * True when this entry has descendants (i.e. it is an ancestor of at least one page).
+     */
+    isParentPage: boolean;
+    /**
+     * Readable path of the page or folder, relative to the wiki root.
+     */
+    path: string;
+}
+
+/**
  * Response contract for the Wiki Pages PUT, PATCH and DELETE APIs.
  */
 export interface WikiPageResponse {

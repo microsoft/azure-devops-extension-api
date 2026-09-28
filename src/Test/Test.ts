@@ -265,6 +265,20 @@ export interface BatchResponse {
     status: string;
 }
 
+/**
+ * A TestAttachment enriched with the dedup storage coordinates needed to download the content directly from BlobStore. Returned only by the internal BlobStore attachment-metadata query; the coordinates live on this derived type so the base TestAttachment contract is unchanged.
+ */
+export interface BlobStoreTestAttachment extends TestAttachment {
+    /**
+     * VsoHash dedup id (BlobIdentifier.ValueString) of the stored content.
+     */
+    dedupId: string;
+    /**
+     * Dedup domain (ShardSet / ContainerSet) id the content was published to.
+     */
+    domainId: string;
+}
+
 export interface BranchCoverageStatistics {
     /**
      * number of covered branches
@@ -1631,65 +1645,6 @@ export interface PhaseReference {
      * Name of the phase. Maximum supported length for name is 256 character.
      */
     phaseName: string;
-}
-
-/**
- * Lightweight output for pipeline debugger AI analysis.
- */
-export interface PipelineDebuggerAnalysisOutput {
-    /**
-     * Failure category (e.g., "Infrastructure", "Code", "Configuration").
-     */
-    category: string;
-    /**
-     * Prevention strategies suggested by AI.
-     */
-    prevention: string;
-    /**
-     * Recommended fix provided by AI.
-     */
-    recommendedFix: string;
-    /**
-     * Root cause identified by AI.
-     */
-    rootCause: string;
-}
-
-export interface PipelineDebuggerJobState {
-    /**
-     * Error message. Populated when state is "Failed".
-     */
-    error: string;
-    /**
-     * The analysis result. Populated when state is "Completed".
-     */
-    result: PipelineDebuggerAnalysisOutput;
-    /**
-     * Job state: Queued, Completed, or Failed.
-     */
-    state: string;
-}
-
-/**
- * Response DTO returned by the pipeline debugger POST endpoint.
- */
-export interface PipelineDebuggerResponse {
-    /**
-     * When the analysis has already completed for this build, contains the cached result so the caller does not need a separate GET request. Null when the job is newly queued or still in progress.
-     */
-    analysisResult: PipelineDebuggerAnalysisOutput;
-    /**
-     * GitHub OAuth authorization URL. Present only when NeedsAuth is true.
-     */
-    authUrl: string;
-    /**
-     * Human-readable status message (e.g. "queued successfully", "already running", or "Analysis already completed").
-     */
-    message: string;
-    /**
-     * True when the user needs to authorize the GitHub Copilot app before analysis can proceed. The client should open a popup to AuthUrl and retry after authorization completes.
-     */
-    needsAuth: boolean;
 }
 
 /**
@@ -3220,6 +3175,24 @@ export interface TestAttachmentRequestModel {
     stream: string;
 }
 
+/**
+ * Response of the pre-flight endpoint the agent calls before publishing an attachment directly to BlobStore dedup storage: it confirms the caller is authorized and returns where to publish.
+ */
+export interface TestAttachmentUploadDetails {
+    /**
+     * Dedup domain (ShardSet) id to publish the content to. Populated only when enabled.
+     */
+    domainId: string;
+    /**
+     * Whether direct-to-BlobStore upload is enabled for this run; if false, use the classic (SAS) path.
+     */
+    isBlobStoreUploadEnabled: boolean;
+    /**
+     * The test run these details apply to.
+     */
+    testRunId: number;
+}
+
 export interface TestAuthoringDetails {
     configurationId: number;
     isAutomated: boolean;
@@ -3266,6 +3239,54 @@ export interface TestCaseFlakinessBranchInfo {
      * TestCaseTitle of test result.
      */
     testCaseTitle: string;
+}
+
+/**
+ * The latest execution result for a single TestCaseId, returned by the batch "latest result per test case" API (POST testresults/results/latestresults). One instance is returned per requested TestCaseId that has at least one result in a non-deleted run; test cases that were never executed are omitted from the response.
+ */
+export interface TestCaseLatestResult {
+    /**
+     * Configuration that ran most recently for this test case.
+     */
+    configurationId: number;
+    /**
+     * When the result completed. Null for in-progress results.
+     */
+    dateCompleted: Date;
+    /**
+     * When the result started. May be null.
+     */
+    dateStarted: Date;
+    /**
+     * The factual last execution outcome (e.g. "Passed", "Failed", "NotExecuted", "Blocked"). This is the stored result outcome and is not subject to ResetToActive suppression.
+     */
+    outcome: string;
+    /**
+     * Id of the latest result within the run.
+     */
+    resultId: number;
+    /**
+     * Id of the run that contains the latest result.
+     */
+    runId: number;
+    /**
+     * The requested TestCaseId (work item id) this result belongs to.
+     */
+    testCaseId: number;
+    /**
+     * Test point via which the latest result ran.
+     */
+    testPointId: number;
+}
+
+/**
+ * Request body for the batch "latest result per test case" API (POST testresults/results/latestresults). Carries the set of TestCaseIds (work item ids) for which the most recent execution outcome is required.
+ */
+export interface TestCaseLatestResultsQuery {
+    /**
+     * The TestCaseIds (work item ids) to fetch the latest result for. Must contain at least one id and at most the server-configured batch ceiling; requests outside this range are rejected with HTTP 400.
+     */
+    testCaseIds: number[];
 }
 
 export interface TestCaseMetadata2 {

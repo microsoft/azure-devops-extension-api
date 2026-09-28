@@ -505,6 +505,10 @@ export interface BuildDefinition extends BuildDefinitionReference {
     jobTimeoutInMinutes: number;
     options: BuildOption[];
     /**
+     * Scheduling priority for this definition's runs. Null on update keeps the stored value.
+     */
+    priority: number;
+    /**
      * The build process.
      */
     process: BuildProcess;
@@ -578,6 +582,24 @@ export interface BuildDefinition3_2 extends BuildDefinitionReference3_2 {
     tags: string[];
     triggers: BuildTrigger[];
     variables: { [key: string] : BuildDefinitionVariable; };
+}
+
+/**
+ * Priority tiers for a build definition. Sent as a raw Int16 so unknown tiers stay readable.
+ */
+export enum BuildDefinitionPriority {
+    /**
+     * Low priority. The runs of this pipeline provide no performance guarantees.
+     */
+    Low = -64,
+    /**
+     * Normal (default) priority.
+     */
+    Normal = 0,
+    /**
+     * High priority. The runs of this pipeline will be favored for running.
+     */
+    High = 64
 }
 
 /**
@@ -2158,6 +2180,10 @@ export interface PipelineGeneralSettings {
      */
     enableShellTasksArgsSanitizingAudit: boolean;
     /**
+     * When enabled, the System.AccessToken will not be allowed to execute various cross-run operations.
+     */
+    enforceEvenStricterJobAuthScopeInRunRelatedApis: boolean;
+    /**
      * If enabled, scope of access for all non-release pipelines reduces to the current project.
      */
     enforceJobAuthScope: boolean;
@@ -2372,6 +2398,10 @@ export interface PullRequestTrigger extends BuildTrigger {
     requireCommentsForNonTeamMemberAndNonContributors: boolean;
     requireCommentsForNonTeamMembersOnly: boolean;
     settingsSourceType: number;
+    /**
+     * When set to true, suppresses automatic pipeline status comments on pull requests for this definition.
+     */
+    suppressPipelineStatusComments: boolean;
 }
 
 export enum QueryDeletedOption {
