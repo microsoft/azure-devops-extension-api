@@ -1160,6 +1160,62 @@ export class GalleryRestClient extends RestClientBase {
     }
 
     /**
+     * @param publisherName - 
+     * @param policyId - 
+     */
+    public async deletePolicy(
+        publisherName: string,
+        policyId: number
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/federatedcredentials/{policyId}",
+            routeValues: {
+                publisherName: publisherName,
+                policyId: policyId
+            }
+        });
+    }
+
+    /**
+     * @param policy - 
+     * @param publisherName - 
+     */
+    public async addPolicy(
+        policy: Gallery.FederatedCredentialPolicy,
+        publisherName: string
+        ): Promise<Gallery.FederatedCredentialPolicy> {
+
+        return this.beginRequest<Gallery.FederatedCredentialPolicy>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/federatedcredentials",
+            routeValues: {
+                publisherName: publisherName
+            },
+            body: policy
+        });
+    }
+
+    /**
+     * @param publisherName - 
+     */
+    public async listPolicies(
+        publisherName: string
+        ): Promise<Gallery.FederatedCredentialPolicy[]> {
+
+        return this.beginRequest<Gallery.FederatedCredentialPolicy[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/federatedcredentials",
+            routeValues: {
+                publisherName: publisherName
+            }
+        });
+    }
+
+    /**
      * Send Notification
      * 
      * @param notificationData - Denoting the data needed to send notification

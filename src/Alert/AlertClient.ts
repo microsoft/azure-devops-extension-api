@@ -57,6 +57,45 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Get the alert jobs associated with an alert.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param alertId - The ID of the alert
+     * @param top - The maximum number of jobs to return
+     * @param continuationToken - If there are more jobs than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header. Use that token here to get the next page of jobs
+     */
+    public async getJobsForAlert(
+        project: string,
+        repository: string,
+        alertId: number,
+        top?: number,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<Alert.AlertJob>> {
+
+        const queryValues: any = {
+            top: top,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/jobs",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Alert.AlertJob>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
      * Get an alert.
      * 
      * @param project - Project ID or project name
@@ -255,6 +294,52 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
+     * Query alerts for a repository by metadata type linkage.
+     * 
+     * @param criteria - Metadata type filters to limit the alerts returned
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param top - The maximum number of alerts to return
+     * @param orderBy - Must be "id" "firstSeen" "lastSeen" "fixedOn" or "severity"  Defaults to "id"
+     * @param expand - Options to expand the response, e.g. returning alert counts instead of alerts
+     * @param continuationToken - If there are more alerts than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header.  Use that token here to get the next page of alerts
+     */
+    public async queryAlerts(
+        criteria: Alert.AlertMetadataQueryCriteria,
+        project: string,
+        repository: string,
+        top?: number,
+        orderBy?: string,
+        expand?: Alert.AlertListExpandOption,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<Alert.Alert>> {
+
+        const queryValues: any = {
+            top: top,
+            orderBy: orderBy,
+            expand: expand,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alertsquery",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues,
+            body: criteria,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Alert.Alert>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
+        });
+    }
+
+    /**
      * Returns the branches for which analysis results were submitted.
      * 
      * @param project - Project ID or project name
@@ -323,47 +408,18 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Receives a callback from the autofix pipeline with the outcome of the run. Idempotent: repeated calls for a request already in a terminal state return 200 without changes.
-     * 
-     * @param callbackRequest - The callback payload containing requestId, status, and optional pullRequestId.
-     * @param project - Project ID or project name
-     * @param repository - The name or ID of the repository.
-     * @param alertId - The ID of the alert to create an autofix for.
-     */
-    public async autofixCallback(
-        callbackRequest: Alert.AutofixCallbackRequest,
-        project: string,
-        repository: string,
-        alertId: number
-        ): Promise<void> {
-
-        return this.beginRequest<void>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/Autofix/{action}",
-            routeValues: {
-                project: project,
-                repository: repository,
-                alertId: alertId,
-                action: "Callback"
-            },
-            body: callbackRequest
-        });
-    }
-
-    /**
      * Create an autofix request for the specified alert.
      * 
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert to create an autofix for.
      * @param repository - The name or ID of the repository.
-     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
+     * @param ref - The Git ref (e.g. refs/heads/feature/x) the autofix should target.
      */
     public async createAutofixRequest(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref: string
         ): Promise<Alert.AutofixRequest> {
 
         const queryValues: any = {
@@ -390,13 +446,13 @@ export class AlertRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param alertId - The ID of the alert.
      * @param repository - The name or ID of the repository.
-     * @param ref - Optional Git ref (e.g. refs/heads/feature/x) the autofix should target. When omitted, the repository's default branch is used.
+     * @param ref - The Git ref (e.g. refs/heads/feature/x) the autofix should target.
      */
     public async getAutofixRequestsByAlertId(
         project: string,
         alertId: number,
         repository: string,
-        ref?: string
+        ref: string
         ): Promise<Alert.AutofixRequest[]> {
 
         const queryValues: any = {
@@ -413,6 +469,70 @@ export class AlertRestClient extends RestClientBase {
                 action: "Default"
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Receives a callback from the autofix pipeline with the outcome of the run. Idempotent: repeated calls for a request already in a terminal state return 200 without changes.
+     * 
+     * @param callbackRequest - The callback payload containing requestId, status, and optional pullRequestId.
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async autofixCallback(
+        callbackRequest: Alert.AutofixCallbackRequest,
+        project: string,
+        repository: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/autofix/callback",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: callbackRequest
+        });
+    }
+
+    /**
+     * Get Draft alerts for a repository.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param top - The maximum number of alerts to return
+     * @param orderBy - Must be "id", "firstSeen", "lastSeen", "fixedOn", or "severity". Defaults to "id"
+     * @param continuationToken - If there are more alerts than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header. Use that token here to get the next page of alerts
+     */
+    public async getDraftAlerts(
+        project: string,
+        repository: string,
+        top?: number,
+        orderBy?: string,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<Alert.Alert>> {
+
+        const queryValues: any = {
+            top: top,
+            orderBy: orderBy,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/draftAlerts",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Alert.Alert>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -478,6 +598,83 @@ export class AlertRestClient extends RestClientBase {
                 repository: repository
             },
             queryParams: queryValues
+        });
+    }
+
+    /**
+     * Create an alert job.
+     * 
+     * @param body - 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     */
+    public async createJob(
+        body: any,
+        project: string,
+        repository: string
+        ): Promise<Alert.AlertJob> {
+
+        return this.beginRequest<Alert.AlertJob>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/jobs/{jobId}",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: body
+        });
+    }
+
+    /**
+     * Get an alert job by ID.
+     * 
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param jobId - The provider-assigned job identifier
+     */
+    public async getJob(
+        project: string,
+        repository: string,
+        jobId: string
+        ): Promise<Alert.AlertJob> {
+
+        return this.beginRequest<Alert.AlertJob>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/jobs/{jobId}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                jobId: jobId
+            }
+        });
+    }
+
+    /**
+     * Update an alert job.
+     * 
+     * @param patch - The patch describing the fields to update
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository
+     * @param jobId - The provider-assigned job identifier
+     */
+    public async updateJob(
+        patch: any,
+        project: string,
+        repository: string,
+        jobId: string
+        ): Promise<Alert.AlertJob> {
+
+        return this.beginRequest<Alert.AlertJob>({
+            apiVersion: "7.2-preview.1",
+            method: "PATCH",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/jobs/{jobId}",
+            routeValues: {
+                project: project,
+                repository: repository,
+                jobId: jobId
+            },
+            body: patch
         });
     }
 

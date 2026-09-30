@@ -140,7 +140,11 @@ export enum AlertType {
     /**
      * The code contains a weakness determined by AI-powered analysis.
      */
-    AICode = 5
+    AICode = 5,
+    /**
+     * The code uses a dependency flagged as malware by the GitHub Advisory Database.
+     */
+    Malware = 6
 }
 
 export enum AlertValidityStatus {
@@ -324,6 +328,16 @@ export enum ComponentType {
 }
 
 /**
+ * Repository count for a Security Overview Coverage metric.
+ */
+export interface CoverageSummaryMetric {
+    /**
+     * Number of repositories matching the metric.
+     */
+    repositoryCount: number;
+}
+
+/**
  * An alert entity used in the dashboard for combined alerts.
  */
 export interface DashboardAlert {
@@ -360,7 +374,7 @@ export interface DashboardAlert {
      */
     state: State;
     /**
-     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 256.
+     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 512.
      */
     title: string;
     /**
@@ -511,6 +525,40 @@ export interface OrgAlertSummary {
      * A list of Project summary data.
      */
     projects: ProjectAlertSummary[];
+    /**
+     * Summary metrics for the authorized repository scope.
+     */
+    totals: OrgAlertSummaryTotals;
+}
+
+/**
+ * Aggregate Risk values for an organization Security Overview response.
+ */
+export interface OrgAlertSummaryTotals {
+    /**
+     * Alerts dismissed during the selected period.
+     */
+    dismissedAlerts: number;
+    /**
+     * Alerts fixed during the selected period.
+     */
+    fixedAlerts: number;
+    /**
+     * Distinct authorized repositories in the filtered response.
+     */
+    matchingRepositoryCount: number;
+    /**
+     * Alerts introduced during the selected period that remain open.
+     */
+    newAlerts: number;
+    /**
+     * Current open alerts.
+     */
+    openAlerts: number;
+    /**
+     * Distinct authorized Advanced Security-enabled repositories.
+     */
+    totalRepositoryCount: number;
 }
 
 /**
@@ -525,6 +573,40 @@ export interface OrgEnablementSummary {
      * A list of Project Enablement data.
      */
     projects: ProjectEnablementSummary[];
+    /**
+     * Summary metrics for the authorized repository scope.
+     */
+    totals: OrgEnablementSummaryTotals;
+}
+
+/**
+ * Aggregate Coverage values for an organization Security Overview response.
+ */
+export interface OrgEnablementSummaryTotals {
+    /**
+     * Repositories with code alerts enabled.
+     */
+    code: CoverageSummaryMetric;
+    /**
+     * Repositories with dependency alerts enabled.
+     */
+    dependencies: CoverageSummaryMetric;
+    /**
+     * Distinct authorized repositories in the filtered response.
+     */
+    matchingRepositoryCount: number;
+    /**
+     * Repositories with all Coverage settings disabled.
+     */
+    noTooling: CoverageSummaryMetric;
+    /**
+     * Repositories with secret alerts enabled.
+     */
+    secrets: CoverageSummaryMetric;
+    /**
+     * Distinct authorized Advanced Security-enabled repositories.
+     */
+    totalRepositoryCount: number;
 }
 
 export interface Project {

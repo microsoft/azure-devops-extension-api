@@ -26,7 +26,7 @@ export interface Alert {
      */
     additionalProperties: { [key: string] : any; };
     /**
-     * Reference to the AI metadata blob associated with the alert (AI code alerts only). Only returned on demand in Get API with Expand parameter set to be AIMetadataBlobReference (not returned in List API).
+     * Reference to the AI metadata blob associated with the alert (AI code alerts only). Only returned on demand when the Expand parameter is set to AIMetadataBlobReference.
      */
     aiMetadataBlobReference: AIMetadataBlobReference;
     /**
@@ -66,7 +66,7 @@ export interface Alert {
      */
     introducedDate: Date;
     /**
-     * Value indicates whether the alert can be auto-fixed by Copilot Autofix. True when the alert is a code scanning alert detected by CodeQL with a supported rule. Null when the value has not been computed for this code path.
+     * Value indicates whether Copilot Autofix can currently be run on the alert. True when Copilot Autofix is available for the organization and enabled on the repository, the alert is a code scanning alert detected by CodeQL with a supported rule, and the alert's ref is eligible. Null when the value has not been computed for this code path.
      */
     isAutoFixable: boolean;
     /**
@@ -110,7 +110,7 @@ export interface Alert {
      */
     state: State;
     /**
-     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 256.
+     * Title will only be rendered as text and does not support markdown formatting. There is a maximum character limit of 512.
      */
     title: string;
     /**
@@ -189,6 +189,110 @@ export interface AlertBatchStateUpdateRequest {
     alertType: AlertType;
 }
 
+/**
+ * Describes the last accepted snapshot of an external job.
+ */
+export interface AlertJob {
+    /**
+     * Gets or sets the alerts associated with the job.
+     */
+    alertIds: number[];
+    /**
+     * Gets or sets the artifacts produced by the job.
+     */
+    artifacts: AlertJobArtifact[];
+    /**
+     * Gets or sets the requested branch reference.
+     */
+    branchRef: string;
+    /**
+     * Gets or sets the identity that created the job.
+     */
+    createdBy: string;
+    /**
+     * Gets or sets the date the job was created.
+     */
+    createdDate: Date;
+    /**
+     * Gets or sets the provider-assigned job identifier.
+     */
+    jobId: string;
+    /**
+     * Gets or sets the provider-defined job state.
+     */
+    jobState: string;
+    /**
+     * Gets or sets the job type.
+     */
+    jobType: AlertJobType;
+    /**
+     * Gets or sets the identity that last updated the job.
+     */
+    lastUpdatedBy: string;
+    /**
+     * Gets or sets the date the job was last updated.
+     */
+    lastUpdatedDate: Date;
+    /**
+     * Gets or sets provider-specific properties.
+     */
+    properties: any;
+    /**
+     * Gets or sets the external job provider.
+     */
+    provider: string;
+    /**
+     * Gets or sets the storage revision used for optimistic concurrency.
+     */
+    revision: number;
+}
+
+/**
+ * Describes a canonical artifact produced by an external job.
+ */
+export interface AlertJobArtifact {
+    /**
+     * Gets or sets the artifact type.
+     */
+    type: AlertJobArtifactType;
+    /**
+     * Gets or sets the externally addressable artifact URL.
+     */
+    url: string;
+}
+
+/**
+ * Identifies the supported artifact types produced by an alert job.
+ */
+export enum AlertJobArtifactType {
+    /**
+     * An artifact type not recognized by this client version.
+     */
+    Unknown = 0,
+    /**
+     * An Azure Repos pull request.
+     */
+    PullRequest = 1
+}
+
+/**
+ * Identifies the supported alert job workflows.
+ */
+export enum AlertJobType {
+    /**
+     * An alert job type not recognized by this client version.
+     */
+    Unknown = 0,
+    /**
+     * A WIM workflow that creates a pull request.
+     */
+    WIMAutoPR = 1,
+    /**
+     * An AI alert consolidation workflow.
+     */
+    AIAlertConsolidation = 2
+}
+
 export enum AlertListExpandOption {
     /**
      * No Expands.
@@ -201,7 +305,11 @@ export enum AlertListExpandOption {
     /**
      * Return only the count of active alerts grouped by alert type.
      */
-    Count = 2
+    Count = 2,
+    /**
+     * Return the AI metadata blob reference in AI code alerts.
+     */
+    AIMetadataBlobReference = 3
 }
 
 /**
@@ -260,6 +368,16 @@ export enum AlertMetadataErrorPolicy {
     Omit = 2
 }
 
+/**
+ * Criteria for the POST alerts query endpoint. Only metadata type filtering is supported here; use GET alerts with SearchCriteria for other filters.
+ */
+export interface AlertMetadataQueryCriteria {
+    /**
+     * Filters alerts by linkage to specific metadata types (e.g. "pullRequest", "WorkItem"). A value of "true" requires the alert to be linked to that metadata type, "false" requires it not be linked. All entries must be satisfied for an alert to be returned.
+     */
+    metadataTypeFilters: { [key: string] : boolean; };
+}
+
 export interface AlertStateUpdate {
     dismissedComment: string;
     dismissedReason: DismissalType;
@@ -283,7 +401,7 @@ export interface AlertStateUpdateForAlert {
      */
     dismissedReason: DismissalType;
     /**
-     * The state to transition the alert to (Active, Dismissed, or Draft). Draft means the alert is indeterminate and should remain in its current state.
+     * The state to transition the alert to. Only Active and Dismissed are supported.
      */
     state: State;
 }
@@ -312,7 +430,11 @@ export enum AlertType {
     /**
      * The code contains a weakness determined by AI-powered analysis.
      */
-    AICode = 5
+    AICode = 5,
+    /**
+     * The code uses a dependency flagged as malware by the GitHub Advisory Database.
+     */
+    Malware = 6
 }
 
 export enum AlertValidationRequestStatus {
@@ -514,7 +636,19 @@ export enum AutofixCallbackStatus {
     /**
      * The pipeline completed successfully but the autofix binary produced no changes, so no pull request was created.
      */
-    NoChangesProduced = 2
+    NoChangesProduced = 2,
+    /**
+     * The pipeline completed successfully and determined that the alert is a false positive, so no pull request was created.
+     */
+    FalsePositive = 3,
+    /**
+     * The target file referenced by the analysis could not be found.
+     */
+    TargetFileNotFound = 4,
+    /**
+     * The push was rejected by the commit author email validation policy.
+     */
+    CommitAuthorEmailValidationFailed = 5
 }
 
 /**
@@ -524,6 +658,7 @@ export interface AutofixRequest {
     createdDate: Date;
     failedReason: AutofixRequestFailedReason;
     pipelinePlanId: string;
+    pullRequestId: number;
     requestId: number;
     status: AutofixRequestStatus;
 }
@@ -555,7 +690,27 @@ export enum AutofixRequestFailedReason {
     /**
      * The pipeline completed successfully but produced no changes, so no pull request was created. A valid terminal outcome surfaced as a failure with this distinct reason.
      */
-    NoChanges = 5
+    NoChanges = 5,
+    /**
+     * The target project's agent pool could not be found or has not been authorized for use, so the validation pipeline could not be queued. This is a user/configuration error.
+     */
+    AgentPoolUnavailable = 6,
+    /**
+     * The alert ref cannot be resolved to an existing branch because the pull request or merge ref, source branch, or normal branch no longer exists.
+     */
+    BranchNotResolvable = 7,
+    /**
+     * The pipeline completed successfully and determined that the alert is a false positive, so no pull request was created. This is a terminal non-PR result, not an operational pipeline failure.
+     */
+    FalsePositive = 8,
+    /**
+     * The target file referenced by the analysis could not be found.
+     */
+    TargetFileNotFound = 9,
+    /**
+     * The push was rejected by the commit author email validation policy.
+     */
+    CommitAuthorEmailValidationFailed = 10
 }
 
 /**
@@ -1218,7 +1373,7 @@ export interface SearchCriteria {
      */
     fromDate: Date;
     /**
-     * If provided, filters alerts based on whether they have linked work items. \<br /\>Set to "true" to return only alerts with linked work items. \<br /\>Set to "false" to return only alerts without linked work items. \<br /\>If not provided, returns all alerts regardless of linked work items. \<br /\>Not applicable for secret and dependency scanning alerts.
+     * If provided, filters alerts based on whether they have linked work items. \<br /\>Set to "true" to return only alerts with linked work items. \<br /\>Set to "false" to return only alerts without linked work items. \<br /\>If not provided, returns all alerts regardless of linked work items. \<br /\>Not applicable for secret and dependency scanning alerts. \<br /\>This property will be deprecated in the future; prefer filtering by metadata type instead.
      */
     hasLinkedWorkItems: boolean;
     /**

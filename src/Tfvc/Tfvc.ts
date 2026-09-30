@@ -178,6 +178,62 @@ export interface ItemModel {
 }
 
 /**
+ * The status of a pull request merge.
+ */
+export enum PullRequestAsyncStatus {
+    /**
+     * Status is not set. Default state.
+     */
+    NotSet = 0,
+    /**
+     * Pull request merge is queued.
+     */
+    Queued = 1,
+    /**
+     * Pull request merge failed due to conflicts.
+     */
+    Conflicts = 2,
+    /**
+     * Pull request merge succeeded.
+     */
+    Succeeded = 3,
+    /**
+     * Pull request merge rejected by policy.
+     */
+    RejectedByPolicy = 4,
+    /**
+     * Pull request merge failed.
+     */
+    Failure = 5
+}
+
+/**
+ * Status of a pull request.
+ */
+export enum PullRequestStatus {
+    /**
+     * Status not set. Default state.
+     */
+    NotSet = 0,
+    /**
+     * Pull request is active.
+     */
+    Active = 1,
+    /**
+     * Pull request is abandoned.
+     */
+    Abandoned = 2,
+    /**
+     * Pull request is completed.
+     */
+    Completed = 3,
+    /**
+     * Used in pull request search criteria to include all statuses.
+     */
+    All = 4
+}
+
+/**
  * Class representing a branch object.
  */
 export interface TfvcBranch extends TfvcBranchRef {

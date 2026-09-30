@@ -27,6 +27,10 @@ export interface AdvSecEnablementFeatures {
      * Dependency Scanning Injection enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If Advanced Security is NOT already enabled, behavior will depend on if Advanced Security is to be enabled/disabled. DependencyScanningInjectionEnabled will not affect anything in this scenario. \<br /\> If Advanced Security is to be disabled, the value of DependencyScanningInjectionEnabled will have no effect. \<br /\> Setting Dependency Scanning enablement state is only supported for repo enablement and not org or project enablement at this time.
      */
     dependencyScanningInjectionEnabled: boolean;
+    /**
+     * Malware alerts enablement status set to False when disabled and True when enabled; Null is never explicitly set.
+     */
+    malwareAlertsEnabled: boolean;
 }
 
 export interface AdvSecEnablementSettings {
@@ -50,6 +54,10 @@ export interface AdvSecEnablementSettings {
      * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
      */
     enableDependencyScanningInjectionOnCreate: boolean;
+    /**
+     * Automatically enable malware alerts. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableMalwareAlertsOnCreate: boolean;
     /**
      * Automatically enable Advanced Security on newly created repositories.
      */
@@ -78,6 +86,10 @@ export interface AdvSecEnablementSettingsUpdate extends AdvSecEnablementStatusUp
      * Automatically enable Dependency Scanning Injection. If EnableOnCreate is not enabled this feature cannot be enabled.
      */
     enableDependencyScanningInjectionOnCreate: boolean;
+    /**
+     * Automatically enable malware alerts. If EnableOnCreate is not enabled this feature cannot be enabled.
+     */
+    enableMalwareAlertsOnCreate: boolean;
     /**
      * Automatically enable Advanced Security on newly created repositories.
      */
@@ -146,7 +158,11 @@ export enum AlertType {
     /**
      * The code contains a weakness determined by AI-powered analysis.
      */
-    AICode = 5
+    AICode = 5,
+    /**
+     * The code uses a dependency flagged as malware by the GitHub Advisory Database.
+     */
+    Malware = 6
 }
 
 /**
@@ -309,6 +325,10 @@ export interface CodeSecurityFeatures {
      * Dependency Scanning Injection enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\> If Advanced Security is NOT already enabled, behavior will depend on if Advanced Security is to be enabled/disabled. DependencyScanningInjectionEnabled will not affect anything in this scenario. \<br /\> If Advanced Security is to be disabled, the value of DependencyScanningInjectionEnabled will have no effect.
      */
     dependencyScanningInjectionEnabled: boolean;
+    /**
+     * Malware alerts enablement status set to False when disabled and True when enabled; Null is never explicitly set. \<br /\>When true, alerts are generated for malware vulnerabilities that affect your dependencies.
+     */
+    malwareAlertsEnabled: boolean;
 }
 
 export interface EnablementOnCreateSettings {
@@ -336,6 +356,10 @@ export interface EnablementOnCreateSettings {
      * Automatically enable Dependency Scanning Injection when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
      */
     enableDependencyScanningInjectionOnCreate: boolean;
+    /**
+     * Automatically enable Malware alerts when Code Security is auto-enabled. If EnableCodeSecurityOnCreate is not true this flag is ignored.
+     */
+    enableMalwareAlertsOnCreate: boolean;
     /**
      * Automatically enable Secret Protection on newly created repositories.
      */
