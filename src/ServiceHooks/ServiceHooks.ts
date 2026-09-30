@@ -406,7 +406,7 @@ export interface NotificationsQuery {
      */
     associatedSubscriptions: Subscription[];
     /**
-     * If true, we will return all notification history for the query provided; otherwise, the summary is returned.
+     * If true or omitted, returns notification history for the query; if false, returns only the summary.
      */
     includeDetails: boolean;
     /**

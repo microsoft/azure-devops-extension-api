@@ -353,6 +353,34 @@ export class WikiRestClient extends RestClientBase {
     }
 
     /**
+     * Gets the list of page paths for all pages in the specified wiki version.
+     * 
+     * @param project - Project ID or project name
+     * @param wikiIdentifier - Wiki ID or wiki name.
+     * @param versionDescriptor - GitVersionDescriptor for the wiki branch. Defaults to the default branch for ProjectWiki. Required for CodeWiki.
+     */
+    public async getPagePaths(
+        project: string,
+        wikiIdentifier: string,
+        versionDescriptor?: Git.GitVersionDescriptor
+        ): Promise<Wiki.WikiPageRef[]> {
+
+        const queryValues: any = {
+            versionDescriptor: versionDescriptor
+        };
+
+        return this.beginRequest<Wiki.WikiPageRef[]>({
+            apiVersion: "5.2-preview.1",
+            routeTemplate: "{project}/_apis/wiki/wikis/{wikiIdentifier}/pagePaths",
+            routeValues: {
+                project: project,
+                wikiIdentifier: wikiIdentifier
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Gets metadata or content of the wiki page for the provided path. Content negotiation is done based on the \`Accept\` header sent in the request.
      * 
      * @param project - Project ID or project name

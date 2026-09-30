@@ -628,10 +628,6 @@ export interface CreateMigrationRequest {
      */
     scheduledCutoverDate: Date;
     /**
-     * Optional. ID of a GitHub Enterprise Server-typed service connection whose PAT has ELM API access on the target GHES instance.
-     */
-    serviceEndpointId: string;
-    /**
      * Optional. The set of pre-migration validation policies to skip.
      */
     skipValidation: SkipValidationPolicy;
@@ -1910,18 +1906,6 @@ export interface GitPullRequest {
      * If set, auto-complete is enabled for this pull request and this is the identity that enabled it.
      */
     autoCompleteSetBy: WebApi.IdentityRef;
-    /**
-     * The commit of the base branch at the time it was recorded. Used for merge base override and movement detection.
-     */
-    baseBranchCommit: GitCommitRef;
-    /**
-     * The name of the base branch for stacked pull requests. The diff is computed as base..source.
-     */
-    baseBranchName: string;
-    /**
-     * The ID of the base pull request in a stack. When set, this PR is stacked on top of the specified PR.
-     */
-    basePullRequestId: number;
     /**
      * The user who closed the pull request.
      */
@@ -3266,7 +3250,7 @@ export interface IdentityRefWithVote extends WebApi.IdentityRef {
      */
     reviewerUrl: string;
     /**
-     * Vote on a pull request:\<br /\> 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
+     * Vote on a pull request:\<br /\> 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected 15 - bypassed / not applicable; satisfies required reviewer requirements without counting as a generic approval
      */
     vote: number;
     /**
@@ -3484,10 +3468,6 @@ export interface Migration {
      * The UTC date/time representing when the cutover is to occur.
      */
     scheduledCutoverDate: Date;
-    /**
-     * The ID of the GitHub Enterprise Server service connection that holds the PAT used to authenticate against the target GitHub Enterprise Server.
-     */
-    serviceEndpointId: string;
     /**
      * The pre-migration validation policies that are being skipped.
      */
@@ -4054,7 +4034,7 @@ export interface SubmitPipelinesRequest {
      */
     repositoryMappings: RepositoryMapping[];
     /**
-     * The ID of the GitHub service connection to use for the rewired pipelines. This must be a project-scoped service connection with access to the target GitHub org. This is separate from the migration-level ServiceEndpointId.
+     * The ID of the GitHub service connection to use for the rewired pipelines. This must be a project-scoped service connection with access to the target GitHub org.
      */
     serviceConnectionId: string;
 }

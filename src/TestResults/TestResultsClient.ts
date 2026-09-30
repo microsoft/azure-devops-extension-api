@@ -585,6 +585,89 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Returns metadata for the result-level BlobStore-backed test attachments whose file name starts with fileNamePrefix, or the single attachment identified by attachmentId when it is supplied.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     * @param attachmentType - 
+     * @param fileNamePrefix - 
+     * @param attachmentId - 
+     * @param fetchMetaData - 
+     */
+    public async queryTestResultAttachmentsMetadata(
+        project: string,
+        runId: number,
+        testCaseResultId: number,
+        attachmentType?: string,
+        fileNamePrefix?: string,
+        attachmentId?: number,
+        fetchMetaData?: boolean
+        ): Promise<Test.BlobStoreTestAttachment[]> {
+
+        const queryValues: any = {
+            attachmentType: attachmentType,
+            fileNamePrefix: fileNamePrefix,
+            attachmentId: attachmentId,
+            fetchMetaData: fetchMetaData
+        };
+
+        return this.beginRequest<Test.BlobStoreTestAttachment[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Returns metadata for the sub-result-level BlobStore-backed test attachments whose file name starts with fileNamePrefix, or the single attachment identified by attachmentId when it is supplied.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param testCaseResultId - 
+     * @param testSubResultId - 
+     * @param attachmentType - 
+     * @param fileNamePrefix - 
+     * @param attachmentId - 
+     * @param fetchMetaData - 
+     */
+    public async queryTestSubResultAttachmentsMetadata(
+        project: string,
+        runId: number,
+        testCaseResultId: number,
+        testSubResultId: number,
+        attachmentType?: string,
+        fileNamePrefix?: string,
+        attachmentId?: number,
+        fetchMetaData?: boolean
+        ): Promise<Test.BlobStoreTestAttachment[]> {
+
+        const queryValues: any = {
+            testSubResultId: testSubResultId,
+            attachmentType: attachmentType,
+            fileNamePrefix: fileNamePrefix,
+            attachmentId: attachmentId,
+            fetchMetaData: fetchMetaData
+        };
+
+        return this.beginRequest<Test.BlobStoreTestAttachment[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/results/{testCaseResultId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId,
+                testCaseResultId: testCaseResultId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
      * Registers metadata for a run-level test attachment whose content has already been uploaded to dedup storage by the caller. The request carries only the attachment metadata (dedup id, size, file name, type etc) and no file bytes.
      * 
      * @param attachmentMetadataRequestModel - 
@@ -606,6 +689,64 @@ export class TestResultsRestClient extends RestClientBase {
                 runId: runId
             },
             body: attachmentMetadataRequestModel
+        });
+    }
+
+    /**
+     * Returns metadata for the run-level BlobStore-backed test attachments whose file name starts with fileNamePrefix, or the single attachment identified by attachmentId when it is supplied. The agent uses this to enumerate BlobStore (dedup) test logs, which are not present in the classic LogStore SAS container and so cannot be listed by the agent directly.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     * @param attachmentType - 
+     * @param fileNamePrefix - 
+     * @param attachmentId - 
+     * @param fetchMetaData - 
+     */
+    public async queryTestRunAttachmentsMetadata(
+        project: string,
+        runId: number,
+        attachmentType?: string,
+        fileNamePrefix?: string,
+        attachmentId?: number,
+        fetchMetaData?: boolean
+        ): Promise<Test.BlobStoreTestAttachment[]> {
+
+        const queryValues: any = {
+            attachmentType: attachmentType,
+            fileNamePrefix: fileNamePrefix,
+            attachmentId: attachmentId,
+            fetchMetaData: fetchMetaData
+        };
+
+        return this.beginRequest<Test.BlobStoreTestAttachment[]>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachmentsmetadata",
+            routeValues: {
+                project: project,
+                runId: runId
+            },
+            queryParams: queryValues
+        });
+    }
+
+    /**
+     * Pre-flight for a direct-to-BlobStore run attachment upload: enforces publish permission and returns the dedup domain to publish to. The agent calls this before uploading any bytes.
+     * 
+     * @param project - Project ID or project name
+     * @param runId - 
+     */
+    public async getTestRunAttachmentUploadDetails(
+        project: string,
+        runId: number
+        ): Promise<Test.TestAttachmentUploadDetails> {
+
+        return this.beginRequest<Test.TestAttachmentUploadDetails>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/testresults/runs/{runId}/attachmentuploaddetails",
+            routeValues: {
+                project: project,
+                runId: runId
+            }
         });
     }
 
@@ -1019,6 +1160,28 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
+     * Get the latest result for each requested TestCaseId. Test cases that were never executed (no result in a non-deleted run) are omitted from the response - the caller treats their absence as "never run".
+     * 
+     * @param query - TestCaseLatestResultsQuery carrying the TestCaseIds to look up.
+     * @param project - Project ID or project name
+     */
+    public async getLatestTestResultsByTestCaseIds(
+        query: Test.TestCaseLatestResultsQuery,
+        project: string
+        ): Promise<Test.TestCaseLatestResult[]> {
+
+        return this.beginRequest<Test.TestCaseLatestResult[]>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/testresults/results/latestresults",
+            routeValues: {
+                project: project
+            },
+            body: query
+        });
+    }
+
+    /**
      * Get test run message logs
      * 
      * @param project - Project ID or project name
@@ -1076,71 +1239,6 @@ export class TestResultsRestClient extends RestClientBase {
                 project: project
             },
             queryParams: queryValues
-        });
-    }
-
-    /**
-     * Callback endpoint invoked by ADOTestAgent when pipeline debug analysis completes. Writes the result to blob storage and fires a SignalR notification to the UI.
-     * 
-     * @param request - 
-     * @param project - Project ID or project name
-     */
-    public async completeAnalysisJob(
-        request: Test.TestAgentCallbackRequest,
-        project: string
-        ): Promise<boolean> {
-
-        return this.beginRequest<boolean>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/completeanalysisjob",
-            routeValues: {
-                project: project
-            },
-            body: request
-        });
-    }
-
-    /**
-     * Retrieves the AI analysis result for a given build. Downloads the analysis JSON from the TCM Log Store (Azure Blob Storage) where it was uploaded by PipelineDebuggerJob upon completion.
-     * 
-     * @param project - Project ID or project name
-     * @param buildId - Build ID that was analyzed
-     */
-    public async getAnalysisResult(
-        project: string,
-        buildId: number
-        ): Promise<Test.PipelineDebuggerResponse> {
-
-        return this.beginRequest<Test.PipelineDebuggerResponse>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/analysisresult/build/{buildId}",
-            routeValues: {
-                project: project,
-                buildId: buildId
-            }
-        });
-    }
-
-    /**
-     * Queues a pipeline analysis job to analyze failed pipeline jobs using AI.
-     * 
-     * @param project - Project ID or project name
-     * @param buildId - Build ID to analyze
-     */
-    public async queueAnalysisJob(
-        project: string,
-        buildId: number
-        ): Promise<Test.PipelineDebuggerResponse> {
-
-        return this.beginRequest<Test.PipelineDebuggerResponse>({
-            apiVersion: "7.2-preview.1",
-            method: "POST",
-            routeTemplate: "{project}/_apis/testresults/pipelinedebugger/build/{buildId}",
-            routeValues: {
-                project: project,
-                buildId: buildId
-            }
         });
     }
 
@@ -2446,7 +2544,7 @@ export class TestResultsRestClient extends RestClientBase {
     }
 
     /**
-     * Browser-clickable entry point for the "Enhance diff coverage" link rendered in PR coverage comments. Dispatches a coverage_test_generation task to ADOTestAgent for the given pull request and redirects the user back to the pull request page.
+     * Browser-clickable entry point for the "Enhance diff coverage" link rendered in PR coverage comments. Dispatches a coverage_test_generation task to ADOAgenticService for the given pull request and redirects the user back to the pull request page.
      * 
      * @param project - Project ID or project name
      * @param repository - 

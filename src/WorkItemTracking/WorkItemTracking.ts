@@ -149,6 +149,30 @@ export interface AttachmentReference {
 }
 
 /**
+ * Describes a request to download a set of a work item's attachments as a single bundle.
+ */
+export interface AttachmentsBundleRequest {
+    /**
+     * The ids of the attachments to include in the bundle. Each must reference an attachment on the target work item's Attachments tab. The maximum number allowed per request is enforced by the server.
+     */
+    attachmentIds: string[];
+    /**
+     * The format of the bundle.
+     */
+    format: BundleFormat;
+}
+
+/**
+ * The format used to bundle a set of work item attachments for download.
+ */
+export enum BundleFormat {
+    /**
+     * A ZIP archive (application/zip). This is the default when no format is specified.
+     */
+    Zip = 0
+}
+
+/**
  * Flag to control error policy in a batch classification nodes get request.
  */
 export enum ClassificationNodesErrorPolicy {
@@ -634,6 +658,30 @@ export interface GitHubConnectionCreateResponse {
 }
 
 /**
+ * Request model for replacing the personal access token of an existing GitHub connection, so that a rotated token does not require deleting and recreating the connection.
+ */
+export interface GitHubConnectionCredentialUpdateRequest {
+    /**
+     * The replacement personal access token. It must belong to the same GitHub account the connection was created with.
+     */
+    accessToken: string;
+}
+
+/**
+ * Result of replacing the credentials of an existing GitHub connection.
+ */
+export interface GitHubConnectionCredentialUpdateResponse {
+    /**
+     * The connection after its credentials were replaced.
+     */
+    connection: GitHubConnectionModel;
+    /**
+     * Set when the token was replaced but something about the rotation is worth telling the user, such as the connection's status not being refreshed afterwards. Null when there is nothing to report. The rotation succeeded either way.
+     */
+    warningMessage: string;
+}
+
+/**
  * Describes Github connection.
  */
 export interface GitHubConnectionModel {
@@ -681,6 +729,10 @@ export interface GitHubConnectionReposBatchRequest {
      * Requested repos urls
      */
     gitHubRepositoryUrls: GitHubConnectionRepoModel[];
+    /**
+     * Optional GitHub access token used to authenticate provisioning for the add and remove operations. Add also requires admin access to the repos.
+     */
+    gitHubUserToken: string;
     /**
      * Operation type (f. e. add, remove)
      */
