@@ -549,6 +549,22 @@ export interface DiagnosticLogMetadata {
     poolId: number;
 }
 
+/**
+ * Identifies the first-party source that is queuing a dynamic pipeline run. New entries must be reviewed and approved by the TFS team.
+ */
+export enum DynamicPipelinesSource {
+    Unknown = 0,
+    Dependabot = 1,
+    AdvancedSecurity = 2,
+    EnterpriseLiveMigration = 3,
+    Agency = 4,
+    GitHubCopilot = 5,
+    Bluebird = 6,
+    GitHubCopilotCodeReview = 7,
+    AdvancedSecurityAutofix = 8,
+    AdvancedSecurityAiAlertConsolidation = 9
+}
+
 export interface ElasticAgentPoolResizedEvent {
     newSize: number;
     poolId: number;
@@ -1570,6 +1586,7 @@ export interface PublishTaskGroupMetadata {
 
 export interface ResourceFilterOptions {
     endpointSchemes: FilterDropDownItem[];
+    endpointSchemeUrlIds: { [key: string] : string; };
     endpointTypes: FilterDropDownItem[];
     identities: WebApi.IdentityRef[];
     resourceTypes: string[];
