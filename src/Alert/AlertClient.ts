@@ -269,7 +269,7 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Batch update alert states. Internal use only — used by proof scanners to transition AI-generated draft alerts to Active or Dismissed. Alerts marked as Draft (indeterminate) are left unchanged.
+     * Batch update alert states.
      * 
      * @param request - Request containing alert state updates
      * @param project - Project ID or project name
@@ -503,21 +503,27 @@ export class AlertRestClient extends RestClientBase {
      * @param project - Project ID or project name
      * @param repository - The name or ID of the repository
      * @param top - The maximum number of alerts to return
-     * @param orderBy - Must be "id", "firstSeen", "lastSeen", "fixedOn", or "severity". Defaults to "id"
+     * @param orderBy - Must be "id", "firstSeen", "lastSeen", "fixedOn", or "severity". Defaults to "id". When triageState is provided, only "id" is supported.
      * @param continuationToken - If there are more alerts than can be returned, a continuation token is placed in the "x-ms-continuationtoken" header. Use that token here to get the next page of alerts
+     * @param sarifSubmissionId - If provided, only return Draft AI Code alerts represented by this SARIF submission
+     * @param triageState - If provided, only return Draft AI Code alert-branch instances in this triage workflow state
      */
     public async getDraftAlerts(
         project: string,
         repository: string,
         top?: number,
         orderBy?: string,
-        continuationToken?: string
+        continuationToken?: string,
+        sarifSubmissionId?: number,
+        triageState?: string
         ): Promise<WebApi.PagedList<Alert.Alert>> {
 
         const queryValues: any = {
             top: top,
             orderBy: orderBy,
-            continuationToken: continuationToken
+            continuationToken: continuationToken,
+            sarifSubmissionId: sarifSubmissionId,
+            triageState: triageState
         };
 
         return this.beginRequest<Response>({
@@ -948,6 +954,31 @@ export class AlertRestClient extends RestClientBase {
                 "Content-Type": "application/octet-stream",
             },
             body: content
+        });
+    }
+
+    /**
+     * Durably admits a batch of provider-neutral triage assessments.
+     * 
+     * @param submission - The triage signal submission to admit.
+     * @param project - Project ID or project name
+     * @param repository - The name or ID of the repository.
+     */
+    public async submitTriageSignals(
+        submission: Alert.TriageSignalSubmissionRequest,
+        project: string,
+        repository: string
+        ): Promise<Alert.TriageSignalSubmissionResponse> {
+
+        return this.beginRequest<Alert.TriageSignalSubmissionResponse>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/triage/signals",
+            routeValues: {
+                project: project,
+                repository: repository
+            },
+            body: submission
         });
     }
 

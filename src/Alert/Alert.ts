@@ -46,6 +46,14 @@ export interface Alert {
      */
     dismissal: Dismissal;
     /**
+     * Rank (0-1) of EpssScore relative to all scored advisories. Null when no EPSS metadata is available for the advisory.
+     */
+    epssPercentile: number;
+    /**
+     * EPSS probability (0-1) that the advisory behind this dependency alert will be exploited in the next 30 days. Null when no EPSS metadata is available for the advisory.
+     */
+    epssScore: number;
+    /**
      * This value is computed and returned by the service. This value represents the first time the service has seen this issue reported in an analysis instance.
      */
     firstSeenDate: Date;
@@ -1369,6 +1377,14 @@ export interface SearchCriteria {
      */
     dependencyScope: DependencyScope;
     /**
+     * If provided, only alerts whose advisory has an EPSS percentile less than or equal to this value are returned. Alerts without EPSS metadata are excluded when either bound is provided. \<br /\>Only applicable for dependency alerts.
+     */
+    epssPercentileMax: number;
+    /**
+     * If provided, only alerts whose advisory has an EPSS percentile greater than or equal to this value are returned. Alerts without EPSS metadata are excluded when either bound is provided. \<br /\>Only applicable for dependency alerts.
+     */
+    epssPercentileMin: number;
+    /**
      * If provided, only return alerts last seen after this date. \<br /\>Otherwise return all alerts.
      */
     fromDate: Date;
@@ -1508,6 +1524,150 @@ export interface Tool {
      * String representation of the tool version
      */
     toolVersion: string;
+}
+
+/**
+ * Raw provider assessment for one alert and Git ref.
+ */
+export interface TriageSignalAssessment {
+    /**
+     * Alert evaluated by the provider.
+     */
+    alertId: number;
+    /**
+     * Provider-defined identifier for this assessment.
+     */
+    assessmentId: string;
+    /**
+     * Provider assessment of whether the alert participates in an attack path.
+     */
+    attackPath: string;
+    /**
+     * Provider classification of the alert.
+     */
+    classification: string;
+    /**
+     * Evidence references and reason codes supporting the provider's decisions.
+     */
+    decisionEvidence: TriageSignalDecisionEvidence[];
+    /**
+     * Provider-recommended disposition for the alert.
+     */
+    disposition: string;
+    /**
+     * UTC timestamp at which the provider evaluated the alert.
+     */
+    evaluatedAt: Date;
+    /**
+     * Canonical branch ref on which the alert was evaluated.
+     */
+    gitRef: string;
+    /**
+     * Provider-defined JSON descriptions of evidence that was unavailable and may limit assessment confidence.
+     */
+    missingEvidence: any[];
+    /**
+     * Provider state indicating whether assessment processing is complete.
+     */
+    processingState: string;
+    /**
+     * Provider-specific JSON that is preserved without interpretation.
+     */
+    providerExtensions: any;
+    /**
+     * Provider severity assessment.
+     */
+    severity: TriageSignalSeverity;
+    /**
+     * Provider-assessed urgency of acting on the alert.
+     */
+    urgency: string;
+}
+
+/**
+ * Associates provider evidence records with a decision axis.
+ */
+export interface TriageSignalDecisionEvidence {
+    /**
+     * Decision dimension supported by the evidence, such as classification or severity.
+     */
+    axis: string;
+    /**
+     * Provider evidence identifiers that support the decision.
+     */
+    evidenceIds: string[];
+    /**
+     * Provider reason code explaining how the evidence supports the decision.
+     */
+    reasonCode: string;
+}
+
+/**
+ * Identifies the provider module and execution that produced a triage batch.
+ */
+export interface TriageSignalModule {
+    /**
+     * Stable provider module name.
+     */
+    name: string;
+    /**
+     * Provider-defined identifier for the execution that produced this submission.
+     */
+    runId: string;
+    /**
+     * Provider-defined module version used to produce the assessments.
+     */
+    version: string;
+}
+
+/**
+ * Provider severity rating and optional numeric score.
+ */
+export interface TriageSignalSeverity {
+    /**
+     * Provider severity category, such as low, medium, high, or critical.
+     */
+    rating: string;
+    /**
+     * Optional numeric severity score in the provider's declared scoring system.
+     */
+    score: number;
+    /**
+     * Scoring system used for Score, such as CVSS.
+     */
+    system: string;
+}
+
+/**
+ * Provider-neutral batch of triage assessments submitted for durable admission.
+ */
+export interface TriageSignalSubmissionRequest {
+    /**
+     * Assessments to admit as one atomic submission.
+     */
+    assessments: TriageSignalAssessment[];
+    /**
+     * Version of the provider-neutral submission contract.
+     */
+    contractVersion: string;
+    /**
+     * Identifies the provider module and execution that produced the assessments.
+     */
+    module: TriageSignalModule;
+}
+
+/**
+ * Receipt returned after a triage submission is durably admitted.
+ */
+export interface TriageSignalSubmissionResponse {
+    /**
+     * Number of assessments supplied in the accepted submission.
+     */
+    assessmentCount: number;
+    /**
+     * Durable server-generated identifier for the accepted submission.
+     */
+    submissionId: number;
 }
 
 export interface UxFilters {
