@@ -465,6 +465,49 @@ export class GalleryRestClient extends RestClientBase {
      * @param publisherName - 
      * @param extensionName - 
      */
+    public async removeExtensionDeprecation(
+        publisherName: string,
+        extensionName: string
+        ): Promise<void> {
+
+        return this.beginRequest<void>({
+            apiVersion: "7.2-preview.1",
+            method: "DELETE",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/deprecation",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName
+            }
+        });
+    }
+
+    /**
+     * @param request - 
+     * @param publisherName - 
+     * @param extensionName - 
+     */
+    public async setExtensionDeprecation(
+        request: Gallery.SetExtensionDeprecationRequest,
+        publisherName: string,
+        extensionName: string
+        ): Promise<Gallery.PublishedExtension> {
+
+        return this.beginRequest<Gallery.PublishedExtension>({
+            apiVersion: "7.2-preview.1",
+            method: "PUT",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/extensions/{extensionName}/deprecation",
+            routeValues: {
+                publisherName: publisherName,
+                extensionName: extensionName
+            },
+            body: request
+        });
+    }
+
+    /**
+     * @param publisherName - 
+     * @param extensionName - 
+     */
     public async createDraftForEditExtension(
         publisherName: string,
         extensionName: string
@@ -1156,6 +1199,26 @@ export class GalleryRestClient extends RestClientBase {
             method: "POST",
             routeTemplate: "_apis/gallery/extensionValidator",
             body: azureRestApiRequestModel
+        });
+    }
+
+    /**
+     * @param publisherName - 
+     * @param policyId - 
+     */
+    public async activatePolicy(
+        publisherName: string,
+        policyId: number
+        ): Promise<Gallery.FederatedCredentialPolicy> {
+
+        return this.beginRequest<Gallery.FederatedCredentialPolicy>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "_apis/gallery/publishers/{publisherName}/federatedcredentials/{policyId}/activation",
+            routeValues: {
+                publisherName: publisherName,
+                policyId: policyId
+            }
         });
     }
 

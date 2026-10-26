@@ -285,6 +285,17 @@ export interface CustomerSupportRequest {
     sourceLink: string;
 }
 
+/**
+ * Identifying information for a replacement extension recommended when an extension is deprecated.
+ */
+export interface DeprecationReplacementExtension {
+    displayName: string;
+    /**
+     * Fully-qualified name ("publisherName.extensionName") of the replacement extension. This is the same identifier accepted by the extension query Name filter, so a client can pass it straight back to look the replacement up. Projected from PublisherName and ExtensionName, and omitted from the payload when either is missing.
+     */
+    name: string;
+}
+
 export enum DraftPatchOperation {
     Publish = 1,
     Cancel = 2
@@ -449,6 +460,28 @@ export enum ExtensionDeploymentTechnology {
     ReferralLink = 4
 }
 
+/**
+ * Describes the deprecation state of an extension. Presence of this object on a PublishedExtension indicates the extension is deprecated.
+ */
+export interface ExtensionDeprecation {
+    /**
+     * Optional publisher-provided message shown to users of the deprecated extension.
+     */
+    customMessage: string;
+    /**
+     * Date on which the deprecation takes (or took) effect.
+     */
+    effectiveFromDate: Date;
+    /**
+     * Visual Studio product version (major.minor) at or after which the extension is considered deprecated. Null when the deprecation applies regardless of client version.
+     */
+    effectiveFromProductVersion: string;
+    /**
+     * Recommended replacement extension. Only surfaced when the replacement is a public, validated, non-deleted extension in the same product family as this one.
+     */
+    replacementExtension: DeprecationReplacementExtension;
+}
+
 export interface ExtensionDraft {
     assets: ExtensionDraftAsset[];
     createdDate: Date;
@@ -464,6 +497,10 @@ export interface ExtensionDraft {
 }
 
 export interface ExtensionDraftAsset extends ExtensionFile {
+    /**
+     * Asset is part of the payload (VSIX)
+     */
+    isPayloadAsset: boolean;
 }
 
 export interface ExtensionDraftPatch {
@@ -855,6 +892,10 @@ export enum ExtensionQueryFlags {
      */
     PreferLatestVsApiVersion = 262144,
     /**
+     * Include the deprecation details for the extension (effective date, effective client version, recommended replacement and custom message). Usage is only internal: the Gallery service injects this flag server-side (gated by a feature flag) so that clients receive deprecation information without changing their requests.
+     */
+    IncludeDeprecation = 524288,
+    /**
      * AllAttributes is designed to be a mask that defines all sub-elements of the extension should be returned.  NOTE: This is not actually All flags. This is now locked to the set defined since changing this enum would be a breaking change and would change the behavior of anyone using it. Try not to use this value when making calls to the service, instead be explicit about the options required.
      */
     AllAttributes = 16863
@@ -1107,6 +1148,10 @@ export interface ProductCategory {
 export interface PublishedExtension {
     categories: string[];
     deploymentType: ExtensionDeploymentTechnology;
+    /**
+     * Deprecation state of the extension. Null when the extension is not deprecated.
+     */
+    deprecation: ExtensionDeprecation;
     displayName: string;
     extensionId: string;
     extensionName: string;
@@ -1197,7 +1242,11 @@ export enum PublishedExtensionFlags {
     /**
      * This flag is set for extensions that are marked as deleted. The deleted flag is managed by the service and can't be supplied by the Extension Developers.
      */
-    Deleted = 65536
+    Deleted = 65536,
+    /**
+     * The Deprecated flag indicates that the extension has been marked as deprecated by its publisher (or by a service admin). This flag is managed by the service and can't be supplied directly by Extension Developers.
+     */
+    Deprecated = 131072
 }
 
 export interface Publisher extends PublisherBase {
@@ -1889,6 +1938,28 @@ export interface ReviewSummary {
      * Split of count across rating
      */
     ratingSplit: RatingCountPerRating[];
+}
+
+/**
+ * Request payload for setting (creating or updating) an extension's deprecation state. Exposes only the fields a caller may specify; server-resolved data (such as the replacement's display name) is returned on the extension query response, not accepted here.
+ */
+export interface SetExtensionDeprecationRequest {
+    /**
+     * Optional publisher-provided message shown to users of the deprecated extension.
+     */
+    customMessage: string;
+    /**
+     * Date on which the deprecation takes effect. Defaults to the current time (server-side) when unset.
+     */
+    effectiveDate: Date;
+    /**
+     * Optional Visual Studio product version (major.minor) at or after which the extension is deprecated.
+     */
+    effectiveFromProductVersion: string;
+    /**
+     * Optional fully-qualified name ("publisherName.extensionName") of the recommended replacement extension. Null or empty indicates there is no replacement.
+     */
+    replacementName: string;
 }
 
 /**

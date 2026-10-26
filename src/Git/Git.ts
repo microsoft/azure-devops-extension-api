@@ -632,10 +632,6 @@ export interface CreateMigrationRequest {
      */
     skipValidation: SkipValidationPolicy;
     /**
-     * The GitHub login of the migration owner. Set by the server when GitHubUserToken is provided.
-     */
-    targetOwnerUserId: string;
-    /**
      * URL identifying the destination respository of migration.
      */
     targetRepository: string;
@@ -2360,7 +2356,7 @@ export interface GitPullRequestSearchCriteria {
      */
     includeLinks: boolean;
     /**
-     * If set, filters pull requests that have labels matching the specified label names.
+     * Retained for compatibility with existing clients and serialized payloads. This deprecated property has no effect and is ignored by the server.
      */
     labels: string[];
     /**
@@ -2396,7 +2392,7 @@ export interface GitPullRequestSearchCriteria {
      */
     status: PullRequestStatus;
     /**
-     * The operator used for filtering by labels. Defaults to And if unset. When And is used, pull requests must have all specified labels. When Or is used, pull requests must have at least one of the specified labels.
+     * Retained for compatibility with existing clients and serialized payloads. This deprecated property has no effect and is ignored by the server.
      */
     tagsFilterOperator: TagsFilterOperator;
     /**

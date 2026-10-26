@@ -1570,6 +1570,7 @@ export interface PublishTaskGroupMetadata {
 
 export interface ResourceFilterOptions {
     endpointSchemes: FilterDropDownItem[];
+    endpointSchemeUrlIds: { [key: string] : string; };
     endpointTypes: FilterDropDownItem[];
     identities: WebApi.IdentityRef[];
     resourceTypes: string[];
