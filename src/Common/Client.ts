@@ -27,8 +27,8 @@ export function getClient<T>(clientClass: RestClientFactory<T>, clientOptions?: 
 
     if (!options.authTokenProvider) {
         options.authTokenProvider = {
-            getAuthorizationHeader: (): Promise<string> => {
-                return getAccessToken().then(token => token ? ("Bearer " + token) : "");
+            getAuthorizationHeader: (forceRefresh?: boolean): Promise<string> => {
+                return (getAccessToken as (forceRefresh?: boolean) => Promise<string>)(forceRefresh).then(token => token ? ("Bearer " + token) : "");
             }
         };
     }
