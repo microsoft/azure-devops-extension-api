@@ -17,30 +17,6 @@ export class AlertRestClient extends RestClientBase {
     }
 
     /**
-     * Download the full AI metadata blob for an AI code alert.
-     * 
-     * @param project - Project ID or project name
-     * @param alertId - ID of the alert whose AI metadata blob should be downloaded.
-     * @param repository - Name or id of the repository that the alert is part of.
-     */
-    public async getAiMetadataContent(
-        project: string,
-        alertId: number,
-        repository: string
-        ): Promise<any> {
-
-        return this.beginRequest<any>({
-            apiVersion: "7.2-preview.1",
-            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/aimetadata",
-            routeValues: {
-                project: project,
-                alertId: alertId,
-                repository: repository
-            }
-        });
-    }
-
-    /**
      * @param submissionId - 
      */
     public async getSarifContent(
@@ -53,6 +29,69 @@ export class AlertRestClient extends RestClientBase {
             routeValues: {
                 submissionId: submissionId
             }
+        });
+    }
+
+    /**
+     * @param assessment - 
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param alertId - 
+     */
+    public async createAlertExploitability(
+        assessment: Alert.AlertExploitabilityCreateRequest,
+        project: string,
+        repository: string,
+        alertId: number
+        ): Promise<Alert.AlertExploitability> {
+
+        return this.beginRequest<Alert.AlertExploitability>({
+            apiVersion: "7.2-preview.1",
+            method: "POST",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/exploitability",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
+            },
+            body: assessment
+        });
+    }
+
+    /**
+     * @param project - Project ID or project name
+     * @param repository - 
+     * @param alertId - 
+     * @param top - 
+     * @param continuationToken - 
+     */
+    public async getAlertExploitabilityList(
+        project: string,
+        repository: string,
+        alertId: number,
+        top?: number,
+        continuationToken?: string
+        ): Promise<WebApi.PagedList<Alert.AlertExploitability>> {
+
+        const queryValues: any = {
+            top: top,
+            continuationToken: continuationToken
+        };
+
+        return this.beginRequest<Response>({
+            apiVersion: "7.2-preview.1",
+            routeTemplate: "{project}/_apis/Alert/repositories/{repository}/alerts/{alertId}/exploitability",
+            routeValues: {
+                project: project,
+                repository: repository,
+                alertId: alertId
+            },
+            queryParams: queryValues,
+            returnRawResponse: true
+        }).then(async response => {
+            const body = <WebApi.PagedList<Alert.AlertExploitability>>await response.text().then(deserializeVssJsonObject);
+            body.continuationToken = response.headers.get("x-ms-continuationtoken");
+            return body;
         });
     }
 
@@ -516,7 +555,7 @@ export class AlertRestClient extends RestClientBase {
         continuationToken?: string,
         sarifSubmissionId?: number,
         triageState?: string
-        ): Promise<WebApi.PagedList<Alert.Alert>> {
+        ): Promise<WebApi.PagedList<Alert.DraftAlert>> {
 
         const queryValues: any = {
             top: top,
@@ -536,7 +575,7 @@ export class AlertRestClient extends RestClientBase {
             queryParams: queryValues,
             returnRawResponse: true
         }).then(async response => {
-            const body = <WebApi.PagedList<Alert.Alert>>await response.text().then(deserializeVssJsonObject);
+            const body = <WebApi.PagedList<Alert.DraftAlert>>await response.text().then(deserializeVssJsonObject);
             body.continuationToken = response.headers.get("x-ms-continuationtoken");
             return body;
         });

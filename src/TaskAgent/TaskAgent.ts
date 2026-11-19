@@ -1510,7 +1510,7 @@ export interface PackageMetadata {
      */
     filename: string;
     /**
-     * MD5 hash as a base64 string
+     * SHA-256 hash as a hexadecimal string.
      */
     hashValue: string;
     /**

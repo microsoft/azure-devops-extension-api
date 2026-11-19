@@ -662,7 +662,7 @@ export interface GitHubConnectionCreateResponse {
  */
 export interface GitHubConnectionCredentialUpdateRequest {
     /**
-     * The replacement personal access token. It must belong to the same GitHub account the connection was created with.
+     * The replacement personal access token. It must belong to the same GitHub account the connection was created with, and may be at most 512 characters.
      */
     accessToken: string;
 }
