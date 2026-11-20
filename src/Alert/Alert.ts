@@ -6,16 +6,6 @@
 
 import * as WebApi from "../WebApi/WebApi";
 
-/**
- * Reference to the AI metadata blob associated with an AI code alert. Allows a consumer to download the full metadata blob. No querying over the blob contents is supported.
- */
-export interface AIMetadataBlobReference {
-    /**
-     * URL to download the full AI metadata blob.
-     */
-    downloadUrl: string;
-}
-
 export interface Alert {
     /**
      * Additional information message to display for this alert. For ASAN tools, contains crash details formatted in code blocks. For AI code scanning tools, contains markdown content from result.message.markdown.
@@ -25,10 +15,6 @@ export interface Alert {
      * Additional properties of this alert.
      */
     additionalProperties: { [key: string] : any; };
-    /**
-     * Reference to the AI metadata blob associated with the alert (AI code alerts only). Only returned on demand when the Expand parameter is set to AIMetadataBlobReference.
-     */
-    aiMetadataBlobReference: AIMetadataBlobReference;
     /**
      * Identifier for the alert. It is unique within Azure DevOps organization.
      */
@@ -74,7 +60,7 @@ export interface Alert {
      */
     introducedDate: Date;
     /**
-     * Value indicates whether Copilot Autofix can currently be run on the alert. True when Copilot Autofix is available for the organization and enabled on the repository, the alert is a code scanning alert detected by CodeQL with a supported rule, and the alert's ref is eligible. Null when the value has not been computed for this code path.
+     * Value indicates whether Copilot Autofix can currently be run on the alert. True when Copilot Autofix is available for the organization and enabled on the repository, the alert is of an eligible type. Null when the value has not been computed for this code path.
      */
     isAutoFixable: boolean;
     /**
@@ -198,6 +184,105 @@ export interface AlertBatchStateUpdateRequest {
 }
 
 /**
+ * Persisted exploitability assessment for an alert.
+ */
+export interface AlertExploitability {
+    /**
+     * Identity that created the assessment.
+     */
+    createdBy: string;
+    /**
+     * Resolved creator identity when available.
+     */
+    createdByIdentity: WebApi.IdentityRef;
+    /**
+     * Server-controlled UTC creation time.
+     */
+    createdDate: Date;
+    /**
+     * Evidence supporting the assessment.
+     */
+    evidence: AlertExploitabilityEvidence[];
+    /**
+     * Server-generated exploitability assessment identifier.
+     */
+    exploitabilityId: number;
+    /**
+     * Assessed exploitability level. Well-known values include \<c\>unknown\</c\>, \<c\>notExploitable\</c\>, \<c\>low\</c\>, \<c\>medium\</c\>, and \<c\>high\</c\>. Callers must allow unknown values.
+     */
+    level: string;
+    /**
+     * Assessor-owned properties preserved without interpretation.
+     */
+    properties: any;
+    /**
+     * SARIF submission provenance for SARIF-created assessments.
+     */
+    sarifSubmissionId: number;
+}
+
+/**
+ * Request to append an exploitability assessment to an alert.
+ */
+export interface AlertExploitabilityCreateRequest {
+    /**
+     * Evidence supporting the assessment.
+     */
+    evidence: AlertExploitabilityEvidenceRequest[];
+    /**
+     * Assessed exploitability level.
+     */
+    level: AlertExploitabilityLevel;
+    /**
+     * Assessor-owned properties preserved without interpretation.
+     */
+    properties: any;
+}
+
+/**
+ * Persisted evidence supporting an exploitability assessment.
+ */
+export interface AlertExploitabilityEvidence {
+    /**
+     * Server-generated evidence identifier.
+     */
+    evidenceId: number;
+    /**
+     * Display title for the evidence link.
+     */
+    title: string;
+    /**
+     * Absolute HTTPS evidence URL.
+     */
+    url: string;
+}
+
+/**
+ * Evidence supplied when creating an exploitability assessment.
+ */
+export interface AlertExploitabilityEvidenceRequest {
+    /**
+     * Display title for the evidence link.
+     */
+    title: string;
+    /**
+     * Absolute HTTPS evidence URL.
+     */
+    url: string;
+}
+
+/**
+ * Exploitability level assigned to an alert assessment.
+ */
+export enum AlertExploitabilityLevel {
+    Unknown = 0,
+    NotExploitable = 1,
+    Low = 2,
+    Medium = 3,
+    High = 4
+}
+
+/**
  * Describes the last accepted snapshot of an external job.
  */
 export interface AlertJob {
@@ -313,11 +398,7 @@ export enum AlertListExpandOption {
     /**
      * Return only the count of active alerts grouped by alert type.
      */
-    Count = 2,
-    /**
-     * Return the AI metadata blob reference in AI code alerts.
-     */
-    AIMetadataBlobReference = 3
+    Count = 2
 }
 
 /**
@@ -412,6 +493,50 @@ export interface AlertStateUpdateForAlert {
      * The state to transition the alert to. Only Active and Dismissed are supported.
      */
     state: State;
+}
+
+/**
+ * Provider-neutral triage decision committed by GHAzDO.
+ */
+export interface AlertTriageDecision {
+    /**
+     * UTC timestamp when GHAzDO computed the decision result.
+     */
+    computedAt: Date;
+    /**
+     * Decision disposition. Well-known values include \<c\>fix\</c\>, \<c\>no_fix\</c\>, and \<c\>inconclusive\</c\>. Callers must allow unknown values.
+     */
+    disposition: string;
+    /**
+     * Version of the GHAzDO policy used to compute the decision.
+     */
+    policyVersion: string;
+    /**
+     * Triage-normalized severity for the alert.
+     */
+    severity: Severity;
+    /**
+     * Decision urgency. Well-known values include \<c\>immediate\</c\>, \<c\>accelerated\</c\>, \<c\>routine\</c\>, \<c\>deferred\</c\>, \<c\>unknown\</c\>, and \<c\>not_applicable\</c\>. Callers must allow unknown values.
+     */
+    urgency: string;
+}
+
+/**
+ * Triage state and committed GHAzDO decision for an alert and branch.
+ */
+export interface AlertTriageDetails {
+    /**
+     * Committed GHAzDO decision. Has a value only when State is TriageSucceeded.
+     */
+    decision: AlertTriageDecision;
+    /**
+     * Stable failure code when State is TriageFailed.
+     */
+    failureCode: string;
+    /**
+     * Current triage workflow state.
+     */
+    state: TriageState;
 }
 
 export enum AlertType {
@@ -963,6 +1088,20 @@ export enum DismissalType {
     NotDistributed = 6
 }
 
+/**
+ * Draft alert projection returned by the Draft Alert API.
+ */
+export interface DraftAlert extends Alert {
+    /**
+     * Highest mapped SARIF submission ID for this alert and branch, when available.
+     */
+    sarifSubmissionId: number;
+    /**
+     * Triage state and committed GHAzDO decision for this alert and branch.
+     */
+    triage: AlertTriageDetails;
+}
+
 export enum ExpandOption {
     /**
      * No Expands.
@@ -971,11 +1110,7 @@ export enum ExpandOption {
     /**
      * Return validationFingerprints in Alert.
      */
-    ValidationFingerprint = 1,
-    /**
-     * Return the AI metadata blob reference in Alert.
-     */
-    AIMetadataBlobReference = 2
+    ValidationFingerprint = 1
 }
 
 /**
@@ -1668,6 +1803,36 @@ export interface TriageSignalSubmissionResponse {
      * Durable server-generated identifier for the accepted submission.
      */
     submissionId: number;
+}
+
+/**
+ * Indicates the triage workflow state for an alert on a branch. Maps to TINYINT in the database.
+ */
+export enum TriageState {
+    /**
+     * The alert does not require triage.
+     */
+    NoTriageNeeded = 0,
+    /**
+     * The alert is waiting for a triage signal.
+     */
+    WaitingForTriageSignal = 1,
+    /**
+     * A triage signal was received, but triage processing has not started.
+     */
+    TriageSignalReceived = 2,
+    /**
+     * Triage processing is in progress.
+     */
+    TriageInProgress = 3,
+    /**
+     * Triage processing completed successfully.
+     */
+    TriageSucceeded = 4,
+    /**
+     * Triage failed permanently and should not be retried automatically.
+     */
+    TriageFailed = 5
 }
 
 export interface UxFilters {

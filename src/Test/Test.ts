@@ -881,6 +881,16 @@ export enum CoverageSummaryStatus {
     UpdateRequestQueued = 5
 }
 
+/**
+ * Server-resolved settings for run-level LogStore coverage uploads.
+ */
+export interface CoverageUploadSettings {
+    /**
+     * Maximum attachment size in MiB. Attachments exactly at this limit are allowed.
+     */
+    coverageAttachmentSizeLimitInMB: number;
+}
+
 export interface CreateTestMessageLogEntryRequest {
     projectName: string;
     testMessageLogEntry: TestMessageLogEntry[];
@@ -5115,6 +5125,10 @@ export interface TestResultsSettings {
      */
     advancedFlakyDetectionSettings: AdvancedFlakyDetectionSettings;
     /**
+     * Server-owned upload settings, returned for Coverage and All when enabled.
+     */
+    coverageUploadSettings: CoverageUploadSettings;
+    /**
      * IsRequired and EmitDefaultValue are passed as false as if users doesn't pass anything, should not come for serialisation and deserialisation.
      */
     flakySettings: FlakySettings;
@@ -5137,7 +5151,11 @@ export enum TestResultsSettingsType {
     /**
      * Returns Advanced Flaky Test Detection Settings.
      */
-    AdvancedFlakyDetection = 4
+    AdvancedFlakyDetection = 4,
+    /**
+     * Returns server-owned coverage upload settings.
+     */
+    Coverage = 5
 }
 
 export interface TestResultSummary {

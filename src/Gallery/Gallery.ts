@@ -978,7 +978,11 @@ export enum ExtensionVersionFlags {
     /**
      * This version has been deleted.
      */
-    Deleted = 4
+    Deleted = 4,
+    /**
+     * Reserved for Private Marketplace
+     */
+    Blocked = 1073741824
 }
 
 /**
@@ -1177,6 +1181,10 @@ export interface PublishedExtension {
     statistics: ExtensionStatistic[];
     tags: string[];
     versions: ExtensionVersion[];
+    /**
+     * Indicates whether eligible versions were omitted because the query's version limit was reached.
+     */
+    versionsTruncated: boolean;
 }
 
 /**
@@ -1246,7 +1254,11 @@ export enum PublishedExtensionFlags {
     /**
      * The Deprecated flag indicates that the extension has been marked as deprecated by its publisher (or by a service admin). This flag is managed by the service and can't be supplied directly by Extension Developers.
      */
-    Deprecated = 131072
+    Deprecated = 131072,
+    /**
+     * Reserved for Private Marketplace
+     */
+    Blocked = 1073741824
 }
 
 export interface Publisher extends PublisherBase {
